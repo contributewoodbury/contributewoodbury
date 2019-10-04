@@ -3,7 +3,7 @@ import axios from 'axios';
 
 function* getNonprofit() {
     try {
-        let response = yield axios.get('/:id');
+        let response = yield axios.get('/api/nonprofit/:id');
         yield put({
             type: 'SET_SPECIFIC_NONPROFIT',
             payload: response.data

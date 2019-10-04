@@ -30,6 +30,21 @@ router.get('/nonprofit/:id', rejectUnauthenticated, (req,res) => {
       console.log('error in event specific nonprofit get', error)
       res.sendStatus(500)
     })
+});
+
+// grabs details of a specific event
+router.get('/:id', (req, res) => {
+  let queryText = 'SELECT * FROM "event" WHERE "id" = $1;';
+  pool.query(queryText, [req.params.id])
+  .then((results) => {
+    res.send(results.rows);
+  })
+  .catch((error) => {
+    console.log('error in event details GET', error);
+    res.sendStatus(500);
+  });
 })
+
+// grabs volunteer roles for a specific event
 
 module.exports = router;

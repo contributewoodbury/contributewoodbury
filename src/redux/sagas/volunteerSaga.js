@@ -4,7 +4,7 @@ import axios from 'axios';
 //worker saga: requests all volunteer roles for this specific event.
 function* getVolunteerRoles(action) {
   try {
-    let response = yield axios.get(`/volunteer/role/${action.payload}`);
+    let response = yield axios.get(`/api/volunteer/role/${action.payload}`);
     yield put({ type: 'SET_VOLUNTEER_ROLES', payload: response.data });
   } catch (error) {
     console.log('error in getVolunteerRoles', error);
