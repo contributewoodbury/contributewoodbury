@@ -1,4 +1,4 @@
-// No changes should be required in this file
+// No changes should be required in this file, but instrcutions on line 28 need to be followed for security
 
 const cookieSession = require('cookie-session');
 const warnings = require('../constants/warnings');
