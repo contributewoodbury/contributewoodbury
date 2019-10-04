@@ -3,6 +3,8 @@ import errors from './errorsReducer';
 import loginMode from './loginModeReducer';
 import user from './userReducer';
 import directory from './directoryReducer';
+import calendar from './calendarReducer';
+import volunteer from './volunteerReducer';
 import nonprofit from './nonprofitReducer';
 
 // rootReducer is the primary reducer for our entire project
@@ -16,6 +18,9 @@ const rootReducer = combineReducers({
   loginMode, // will have a value of 'login' or 'registration' to control which screen is shown
   user, // will have an id and username if someone is logged in
   directory, // will contain list of all approved nonprofits
+  calendar, // will contain list of future events
+  volunteer, // will contain all volunteer roles for a specific event, volunteer lists for events, 
+  //and volunteers who have signed up for a specific event
   nonprofit, //will contain the specific nonprofits information
 });
 
