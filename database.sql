@@ -38,7 +38,6 @@ CREATE TABLE "event" (
     "start_date" DATE,
     "end_date" DATE,
     "event_url" VARCHAR(400),
-    "is_approved" BOOLEAN DEFAULT false
 );
 
 CREATE TABLE "role" (
