@@ -1,5 +1,5 @@
 
-const nonprofitList = (state = [], action) {
+const nonprofitList = (state = [], action) => {
   switch (action.type) {
     case 'SET_DIRECTORY':
       return action.payload;
