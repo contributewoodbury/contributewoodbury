@@ -18,7 +18,7 @@ router.get('/role/:id', rejectUnauthenticated, (req, res) => {
 
 
 //gets all the volunteers for a specific event
-router.get('/eventVolunteers/:id', (req,res) => {
+router.get('/eventVolunteers/:id', rejectUnauthenticated, (req,res) => {
   let queryText = `SELECT "volunteer_role".name, "volunteer_role".city, "volunteer_role".zip_code, 
       "volunteer_role".address, "volunteer_role".start_time, "role".name AS "role_name" FROM "volunteer_role"
       JOIN "role" ON "role".id = "volunteer_role".role_id
