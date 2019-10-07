@@ -1,8 +1,36 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { Button, Card, Grid, InputLabel, MenuItem, FormControlLabel, Checkbox, FormControl, Select, TextField } from '@material-ui/core';
+import { Button, CardContent, Grid, InputLabel, MenuItem, FormControlLabel, Checkbox, FormControl, Select, TextField } from '@material-ui/core';
+import { withStyles } from '@material-ui/styles';
 
-
+const styles = theme => ({
+    backButton: {
+        color: 'white',
+        backgroundColor: '#457736'
+    },
+    submitButton: {
+        float: 'right',
+        color: 'white',
+        backgroundColor: '#457736'
+    },
+    dropdownBox: {
+        width: '500px'
+    },
+    checkbox: {
+        margin: '0px 0px 10px 0px',
+    },
+    rootDiv: {
+        margin: '0px 100px 0px 100px'
+    },
+    textFields: {
+        margin: '10px 10px 10px 30px',
+        width: '400px'
+    },
+    description: {
+        margin: '10px 10px 10px 30px',
+        width: '1030px'
+    }
+})
 
 
 class AddEvent extends Component {
@@ -15,17 +43,21 @@ class AddEvent extends Component {
 
         return (
 
-            <div>
+            <div className={this.props.classes.rootDiv}>
                 <h1>Add Event</h1>
                 <Grid container spacing={3}>
                     <Grid item xs={12}>
-                        <Card>
+                        {/* <Card> */}
+                            <CardContent>
+
+                            
                             <h2>hello</h2>
                             <FormControl variant="outlined">
                                 <InputLabel >
                                     Re-Use previous event
                                 </InputLabel>
                                 <Select
+                                    className={this.props.classes.dropdownBox}
                                     // value={values.age}
                                     // onChange={handleChange}
                                     // labelWidth={labelWidth}
@@ -42,10 +74,11 @@ class AddEvent extends Component {
                                     <MenuItem value={30}>Event 3</MenuItem>
                                 </Select>
 
-                                <FormControlLabel
+                                <FormControlLabel 
+                                    className={this.props.classes.checkbox}
                                     control={
                                         <Checkbox
-                                            // checked={state.checkedB}
+                                            checked={true}
                                             // onChange={handleChange('checkedB')}
                                             value="checkedB"
                                             color="primary"
@@ -54,49 +87,55 @@ class AddEvent extends Component {
                                     label="Volunteers Needed"
                                 />
 
-                                <TextField type="text" placeholder="Event Name" variant="outlined"/>
+                                <TextField className={this.props.classes.textFields} type="text" placeholder="Event Name" variant="outlined"/>
 
-                                <TextField type="text" placeholder="Event Description" variant="outlined" />
+                                <TextField className={this.props.classes.description} type="text" placeholder="Event Description" variant="outlined" multiline rows="4" />
 
                                
 
                             </FormControl>
-                        </Card>
+                            </CardContent>
+                        {/* </Card> */}
                     </Grid>
                 </Grid>
 
 
                 <Grid container spacing={3}>
                     <Grid item xs={6}>
-                        <Card>
+                        {/* <Card> */}
+                            <CardContent>
                             <h2>left column</h2>
-                            <TextField type="date" placeholder="Start" variant="outlined" />
+                            <TextField className={this.props.classes.textFields} type="date" placeholder="Start" variant="outlined" />
                             <br/>
-                            <TextField type="time" placeholder="Start Time" variant="outlined" />
-                            <TextField type="time" placeholder="End Time" variant="outlined" />
+                            <TextField className={this.props.classes.textFields} type="time" placeholder="Start Time" variant="outlined" />
+                            <TextField className={this.props.classes.textFields} type="time" placeholder="End Time" variant="outlined" />
                             <br/>
-                            <TextField type="text" placeholder="Point Of Contact" variant="outlined" />
+                            <TextField className={this.props.classes.textFields} type="text" placeholder="Point Of Contact" variant="outlined" />
                             <br/>
-                            <TextField type="text" placeholder="Image url" variant="outlined" />
-                            
-                        </Card>
+                            <TextField className={this.props.classes.textFields} type="text" placeholder="Image url" variant="outlined" />
+                            </CardContent>
+                        {/* </Card> */}
                     </Grid>
                     <Grid item xs={6}>
-                        <Card>
+                        {/* <Card> */}
+                            <CardContent>
                             <h2>right column</h2>
-                            <TextField type="date" placeholder="End" variant="outlined" />
+                            <TextField className={this.props.classes.textFields} type="date" placeholder="End" variant="outlined" />
                             <br/>
-                            <TextField type="text" placeholder="Location" variant="outlined" />
+                            <TextField className={this.props.classes.textFields} type="text" placeholder="Location" variant="outlined" />
                             <br />
-                            <TextField type="text" placeholder="Point of Contact Phone" variant="outlined" />
+                            <TextField className={this.props.classes.textFields} type="text" placeholder="Point of Contact Phone" variant="outlined" />
                             <br />
-                            <TextField type="text" placeholder="Point of Contact Email" variant="outlined" />
-                        </Card>
+                            <TextField className={this.props.classes.textFields} type="text" placeholder="Point of Contact Email" variant="outlined" />
+                            </CardContent>
+                        {/* </Card> */}
                     </Grid>
                 </Grid>
                 <Grid container spacing={3}>
-                    <Button variant="contained">Back</Button>
-                    <Button variant="contained">Submit</Button>
+                    <Grid item xs={12}>
+                        <Button className={this.props.classes.backButton} variant="contained">Back</Button>
+                        <Button className={this.props.classes.submitButton} variant="contained">Submit</Button>
+                    </Grid>
                 </Grid>
                 
 
@@ -106,4 +145,4 @@ class AddEvent extends Component {
 }
 
 
-export default connect()(AddEvent);
+export default withStyles(styles) (connect()(AddEvent));
