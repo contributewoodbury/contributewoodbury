@@ -3,9 +3,7 @@ const pool = require('../modules/pool');
 const router = express.Router();
 const { rejectUnauthenticated } = require('../modules/authentication-middleware');
 
-/**
- * GET route template
- */
+//gets the roles for a specifc event
 router.get('/role/:id', rejectUnauthenticated, (req, res) => {
   let queryText = `SELECT * FROM "role" WHERE "event_id" = $1;`;
   pool.query(queryText, [req.params.id])
@@ -17,6 +15,11 @@ router.get('/role/:id', rejectUnauthenticated, (req, res) => {
     res.sendStatus(500);
   });
 });
+
+//gets all the volunteers for a specific event
+router.get('/eventVolunteers', (req,res) => {
+  let queryText = ``
+})
 
 /**
  * POST route template
