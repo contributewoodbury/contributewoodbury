@@ -29,6 +29,9 @@ const styles = theme => ({
     description: {
         margin: '10px 10px 10px 30px',
         width: '1030px'
+    },
+    times: {
+        margin: '10px 10px 10px 30px',
     }
 })
 
@@ -107,8 +110,8 @@ class AddEvent extends Component {
                             <h2>left column</h2>
                             <TextField className={this.props.classes.textFields} type="date" placeholder="Start" variant="outlined" />
                             <br/>
-                            <TextField className={this.props.classes.textFields} type="time" placeholder="Start Time" variant="outlined" />
-                            <TextField className={this.props.classes.textFields} type="time" placeholder="End Time" variant="outlined" />
+                            <TextField className={this.props.classes.times} type="time" placeholder="Start Time" variant="outlined" />
+                            <TextField className={this.props.classes.times} type="time" placeholder="End Time" variant="outlined" />
                             <br/>
                             <TextField className={this.props.classes.textFields} type="text" placeholder="Point Of Contact" variant="outlined" />
                             <br/>
