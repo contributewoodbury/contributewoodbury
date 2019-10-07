@@ -3,7 +3,7 @@ import axios from 'axios';
 
 function* getNonprofit() {
     try {
-        let response = yield axios.get('/:id');
+        let response = yield axios.get(`/api/nonprofit/${action.payload}`);
         yield put({
             type: 'SET_SPECIFIC_NONPROFIT',
             payload: response.data
@@ -15,7 +15,7 @@ function* getNonprofit() {
 
 function* getPastEvents() {
     try {
-        let response = yield axios.get('/event/nonprofit/:id')
+        let response = yield axios.get(`/event/nonprofit/${action.payload}`)
         yield put ({
             type: 'SET_PAST_EVENTS',
             payload: response.data
