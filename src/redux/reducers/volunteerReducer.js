@@ -11,6 +11,18 @@ const volunteerRoleList = (state = [], action) => {
   }
 }
 
+const previousSignUps = (state = [], action) => {
+  switch (action.type) {
+    case 'ADD_SIGNUP':
+      return [...state, action.payload];
+    case 'CLEAR_SIGNUP_LIST':
+      return [];
+    default:
+      return state;
+  }
+}
+
 export default combineReducers({
   volunteerRoleList,
+  previousSignUps,
 });
