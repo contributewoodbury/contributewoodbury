@@ -3,7 +3,7 @@ const pool = require('../modules/pool');
 const router = express.Router();
 const { rejectUnauthenticated } = require('../modules/authentication-middleware');
 
-// Grabs all volunteer roles created for one specific event
+//gets the roles for a specifc event
 router.get('/role/:id', rejectUnauthenticated, (req, res) => {
   let queryText = `SELECT * FROM "role" WHERE "event_id" = $1;`;
   pool.query(queryText, [req.params.id])
@@ -15,6 +15,24 @@ router.get('/role/:id', rejectUnauthenticated, (req, res) => {
     res.sendStatus(500);
   });
 });
+
+
+//gets all the volunteers for a specific event
+router.get('/eventVolunteers/:id', rejectUnauthenticated, (req,res) => {
+  let queryText = `SELECT "volunteer_role".name, "volunteer_role".city, "volunteer_role".zip_code, 
+      "volunteer_role".address, "volunteer_role".start_time, "role".name AS "role_name" FROM "volunteer_role"
+      JOIN "role" ON "role".id = "volunteer_role".role_id
+      WHERE "role".event_id = $1;`;
+  let id = req.params.id
+  pool.query(queryText, [id])
+      .then((result) => {
+        res.send(result.rows);
+      })
+      .catch((error) => {
+        console.log('error in eventVolunteers get', error)
+        res.sendStatus(500); 
+      })
+})
 
 /**
  * POST route template
