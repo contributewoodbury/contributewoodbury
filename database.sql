@@ -79,3 +79,17 @@ INSERT INTO "event" ("name", "description", "address", "city", "zip_code", "star
 INSERT INTO "role" ("name", "description", "number_needed", "start_time", "end_time", "date", "event_id") VALUES ('test', 'test', 1, '1:30', '2:00', '10/10/10', 1);
 
 INSERT INTO "volunteer_role" ("name", "role_id", "start_time", "end_time", "comments", "email", "phone_number", "address", "city", "zip_code") VALUES ('test', 1, '1:30', '2:00', 'test', 'test', 1, 'test', 'test', 1);
+
+
+-- for cascade delete
+ALTER TABLE "public"."event"
+  DROP CONSTRAINT "event_non_profit_id_fkey",
+  ADD CONSTRAINT "event_non_profit_id_fkey" FOREIGN KEY ("non_profit_id") REFERENCES "public"."nonprofit"("id") ON DELETE CASCADE;
+
+ALTER TABLE "public"."role"
+  DROP CONSTRAINT "role_event_id_fkey",
+  ADD CONSTRAINT "role_event_id_fkey" FOREIGN KEY ("event_id") REFERENCES "public"."event"("id") ON DELETE CASCADE;
+
+ALTER TABLE "public"."volunteer_role"
+  DROP CONSTRAINT "volunteer_role_role_id_fkey",
+  ADD CONSTRAINT "volunteer_role_role_id_fkey" FOREIGN KEY ("role_id") REFERENCES "public"."role"("id") ON DELETE CASCADE;
