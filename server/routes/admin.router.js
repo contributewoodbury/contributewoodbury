@@ -17,7 +17,7 @@ router.put('/approve/:id', rejectUnauthenticated, (req, res) => {
             res.sendStatus(500);
         })
     } else {
-        sendStatus(403)
+        res.sendStatus(403)
     }
 })
 
@@ -35,7 +35,7 @@ router.delete('/decline/:id', rejectUnauthenticated, (req,res) => {
             res.sendStatus(500);
         })
     } else {
-        sendStatus(403)
+        res.sendStatus(403)
     }
 })
 
@@ -52,7 +52,7 @@ router.get('/requests', rejectUnauthenticated, (req, res) => {
             res.sendStatus(500);
         })
     } else {
-        sendStatus(403)
+        res.sendStatus(403)
     }
 })
 
