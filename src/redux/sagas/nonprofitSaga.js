@@ -1,6 +1,7 @@
 import { put, takeLatest } from 'redux-saga/effects';
 import axios from 'axios';
 
+//gets a specific nonprofit from the database
 function* getNonprofit() {
     try {
         let response = yield axios.get(`/api/nonprofit/${action.payload}`);
@@ -13,6 +14,7 @@ function* getNonprofit() {
     }
 }
 
+//gets the past events for a specific nonprofit
 function* getPastEvents() {
     try {
         let response = yield axios.get(`/event/nonprofit/${action.payload}`)
