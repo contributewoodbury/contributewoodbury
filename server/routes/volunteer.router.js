@@ -64,7 +64,7 @@ router.post('/addVolunteers/:id', rejectUnauthenticated, (req, res) => {
   let event_id= req.params.id;
   pool.query(queryText, [name, description, number_needed,start_time, end_time, date, event_id])
     .then((result) => {
-      res.send(result.rows);
+      res.sendStatus(200);
     })
     .catch((error) => {
       console.log('error in addVolunteers post', error)
