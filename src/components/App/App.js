@@ -19,6 +19,7 @@ import InfoPage from '../InfoPage/InfoPage';
 import AddEvent from '../AddEvent/AddEvent';
 
 import './App.css';
+import AddVolunteerRoles from '../AddVolunteerRoles/AddVolunteerRoles';
 
 class App extends Component {
   componentDidMount () {
@@ -46,6 +47,11 @@ class App extends Component {
               exact
               path="/addevent"
               component={AddEvent}
+            />
+            <Route
+              exact
+              path="/addvolunteers"
+              component={AddVolunteerRoles}
             />
 
 

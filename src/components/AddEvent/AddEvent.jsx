@@ -124,10 +124,11 @@ class AddEvent extends Component {
                                     label="Volunteers Needed"
                                 />
 
-                                <TextField className={this.props.classes.textFields} type="text" placeholder="Enter the event Name" variant="outlined"/>
+                                <TextField className={this.props.classes.textFields} type="text" label="Enter the event Name" variant="outlined"/>
 
                                 <TextField className={this.props.classes.description} type="text" 
                                             placeholder="Enter the event description and any links where tickets can be purchased if required to attend" 
+                                            label="description"
                                             variant="outlined" multiline rows="4" />
                             </FormControl>
                             </CardContent>
