@@ -4,7 +4,7 @@ const router = express.Router();
 const { rejectUnauthenticated } = require('../modules/authentication-middleware');
 
 //updates nonprofit's approval to true
-router.put('/approve/:id', (req, res) => {
+router.put('/approve/:id', rejectUnauthenticated, (req, res) => {
     let queryText = `UPDATE "nonprofit" SET "is_approved" = 'true' WHERE "id" = $1;`;
     let id = req.params.id
     pool.query(queryText, [id])

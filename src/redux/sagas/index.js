@@ -6,6 +6,7 @@ import directorySaga from './directorySaga';
 import nonprofitSaga from './nonprofitSaga';
 import calendarSaga from './calendarSaga';
 import eventSaga from './eventSaga';
+import adminSaga from './adminSaga';
 
 // rootSaga is the primary saga.
 // It bundles up all of the other sagas so our project can use them.
@@ -23,5 +24,6 @@ export default function* rootSaga() {
     nonprofitSaga(),
     calendarSaga(),
     eventSaga(),
+    adminSaga(),
   ]);
 }
