@@ -7,6 +7,7 @@ import calendar from './calendarReducer';
 import volunteer from './volunteerReducer';
 import nonprofit from './nonprofitReducer';
 import event from './eventReducer';
+import admin from './adminReducer';
 
 // rootReducer is the primary reducer for our entire project
 // It bundles up all of the other reducers so our project can use them.
@@ -24,6 +25,7 @@ const rootReducer = combineReducers({
   //and volunteers who have signed up for a specific event
   nonprofit, //will contain the specific nonprofits information
   event, // will contain details for a specific event as well as new events and editing events
+  admin, //will contain the requests for approving or denying a new nonprofit 
 });
 
 export default rootReducer;
