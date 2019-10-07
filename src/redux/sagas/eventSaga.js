@@ -11,10 +11,24 @@ function* getEventDetails (action){
   }
 }
 
+//adds a new event for a specific nonprofit
+function* addEvent(action) {
+  try{
+    yield axios.post(`/api/event/addEvent/${action.payload}`, action.payload);
+    yield put({
+      type: 'GET_EVENT_DETAILS'
+    })
+  }
+  catch(error) {
+    console.log('error in addEvent', error);
+  }
+}
+
 
 //root saga
 function* eventSaga(){
   yield takeLatest('GET_EVENT_DETAILS', getEventDetails);
+  yield takeLatest('ADD_EVENT', addEvent);
 }
 
 export default eventSaga;
