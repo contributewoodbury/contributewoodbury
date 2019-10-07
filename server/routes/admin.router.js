@@ -54,6 +54,23 @@ router.get('/requests', rejectUnauthenticated, (req, res) => {
     } else {
         res.sendStatus(403)
     }
+});
+
+// selects all nonprofits from the database and sorts the by those whose last confirm date is over a year old.
+router.get('/directory', rejectUnauthenticated, (req, res) => {
+    let queryText = `SELECT * FROM "nonprofit" WHERE NOT "name" = 'Admin' ORDER BY "last_confirmed"`;
+    if (req.user.name === 'Admin') {
+        pool.query(queryText)
+        .then((result) => {
+            res.send(result.rows);
+        })
+        .catch((error) => {
+            console.log('error in admin directory GET', error);
+            res.sendStatus(500);
+        })
+    } else {
+        res.sendStatus(403);
+    }
 })
 
 module.exports = router;

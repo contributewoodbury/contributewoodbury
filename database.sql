@@ -19,6 +19,7 @@ CREATE TABLE "nonprofit" (
     "contact_email" VARCHAR(150),
     "address" VARCHAR(150),
     "city" VARCHAR(50),
+    "state" VARCHAR(25),
     "zip_code" INT,
     "website" VARCHAR(400),
     "description" VARCHAR,
@@ -35,6 +36,7 @@ CREATE TABLE "event" (
     "description" VARCHAR(500),
     "address" VARCHAR(150),
     "city" VARCHAR(50),
+    "state" VARCHAR(25),
     "zip_code" INT,
     "start_date" DATE,
     "end_date" DATE,
@@ -63,6 +65,7 @@ CREATE TABLE "volunteer_role" (
     "phone_number" VARCHAR(15),
     "address" VARCHAR(150),
     "city" VARCHAR(50),
+    "state" VARCHAR(25),
     "zip_code" INT
 );
 
