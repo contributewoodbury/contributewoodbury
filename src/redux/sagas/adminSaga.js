@@ -46,3 +46,5 @@ function* adminSaga () {
     yield takeLatest('DECLINE_NONPROFIT', declineNonprofit);
     yield takeLatest('GET_NONPROFIT_REQUESTS', getNonprofitRequests);
 }
+
+export default adminSaga;

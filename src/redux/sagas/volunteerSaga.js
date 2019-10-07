@@ -12,7 +12,7 @@ function* getVolunteerRoles(action) {
 }
 
 //requests all the volunteers that are signed up for this specific event
-function* getSpecifcVolunteers(action) {
+function* getSpecificVolunteers(action) {
   try{
     let response = yield axios.get(`/api/volunteer/eventVolunteers/${action.payload}`)
     yield put({
@@ -38,11 +38,21 @@ function* addVolunteers(action) {
   }
 }
 
+//worker saga: request that new volunteer be added to the database and request for email data/calendar event to be sent out
+function* volunteerSignUp(action) {
+  try {
+    yield axios.post(`/api/volunteer/signup`, action.payload);
+  } catch (error) {
+    console.log('error in volunteerSignUp', error);
+  }
+}
+
 //root saga
 function* volunteerSaga() {
   yield takeLatest('GET_EVENT_DETAILS', getVolunteerRoles);
-  yield takeLatest('GET_SPECIFIC_VOLUNTEERS', getSpecifcVolunteers);
+  yield takeLatest('GET_SPECIFIC_VOLUNTEERS', getSpecificVolunteers);
   yield takeLatest('ADD_VOLUNTEERS', addVolunteers);
+  yield takeLatest('VOLUNTEER_SIGNUP', volunteerSignUp);
 }
 
 export default volunteerSaga;

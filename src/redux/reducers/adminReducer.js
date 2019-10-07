@@ -6,3 +6,5 @@ const admin = (state = [], action) => {
             return state;
     }
 }
+
+export default admin;
