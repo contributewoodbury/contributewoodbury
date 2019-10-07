@@ -32,7 +32,7 @@ router.delete('/decline/:id', rejectUnauthenticated, (req,res) => {
 })
 
 //gets the nonprofit requests from the database
-router.get('/requests', (req, res) => { 
+router.get('/requests', rejectUnauthenticated, (req, res) => { 
     let queryText = `SELECT * FROM "nonprofit" WHERE "is_approved" = 'false';`;
     pool.query(queryText)
         .then((result) => {
