@@ -24,7 +24,11 @@ router.get('/:id', (req, res) => {
 
 //grabs editable information from the specified nonprofit for editing. 
 router.get('/edit/:id', rejectUnauthenticated, (req, res) => {
+<<<<<<< HEAD
     let queryText = `SELECT "nonprofit".name, "nonprofit".id, "nonprofit".contact_email, "nonprofit".address,
+=======
+    let queryText = `SELECT "nonprofit".name, "nonprofit".id, "nonprofit".contact_email, "nonprofit".address,"nonprofit".description,
+>>>>>>> 25c465fe7c6eda15f53ace4238233700e6fd38e1
     "nonprofit".city, "nonprofit".zip_code, "nonprofit".website, "nonprofit".logo, "nonprofit".category_id FROM "nonprofit" WHERE "id";`;
     pool.query(queryText, [req.params.id])
     .then((result) => {
@@ -36,6 +40,27 @@ router.get('/edit/:id', rejectUnauthenticated, (req, res) => {
     });
 })
 
+//edits nonprofits information 
+router.put('/editNonprofit', rejectUnauthenticated, (req,res) => {
+    let queryText = `UPDATE "nonprofit" SET "name" = $1, "contact_email" = $2, "address" = $3, "city" = $4, 
+        "zip_code" = $5, "website" = $6, "logo" = $7, "description" = $8, "last_confirmed" = CURRENT_DATE WHERE "id" = $9;`;
+    let name = req.body.name;
+    let contact_email = req.body.contact_email;
+    let address = req.body.address;
+    let city = req.body.city;
+    let zip_code = req.body.zip_code;
+    let website = req.body.website;
+    let logo = req.body.logo;
+    let description = req.body.description;
+    let id = req.body.id
+    pool.query(queryText, [name, contact_email, address, city, zip_code, website, logo, description, id])
+        .then((result) => {
+            res.sendStatus(200);
+        })
+        .catch((error) => {
+            console.log('error in edit nonprofit PUT', error);
+        })
+})
 
 
 

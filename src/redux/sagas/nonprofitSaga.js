@@ -37,11 +37,25 @@ function* getNonprofitEdit(action) {
     }
 }
 
+//edits nonprofits information for specific nonprofit
+function* editNonprofit(action) {
+    try {
+        yield axios.put(`/api/nonprofit/editNonprofit`, action.payload)
+        yield put ({
+            type: 'GET_NONPROFIT'
+        })
+    }
+    catch (error) {
+        console.log('errror in editNonprofit', error)
+    }
+}
+
 //root saga
 function* nonprofitSaga() {
     yield takeLatest('GET_NONPROFIT', getNonprofit);
     yield takeLatest('GET_PAST_EVENTS', getPastEvents);
     yield takeLatest('GET_NONPROFIT_EDIT', getNonprofitEdit);
+    yield takeLatest('EDIT_NONPROFIT', editNonprofit);
 }
 
 export default nonprofitSaga;

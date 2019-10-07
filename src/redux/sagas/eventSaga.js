@@ -14,7 +14,7 @@ function* getEventDetails (action){
 //adds a new event for a specific nonprofit
 function* addEvent(action) {
   try{
-    yield axios.post(`/api/event/addEvent/${action.payload}`, action.payload);
+    yield axios.post(`/api/event/addEvent`, action.payload);
     yield put({
       type: 'GET_EVENT_DETAILS'
     })
