@@ -17,6 +17,7 @@ import AboutPage from '../AboutPage/AboutPage';
 import UserPage from '../UserPage/UserPage';
 import InfoPage from '../InfoPage/InfoPage';
 import AddEvent from '../AddEvent/AddEvent';
+import EditNonprofit from '../EditNonprofit/EditNonprofit';
 
 import './App.css';
 
@@ -46,6 +47,12 @@ class App extends Component {
               exact
               path="/addevent"
               component={AddEvent}
+            />
+
+            <Route
+              exact
+              path="/editNonprofit"
+              component={EditNonprofit}
             />
 
 
