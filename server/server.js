@@ -14,6 +14,7 @@ const nonprofitRouter = require('./routes/nonprofit.router');
 const directoryRouter = require('./routes/directory.router');
 const eventRouter = require('./routes/event.router');
 const volunteerRouter = require('./routes/volunteer.router');
+const adminRouter = require('./routes/admin.router');
 
 
 // Body parser middleware
@@ -33,6 +34,7 @@ app.use('/api/nonprofit', nonprofitRouter);
 app.use('/api/directory', directoryRouter);
 app.use('/api/event', eventRouter);
 app.use('/api/volunteer', volunteerRouter);
+app.use('/api/admin', adminRouter);
 
 // Serve static files
 app.use(express.static('build'));
