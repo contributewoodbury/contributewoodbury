@@ -11,9 +11,37 @@ function* getVolunteerRoles(action) {
   }
 }
 
+//requests all the volunteers that are signed up for this specific event
+function* getSpecifcVolunteers(action) {
+  try{
+    let response = yield axios.get(`/api/volunteer/eventVolunteers/${action.payload}`)
+    yield put({
+      type: 'SET_SPECIFIC_VOLUNTEERS',
+      payload: response.data
+    })
+  }
+  catch (error) {
+    console.log('error in getSpecificVolunteers', error)
+  }
+}
+
+//adds a new volunteers for specific event
+function* addVolunteers(action) {
+  try {
+    yield axios.post(`/api/volunteer/addVolunteers/${action.payload}`, action.payload)
+    yield put({
+      type: 'GET_EVENT_DETAILS'
+    })
+  }
+  catch (error) {
+    console.log('error in addVoluteers', error)
+  }
+}
+
 //root saga
 function* volunteerSaga() {
   yield takeLatest('GET_EVENT_DETAILS', getVolunteerRoles);
+  yield takeLatest('GET_SPECIFIC_VOLUNTEERS', getSpecifcVolunteers);
 }
 
 export default volunteerSaga;

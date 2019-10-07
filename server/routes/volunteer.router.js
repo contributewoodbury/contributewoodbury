@@ -34,6 +34,23 @@ router.get('/eventVolunteers/:id', rejectUnauthenticated, (req,res) => {
       })
 })
 
+//gets all the volunteers for a specific event
+router.get('/eventVolunteers/:id', rejectUnauthenticated, (req,res) => {
+  let queryText = `SELECT "volunteer_role".name, "volunteer_role".city, "volunteer_role".zip_code, 
+      "volunteer_role".address, "volunteer_role".start_time, "role".name AS "role_name" FROM "volunteer_role"
+      JOIN "role" ON "role".id = "volunteer_role".role_id
+      WHERE "role".event_id = $1;`;
+  let id = req.params.id
+  pool.query(queryText, [id])
+      .then((result) => {
+        res.send(result.rows);
+      })
+      .catch((error) => {
+        console.log('error in eventVolunteers get', error)
+        res.sendStatus(500); 
+      })
+})
+
 //adds volunteer roles for specific events
 router.post('/addVolunteers/:id', (req, res) => {
   let queryText = `INSERT INTO "role" ("name", "description", "number_needed", "start_time", "end_time", "date", "event_id")
