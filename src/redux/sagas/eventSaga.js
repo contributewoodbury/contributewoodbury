@@ -3,4 +3,6 @@ import axios from 'axios';
 
 
 //root saga
-function*
+function* eventSaga(){
+  yield
+}

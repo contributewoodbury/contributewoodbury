@@ -13,7 +13,7 @@ function* getVolunteerRoles(action) {
 
 //root saga
 function* volunteerSaga() {
-  yield takeLatest('GET_VOLUNTEER_ROLES', getVolunteerRoles);
+  yield takeLatest('GET_EVENT_DETAILS', getVolunteerRoles);
 }
 
 export default volunteerSaga;
