@@ -4,7 +4,7 @@ import axios from 'axios';
 //worker saga: requests all approved nonprofits from the database and sends the list to the directory reducer
 function* getDirectory() {
   try {
-    let response = yield axios.get('/directory');
+    let response = yield axios.get('/api/directory');
     yield put({ type: 'SET_DIRECTORY', payload: response.data});
   } catch (error) {
     console.log('error in getDirectory', error);
