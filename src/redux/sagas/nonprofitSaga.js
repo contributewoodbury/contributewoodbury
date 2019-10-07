@@ -27,10 +27,21 @@ function* getPastEvents(action) {
     }
 }
 
+//worker saga: requests editable information for a specific nonprofit
+function* getNonprofitEdit(action) {
+    try {
+        let response = yield axios.get(`/api/nonprofit/edit/${action.payload}`);
+        yield put({ type: 'SET_SPECIFIC_NONPROFIT', payload: response.data });
+    } catch (error) {
+        console.log('error in getNonprofitEdit', error);
+    }
+}
+
 //root saga
 function* nonprofitSaga() {
     yield takeLatest('GET_NONPROFIT', getNonprofit);
     yield takeLatest('GET_PAST_EVENTS', getPastEvents);
+    yield takeLatest('GET_NONPROFIT_EDIT', getNonprofitEdit);
 }
 
 export default nonprofitSaga;
