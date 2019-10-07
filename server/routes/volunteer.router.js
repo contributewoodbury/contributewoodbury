@@ -52,7 +52,7 @@ router.get('/eventVolunteers/:id', rejectUnauthenticated, (req,res) => {
 })
 
 //adds volunteer roles for specific events
-router.post('/addVolunteers/:id', rejectUnauthenticated, (req, res) => {
+router.post('/addVolunteers', rejectUnauthenticated, (req, res) => {
   let queryText = `INSERT INTO "role" ("name", "description", "number_needed", "start_time", "end_time", "date", "event_id")
     VALUES ($1, $2, $3, $4, $5, $6, $7);`;
   let name = req.body.name;
@@ -61,8 +61,8 @@ router.post('/addVolunteers/:id', rejectUnauthenticated, (req, res) => {
   let start_time = req.body.start_time;
   let end_time = req.body.end_time;
   let date = req.body.date;
-  let event_id= req.params.id;
-  pool.query(queryText, [name, description, number_needed, start_time, end_time, date, event_id])
+  let event_id= req.body.event_id;
+  pool.query(queryText, [name, description, number_needed,start_time, end_time, date, event_id])
     .then((result) => {
       res.sendStatus(200);
     })

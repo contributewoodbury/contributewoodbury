@@ -46,11 +46,11 @@ router.get('/:id', (req, res) => {
 });
 
 //adds new event for specific nonprofit
-router.post('/addEvent/:id', rejectUnauthenticated, (req,res) => {
+router.post('/addEvent', rejectUnauthenticated, (req,res) => {
   let queryText = `INSERT INTO "event" ("name", "non_profit_id", "description", "address", "city", "zip_code",
     "start_date", "end_date", "event_url") VALUES($1, $2, $3, $4, $5, $6, $7, $8, $9);`;
   let name =  req.body.name;
-  let non_profit_id = req.params.id;
+  let non_profit_id = req.body.non_profit_id;
   let description = req.body.description;
   let address = req.body.address;
   let city = req.body.city;
