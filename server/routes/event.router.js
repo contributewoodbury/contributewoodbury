@@ -45,4 +45,27 @@ router.get('/:id', (req, res) => {
   });
 });
 
+//adds new event for specific nonprofit
+router.post('/addEvent/:id', (req,res) => {
+  let queryText = `INSERT INTO "event" ("name", "non_profit_id", "description", "address", "city", "zip_code",
+    "start_date", "end_date", "event_url") VALUES($1, $2, $3, $4, $5, $6, $7, $8, $9);`;
+  let name =  req.body.name;
+  let non_profit_id = req.params.id;
+  let description = req.body.description;
+  let address = req.body.address;
+  let city = req.body.city;
+  let zip_code = req.body.zip_code;
+  let start_date = req.body.start_date;
+  let end_date = req.body.end_date;
+  let event_url = req.body.event_url;
+  pool.query(queryText, [name, non_profit_id, description, address, city, zip_code, start_date, end_date, event_url])
+    .then((result) => {
+      res.sendStatus(200)
+    })
+    .catch ((error) => {
+      console.log('error in addEvent POST', error)
+      res.sendStatus(500);
+    })
+})
+
 module.exports = router;
