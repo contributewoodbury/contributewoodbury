@@ -37,7 +37,16 @@ router.delete('/decline/:id', rejectUnauthenticated, (req,res) => {
     } else {
         res.sendStatus(403)
     }
-})
+});
+
+//deletes Nonprofits and all their related data (events, roles, etc)
+router.delete('/delete/:id', rejectUnauthenticated, (req, res) => {
+    if( req.user.name === 'Admin'){
+
+    } else {
+        res.sendStatus(403);
+    }
+});
 
 //gets the nonprofit requests from the database
 router.get('/requests', rejectUnauthenticated, (req, res) => { 
