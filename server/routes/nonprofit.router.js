@@ -3,7 +3,6 @@ const pool = require('../modules/pool');
 const router = express.Router();
 
 //get the nonprofit's information from the database
-
 router.get('/:id', (req, res) => {
     let queryText =  `SELECT "event".name, "event".id, "event".start_date FROM "event" 
         JOIN "nonprofit" ON "nonprofit".id = "event".non_profit_id
@@ -17,6 +16,7 @@ router.get('/:id', (req, res) => {
             res.sendStatus(500);
         })
 })
+
 
 
 
