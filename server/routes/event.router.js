@@ -43,8 +43,6 @@ router.get('/:id', (req, res) => {
     console.log('error in event details GET', error);
     res.sendStatus(500);
   });
-})
-
-// grabs volunteer roles for a specific event
+});
 
 module.exports = router;
