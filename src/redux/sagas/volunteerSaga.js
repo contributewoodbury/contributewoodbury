@@ -28,7 +28,7 @@ function* getSpecifcVolunteers(action) {
 //adds a new volunteers for specific event
 function* addVolunteers(action) {
   try {
-    yield axios.post(`/api/volunteer/addVolunteers/${action.payload}`, action.payload)
+    yield axios.post(`/api/volunteer/addVolunteers`, action.payload)
     yield put({
       type: 'GET_EVENT_DETAILS'
     })
