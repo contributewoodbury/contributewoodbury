@@ -30,9 +30,9 @@ app.use(passport.session());
 /* Routes */
 app.use('/api/user', userRouter);
 app.use('/api/nonprofit', nonprofitRouter);
-app.use('/directory', directoryRouter);
-app.use('/event', eventRouter);
-app.use('/volunteer', volunteerRouter);
+app.use('/api/directory', directoryRouter);
+app.use('/api/event', eventRouter);
+app.use('/api/volunteer', volunteerRouter);
 
 // Serve static files
 app.use(express.static('build'));

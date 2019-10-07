@@ -8,7 +8,7 @@ function* getNonprofit() {
         yield put({
             type: 'SET_SPECIFIC_NONPROFIT',
             payload: response.data
-        })
+        });
     }catch(error) {
         console.log('error in getNonprofit', error)
     }
