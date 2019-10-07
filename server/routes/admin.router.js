@@ -18,7 +18,7 @@ router.put('/approve/:id', rejectUnauthenticated, (req, res) => {
 })
 
 //deletes a nonprofit when their request is denied
-router.delete('/delete/:id', (req,res) => {
+router.delete('/decline/:id', (req,res) => {
     let queryText = `DELETE FROM "nonprofit" WHERE "id" = $1;`;
     let id = req.params.id;
     pool.query(queryText, [id])
