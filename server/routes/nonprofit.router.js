@@ -37,7 +37,7 @@ router.get('/edit/:id', rejectUnauthenticated, (req, res) => {
 })
 
 //edits nonprofits information 
-router.put('/editNonprofit', (req,res) => {
+router.put('/editNonprofit', rejectUnauthenticated, (req,res) => {
     let queryText = `UPDATE "nonprofit" SET "name" = $1, "contact_email" = $2, "address" = $3, "city" = $4, 
         "zip_code" = $5, "website" = $6, "logo" = $7, "description" = $8, "last_confirmed" = CURRENT_DATE WHERE "id" = $9;`;
     let name = req.body.name;

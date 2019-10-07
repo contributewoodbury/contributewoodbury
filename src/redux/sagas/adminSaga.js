@@ -26,10 +26,25 @@ function* declineNonprofit(action) {
     }
 }
 
+//gets the nonprofit requests that are still pending
+function* getNonprofitRequests() {
+    try {
+        let response = yield axios.get(`/api/admin/requests`);
+        yield put({
+            type: 'SET_REQUESTS',
+            payload: response.data
+        })
+    }
+    catch(error) {
+        console.log('error on getNonprofits', error)
+    }
+}
+
 //root saga
 function* adminSaga () {
     yield takeLatest('APPROVE_NONPROFIT', approveNonprofit);
     yield takeLatest('DECLINE_NONPROFIT', declineNonprofit);
+    yield takeLatest('GET_NONPROFIT_REQUESTS', getNonprofitRequests);
 }
 
 export default adminSaga;
