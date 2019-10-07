@@ -38,11 +38,14 @@ function* addVolunteers(action) {
   }
 }
 
+
+
 //root saga
 function* volunteerSaga() {
   yield takeLatest('GET_EVENT_DETAILS', getVolunteerRoles);
   yield takeLatest('GET_SPECIFIC_VOLUNTEERS', getSpecifcVolunteers);
   yield takeLatest('ADD_VOLUNTEERS', addVolunteers);
+  yield takeLatest('VOLUNTEER_SIGNUP', volunteerSignUp);
 }
 
 export default volunteerSaga;

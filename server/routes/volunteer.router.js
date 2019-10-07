@@ -62,13 +62,29 @@ router.post('/addVolunteers/:id', rejectUnauthenticated, (req, res) => {
   let end_time = req.body.end_time;
   let date = req.body.date;
   let event_id= req.params.id;
-  pool.query(queryText, [name, description, number_needed,start_time, end_time, date, event_id])
+  pool.query(queryText, [name, description, number_needed, start_time, end_time, date, event_id])
     .then((result) => {
       res.sendStatus(200);
     })
     .catch((error) => {
-      console.log('error in addVolunteers post', error)
+      console.log('error in addVolunteers post', error);
+      res.sendStatus(500);
     })
 });
+
+// adds volunteer data for a specific role
+router.post('/signUp', (req, res) => {
+  let queryText = `INSERT INTO "volunteer_role" ("name", "role_id", "start_time", "end_time", "comments", "email", "phone_number", "address", "city", "zip_code")
+   VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10);`;
+  let newVolunteer = req.body;
+  pool.query(queryText, [newVolunteer.name, newVolunteer.role_id, newVolunteer.start_time, newVolunteer.end_time, newVolunteer.comments, newVolunteer.email, newVolunteer.phone_number, newVolunteer.address, newVolunteer.city, newVolunteer.zip_code])
+  .then(() => {
+    res.sendStatus(200);
+  })
+  .catch((error) => {
+    console.log('error in volunteer signup POST', error);
+    res.sendStatus(500);
+  });
+})
 
 module.exports = router;

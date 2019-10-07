@@ -14,7 +14,7 @@ function* approveNonprofit (action) {
 }
 
 //deletes declined nonprofit requests
-function declineNonprofit(action) {
+function* declineNonprofit(action) {
     try {
         yield axios.delete(`/api/admin/decline/${action.payload}`);
         yield put({
@@ -31,3 +31,5 @@ function* adminSaga () {
     yield takeLatest('APPROVE_NONPROFIT', approveNonprofit);
     yield takeLatest('DECLINE_NONPROFIT', declineNonprofit);
 }
+
+export default adminSaga;
