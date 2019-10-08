@@ -40,7 +40,7 @@ router.get('/edit/:id', rejectUnauthenticated, (req, res) => {
 //edits nonprofits information 
 router.put('/editNonprofit', rejectUnauthenticated, (req,res) => {
     let queryText = `UPDATE "nonprofit" SET "name" = $1, "contact_email" = $2, "address" = $3, "city" = $4, 
-        "zip_code" = $5, "website" = $6, "logo" = $7, "description" = $8, "last_confirmed" = CURRENT_DATE WHERE "id" = $9;`;
+        "zip_code" = $5, "website" = $6, "logo" = $7, "description" = $8, "last_confirmed" = CURRENT_DATE, "category_id" = $10, WHERE "id" = $9;`;
     let name = req.body.name;
     let contact_email = req.body.contact_email;
     let address = req.body.address;
@@ -49,8 +49,9 @@ router.put('/editNonprofit', rejectUnauthenticated, (req,res) => {
     let website = req.body.website;
     let logo = req.body.logo;
     let description = req.body.description;
-    let id = req.body.id
-    pool.query(queryText, [name, contact_email, address, city, zip_code, website, logo, description, id])
+    let id = req.body.id;
+    let category_id = req.body.category_id;
+    pool.query(queryText, [name, contact_email, address, city, zip_code, website, logo, description, id, category_id])
         .then((result) => {
             res.sendStatus(200);
         })
