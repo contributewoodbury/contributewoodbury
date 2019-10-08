@@ -23,6 +23,7 @@ import OrganizationHome from '../OrganizationHome/OrganizationHome';
 
 import './App.css';
 import AddVolunteerRoles from '../AddVolunteerRoles/AddVolunteerRoles';
+import DirectoryPage from '../DirectoryPage/DirectoryPage';
 
 class App extends Component {
   componentDidMount () {
@@ -69,11 +70,21 @@ class App extends Component {
               component={EditNonprofit}
             />
 
+
+            <Route
+              exact
+              path="/directory"
+              component={DirectoryPage}
+            />
+
+
+
             <Route 
               exact
               path="/organizationHome/:id"
               component={OrganizationHome}
             />
+
             {/* For protected routes, the view could show one of several things on the same route.
             Visiting localhost:3000/home will show the UserPage if the user is logged in.
             If the user is not logged in, the ProtectedRoute will show the 'Login' or 'Register' page.
