@@ -24,9 +24,6 @@ const styles = theme => ({
     rootDiv: {
         margin: '0px 100px 0px 100px'
     },
-    org: {
-        textAlign: 'center',
-    },
     root: {
         width: '100%',
         overfloxX: 'auto',
@@ -56,10 +53,10 @@ class OrganizationHome extends Component {
     render() {
         return (
             <div className={this.props.classes.rootDiv}>
-                <Grid container spacing={3}>
+                <Grid container spacing={3} justify="center">
                    {
                        this.props.nonprofit.map((name) => {
-                           return (<h1 className={this.props.classes.org}>{name.nonprofit_name}</h1>)
+                           return (<h1>{name.nonprofit_name}</h1>)
                        })
                    }
                 </Grid>
@@ -77,7 +74,7 @@ class OrganizationHome extends Component {
                     })
                 }
                 </Grid>
-                <Grid container spacing={3}>
+                <Grid container spacing={3} justify="center">
                     <h2>Event List</h2>
                 </Grid>
                 <Grid container spacing={3}>
@@ -97,13 +94,12 @@ class OrganizationHome extends Component {
                                     <TableRow>
                                     <CustomTableCell>{info.name}</CustomTableCell>
                                     <CustomTableCell align="right">{info.start_date}</CustomTableCell>
+                                    <CustomTableCell align="right"><Button className={this.props.classes.button}
+                                        onClick={this.handleVolunteerClick}>Volunteer</Button></CustomTableCell>
                                     </TableRow>
                                     </>
                                 })
                             }
-                                <CustomTableCell>Name</CustomTableCell>
-                                <CustomTableCell align="right">EventDate</CustomTableCell>
-                                <CustomTableCell align="right"><Button className={this.props.classes.button} onClick={this.handleVolunteerClick}>Volunteer</Button></CustomTableCell>
                             </TableBody>
                         </Table>
                     </Paper>
