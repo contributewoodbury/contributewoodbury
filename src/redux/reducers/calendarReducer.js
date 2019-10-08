@@ -1,4 +1,5 @@
 import moment from 'moment';
+import { combineReducers } from 'redux';
 
 const calendar = (state = [], action) => {
   switch (action.type) {
@@ -25,4 +26,6 @@ const calendar = (state = [], action) => {
   }
 }
 
-export default calendar;
+export default combineReducers({
+  calendar,
+});
