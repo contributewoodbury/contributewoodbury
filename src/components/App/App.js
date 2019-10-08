@@ -46,20 +46,17 @@ class App extends Component {
               component={AboutPage}
             />
 
-<<<<<<< HEAD
             <Route
               exact
               path="/calendar"
               component={Calendar}
             />
-=======
             {/* NavLogin Test Route */}
             {/* <Route
               exact
               path="/navlogin"
               component={NavLogin}
               /> */}
->>>>>>> f3104a3e49f422ae567aab136b3a85f4ce9c505e
 
             <ProtectedRoute
               exact

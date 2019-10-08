@@ -1,16 +1,22 @@
-import moment, { now } from 'moment';
+import moment from 'moment';
 
 const calendar = (state = [], action) => {
   switch (action.type) {
     case 'SET_CALENDAR':
-      let calendar = { lastWeek: [], currentWeek: [], nextWeek: [] }
+      let calendar = { lastWeek: [], currentWeek: [], nextWeek: [], future: [] }
       for (const event of action.payload) {
-        if (event.end_date < now && event.end_date > moment().subtract(7, 'days')) {
-          calendar.lastweek.push(event);
-        } else if (event.end_date > now && event.end_date < moment().add(7, 'days')) {
-          calendar.currentweek.push(event);
-        } else {
+        let endDate = moment(event.end_date).format('YYYYMMDD')
+        let now = moment(Date()).format('YYYYMMDD');
+        if (endDate < now && endDate > moment().subtract(7, 'days').format('YYYYMMDD')) {
+          console.log(endDate, 'now', now)
+          calendar.lastWeek.push(event);
+        } else if (endDate > now && endDate < moment().add(7, 'days').format('YYYYMMDD')) {
+          calendar.currentWeek.push(event);
+        } else if (endDate > moment().add(7, 'days').format('YYYYMMDD') && endDate < moment().add(13, 'days').format('YYYYMMDD')) {
+          console.log(moment().add(7, 'days').format('YYYYMMDD'))
           calendar.nextWeek.push(event);
+        } else {
+          calendar.future.push(event);
         }
       }
       return calendar;
