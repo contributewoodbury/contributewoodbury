@@ -82,8 +82,6 @@ router.delete('/delete/:id', rejectUnauthenticated, async (req, res) => {
     await conn.query(`ROLLBACK;`);
     res.sendStatus(500);
 } finally {
-    // finally will always run whether good or bad. 
-    //tells our connection we are done and frees it to do other things
     conn.release();
 }
         })
@@ -107,6 +105,8 @@ router.delete('/delete/:id', rejectUnauthenticated, async (req, res) => {
 //             console.log('error in big delete', error);
 //             res.sendStatus(500);
 //         })
+//     } else {
+//         res.sendStatus(403);
 //     }
 // });
 
