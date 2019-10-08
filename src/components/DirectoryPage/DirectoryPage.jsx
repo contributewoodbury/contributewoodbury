@@ -57,6 +57,12 @@ class DirectoryPage extends Component {
         })
     }
 
+    handleVolunteerButton = (id) => {
+        console.log('volunteer button for id:', id);
+        this.props.history.push(`/organizationhome/{id}`)
+        
+    }
+
 
 
     render() {
@@ -95,7 +101,7 @@ class DirectoryPage extends Component {
                         <TableBody>
 
                             {this.props.reduxStore.directory.map(nonprofit => (
-                                <TableRow className={this.props.classes.rows} hover={true}>
+                                <TableRow key={nonprofit.id} className={this.props.classes.rows} hover={true}>
                                     <TableCell align="left">{nonprofit.logo}</TableCell>
                                     <TableCell align="left">{nonprofit.name}<br/>
                                                               {nonprofit.address}<br/>
@@ -103,48 +109,13 @@ class DirectoryPage extends Component {
                                                               {nonprofit.state}  
                                                               {nonprofit.zip_code}  </TableCell>
                                     <TableCell align="left">{nonprofit.category_id}</TableCell>
-                                    <TableCell align="left"><Button className={this.props.classes.backButton} variant="contained">Volunteer</Button></TableCell>
+                                    <TableCell align="left"><Button className={this.props.classes.backButton} variant="contained"
+                                                onClick={(event) => this.handleVolunteerButton(nonprofit.id)} >Volunteer</Button></TableCell>
                                     <TableCell align="center"><Button className={this.props.classes.backButton} variant="contained">
                                         <a className={this.props.classes.backButtonText} href={nonprofit.website} >Website</a></Button></TableCell>
                                 </TableRow>
                             ))}
 
-                            
-                            {/* <TableRow>
-                                <TableCell align="right">test</TableCell>
-                                <TableCell align="right">test</TableCell>
-                                <TableCell align="right">test</TableCell>
-                                <TableCell align="right"><Button className={this.props.classes.backButton} variant="contained">Volunteer</Button></TableCell>
-                                <TableCell align="right"><Button className={this.props.classes.backButton} variant="contained">Website</Button></TableCell>
-                            </TableRow>
-                            <TableRow>
-                                <TableCell align="right">test</TableCell>
-                                <TableCell align="right">test</TableCell>
-                                <TableCell align="right">test</TableCell>
-                                <TableCell align="right"><Button className={this.props.classes.backButton} variant="contained">Volunteer</Button></TableCell>
-                                <TableCell align="right"><Button className={this.props.classes.backButton} variant="contained">Website</Button></TableCell>
-                            </TableRow> */}
-                            {/* <TableRow>
-                                <TableCell align="right">test</TableCell>
-                                <TableCell align="right">test</TableCell>
-                                <TableCell align="right">test</TableCell>
-                                <TableCell align="right"><Button className={this.props.classes.backButton} variant="contained">Volunteer</Button></TableCell>
-                                <TableCell align="right"><Button className={this.props.classes.backButton} variant="contained">Website</Button></TableCell>
-                            </TableRow>
-                            <TableRow>
-                                <TableCell align="right">test</TableCell>
-                                <TableCell align="right">test</TableCell>
-                                <TableCell align="right">test</TableCell>
-                                <TableCell align="right"><Button className={this.props.classes.backButton} variant="contained">Volunteer</Button></TableCell>
-                                <TableCell align="right"><Button className={this.props.classes.backButton} variant="contained">Website</Button></TableCell>
-                            </TableRow>
-                            <TableRow>
-                                <TableCell align="right">test</TableCell>
-                                <TableCell align="right">test</TableCell>
-                                <TableCell align="right">test</TableCell>
-                                <TableCell align="right"><Button className={this.props.classes.backButton} variant="contained">Volunteer</Button></TableCell>
-                                <TableCell align="right"><Button className={this.props.classes.backButton} variant="contained">Website</Button></TableCell>
-                            </TableRow> */}
                            
                         </TableBody>
                     </Table>
