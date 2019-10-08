@@ -70,7 +70,6 @@ class App extends Component {
               component={EditNonprofit}
             />
 
-<<<<<<< HEAD
             <Route
               exact
               path="/directory"
@@ -78,13 +77,11 @@ class App extends Component {
             />
 
 
-=======
             <Route 
               exact
               path="/organizationHome/:id"
               component={OrganizationHome}
             />
->>>>>>> f3104a3e49f422ae567aab136b3a85f4ce9c505e
             {/* For protected routes, the view could show one of several things on the same route.
             Visiting localhost:3000/home will show the UserPage if the user is logged in.
             If the user is not logged in, the ProtectedRoute will show the 'Login' or 'Register' page.
