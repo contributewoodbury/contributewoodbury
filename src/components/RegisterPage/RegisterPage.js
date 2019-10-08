@@ -1,5 +1,16 @@
 import React, { Component } from 'react';
 import {connect} from 'react-redux';
+import { Button } from '@material-ui/core';
+import { withStyles } from '@material-ui/styles';
+
+
+
+const styles = theme => ({
+  backButton: {
+    backgroundColor: '#457736',
+    color: 'white'
+  }
+})
 
 class RegisterPage extends Component {
   state = {
@@ -41,6 +52,7 @@ class RegisterPage extends Component {
           </h2>
         )}
         <form onSubmit={this.registerUser}>
+          <center>
           <h1>Register User</h1>
           <div>
             <label htmlFor="username">
@@ -72,15 +84,16 @@ class RegisterPage extends Component {
               value="Register"
             />
           </div>
+          </center>
         </form>
         <center>
-          <button
+          <Button
             type="button"
-            className="link-button"
+            className={this.props.classes.backButton}
             onClick={() => {this.props.dispatch({type: 'SET_TO_LOGIN_MODE'})}}
           >
-            Login
-          </button>
+            back
+          </Button>
         </center>
       </div>
     );
@@ -94,5 +107,5 @@ const mapStateToProps = state => ({
   errors: state.errors,
 });
 
-export default connect(mapStateToProps)(RegisterPage);
+export default withStyles(styles) (connect(mapStateToProps)(RegisterPage));
 

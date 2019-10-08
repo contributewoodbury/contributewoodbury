@@ -18,6 +18,8 @@ import UserPage from '../UserPage/UserPage';
 import InfoPage from '../InfoPage/InfoPage';
 import AddEvent from '../AddEvent/AddEvent';
 import EditNonprofit from '../EditNonprofit/EditNonprofit';
+import OrganizationHome from '../OrganizationHome/OrganizationHome';
+// import NavLogin from '../NavLogin/NavLogin';
 
 import './App.css';
 import AddVolunteerRoles from '../AddVolunteerRoles/AddVolunteerRoles';
@@ -44,13 +46,19 @@ class App extends Component {
               component={AboutPage}
             />
 
+            {/* NavLogin Test Route */}
+            {/* <Route
+              exact
+              path="/navlogin"
+              component={NavLogin}
+              /> */}
 
-            <Route
+            <ProtectedRoute
               exact
               path="/addevent"
               component={AddEvent}
             />
-            <Route
+            <ProtectedRoute
               exact
               path="/addvolunteers"
               component={AddVolunteerRoles}
@@ -62,6 +70,7 @@ class App extends Component {
               component={EditNonprofit}
             />
 
+<<<<<<< HEAD
             <Route
               exact
               path="/directory"
@@ -69,6 +78,13 @@ class App extends Component {
             />
 
 
+=======
+            <Route 
+              exact
+              path="/organizationHome/:id"
+              component={OrganizationHome}
+            />
+>>>>>>> f3104a3e49f422ae567aab136b3a85f4ce9c505e
             {/* For protected routes, the view could show one of several things on the same route.
             Visiting localhost:3000/home will show the UserPage if the user is logged in.
             If the user is not logged in, the ProtectedRoute will show the 'Login' or 'Register' page.
@@ -93,5 +109,7 @@ class App extends Component {
       </Router>
   )}
 }
+
+
 
 export default connect()(App);
