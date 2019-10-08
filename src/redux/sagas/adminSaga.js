@@ -1,7 +1,7 @@
 import { put, takeLatest } from 'redux-saga/effects';
 import axios from 'axios';
 
-//approves nonprofits
+// approves nonprofits
 function* approveNonprofit (action) {
     try {
         yield axios.put(`/api/admin/approve/${action.payload}`);

@@ -24,6 +24,7 @@ router.get('/:id', (req, res) => {
 
 //grabs editable information from the specified nonprofit for editing. 
 router.get('/edit/:id', rejectUnauthenticated, (req, res) => {
+
     let queryText = `SELECT "nonprofit".name, "nonprofit".id, "nonprofit".contact_email, "nonprofit".address,"nonprofit".description,
     "nonprofit".city, "nonprofit".zip_code, "nonprofit".website, "nonprofit".logo, "nonprofit".category_id FROM "nonprofit" WHERE "id";`;
     pool.query(queryText, [req.params.id])
@@ -57,6 +58,7 @@ router.put('/editNonprofit', rejectUnauthenticated, (req,res) => {
             console.log('error in edit nonprofit PUT', error);
         })
 })
+
 
 
 
