@@ -18,6 +18,7 @@ import UserPage from '../UserPage/UserPage';
 import InfoPage from '../InfoPage/InfoPage';
 import AddEvent from '../AddEvent/AddEvent';
 import EditNonprofit from '../EditNonprofit/EditNonprofit';
+import OrganizationHome from '../OrganizationHome/OrganizationHome';
 
 import './App.css';
 import AddVolunteerRoles from '../AddVolunteerRoles/AddVolunteerRoles';
@@ -61,7 +62,11 @@ class App extends Component {
               component={EditNonprofit}
             />
 
-
+            <Route 
+              exact
+              path="/organizationHome"
+              component={OrganizationHome}
+            />
             {/* For protected routes, the view could show one of several things on the same route.
             Visiting localhost:3000/home will show the UserPage if the user is logged in.
             If the user is not logged in, the ProtectedRoute will show the 'Login' or 'Register' page.
@@ -86,5 +91,7 @@ class App extends Component {
       </Router>
   )}
 }
+
+
 
 export default connect()(App);
