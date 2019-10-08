@@ -1,6 +1,19 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { Button } from '@material-ui/core';
+import { withStyles } from '@material-ui/styles';
+
+
+const styles = theme => ({
+  buttons: {
+    color: 'white',
+    backgroundColor: '#457736',
+    margin: '0px 0px 0px 30px'
+  },
+  heading: {
+    color: '#714723'
+  },
+})
 
 class LoginPage extends Component {
   state = {
@@ -8,32 +21,31 @@ class LoginPage extends Component {
     password: '',
   };
 
-  login = (event) => {
-    event.preventDefault();
+  // login = (event) => {
+  //   event.preventDefault();
 
-    if (this.state.username && this.state.password) {
-      this.props.dispatch({
-        type: 'LOGIN',
-        payload: {
-          username: this.state.username,
-          password: this.state.password,
-        },
-      });
-    } else {
-      this.props.dispatch({ type: 'LOGIN_INPUT_ERROR' });
-    }
-  } // end login
+  //   if (this.state.username && this.state.password) {
+  //     this.props.dispatch({
+  //       type: 'LOGIN',
+  //       payload: {
+  //         username: this.state.username,
+  //         password: this.state.password,
+  //       },
+  //     });
+  //   } else {
+  //     this.props.dispatch({ type: 'LOGIN_INPUT_ERROR' });
+  //   }
+  // } // end login
 
-  handleInputChangeFor = propertyName => (event) => {
-    this.setState({
-      [propertyName]: event.target.value,
-    });
-  }
+  // handleInputChangeFor = propertyName => (event) => {
+  //   this.setState({
+  //     [propertyName]: event.target.value,
+  //   });
+  // }
 
   render() {
     return (
       <div>
-        <p> login to continue</p>
         {this.props.errors.loginMessage && (
           <h2
             className="alert"
@@ -42,19 +54,26 @@ class LoginPage extends Component {
             {this.props.errors.loginMessage}
           </h2>
         )}
+        <div >
+        <div>
+          <center>
+          <h1 className={this.props.classes.heading} >What are you looking for?</h1>
+          <h3 className={this.props.classes.heading}>I'm interested in participating or volunteering</h3>
+          <Button className={this.props.classes.buttons} variant="contained">Browse Nonprofits</Button>
+          <Button className={this.props.classes.buttons} variant="contained">See Upcoming Events</Button>
+            </center>
+        </div>
+        <div>
+          <center>
+          <h3 className={this.props.classes.heading}>Are you a nonprofit? Share your upcoming events on our calendar!</h3>
+              <Button className="link-button" variant="contained"
+                onClick={() => { this.props.dispatch({ type: 'SET_TO_REGISTER_MODE' }) }}>
+                  I'm a nonprofit</Button>
+          </center>
+        </div>
+        </div>
 
-        <div>
-          <h1>What are you looking for?</h1>
-          <h3>I'm interested in participating or volunteering</h3>
-          <Button variant="contained">Browse Nonprofits</Button>
-          <Button variant="contained">See Upcoming Events</Button>
-        </div>
-        <div>
-          <h3>Are you a nonprofit? Share your upcoming events on our calendar!</h3>
-          <Button variant="contained">I'm a nonprofit</Button>
-        </div>
-          
-        <center>
+        {/* <center>
           <button
             type="button"
             className="link-button"
@@ -62,7 +81,7 @@ class LoginPage extends Component {
           >
             Register
           </button>
-        </center>
+        </center> */}
       </div>
     );
   }
@@ -75,4 +94,4 @@ const mapStateToProps = state => ({
   errors: state.errors,
 });
 
-export default connect(mapStateToProps)(LoginPage);
+export default withStyles(styles) (connect(mapStateToProps)(LoginPage));

@@ -34,3 +34,7 @@
 .nav-right {
   float: right;
 }
+
+.nav-login {
+  display: inline-block;
+}

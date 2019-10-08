@@ -1,5 +1,14 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
+import { withStyles } from '@material-ui/styles';
+
+
+
+const styles = theme => ({
+    loginDiv: {
+        color: 'white',
+    }
+})
 
 class NavLogin extends Component {
     state = {
@@ -45,8 +54,7 @@ class NavLogin extends Component {
                 )}
 
                 <form onSubmit={this.login}>
-                    {/* <h6>Already signed up?</h6> */}
-                    <div>
+                    <div className={this.props.classes.loginDiv} >
                         <span>Already signed up?</span>
                         <label htmlFor="username">
                             {/* Username: */}
@@ -59,7 +67,7 @@ class NavLogin extends Component {
                             />
                         </label>
                         {/* </div>
-          <div> */}
+                        <div> */}
                         <label htmlFor="password">
                             {/* Password: */}
                             <input
@@ -71,7 +79,7 @@ class NavLogin extends Component {
                             />
                         </label>
                         {/* </div>
-          <div> */}
+                        <div> */}
                         <input
 
                             className="log-in"
@@ -93,4 +101,4 @@ const mapStateToProps = state => ({
     errors: state.errors,
 });
 
-export default connect(mapStateToProps)(NavLogin);
+export default withStyles(styles) (connect(mapStateToProps)(NavLogin));

@@ -37,7 +37,7 @@ input {
 }
 
 /* This line makes the "Register" and "Login" buttons look like links */
-.link-button {
+/* .link-button {
     background:none;
     color:inherit;
     border:none;
@@ -46,4 +46,4 @@ input {
     outline:0;
     border-bottom:1px solid #444; 
     cursor: pointer;
-}
+} */
