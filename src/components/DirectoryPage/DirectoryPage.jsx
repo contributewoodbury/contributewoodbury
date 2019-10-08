@@ -8,8 +8,21 @@ import TableCell from '@material-ui/core/TableCell';
 import TableHead from '@material-ui/core/TableHead';
 import TableRow from '@material-ui/core/TableRow';
 import Paper from '@material-ui/core/Paper';
+import Button from '@material-ui/core/Button';
+import SearchIcon from '@material-ui/icons/Search';
 
 const styles = theme => ({
+    backButton: {
+        color: 'white',
+        backgroundColor: '#457736',
+        margin: '0px 0px 0px 30px'
+    },
+    root: {
+        maxHeight: '300px',
+        width: '90%',
+        marginTop: theme.spacing.unit * 3,
+        overflowY: 'scroll',
+    },
 
 })
 
@@ -26,7 +39,7 @@ class DirectoryPage extends Component {
                     In Directory Page
                 </h1>
 
-                <Paper>
+                <Paper className={this.props.classes.root}>
                     <Table>
                         <TableHead>
                             <TableRow>
@@ -42,29 +55,43 @@ class DirectoryPage extends Component {
                                     <TableCell align="right">test</TableCell>
                                     <TableCell align="right">test</TableCell>
                                     <TableCell align="right">test</TableCell>
-                                    <TableCell align="right">test</TableCell>
-                                    <TableCell align="right">test</TableCell>
+                                    <TableCell align="right"><Button className={this.props.classes.backButton}variant="contained">Volunteer</Button></TableCell>
+                                    <TableCell align="right"><Button className={this.props.classes.backButton} variant="contained">Website</Button></TableCell>
                                 </TableRow>
                             <TableRow>
                                 <TableCell align="right">test</TableCell>
                                 <TableCell align="right">test</TableCell>
                                 <TableCell align="right">test</TableCell>
-                                <TableCell align="right">test</TableCell>
-                                <TableCell align="right">test</TableCell>
+                                <TableCell align="right"><Button className={this.props.classes.backButton} variant="contained">Volunteer</Button></TableCell>
+                                <TableCell align="right"><Button className={this.props.classes.backButton} variant="contained">Website</Button></TableCell>
                             </TableRow>
                             <TableRow>
                                 <TableCell align="right">test</TableCell>
                                 <TableCell align="right">test</TableCell>
                                 <TableCell align="right">test</TableCell>
-                                <TableCell align="right">test</TableCell>
-                                <TableCell align="right">test</TableCell>
+                                <TableCell align="right"><Button className={this.props.classes.backButton} variant="contained">Volunteer</Button></TableCell>
+                                <TableCell align="right"><Button className={this.props.classes.backButton} variant="contained">Website</Button></TableCell>
                             </TableRow>
                             <TableRow>
                                 <TableCell align="right">test</TableCell>
                                 <TableCell align="right">test</TableCell>
                                 <TableCell align="right">test</TableCell>
+                                <TableCell align="right"><Button className={this.props.classes.backButton} variant="contained">Volunteer</Button></TableCell>
+                                <TableCell align="right"><Button className={this.props.classes.backButton} variant="contained">Website</Button></TableCell>
+                            </TableRow>
+                            <TableRow>
                                 <TableCell align="right">test</TableCell>
                                 <TableCell align="right">test</TableCell>
+                                <TableCell align="right">test</TableCell>
+                                <TableCell align="right"><Button className={this.props.classes.backButton} variant="contained">Volunteer</Button></TableCell>
+                                <TableCell align="right"><Button className={this.props.classes.backButton} variant="contained">Website</Button></TableCell>
+                            </TableRow>
+                            <TableRow>
+                                <TableCell align="right">test</TableCell>
+                                <TableCell align="right">test</TableCell>
+                                <TableCell align="right">test</TableCell>
+                                <TableCell align="right"><Button className={this.props.classes.backButton} variant="contained">Volunteer</Button></TableCell>
+                                <TableCell align="right"><Button className={this.props.classes.backButton} variant="contained">Website</Button></TableCell>
                             </TableRow>
                            
                         </TableBody>
