@@ -21,6 +21,7 @@ import EditNonprofit from '../EditNonprofit/EditNonprofit';
 
 import './App.css';
 import AddVolunteerRoles from '../AddVolunteerRoles/AddVolunteerRoles';
+import DirectoryPage from '../DirectoryPage/DirectoryPage';
 
 class App extends Component {
   componentDidMount () {
@@ -59,6 +60,12 @@ class App extends Component {
               exact
               path="/editNonprofit"
               component={EditNonprofit}
+            />
+
+            <Route
+              exact
+              path="/directory"
+              component={DirectoryPage}
             />
 
 
