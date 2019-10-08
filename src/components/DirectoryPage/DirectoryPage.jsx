@@ -13,12 +13,17 @@ import SearchIcon from '@material-ui/icons/Search';
 import InputBase from '@material-ui/core/InputBase';
 import Divider from '@material-ui/core/Divider';
 import IconButton from '@material-ui/core/IconButton';
+import { thisExpression } from '@babel/types';
 
 const styles = theme => ({
     backButton: {
         color: 'white',
         backgroundColor: '#457736',
         margin: '0px 0px 0px 30px'
+    },
+    backButtonText: {
+        color: 'white',
+        textDecoration: 'none',
     },
     root: {
         maxHeight: '800px',
@@ -41,6 +46,17 @@ const styles = theme => ({
 
 
 class DirectoryPage extends Component {
+    componentDidMount() {
+        this.getOrganizationDetails();
+    }
+
+    getOrganizationDetails = () => {
+        console.log('in get org. details');
+        this.props.dispatch({
+            type: 'GET_DIRECTORY'
+        })
+    }
+
 
 
     render() {
@@ -69,22 +85,46 @@ class DirectoryPage extends Component {
                     <Table hover={true} size="large">
                         <TableHead>
                             <TableRow className={this.props.classes.rows}>
-                                <TableCell align="center">Image</TableCell>
-                                <TableCell align="center">Agency</TableCell>
-                                <TableCell align="center">Category</TableCell>
-                                <TableCell align="center">Volunteer Opportunities</TableCell>
+                                <TableCell align="left">Image</TableCell>
+                                <TableCell align="left">Agency</TableCell>
+                                <TableCell align="left">Category</TableCell>
+                                <TableCell align="left">Volunteer Opportunities</TableCell>
                                 <TableCell align="center">Website Link</TableCell>
                             </TableRow>
                         </TableHead>
                         <TableBody>
-                            <TableRow className={this.props.classes.rows} hover={true}>
-                                    <TableCell align="center">test</TableCell>
-                                    <TableCell align="center">test</TableCell>
-                                    <TableCell align="center">test</TableCell>
-                                    <TableCell align="center"><Button className={this.props.classes.backButton}variant="contained">Volunteer</Button></TableCell>
-                                    <TableCell align="center"><Button className={this.props.classes.backButton} variant="contained">Website</Button></TableCell>
+
+                            {this.props.reduxStore.directory.map(nonprofit => (
+                                <TableRow className={this.props.classes.rows} hover={true}>
+                                    <TableCell align="left">{nonprofit.logo}</TableCell>
+                                    <TableCell align="left">{nonprofit.name}<br/>
+                                                              {nonprofit.address}<br/>
+                                                              {nonprofit.city}, MN 
+                                                              {nonprofit.state}  
+                                                              {nonprofit.zip_code}  </TableCell>
+                                    <TableCell align="left">{nonprofit.category_id}</TableCell>
+                                    <TableCell align="left"><Button className={this.props.classes.backButton} variant="contained">Volunteer</Button></TableCell>
+                                    <TableCell align="center"><Button className={this.props.classes.backButton} variant="contained">
+                                        <a className={this.props.classes.backButtonText} href={nonprofit.website} >Website</a></Button></TableCell>
                                 </TableRow>
+                            ))}
+
+                            
+                            {/* <TableRow>
+                                <TableCell align="right">test</TableCell>
+                                <TableCell align="right">test</TableCell>
+                                <TableCell align="right">test</TableCell>
+                                <TableCell align="right"><Button className={this.props.classes.backButton} variant="contained">Volunteer</Button></TableCell>
+                                <TableCell align="right"><Button className={this.props.classes.backButton} variant="contained">Website</Button></TableCell>
+                            </TableRow>
                             <TableRow>
+                                <TableCell align="right">test</TableCell>
+                                <TableCell align="right">test</TableCell>
+                                <TableCell align="right">test</TableCell>
+                                <TableCell align="right"><Button className={this.props.classes.backButton} variant="contained">Volunteer</Button></TableCell>
+                                <TableCell align="right"><Button className={this.props.classes.backButton} variant="contained">Website</Button></TableCell>
+                            </TableRow> */}
+                            {/* <TableRow>
                                 <TableCell align="right">test</TableCell>
                                 <TableCell align="right">test</TableCell>
                                 <TableCell align="right">test</TableCell>
@@ -104,25 +144,13 @@ class DirectoryPage extends Component {
                                 <TableCell align="right">test</TableCell>
                                 <TableCell align="right"><Button className={this.props.classes.backButton} variant="contained">Volunteer</Button></TableCell>
                                 <TableCell align="right"><Button className={this.props.classes.backButton} variant="contained">Website</Button></TableCell>
-                            </TableRow>
-                            <TableRow>
-                                <TableCell align="right">test</TableCell>
-                                <TableCell align="right">test</TableCell>
-                                <TableCell align="right">test</TableCell>
-                                <TableCell align="right"><Button className={this.props.classes.backButton} variant="contained">Volunteer</Button></TableCell>
-                                <TableCell align="right"><Button className={this.props.classes.backButton} variant="contained">Website</Button></TableCell>
-                            </TableRow>
-                            <TableRow>
-                                <TableCell align="right">test</TableCell>
-                                <TableCell align="right">test</TableCell>
-                                <TableCell align="right">test</TableCell>
-                                <TableCell align="right"><Button className={this.props.classes.backButton} variant="contained">Volunteer</Button></TableCell>
-                                <TableCell align="right"><Button className={this.props.classes.backButton} variant="contained">Website</Button></TableCell>
-                            </TableRow>
+                            </TableRow> */}
                            
                         </TableBody>
                     </Table>
                 </Paper>
+
+                {JSON.stringify(this.props.reduxStore.directory)}
             </div>
         )
 
@@ -132,5 +160,10 @@ class DirectoryPage extends Component {
 
 }
 
+const mapStateToProps = reduxStore => {
+    return {
+        reduxStore
+    }
+}
 
-export default withStyles(styles) (connect()(DirectoryPage));
+export default withStyles(styles) (connect(mapStateToProps)(DirectoryPage));
