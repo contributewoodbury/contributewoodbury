@@ -25,7 +25,7 @@ const rootReducer = combineReducers({
   //and volunteers who have signed up for a specific event
   nonprofit, //will contain the specific nonprofits information
   event, // will contain details for a specific event as well as new events and editing events
-  admin, //will contain the requests for approving or denying a new nonprofit 
+  admin, //will contain the requests for approving or denying a new nonprofit and a list of nonprofits
 });
 
 export default rootReducer;

@@ -18,6 +18,8 @@ import UserPage from '../UserPage/UserPage';
 import InfoPage from '../InfoPage/InfoPage';
 import AddEvent from '../AddEvent/AddEvent';
 import EditNonprofit from '../EditNonprofit/EditNonprofit';
+import OrganizationHome from '../OrganizationHome/OrganizationHome';
+// import NavLogin from '../NavLogin/NavLogin';
 
 import './App.css';
 import AddVolunteerRoles from '../AddVolunteerRoles/AddVolunteerRoles';
@@ -44,13 +46,19 @@ class App extends Component {
               component={AboutPage}
             />
 
+            {/* NavLogin Test Route */}
+            {/* <Route
+              exact
+              path="/navlogin"
+              component={NavLogin}
+              /> */}
 
-            <Route
+            <ProtectedRoute
               exact
               path="/addevent"
               component={AddEvent}
             />
-            <Route
+            <ProtectedRoute
               exact
               path="/addvolunteers"
               component={AddVolunteerRoles}
@@ -62,12 +70,20 @@ class App extends Component {
               component={EditNonprofit}
             />
 
+
             <Route
               exact
               path="/directory"
               component={DirectoryPage}
             />
 
+
+
+            <Route 
+              exact
+              path="/organizationHome/:id"
+              component={OrganizationHome}
+            />
 
             {/* For protected routes, the view could show one of several things on the same route.
             Visiting localhost:3000/home will show the UserPage if the user is logged in.
@@ -93,5 +109,7 @@ class App extends Component {
       </Router>
   )}
 }
+
+
 
 export default connect()(App);

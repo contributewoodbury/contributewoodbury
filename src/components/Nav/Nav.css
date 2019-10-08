@@ -33,4 +33,7 @@
 
 .nav-right {
   float: right;
+  display: inline-flex;
+  padding: 20px;
 }
+

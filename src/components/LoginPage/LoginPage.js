@@ -1,33 +1,38 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
+import { Button } from '@material-ui/core';
+import { withStyles } from '@material-ui/styles';
+
+
+const styles = theme => ({
+  buttons: {
+    color: 'white',
+    backgroundColor: '#457736',
+    margin: '0px 0px 0px 30px'
+  },
+  heading: {
+    color: '#714723'
+  },
+})
 
 class LoginPage extends Component {
-  state = {
-    username: '',
-    password: '',
-  };
+  // state = {
+  //   username: '',
+  //   password: '',
+  // };
 
-  login = (event) => {
-    event.preventDefault();
+  //CHANGE HISTORY.PUSH TO CORRECT LINKS***************
+handleBrowse = () => {
+  console.log('browse nonprofits button clicked');
+  this.props.history.push('/about')
+}
 
-    if (this.state.username && this.state.password) {
-      this.props.dispatch({
-        type: 'LOGIN',
-        payload: {
-          username: this.state.username,
-          password: this.state.password,
-        },
-      });
-    } else {
-      this.props.dispatch({ type: 'LOGIN_INPUT_ERROR' });
-    }
-  } // end login
+handleSeeEvents = () => {
+  this.props.history.push('/about')
+}
 
-  handleInputChangeFor = propertyName => (event) => {
-    this.setState({
-      [propertyName]: event.target.value,
-    });
-  }
+
+
 
   render() {
     return (
@@ -40,40 +45,28 @@ class LoginPage extends Component {
             {this.props.errors.loginMessage}
           </h2>
         )}
-        <form onSubmit={this.login}>
-          <h1>Login</h1>
-          <div>
-            <label htmlFor="username">
-              Username:
-              <input
-                type="text"
-                name="username"
-                value={this.state.username}
-                onChange={this.handleInputChangeFor('username')}
-              />
-            </label>
-          </div>
-          <div>
-            <label htmlFor="password">
-              Password:
-              <input
-                type="password"
-                name="password"
-                value={this.state.password}
-                onChange={this.handleInputChangeFor('password')}
-              />
-            </label>
-          </div>
-          <div>
-            <input
-              className="log-in"
-              type="submit"
-              name="submit"
-              value="Log In"
-            />
-          </div>
-        </form>
-        <center>
+        <div >
+        <div>
+          <center>
+          <h1 className={this.props.classes.heading} >What are you looking for?</h1>
+          <h3 className={this.props.classes.heading}>I'm interested in participating or volunteering</h3>
+          <Button className={this.props.classes.buttons} variant="contained"
+                  onClick={this.handleBrowse} >Browse Nonprofits</Button>
+          <Button className={this.props.classes.buttons} variant="contained"
+                  onClick={this.handleSeeEvents} >See Upcoming Events</Button>
+            </center>
+        </div>
+        <div>
+          <center>
+          <h3 className={this.props.classes.heading}>Are you a nonprofit? Share your upcoming events on our calendar!</h3>
+              <Button className="link-button" variant="contained"
+                onClick={() => { this.props.dispatch({ type: 'SET_TO_REGISTER_MODE' }) }}>
+                  I'm a nonprofit</Button>
+          </center>
+        </div>
+        </div>
+
+        {/* <center>
           <button
             type="button"
             className="link-button"
@@ -81,7 +74,7 @@ class LoginPage extends Component {
           >
             Register
           </button>
-        </center>
+        </center> */}
       </div>
     );
   }
@@ -94,4 +87,4 @@ const mapStateToProps = state => ({
   errors: state.errors,
 });
 
-export default connect(mapStateToProps)(LoginPage);
+export default withStyles(styles) (connect(mapStateToProps)(LoginPage));
