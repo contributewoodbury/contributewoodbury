@@ -16,32 +16,23 @@ const styles = theme => ({
 })
 
 class LoginPage extends Component {
-  state = {
-    username: '',
-    password: '',
-  };
+  // state = {
+  //   username: '',
+  //   password: '',
+  // };
 
-  // login = (event) => {
-  //   event.preventDefault();
+  //CHANGE HISTORY.PUSH TO CORRECT LINKS***************
+handleBrowse = () => {
+  console.log('browse nonprofits button clicked');
+  this.props.history.push('/about')
+}
 
-  //   if (this.state.username && this.state.password) {
-  //     this.props.dispatch({
-  //       type: 'LOGIN',
-  //       payload: {
-  //         username: this.state.username,
-  //         password: this.state.password,
-  //       },
-  //     });
-  //   } else {
-  //     this.props.dispatch({ type: 'LOGIN_INPUT_ERROR' });
-  //   }
-  // } // end login
+handleSeeEvents = () => {
+  this.props.history.push('/about')
+}
 
-  // handleInputChangeFor = propertyName => (event) => {
-  //   this.setState({
-  //     [propertyName]: event.target.value,
-  //   });
-  // }
+
+
 
   render() {
     return (
@@ -59,8 +50,10 @@ class LoginPage extends Component {
           <center>
           <h1 className={this.props.classes.heading} >What are you looking for?</h1>
           <h3 className={this.props.classes.heading}>I'm interested in participating or volunteering</h3>
-          <Button className={this.props.classes.buttons} variant="contained">Browse Nonprofits</Button>
-          <Button className={this.props.classes.buttons} variant="contained">See Upcoming Events</Button>
+          <Button className={this.props.classes.buttons} variant="contained"
+                  onClick={this.handleBrowse} >Browse Nonprofits</Button>
+          <Button className={this.props.classes.buttons} variant="contained"
+                  onClick={this.handleSeeEvents} >See Upcoming Events</Button>
             </center>
         </div>
         <div>

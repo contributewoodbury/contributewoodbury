@@ -23,7 +23,7 @@ input {
 }
 
 .log-in, .log-out, .register {
-  background-color: #00acb0;
+  background-color: #457736;
   border-radius: 4px;
   color: #f8f8f8;
   min-height: 50px;
@@ -38,8 +38,8 @@ input {
 
 /* This line makes the "Register" and "Login" buttons look like links */
 /* .link-button {
-    background:none;
-    color:inherit;
+    background-color:#457736;
+    color:white;
     border:none;
     padding:0;
     font: inherit;
