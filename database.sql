@@ -19,6 +19,7 @@ CREATE TABLE "nonprofit" (
     "contact_email" VARCHAR(150),
     "address" VARCHAR(150),
     "city" VARCHAR(50),
+    "state" VARCHAR(25),
     "zip_code" INT,
     "website" VARCHAR(400),
     "description" VARCHAR,
@@ -35,6 +36,7 @@ CREATE TABLE "event" (
     "description" VARCHAR(500),
     "address" VARCHAR(150),
     "city" VARCHAR(50),
+    "state" VARCHAR(25),
     "zip_code" INT,
     "start_date" DATE,
     "end_date" DATE,
@@ -63,6 +65,7 @@ CREATE TABLE "volunteer_role" (
     "phone_number" VARCHAR(15),
     "address" VARCHAR(150),
     "city" VARCHAR(50),
+    "state" VARCHAR(25),
     "zip_code" INT
 );
 
@@ -76,3 +79,17 @@ INSERT INTO "event" ("name", "description", "address", "city", "zip_code", "star
 INSERT INTO "role" ("name", "description", "number_needed", "start_time", "end_time", "date", "event_id") VALUES ('test', 'test', 1, '1:30', '2:00', '10/10/10', 1);
 
 INSERT INTO "volunteer_role" ("name", "role_id", "start_time", "end_time", "comments", "email", "phone_number", "address", "city", "zip_code") VALUES ('test', 1, '1:30', '2:00', 'test', 'test', 1, 'test', 'test', 1);
+
+
+-- for cascade delete
+ALTER TABLE "public"."event"
+  DROP CONSTRAINT "event_non_profit_id_fkey",
+  ADD CONSTRAINT "event_non_profit_id_fkey" FOREIGN KEY ("non_profit_id") REFERENCES "public"."nonprofit"("id") ON DELETE CASCADE;
+
+ALTER TABLE "public"."role"
+  DROP CONSTRAINT "role_event_id_fkey",
+  ADD CONSTRAINT "role_event_id_fkey" FOREIGN KEY ("event_id") REFERENCES "public"."event"("id") ON DELETE CASCADE;
+
+ALTER TABLE "public"."volunteer_role"
+  DROP CONSTRAINT "volunteer_role_role_id_fkey",
+  ADD CONSTRAINT "volunteer_role_role_id_fkey" FOREIGN KEY ("role_id") REFERENCES "public"."role"("id") ON DELETE CASCADE;
