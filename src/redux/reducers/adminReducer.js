@@ -1,3 +1,5 @@
+import { combineReducers } from "redux";
+
 const admin = (state = [], action) => {
     switch(action.type) {
         case 'SET_REQUESTS' :
@@ -7,4 +9,16 @@ const admin = (state = [], action) => {
     }
 }
 
-export default admin;
+const adminDirectory = (state = [], action) => {
+    switch (action.type) {
+        case 'SET_ADMIN_DIRECTORY':
+            return action.payload;
+        default:
+            return state;
+    }
+}
+
+export default combineReducers({
+    admin,
+    adminDirectory,
+});
