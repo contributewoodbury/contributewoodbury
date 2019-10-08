@@ -18,6 +18,7 @@ import UserPage from '../UserPage/UserPage';
 import InfoPage from '../InfoPage/InfoPage';
 import AddEvent from '../AddEvent/AddEvent';
 import EditNonprofit from '../EditNonprofit/EditNonprofit';
+// import NavLogin from '../NavLogin/NavLogin';
 
 import './App.css';
 import AddVolunteerRoles from '../AddVolunteerRoles/AddVolunteerRoles';
@@ -43,13 +44,19 @@ class App extends Component {
               component={AboutPage}
             />
 
+            {/* NavLogin Test Route */}
+            {/* <Route
+              exact
+              path="/navlogin"
+              component={NavLogin}
+              /> */}
 
-            <Route
+            <ProtectedRoute
               exact
               path="/addevent"
               component={AddEvent}
             />
-            <Route
+            <ProtectedRoute
               exact
               path="/addvolunteers"
               component={AddVolunteerRoles}
