@@ -100,7 +100,9 @@ class DirectoryPage extends Component {
                         </TableHead>
                         <TableBody>
 
-                            {this.props.reduxStore.directory.map(nonprofit => (
+                            {this.props.reduxStore.directory.map((nonprofit) => {
+                            if (nonprofit.name !== 'Admin') {
+                                return (
                                 <TableRow key={nonprofit.id} className={this.props.classes.rows} hover={true}>
                                     <TableCell align="left">{nonprofit.logo}</TableCell>
                                     <TableCell align="left">{nonprofit.name}<br/>
@@ -114,7 +116,7 @@ class DirectoryPage extends Component {
                                     <TableCell align="center"><Button className={this.props.classes.backButton} variant="contained">
                                         <a className={this.props.classes.backButtonText} href={nonprofit.website} >Website</a></Button></TableCell>
                                 </TableRow>
-                            ))}
+                            )}})}
 
                            
                         </TableBody>

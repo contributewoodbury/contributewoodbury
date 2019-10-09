@@ -20,15 +20,13 @@ class LoginPage extends Component {
   //   username: '',
   //   password: '',
   // };
-
-  //CHANGE HISTORY.PUSH TO CORRECT LINKS***************
 handleBrowse = () => {
   console.log('browse nonprofits button clicked');
-  this.props.history.push('/about')
+  this.props.history.push('/directory')
 }
 
 handleSeeEvents = () => {
-  this.props.history.push('/about')
+  this.props.history.push('/calendar')
 }
 
 
