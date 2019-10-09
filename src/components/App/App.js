@@ -22,8 +22,11 @@ import OrganizationHome from '../OrganizationHome/OrganizationHome';
 // import NavLogin from '../NavLogin/NavLogin';
 import EventDetails from '../EventDetails/EventDetails';
 
+
 import './App.css';
 import AddVolunteerRoles from '../AddVolunteerRoles/AddVolunteerRoles';
+import DirectoryPage from '../DirectoryPage/DirectoryPage';
+import VolunteerSignup from '../VolunteerSignup/VolunteerSignup';
 
 class App extends Component {
   componentDidMount () {
@@ -46,12 +49,11 @@ class App extends Component {
               component={AboutPage}
             />
 
-            {/* NavLogin Test Route */}
-            {/* <Route
+            <Route
               exact
-              path="/navlogin"
-              component={NavLogin}
-              /> */}
+              path="/signup/:id"
+              component={VolunteerSignup}
+              />
 
             <ProtectedRoute
               exact
@@ -69,6 +71,15 @@ class App extends Component {
               path="/editNonprofit"
               component={EditNonprofit}
             />
+
+
+            <Route
+              exact
+              path="/directory"
+              component={DirectoryPage}
+            />
+
+
 
             <Route 
               exact
