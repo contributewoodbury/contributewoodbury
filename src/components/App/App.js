@@ -19,11 +19,13 @@ import InfoPage from '../InfoPage/InfoPage';
 import AddEvent from '../AddEvent/AddEvent';
 import EditNonprofit from '../EditNonprofit/EditNonprofit';
 import OrganizationHome from '../OrganizationHome/OrganizationHome';
-// import NavLogin from '../NavLogin/NavLogin';
+
 
 import './App.css';
 import AddVolunteerRoles from '../AddVolunteerRoles/AddVolunteerRoles';
 import Calendar from '../Calendar/Calendar';
+import DirectoryPage from '../DirectoryPage/DirectoryPage';
+import VolunteerSignup from '../VolunteerSignup/VolunteerSignup';
 
 class App extends Component {
   componentDidMount() {
@@ -52,11 +54,11 @@ class App extends Component {
               component={Calendar}
             />
             {/* NavLogin Test Route */}
-            {/* <Route
+            <Route
               exact
-              path="/navlogin"
-              component={NavLogin}
-              /> */}
+              path="/signup/:id"
+              component={VolunteerSignup}
+              />
 
             <ProtectedRoute
               exact
@@ -75,11 +77,21 @@ class App extends Component {
               component={EditNonprofit}
             />
 
+
+            <Route
+              exact
+              path="/directory"
+              component={DirectoryPage}
+            />
+
+
+
             <Route 
               exact
               path="/organizationHome/:id"
               component={OrganizationHome}
             />
+
             {/* For protected routes, the view could show one of several things on the same route.
             Visiting localhost:3000/home will show the UserPage if the user is logged in.
             If the user is not logged in, the ProtectedRoute will show the 'Login' or 'Register' page.
