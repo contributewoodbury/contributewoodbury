@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { connect } from 'react-redux';
 import { CardContent, TextField, Button } from '@material-ui/core';
 import { withStyles } from '@material-ui/styles';
 
@@ -16,11 +17,60 @@ const styles = theme => ({
         backgroundColor: 'orange',
         margin: '10px 10px 10px 30px',
     },
+    stateZipPhone: {
+        margin: '10px 0px 10px 30px'
+    }
 })
 
 class SignupForm extends Component {
 
+    
+    
+    state = {
+        name: '',
+        role_id: '',
+        start_time: '', 
+        end_time: '',
+        comments: '',
+        email: '',
+        phone_number: '',
+        address: '',
+        city: '',
+        state: '',
+        zip_code: ''
+    }
 
+    //SET STATE WITH VOLUNTEER INFORMATION
+    handleChange = (propertyName, event) => {
+        this.setState ({
+            [propertyName]: event.target.value
+        })
+        console.log(this.state);  
+    }
+
+
+    handleAddVolunteer = (id) => {
+        console.log('sign up button was clicked');
+        this.props.dispatch({
+            type: 'VOLUNTEER_SIGNUP',
+            payload: this.state
+        })
+        //SWEET ALERT: THANKS FOR SIGNING UP. SOMEONE WILL CONTACT YOU -- YOU WILL RECIEVE AN EMAIL?
+        //CLEAR FIELDS
+        this.setState ({
+            name: '',
+            role_id: '',
+            start_time: '',
+            end_time: '',
+            comments: '',
+            email: '',
+            phone_number: '',
+            address: '',
+            city: '',
+            state: '',
+            zip_code: ''
+        })
+    }
 
 
     render () {
@@ -33,16 +83,30 @@ class SignupForm extends Component {
             <div>
                 <CardContent>
                     <h3>Sign me up!</h3>
-                    <TextField className={this.props.classes.textFields} type="text" placeholder="First Name" variant="outlined" label="First Name" />
-                    <TextField className={this.props.classes.textFields} type="text" placeholder="Last Name" variant="outlined" label="Last Name" />
+                    <TextField className={this.props.classes.textFields} type="text" placeholder="Full Name" variant="outlined" label="Full Name"
+                                value={this.state.name} onChange={(event) => this.handleChange('name', event)} />
+                    <TextField className={this.props.classes.textFields} type="text" placeholder="email" variant="outlined" label="email" 
+                        value={this.state.email} onChange={(event) => this.handleChange('email', event)} />
                     <br />
-                    <TextField className={this.props.classes.textFields} type="text" placeholder="email" variant="outlined" label="email" />
-                    <TextField className={this.props.classes.textFields} type="text" placeholder="phone number" variant="outlined" label="phone number" />
+                    <TextField className={this.props.classes.textFields} type="text" placeholder="address" variant="outlined" label="address"
+                        value={this.state.address} onChange={(event) => this.handleChange('address', event)} />
+                    <TextField className={this.props.classes.textFields} type="text" placeholder="city" variant="outlined" label="city" 
+                        value={this.state.city} onChange={(event) => this.handleChange('city', event)} />
+                    
+                    <TextField className={this.props.classes.stateZipPhone} type="text" placeholder="state" variant="outlined" label="state"
+                        value={this.state.state} onChange={(event) => this.handleChange('state', event)} />
+                    <TextField className={this.props.classes.stateZipPhone} type="text" placeholder="zipcode" variant="outlined" label="zip code"
+                        value={this.state.zip_code} onChange={(event) => this.handleChange('zip_code', event)}/>
+                    {/* <br /> */}
+                    <TextField className={this.props.classes.stateZipPhone} type="text" placeholder="phone number" variant="outlined" label="phone number"
+                        value={this.state.phone_number} onChange={(event) => this.handleChange('phone_number', event)} />
                     <br />
                     <TextField className={this.props.classes.messageInput} type="text"
                         placeholder="Let us know your needs. Can you volunteer for more or less hours than needed? Do you have questions?"
-                        variant="outlined" label="Message" multiline rows={4} /><br />
-                    <Button variant="contained" className={this.props.classes.saveButton} >Sign Up!</Button>
+                        variant="outlined" label="Message" multiline rows={4}
+                        value={this.state.comments} onChange={(event) => this.handleChange('comments', event)} /><br />
+                    <Button variant="contained" className={this.props.classes.saveButton}
+                            onClick={this.handleAddVolunteer} >Sign Up!</Button>
                 </CardContent>
             </div>
         )
@@ -50,4 +114,4 @@ class SignupForm extends Component {
 }
 
 
-export default withStyles(styles) (SignupForm);
+export default withStyles(styles) (connect() (SignupForm));

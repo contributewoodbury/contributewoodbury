@@ -49,7 +49,7 @@ class App extends Component {
 
             <Route
               exact
-              path="/signup/:id"
+              path="/signup"
               component={VolunteerSignup}
               />
 

@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { connect } from 'react-redux';
 import { Button, Grid, Card, CardContent, TextField } from '@material-ui/core';
 import { withStyles } from '@material-ui/styles';
 import SignupForm from '../SignupForm/SignupForm';
@@ -33,12 +34,34 @@ const styles = theme => ({
 
 class VolunteerSignup extends Component {
 
+    componentDidMount() {
+        this.getRoles();
+    }
 
-
+    //REVISIT THE WIREFRAME AND DATABASE TO MAKE SURE PROPERTIES MATCH
     state = {
+
 
     }
 
+    getRoles = () => {
+        console.log('get roles id');
+        this.props.dispatch({
+            type: 'GET_EVENT_DETAILS'
+        })
+    }
+
+    handleBackButton = (id) => {
+        console.log('back button was clicked');
+        //ADD SWEETALERT
+        this.props.history.push(`/organizationHome/${id}`) 
+    }
+
+    handleDoneButton = () => {
+        console.log('done button was clicked');
+        //ADD SWEETALERT: YOURE DONE! OR SOMETHING SIMILAR
+        this.props.history.push(`/organizationHome`)
+    }
 
 
     render () {
@@ -96,16 +119,28 @@ class VolunteerSignup extends Component {
                         {/* <Card> */}
                             <CardContent>
                                 {/* <h3>back and done buttons here</h3> */}
-                                <Button className={this.props.classes.backButton} variant="contained" >back</Button>
-                                <Button className={this.props.classes.doneButton} variant="contained">Done</Button>
+                                <Button className={this.props.classes.backButton} variant="contained" 
+                                    onClick={this.handleBackButton} >back</Button>
+                                <Button className={this.props.classes.doneButton} variant="contained"
+                                    onClick={this.handleDoneButton} >Done</Button>
                             </CardContent>
                         {/* </Card> */}
                     </Grid>
 
                 </Grid>
+
+                {JSON.stringify(this.props.reduxStore)}
             </div>
         )
     }
 }
 
-export default withStyles(styles) (VolunteerSignup);
+const mapStateToProps = reduxStore => {
+    return {
+        reduxStore
+    }
+}
+
+
+
+export default withStyles(styles) (connect(mapStateToProps) (VolunteerSignup));
