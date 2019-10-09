@@ -14,6 +14,9 @@ import InputBase from '@material-ui/core/InputBase';
 import Divider from '@material-ui/core/Divider';
 import IconButton from '@material-ui/core/IconButton';
 import { thisExpression } from '@babel/types';
+import {AssistantPhoto} from '@material-ui/icons';
+
+import Typography from '@material-ui/core/Typography';
 
 const styles = theme => ({
     backButton: {
@@ -40,6 +43,9 @@ const styles = theme => ({
     },
     rows: {
         height: '100px'
+    },
+    flag: {
+        color: 'red'
     }
 
 })
@@ -77,6 +83,7 @@ class DirectoryPage extends Component {
                 </h1>
 
                 
+                
                 {nonprofitName==='Admin'? <h1>You are an ADMIN!</h1> : <h1>You are just a plain ol' user!</h1>}
                 
                
@@ -97,7 +104,7 @@ class DirectoryPage extends Component {
                     
                     <Table hover={true} size="large">
 
-                    {/* conditional rendering of the column headings based on the user being an admin or not */}
+                    {/* conditional rendering of the COLUMN HEADINGS based on the user being an admin or not */}
                     {
                         nonprofitName === 'Admin'? 
                         <TableHead>
@@ -106,7 +113,7 @@ class DirectoryPage extends Component {
                                 <TableCell align="left">Agency</TableCell>
                                 <TableCell align="left">Category</TableCell>
                                 <TableCell align="left">Flagged</TableCell>
-                                <TableCell align="center">Delete</TableCell>
+                                <TableCell align="center"></TableCell>
                             </TableRow>
                         </TableHead>
 
@@ -121,8 +128,11 @@ class DirectoryPage extends Component {
                                 <TableCell align="center">Website Link</TableCell>
                             </TableRow>
                         </TableHead>
-
                     }
+
+                    {/* conditional rendering of the TABLE ROWS based on the user being an admin or not */}
+                    {
+                        nonprofitName === 'Admin' ? 
                         <TableBody>
                             {this.props.reduxStore.directory.map(nonprofit => (
                                 <TableRow key={nonprofit.id} className={this.props.classes.rows} hover={true}>
@@ -133,13 +143,33 @@ class DirectoryPage extends Component {
                                                               {nonprofit.state}  
                                                               {nonprofit.zip_code}  </TableCell>
                                     <TableCell align="left">{nonprofit.category_id}</TableCell>
-                                    <TableCell align="left"><Button className={this.props.classes.backButton} variant="contained"
-                                                onClick={(event) => this.handleVolunteerButton(nonprofit.id)} >Volunteer</Button></TableCell>
+                                    <TableCell align="left"><AssistantPhoto fontSize="large" className={this.props.classes.flag}/></TableCell>
                                     <TableCell align="center"><Button className={this.props.classes.backButton} variant="contained">
-                                        <a className={this.props.classes.backButtonText} href={nonprofit.website} >Website</a></Button></TableCell>
+                                        <a className={this.props.classes.backButtonText} href={nonprofit.website} >Delete</a></Button></TableCell>
                                 </TableRow>
                             ))} 
                         </TableBody>
+
+                        :
+
+                        <TableBody>
+                            {this.props.reduxStore.directory.map(nonprofit => (
+                                <TableRow key={nonprofit.id} className={this.props.classes.rows} hover={true}>
+                                    <TableCell align="left">{nonprofit.logo}</TableCell>
+                                    <TableCell align="left">{nonprofit.name}<br />
+                                        {nonprofit.address}<br />
+                                        {nonprofit.city}, MN
+                                                        {nonprofit.state}
+                                        {nonprofit.zip_code}  </TableCell>
+                                    <TableCell align="left">{nonprofit.category_id}</TableCell>
+                                    <TableCell align="left"><Button className={this.props.classes.backButton} variant="contained"
+                                        onClick={(event) => this.handleVolunteerButton(nonprofit.id)} >Volunteer</Button></TableCell>
+                                    <TableCell align="center"><Button className={this.props.classes.backButton} variant="contained">
+                                        <a className={this.props.classes.backButtonText} href={nonprofit.website} >Website</a></Button></TableCell>
+                                </TableRow>
+                            ))}
+                        </TableBody>
+                    }
 
                     </Table>
                 </Paper>
