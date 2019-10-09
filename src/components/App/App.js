@@ -20,6 +20,7 @@ import AddEvent from '../AddEvent/AddEvent';
 import EditNonprofit from '../EditNonprofit/EditNonprofit';
 import OrganizationHome from '../OrganizationHome/OrganizationHome';
 // import NavLogin from '../NavLogin/NavLogin';
+import EventDetails from '../EventDetails/EventDetails';
 
 import './App.css';
 import AddVolunteerRoles from '../AddVolunteerRoles/AddVolunteerRoles';
@@ -73,6 +74,12 @@ class App extends Component {
               exact
               path="/organizationHome/:id"
               component={OrganizationHome}
+            />
+
+            <Route
+              exact
+              path="/eventDetails/:id"
+              component={EventDetails}
             />
             {/* For protected routes, the view could show one of several things on the same route.
             Visiting localhost:3000/home will show the UserPage if the user is logged in.
