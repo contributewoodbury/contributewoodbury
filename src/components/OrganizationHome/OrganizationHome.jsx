@@ -51,35 +51,34 @@ class OrganizationHome extends Component {
         this.props.history.push(`/eventDetails/${id}`);
     }//end handleVolunteerClick
 
+//      let editButton = ''
+// if (info.nonprofit_name === this.props.user.name) {
+//     editButton = <Button className={this.props.classes.button}>Edit Details</Button>
+// } 
+
     render() {
+        let nonprofitInfo = this.props.nonprofit[0] || 'a';
         return (
             <div className={this.props.classes.rootDiv}>
-                <Grid container spacing={3} justify="center">
-                   {
-                       this.props.nonprofit.map((name) => {
-                           return (<h1 key={name.id}>{name.nonprofit_name}</h1>)
-                       })
-                   }
+                <Grid container spacing={1} justify="center">
+                    <h1>{this.props.nonprofit[0] && this.props.nonprofit[0].nonprofit_name}</h1>
                 </Grid>
-                <Grid containter spacing={3}>
-                {
-                    this.props.nonprofit.map((info) => {
-                        let editButton = ''
-                        if (info.nonprofit_name  === this.props.user.name) {
-                            editButton = <Button>Edit Details</Button>  
-                        } 
-                        return <>
-                        <p key={info.id}>Contact Name: {info.contact_email}</p>
-                        <p>Organization Address: {info.address}</p>
-                        <p>{info.city} {info.zip_code}</p>
-                        <Link variant="body1" href={info.website} target="_blank">Link To Website</Link>
-                        <p>Organization Description: {info.description}</p>
-                        {editButton}
-                        </>
-                    })
-                }
+                <Grid container spacing={1}>
+                    <p>Contact: {this.props.nonprofit[0] && this.props.nonprofit[0].contact_email}</p>
                 </Grid>
-                <Grid container spacing={3} justify="center">
+                <Grid container spacing={1}>
+                    Organization Address: <br></br> <address>{this.props.nonprofit[0] && this.props.nonprofit[0].address} <br></br>
+                        {this.props.nonprofit[0] && this.props.nonprofit[0].city} &nbsp; {this.props.nonprofit[0] && this.props.nonprofit[0].zip_code}
+                    </address>
+                </Grid>
+                <Grid container spacing={1}>
+                    <Link variant="body1" href={this.props.nonprofit[0] && this.props.nonprofit[0].website} target="_blank">Link To Website</Link>
+                </Grid>
+                <Grid container spacing={1}>
+                    <p>Organization Description: {this.props.nonprofit[0] && this.props.nonprofit[0].description}</p>
+                </Grid>
+                {nonprofitInfo.nonprofit_name === this.props.user.name && <Button className={this.props.classes.button}>Edit Details</Button>}
+                <Grid container spacing={1} justify="center">
                     <h2>Event List</h2>
                 </Grid>
                 <Grid container spacing={3}>
@@ -90,6 +89,7 @@ class OrganizationHome extends Component {
                                     <CustomTableCell>Name</CustomTableCell>
                                     <CustomTableCell align="right">Event Date</CustomTableCell>
                                     <CustomTableCell align="right">Actions</CustomTableCell>
+
                                 </TableRow>
                             </TableHead>
                             <TableBody>
