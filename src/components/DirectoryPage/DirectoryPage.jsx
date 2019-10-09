@@ -77,7 +77,6 @@ class DirectoryPage extends Component {
         let sixMonthsBeforeTodaysDate = moment().subtract(6, "months").format("YYYY-MM-DD");
         // let lastConfirmed = moment(this.props.reduxStore.user.last_confirmed).format("YYYY-MM-DD");
 
-
         console.log("six months before todays date: ", sixMonthsBeforeTodaysDate);
 
 
