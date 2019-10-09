@@ -32,7 +32,7 @@ class VolunteerSignup extends Component {
 
     componentDidMount() {
         this.getEvent();
-        // this.getRoles();
+        // this.getRole();
     }
 
     //REVISIT THE WIREFRAME AND DATABASE TO MAKE SURE PROPERTIES MATCH
@@ -49,7 +49,7 @@ class VolunteerSignup extends Component {
         })
     }
 
-    // getRoles = () => {
+    // getRole = () => {
     //     console.log('in get roles');
     //     this.props.dispatch({
     //         type: 'GET_SPECIFIC_VOLUNTEERS',
@@ -83,12 +83,9 @@ class VolunteerSignup extends Component {
                 <h1 className={this.props.classes.heading} >Volunteers Sign Up</h1>
                 <Grid container spacing={0}>
                     <Grid item xs={12}>
-                        {/* <Card> */}
                             <CardContent>
                                 <NonprofitDetails />
-                        
                             </CardContent>
-                        {/* </Card> */}
                     </Grid>
 
                     <Grid item xs={12}>
@@ -103,10 +100,15 @@ class VolunteerSignup extends Component {
                                     <span>{item.city}, {item.state} {item.zip_code}</span><br/>
                                     </>
                                 ))}
-                                <h4>Volunteers Needed Role (3)</h4>
-                                <h5>Date: </h5>
-                                <h5>Time: </h5>
-                                <h5>Description: </h5>
+                                
+                                {this.props.role.map(each => (
+                                    <>
+                                    <h4>{each.name} ({each.number_needed} volunteers needed)</h4>
+                                    <h5>Date: {each.date} </h5>
+                                    <h5>Time: {each.start_time} - {each.end_time} </h5>
+                                    <h5>Description: {each.description} </h5>
+                                    </>
+                                ))}
                             </CardContent>
                     </Grid>
 
@@ -140,7 +142,7 @@ const mapStateToProps = reduxStore => {
     return {
         event: reduxStore.event.eventDetails,
         user: reduxStore.user,
-        role: reduxStore.volunteer
+        role: reduxStore.volunteer.volunteerRoleList
     }
 }
 
