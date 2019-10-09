@@ -16,19 +16,14 @@ const styles = theme => ({
 })
 
 class LoginPage extends Component {
-  // state = {
-  //   username: '',
-  //   password: '',
-  // };
-
-  //CHANGE HISTORY.PUSH TO CORRECT LINKS***************
+  
 handleBrowse = () => {
   console.log('browse nonprofits button clicked');
-  this.props.history.push('/about')
+  this.props.history.push('/directory')
 }
 
 handleSeeEvents = () => {
-  this.props.history.push('/about')
+  this.props.history.push('/calendar')
 }
 
 
@@ -59,22 +54,12 @@ handleSeeEvents = () => {
         <div>
           <center>
           <h3 className={this.props.classes.heading}>Are you a nonprofit? Share your upcoming events on our calendar!</h3>
-              <Button className="link-button" variant="contained"
+              <Button className={this.props.classes.buttons} variant="contained"
                 onClick={() => { this.props.dispatch({ type: 'SET_TO_REGISTER_MODE' }) }}>
                   I'm a nonprofit</Button>
           </center>
         </div>
         </div>
-
-        {/* <center>
-          <button
-            type="button"
-            className="link-button"
-            onClick={() => {this.props.dispatch({type: 'SET_TO_REGISTER_MODE'})}}
-          >
-            Register
-          </button>
-        </center> */}
       </div>
     );
   }

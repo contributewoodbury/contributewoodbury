@@ -1,14 +1,25 @@
 import React, { Component } from 'react';
 import {connect} from 'react-redux';
-import { Button } from '@material-ui/core';
+import { Button, TextField } from '@material-ui/core';
 import { withStyles } from '@material-ui/styles';
 
 
 
 const styles = theme => ({
-  backButton: {
+  button: {
     backgroundColor: '#457736',
-    color: 'white'
+    color: 'white',
+    margin: '20px'
+  },
+  textField: {
+    margin: '10px'
+  },
+  heading: {
+    color: '#714723'
+  },
+  form: {
+    display: 'flex-inline',
+    textAlign: 'center'
   }
 })
 
@@ -51,13 +62,16 @@ class RegisterPage extends Component {
             {this.props.errors.registrationMessage}
           </h2>
         )}
-        <form onSubmit={this.registerUser}>
-          <center>
-          <h1>Register User</h1>
+        <form className={this.props.classes.form} onSubmit={this.registerUser}>
+          {/* <center> */}
+          <h1 className={this.props.classes.heading} >Register your nonprofit organization to post and share your upcoming events!</h1>
           <div>
             <label htmlFor="username">
-              Username:
-              <input
+              {/* Username: */}
+              <TextField
+                className={this.props.classes.textField}
+                label="username"
+                variant="outlined"
                 type="text"
                 name="username"
                 value={this.state.username}
@@ -67,8 +81,11 @@ class RegisterPage extends Component {
           </div>
           <div>
             <label htmlFor="password">
-              Password:
-              <input
+              {/* Password: */}
+              <TextField
+                className={this.props.classes.textField}
+                label="password"
+                variant="outlined"
                 type="password"
                 name="password"
                 value={this.state.password}
@@ -77,19 +94,19 @@ class RegisterPage extends Component {
             </label>
           </div>
           <div>
-            <input
-              className="register"
+            <Button
+              className={this.props.classes.button}
               type="submit"
               name="submit"
               value="Register"
-            />
+            >Register</Button>
           </div>
-          </center>
+          {/* </center> */}
         </form>
         <center>
           <Button
             type="button"
-            className={this.props.classes.backButton}
+            className={this.props.classes.button}
             onClick={() => {this.props.dispatch({type: 'SET_TO_LOGIN_MODE'})}}
           >
             back
