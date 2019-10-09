@@ -1,11 +1,31 @@
+import moment from 'moment';
+import { combineReducers } from 'redux';
 
 const calendar = (state = [], action) => {
   switch (action.type) {
     case 'SET_CALENDAR':
-      return action.payload;
+      let calendar = { lastWeek: [], currentWeek: [], nextWeek: [], future: [] }
+      for (const event of action.payload) {
+        let endDate = moment(event.end_date).format('YYYYMMDD')
+        let now = moment(Date()).format('YYYYMMDD');
+        if (endDate < now && endDate > moment().subtract(7, 'days').format('YYYYMMDD')) {
+          console.log(endDate, 'now', now)
+          calendar.lastWeek.push(event);
+        } else if (endDate > now && endDate < moment().add(7, 'days').format('YYYYMMDD')) {
+          calendar.currentWeek.push(event);
+        } else if (endDate > moment().add(7, 'days').format('YYYYMMDD') && endDate < moment().add(13, 'days').format('YYYYMMDD')) {
+          console.log(moment().add(7, 'days').format('YYYYMMDD'))
+          calendar.nextWeek.push(event);
+        } else {
+          calendar.future.push(event);
+        }
+      }
+      return calendar;
     default:
       return state;
   }
 }
 
-export default calendar;
+export default combineReducers({
+  calendar,
+});
