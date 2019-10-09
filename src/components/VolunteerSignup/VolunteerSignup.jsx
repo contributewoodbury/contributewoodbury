@@ -36,6 +36,7 @@ class VolunteerSignup extends Component {
 
     componentDidMount() {
         this.getRoles();
+
     }
 
     //REVISIT THE WIREFRAME AND DATABASE TO MAKE SURE PROPERTIES MATCH
@@ -47,9 +48,11 @@ class VolunteerSignup extends Component {
     getRoles = () => {
         console.log('get roles id');
         this.props.dispatch({
-            type: 'GET_EVENT_DETAILS'
+            type: 'GET_EVENT_DETAILS',
+            payload: this.props.match.params.id
         })
     }
+
 
     handleBackButton = (id) => {
         console.log('back button was clicked');
@@ -77,15 +80,17 @@ class VolunteerSignup extends Component {
                     <Grid item xs={12}>
                         {/* <Card> */}
                             <CardContent>
+                            
                                 <h3>nonprofit information and logo goes here</h3>
                                 <div className={this.props.classes.nonprofitInfo} >
-                                    <img className={this.props.classes.logo} src="https://images.fastcompany.net/image/upload/w_596,c_limit,q_auto:best,f_auto/fc/3034007-inline-i-applelogo.jpg" alt=""/>
+                                    <img className={this.props.classes.logo} src={this.props.user.logo} alt=""/>
                                 </div>
-                                <div className={this.props.classes.nonprofitInfo} >
-                                    <p>nonprofit name<br/>
-                                        123 5th avenue S. <br/>
-                                        Woodbury, MN 55423
-                                    </p>
+                                <div className={this.props.classes.nonprofitInfo} >     
+                                    <>
+                                    <p>{this.props.user.name}<br />
+                                        {this.props.user.address}<br />
+                                        {this.props.user.city}, MN {this.props.user.zip_code} </p>
+                                     </>
                                 </div>
                             </CardContent>
                         {/* </Card> */}
@@ -95,6 +100,14 @@ class VolunteerSignup extends Component {
                         {/* <Card> */}
                             <CardContent>
                                 <h3>signup information goes here</h3>
+                                {this.props.event.map(item => (
+                                    <>
+                                    <span>Event: {item.description}</span><br/>
+                                    <span>Date: {item.start_date} - {item.end_date}</span><br/>
+                                    <span>Locatioan: {item.address}</span><br/>
+                                    <span>{item.city}, {item.state} {item.zip_code}</span><br/>
+                                    </>
+                                ))}
                                 <h4>Volunteers Needed Role (3)</h4>
                                 <h5>Date: </h5>
                                 <h5>Time: </h5>
@@ -129,7 +142,8 @@ class VolunteerSignup extends Component {
 
                 </Grid>
 
-                {JSON.stringify(this.props.reduxStore)}
+                {/* {JSON.stringify(this.props.event)}
+                {JSON.stringify(this.props.user)} */}
             </div>
         )
     }
@@ -137,7 +151,8 @@ class VolunteerSignup extends Component {
 
 const mapStateToProps = reduxStore => {
     return {
-        reduxStore
+        event: reduxStore.event.eventDetails,
+        user: reduxStore.user
     }
 }
 
