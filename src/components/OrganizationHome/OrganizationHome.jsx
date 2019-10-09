@@ -7,7 +7,7 @@ import TableCell from '@material-ui/core/TableCell';
 import TableHead from '@material-ui/core/TableHead';
 import TableRow from '@material-ui/core/TableRow';
 import Paper from '@material-ui/core/Paper';
-import {Button} from '@material-ui/core/';
+import {Button, Link} from '@material-ui/core/';
 import {connect} from 'react-redux';
 
 const CustomTableCell = withStyles(theme => ({
@@ -57,20 +57,24 @@ class OrganizationHome extends Component {
                 <Grid container spacing={3} justify="center">
                    {
                        this.props.nonprofit.map((name) => {
-                           return (<h1>{name.nonprofit_name}</h1>)
+                           return (<h1 key={name.id}>{name.nonprofit_name}</h1>)
                        })
                    }
                 </Grid>
                 <Grid containter spacing={3}>
                 {
                     this.props.nonprofit.map((info) => {
+                        let editButton = ''
+                        if (info.nonprofit_name  === this.props.user.name) {
+                            editButton = <Button>Edit Details</Button>  
+                        } 
                         return <>
-                        <p>Contact Name: {info.nonprofit_contact_email}</p>
-                        <p>Organization Address: {info.nonprofit_address}</p>
-                        <p>{info.city} {info.nonprofit_zip_code}</p>
-                        <a href={info.nonprofit_website}>Link to Website</a>
-                        <p>Organization Description:</p>
-                        <p>{info.nonprofit_description}</p>
+                        <p key={info.id}>Contact Name: {info.contact_email}</p>
+                        <p>Organization Address: {info.address}</p>
+                        <p>{info.city} {info.zip_code}</p>
+                        <Link variant="body1" href={info.website} target="_blank">Link To Website</Link>
+                        <p>Organization Description: {info.description}</p>
+                        {editButton}
                         </>
                     })
                 }
@@ -91,14 +95,18 @@ class OrganizationHome extends Component {
                             <TableBody>
                             {
                                 this.props.nonprofit.map((info) => {
+                                    if (info.event_id) {
                                     return <>
-                                    <TableRow>
-                                    <CustomTableCell>{info.name}</CustomTableCell>
+                                    <TableRow key={info.id}>
+                                    <CustomTableCell>{info.event_name}</CustomTableCell>
                                     <CustomTableCell align="right">{info.start_date}</CustomTableCell>
                                     <CustomTableCell align="right"><Button className={this.props.classes.button}
-                                        onClick={() => {this.handleVolunteerClick(info.id)}}>Volunteer</Button></CustomTableCell>
+                                        onClick={() => {this.handleVolunteerClick(info.event_id)}}>Volunteer</Button></CustomTableCell>
                                     </TableRow>
                                     </>
+                                    } else {
+                                        return <p>No listed events</p>
+                                    }
                                 })
                             }
                             </TableBody>
@@ -113,7 +121,8 @@ class OrganizationHome extends Component {
 
 const mapStateToProps = (state) => {
     return {
-        nonprofit: state.nonprofit
+        nonprofit: state.nonprofit,
+        user: state.user
     }
 }
 
