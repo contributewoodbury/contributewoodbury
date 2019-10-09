@@ -11,9 +11,22 @@ function* getDirectory() {
   }
 }
 
+function* search(action) {
+  try {
+    let response = yield axios.get(`/api/directory?q=${action.payload}`);
+    yield put({
+      type: 'SET_DIRECTORY',
+      payload: response.data
+    })
+  } catch (error) {
+    console.log('error in search request', error);
+  }
+}
+
 //root saga
 function* directorySaga(){
-  yield takeLatest('GET_DIRECTORY', getDirectory)
+  yield takeLatest('GET_DIRECTORY', getDirectory);
+  yield takeLatest('SEARCH', search);
 }
 
 export default directorySaga;

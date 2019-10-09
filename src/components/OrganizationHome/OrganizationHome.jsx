@@ -61,9 +61,10 @@ class OrganizationHome extends Component {
                        })
                    }
                 </Grid>
-                <Grid containter spacing={3}>
-                {
-                    this.props.nonprofit.map((info) => {
+                <Grid container spacing={3}>
+                { this.props.nonprofit[0] ?
+                    this.props.nonprofit.map((i, info) => {
+                        if({i}== 0){
                         let editButton = ''
                         if (info.nonprofit_name  === this.props.user.name) {
                             editButton = <Button>Edit Details</Button>  
@@ -76,7 +77,7 @@ class OrganizationHome extends Component {
                         <p>Organization Description: {info.description}</p>
                         {editButton}
                         </>
-                    })
+                    } else {return false}}) : "oops"
                 }
                 </Grid>
                 <Grid container spacing={3} justify="center">

@@ -36,7 +36,7 @@ const styles = theme => ({
         float: 'right',
         width: '50%',
         margin: theme.spacing.unit * 3,
-        
+
     },
     rows: {
         height: '100px'
@@ -46,6 +46,10 @@ const styles = theme => ({
 
 
 class DirectoryPage extends Component {
+
+    state = {
+        searchbar: ''
+    }
     componentDidMount() {
         this.getOrganizationDetails();
     }
@@ -60,31 +64,41 @@ class DirectoryPage extends Component {
     handleVolunteerButton = (id) => {
         console.log('volunteer button for id:', id);
         this.props.history.push(`/organizationhome/${id}`)
-        
+
     }
 
+    searchbarInput = (event) => {
+        this.setState({
+            searchbar: event.target.value
+        });
+    }
 
+    searchSubmit = (event) => {
+        event.preventDefault();
+        console.log("searched");
+        this.props.dispatch({ type: 'SEARCH', payload: this.state.searchbar });
+    }
 
     render() {
 
 
-        return(
+        return (
             <div>
                 <h1>
-                    In Directory Page
+                    Directory
                 </h1>
-
-                
 
                 <Paper className={this.props.classes.root}>
 
                     <div className={this.props.classes.search}>
-                        <Paper elevation={1}>
-                            <IconButton aria-label="Search">
-                                <SearchIcon />
-                            </IconButton>
-                            <InputBase placeholder="Search Local Nonprofits" />
-                            <Divider/>
+                        <Paper elevation={2}>
+                            <form onSubmit={this.searchSubmit}>
+                                <IconButton aria-label="Search" onClick={this.searchSubmit} >
+                                    <SearchIcon />
+                                </IconButton>
+                                <InputBase placeholder="Search Local Nonprofits" onChange={this.searchbarInput} value={this.state.searchbar} />
+                            </form>
+                            <Divider />
                         </Paper>
                     </div>
 
@@ -101,29 +115,29 @@ class DirectoryPage extends Component {
                         <TableBody>
 
                             {this.props.reduxStore.directory.map((nonprofit) => {
-                            if (nonprofit.name !== 'Admin') {
-                                return (
-                                <TableRow key={nonprofit.id} className={this.props.classes.rows} hover={true}>
-                                    <TableCell align="left">{nonprofit.logo}</TableCell>
-                                    <TableCell align="left">{nonprofit.name}<br/>
-                                                              {nonprofit.address}<br/>
-                                                              {nonprofit.city}, MN 
-                                                              {nonprofit.state}  
-                                                              {nonprofit.zip_code}  </TableCell>
-                                    <TableCell align="left">{nonprofit.category_id}</TableCell>
-                                    <TableCell align="left"><Button className={this.props.classes.backButton} variant="contained"
+                                if (nonprofit.name !== 'Admin') {
+                                    return (
+                                        <TableRow key={nonprofit.id} className={this.props.classes.rows} hover={true}>
+                                            <TableCell align="left">{nonprofit.logo}</TableCell>
+                                            <TableCell align="left">{nonprofit.name}<br />
+                                                {nonprofit.address}<br />
+                                                {nonprofit.city}, MN &nbsp;
+                                                              {nonprofit.state}
+                                                {nonprofit.zip_code}  </TableCell>
+                                            <TableCell align="left">{nonprofit.category_id}</TableCell>
+                                            <TableCell align="left"><Button className={this.props.classes.backButton} variant="contained"
                                                 onClick={(event) => this.handleVolunteerButton(nonprofit.id)} >Volunteer</Button></TableCell>
-                                    <TableCell align="center"><Button className={this.props.classes.backButton} variant="contained">
-                                        <a className={this.props.classes.backButtonText} href={nonprofit.website} >Website</a></Button></TableCell>
-                                </TableRow>
-                            )}})}
+                                            <TableCell align="center"><Button className={this.props.classes.backButton} variant="contained">
+                                                <a className={this.props.classes.backButtonText} href={nonprofit.website} >Website</a></Button></TableCell>
+                                        </TableRow>
+                                    )
+                                }
+                            })}
 
-                           
+
                         </TableBody>
                     </Table>
                 </Paper>
-
-                {JSON.stringify(this.props.reduxStore.directory)}
             </div>
         )
 
@@ -139,4 +153,4 @@ const mapStateToProps = reduxStore => {
     }
 }
 
-export default withStyles(styles) (connect(mapStateToProps)(DirectoryPage));
+export default withStyles(styles)(connect(mapStateToProps)(DirectoryPage));
