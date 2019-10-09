@@ -67,15 +67,19 @@ class DirectoryPage extends Component {
 
     render() {
 
+        const nonprofitName = this.props.reduxStore.user.name;
+        
 
         return(
             <div>
                 <h1>
-                    In Directory Page
+                    Nonprofit Directory Page
                 </h1>
 
                 
-
+                {nonprofitName==='Admin'? <h1>You are an ADMIN!</h1> : <h1>You are just a plain ol' user!</h1>}
+                
+               
                 <Paper className={this.props.classes.root}>
 
                     <div className={this.props.classes.search}>
@@ -88,7 +92,26 @@ class DirectoryPage extends Component {
                         </Paper>
                     </div>
 
+                    {/* {nonprofitName === 'Admin' ? <h1>You are an ADMIN!</h1> : <h1>You are just a plain ol' user!</h1>} */}
+
+                    
                     <Table hover={true} size="large">
+
+                    {/* conditional rendering of the column headings based on the user being an admin or not */}
+                    {
+                        nonprofitName === 'Admin'? 
+                        <TableHead>
+                            <TableRow className={this.props.classes.rows}>
+                                <TableCell align="left">Image</TableCell>
+                                <TableCell align="left">Agency</TableCell>
+                                <TableCell align="left">Category</TableCell>
+                                <TableCell align="left">Flagged</TableCell>
+                                <TableCell align="center">Delete</TableCell>
+                            </TableRow>
+                        </TableHead>
+
+                        :
+
                         <TableHead>
                             <TableRow className={this.props.classes.rows}>
                                 <TableCell align="left">Image</TableCell>
@@ -98,8 +121,9 @@ class DirectoryPage extends Component {
                                 <TableCell align="center">Website Link</TableCell>
                             </TableRow>
                         </TableHead>
-                        <TableBody>
 
+                    }
+                        <TableBody>
                             {this.props.reduxStore.directory.map(nonprofit => (
                                 <TableRow key={nonprofit.id} className={this.props.classes.rows} hover={true}>
                                     <TableCell align="left">{nonprofit.logo}</TableCell>
@@ -114,14 +138,16 @@ class DirectoryPage extends Component {
                                     <TableCell align="center"><Button className={this.props.classes.backButton} variant="contained">
                                         <a className={this.props.classes.backButtonText} href={nonprofit.website} >Website</a></Button></TableCell>
                                 </TableRow>
-                            ))}
-
-                           
+                            ))} 
                         </TableBody>
+
                     </Table>
                 </Paper>
 
                 {JSON.stringify(this.props.reduxStore.directory)}
+                <br/>
+                <br/>
+                {JSON.stringify(this.props.reduxStore.user)}
             </div>
         )
 
