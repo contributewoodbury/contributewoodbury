@@ -1,4 +1,4 @@
-import { put, takeLatest } from 'redux-saga/effects';
+import { put, takeLatest, takeEvery } from 'redux-saga/effects';
 import axios from 'axios';
 
 //worker saga: requests all volunteer roles for this specific event.
@@ -49,7 +49,7 @@ function* volunteerSignUp(action) {
 
 //root saga
 function* volunteerSaga() {
-  yield takeLatest('GET_EVENT_DETAILS', getVolunteerRoles);
+  yield takeEvery('GET_EVENT_DETAILS', getVolunteerRoles);
   yield takeLatest('GET_SPECIFIC_VOLUNTEERS', getSpecificVolunteers);
   yield takeLatest('ADD_VOLUNTEERS', addVolunteers);
   yield takeLatest('VOLUNTEER_SIGNUP', volunteerSignUp);

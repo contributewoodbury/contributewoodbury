@@ -59,7 +59,7 @@ class DirectoryPage extends Component {
 
     handleVolunteerButton = (id) => {
         console.log('volunteer button for id:', id);
-        this.props.history.push(`/organizationhome/{id}`)
+        this.props.history.push(`/organizationhome/${id}`)
         
     }
 

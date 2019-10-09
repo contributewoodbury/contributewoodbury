@@ -46,8 +46,9 @@ class OrganizationHome extends Component {
         })
     }//end componentDidMount
 
-    handleVolunteerClick = () => {
+    handleVolunteerClick = (id) => {
         console.log('clicked');
+        this.props.history.push(`/eventDetails/${id}`);
     }//end handleVolunteerClick
 
     render() {
@@ -95,7 +96,7 @@ class OrganizationHome extends Component {
                                     <CustomTableCell>{info.name}</CustomTableCell>
                                     <CustomTableCell align="right">{info.start_date}</CustomTableCell>
                                     <CustomTableCell align="right"><Button className={this.props.classes.button}
-                                        onClick={this.handleVolunteerClick}>Volunteer</Button></CustomTableCell>
+                                        onClick={() => {this.handleVolunteerClick(info.id)}}>Volunteer</Button></CustomTableCell>
                                     </TableRow>
                                     </>
                                 })
