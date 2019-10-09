@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { Button, Grid, Card, CardContent, TextField } from '@material-ui/core';
 import { withStyles } from '@material-ui/styles';
+import SignupForm from '../SignupForm/SignupForm';
 
 const styles = theme => ({
     rootDiv: {
@@ -18,24 +19,25 @@ const styles = theme => ({
         float: 'right',
         color: 'white',
         backgroundColor: '#457736',
+        margin: '0px 330px 0px 0px'
     },
-    saveButton: {
-        color: 'white',
-        backgroundColor: '#457736',
-        margin: '10px 10px 10px 30px',
+    logo: {
+        height: '80px',
     },
-    textFields: {
-        margin: '10px 10px 10px 30px',
-        width: '300px'
-    },
-    messageInput: {
-        margin: '10px 10px 10px 30px',
-        width: '645px'
+    nonprofitInfo: {
+        display: 'inline-block',
+        padding: '20px',
     }
 })
 
 
 class VolunteerSignup extends Component {
+
+
+
+    state = {
+
+    }
 
 
 
@@ -48,47 +50,46 @@ class VolunteerSignup extends Component {
             // REMOVE CARDS WHEN DONE
             <div className={this.props.classes.rootDiv} >
                 <h1 className={this.props.classes.heading} >Volunteers Sign Up</h1>
-                <Grid container spacing={3}>
+                <Grid container spacing={0}>
                     <Grid item xs={12}>
-                        <Card>
+                        {/* <Card> */}
                             <CardContent>
                                 <h3>nonprofit information and logo goes here</h3>
+                                <div className={this.props.classes.nonprofitInfo} >
+                                    <img className={this.props.classes.logo} src="https://images.fastcompany.net/image/upload/w_596,c_limit,q_auto:best,f_auto/fc/3034007-inline-i-applelogo.jpg" alt=""/>
+                                </div>
+                                <div className={this.props.classes.nonprofitInfo} >
+                                    <p>nonprofit name<br/>
+                                        123 5th avenue S. <br/>
+                                        Woodbury, MN 55423
+                                    </p>
+                                </div>
                             </CardContent>
-                        </Card>
+                        {/* </Card> */}
                     </Grid>
 
                     <Grid item xs={12}>
-                        <Card>
+                        {/* <Card> */}
                             <CardContent>
                                 <h3>signup information goes here</h3>
+                                <h4>Volunteers Needed Role (3)</h4>
+                                <h5>Date: </h5>
+                                <h5>Time: </h5>
+                                <h5>Description: </h5>
                             </CardContent>
-                        </Card>
+                        {/* </Card> */}
                     </Grid>
 
                     <Grid item xs={12}>
-                        <Card>
-                            <CardContent>
-                                <h3>inputs go here</h3>
-                                <TextField className={this.props.classes.textFields} type="text" placeholder="First Name" variant="outlined" label="First Name" />
-                                <TextField className={this.props.classes.textFields} type="text" placeholder="Last Name" variant="outlined" label="Last Name" />
-                                <br/>
-                                <TextField className={this.props.classes.textFields} type="text" placeholder="email" variant="outlined" label="email" />
-                                <TextField className={this.props.classes.textFields} type="text" placeholder="phone number" variant="outlined" label="phone number" />
-                                <br/>
-                                <TextField className={this.props.classes.messageInput} type="text" 
-                                            placeholder="Let us know your needs. Can you volunteer for more or less hours than needed? Do you have questions?" 
-                                            variant="outlined" label="Message" multiline rows={4} />
-                                <Button variant="contained" className={this.props.classes.saveButton} >Save</Button>
-                            </CardContent>
-                        </Card>
+                        <SignupForm />
                     </Grid>
 
                     <Grid item xs={12}>
-                        <Card>
+                        {/* <Card> */}
                             <CardContent>
                                 <h3>volunteers added goes here</h3>
                             </CardContent>
-                        </Card>
+                        {/* </Card> */}
                     </Grid>
 
                     <Grid item xs={12}>
