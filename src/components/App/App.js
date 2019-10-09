@@ -19,11 +19,12 @@ import InfoPage from '../InfoPage/InfoPage';
 import AddEvent from '../AddEvent/AddEvent';
 import EditNonprofit from '../EditNonprofit/EditNonprofit';
 import OrganizationHome from '../OrganizationHome/OrganizationHome';
-// import NavLogin from '../NavLogin/NavLogin';
+
 
 import './App.css';
 import AddVolunteerRoles from '../AddVolunteerRoles/AddVolunteerRoles';
 import DirectoryPage from '../DirectoryPage/DirectoryPage';
+import VolunteerSignup from '../VolunteerSignup/VolunteerSignup';
 
 class App extends Component {
   componentDidMount () {
@@ -46,12 +47,11 @@ class App extends Component {
               component={AboutPage}
             />
 
-            {/* NavLogin Test Route */}
-            {/* <Route
+            <Route
               exact
-              path="/navlogin"
-              component={NavLogin}
-              /> */}
+              path="/signup"
+              component={VolunteerSignup}
+              />
 
             <ProtectedRoute
               exact
