@@ -25,7 +25,7 @@ const Calendar = () => {
   }
 
   function eventItem(event) {
-    let path = `/event/${event.id}`;
+    let path = `/eventDetails/${event.id}`;
     return (
       <>
         <Grid item md={12} key={event.id}> <b>Event:</b> {event.name} &nbsp;
