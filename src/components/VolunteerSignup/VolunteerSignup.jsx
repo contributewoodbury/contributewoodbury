@@ -31,8 +31,8 @@ const styles = theme => ({
 class VolunteerSignup extends Component {
 
     componentDidMount() {
-        this.getRoles();
-
+        this.getEvent();
+        // this.getRoles();
     }
 
     //REVISIT THE WIREFRAME AND DATABASE TO MAKE SURE PROPERTIES MATCH
@@ -41,13 +41,22 @@ class VolunteerSignup extends Component {
 
     }
 
-    getRoles = () => {
+    getEvent = () => {
         console.log('get roles id');
         this.props.dispatch({
             type: 'GET_EVENT_DETAILS',
             payload: this.props.match.params.id
         })
     }
+
+    // getRoles = () => {
+    //     console.log('in get roles');
+    //     this.props.dispatch({
+    //         type: 'GET_SPECIFIC_VOLUNTEERS',
+    //         payload: 2
+    //     })
+        
+    // }
 
 
     handleBackButton = (id) => {
@@ -120,6 +129,7 @@ class VolunteerSignup extends Component {
                             </CardContent>
                     </Grid>
                 </Grid>
+                {JSON.stringify(this.props.role)}
 
             </div>
         )
@@ -129,7 +139,8 @@ class VolunteerSignup extends Component {
 const mapStateToProps = reduxStore => {
     return {
         event: reduxStore.event.eventDetails,
-        user: reduxStore.user
+        user: reduxStore.user,
+        role: reduxStore.volunteer
     }
 }
 
