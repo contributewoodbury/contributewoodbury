@@ -1,4 +1,4 @@
-import React, {Component} from 'react';
+import React, { Component } from 'react';
 import {
   HashRouter as Router,
   Route,
@@ -6,7 +6,7 @@ import {
   Switch,
 } from 'react-router-dom';
 
-import {connect} from 'react-redux';
+import { connect } from 'react-redux';
 
 import Nav from '../Nav/Nav';
 import Footer from '../Footer/Footer';
@@ -19,16 +19,19 @@ import InfoPage from '../InfoPage/InfoPage';
 import AddEvent from '../AddEvent/AddEvent';
 import EditNonprofit from '../EditNonprofit/EditNonprofit';
 import OrganizationHome from '../OrganizationHome/OrganizationHome';
+// import NavLogin from '../NavLogin/NavLogin';
+import EventDetails from '../EventDetails/EventDetails';
 
 
 import './App.css';
 import AddVolunteerRoles from '../AddVolunteerRoles/AddVolunteerRoles';
+import Calendar from '../Calendar/Calendar';
 import DirectoryPage from '../DirectoryPage/DirectoryPage';
 import VolunteerSignup from '../VolunteerSignup/VolunteerSignup';
 
 class App extends Component {
-  componentDidMount () {
-    this.props.dispatch({type: 'FETCH_USER'})
+  componentDidMount() {
+    this.props.dispatch({ type: 'FETCH_USER' })
   }
 
   render() {
@@ -47,6 +50,12 @@ class App extends Component {
               component={AboutPage}
             />
 
+            <Route
+              exact
+              path="/calendar"
+              component={Calendar}
+            />
+            {/* NavLogin Test Route */}
             <Route
               exact
               path="/signup/:id"
@@ -85,6 +94,11 @@ class App extends Component {
               component={OrganizationHome}
             />
 
+            <Route
+              exact
+              path="/eventDetails/:id"
+              component={EventDetails}
+            />
             {/* For protected routes, the view could show one of several things on the same route.
             Visiting localhost:3000/home will show the UserPage if the user is logged in.
             If the user is not logged in, the ProtectedRoute will show the 'Login' or 'Register' page.
@@ -107,7 +121,8 @@ class App extends Component {
           <Footer />
         </div>
       </Router>
-  )}
+    )
+  }
 }
 
 

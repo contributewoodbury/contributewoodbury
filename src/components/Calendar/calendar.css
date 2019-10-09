@@ -1,0 +1,13 @@
+.calendarPage {
+  margin-left: 5px;
+}
+
+.calendarHeader {
+  display: flex;
+  justify-content: center;
+}
+
+.calendarDividers {
+  font-size: 1.2rem;
+  background-color: rgba(73, 73, 73, 0.185);
+}
