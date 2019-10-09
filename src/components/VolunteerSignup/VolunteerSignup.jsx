@@ -3,6 +3,8 @@ import { connect } from 'react-redux';
 import { Button, Grid, Card, CardContent, TextField } from '@material-ui/core';
 import { withStyles } from '@material-ui/styles';
 import SignupForm from '../SignupForm/SignupForm';
+import NonprofitDetails from '../NonprofitDetails/NonprofitDetails';
+
 
 const styles = theme => ({
     rootDiv: {
@@ -22,13 +24,7 @@ const styles = theme => ({
         backgroundColor: '#457736',
         margin: '0px 330px 0px 0px'
     },
-    logo: {
-        height: '80px',
-    },
-    nonprofitInfo: {
-        display: 'inline-block',
-        padding: '20px',
-    }
+    
 })
 
 
@@ -80,31 +76,21 @@ class VolunteerSignup extends Component {
                     <Grid item xs={12}>
                         {/* <Card> */}
                             <CardContent>
-                            
-                                <h3>nonprofit information and logo goes here</h3>
-                                <div className={this.props.classes.nonprofitInfo} >
-                                    <img className={this.props.classes.logo} src={this.props.user.logo} alt=""/>
-                                </div>
-                                <div className={this.props.classes.nonprofitInfo} >     
-                                    <>
-                                    <p>{this.props.user.name}<br />
-                                        {this.props.user.address}<br />
-                                        {this.props.user.city}, MN {this.props.user.zip_code} </p>
-                                     </>
-                                </div>
+                                <NonprofitDetails />
+                        
                             </CardContent>
                         {/* </Card> */}
                     </Grid>
 
                     <Grid item xs={12}>
-                        {/* <Card> */}
                             <CardContent>
                                 <h3>signup information goes here</h3>
                                 {this.props.event.map(item => (
                                     <>
-                                    <span>Event: {item.description}</span><br/>
+                                    <span>Event: {item.name}</span><br/>
+                                    <span>Description: {item.description}</span><br/>
                                     <span>Date: {item.start_date} - {item.end_date}</span><br/>
-                                    <span>Locatioan: {item.address}</span><br/>
+                                    <span>Location: {item.address} </span>
                                     <span>{item.city}, {item.state} {item.zip_code}</span><br/>
                                     </>
                                 ))}
@@ -113,7 +99,6 @@ class VolunteerSignup extends Component {
                                 <h5>Time: </h5>
                                 <h5>Description: </h5>
                             </CardContent>
-                        {/* </Card> */}
                     </Grid>
 
                     <Grid item xs={12}>
@@ -121,29 +106,21 @@ class VolunteerSignup extends Component {
                     </Grid>
 
                     <Grid item xs={12}>
-                        {/* <Card> */}
                             <CardContent>
                                 <h3>volunteers added goes here</h3>
                             </CardContent>
-                        {/* </Card> */}
                     </Grid>
 
                     <Grid item xs={12}>
-                        {/* <Card> */}
                             <CardContent>
-                                {/* <h3>back and done buttons here</h3> */}
                                 <Button className={this.props.classes.backButton} variant="contained" 
                                     onClick={this.handleBackButton} >back</Button>
                                 <Button className={this.props.classes.doneButton} variant="contained"
                                     onClick={this.handleDoneButton} >Done</Button>
                             </CardContent>
-                        {/* </Card> */}
                     </Grid>
-
                 </Grid>
 
-                {/* {JSON.stringify(this.props.event)}
-                {JSON.stringify(this.props.user)} */}
             </div>
         )
     }
