@@ -1,7 +1,10 @@
 import React, { Component } from 'react';
+import { connect } from 'react-redux';
 import { Button, Grid, Card, CardContent, TextField } from '@material-ui/core';
 import { withStyles } from '@material-ui/styles';
 import SignupForm from '../SignupForm/SignupForm';
+import NonprofitDetails from '../NonprofitDetails/NonprofitDetails';
+
 
 const styles = theme => ({
     rootDiv: {
@@ -21,24 +24,52 @@ const styles = theme => ({
         backgroundColor: '#457736',
         margin: '0px 330px 0px 0px'
     },
-    logo: {
-        height: '80px',
-    },
-    nonprofitInfo: {
-        display: 'inline-block',
-        padding: '20px',
-    }
+    
 })
 
 
 class VolunteerSignup extends Component {
 
+    componentDidMount() {
+        this.getEvent();
+        // this.getRoles();
+    }
 
-
+    //REVISIT THE WIREFRAME AND DATABASE TO MAKE SURE PROPERTIES MATCH
     state = {
+
 
     }
 
+    getEvent = () => {
+        console.log('get roles id');
+        this.props.dispatch({
+            type: 'GET_EVENT_DETAILS',
+            payload: this.props.match.params.id
+        })
+    }
+
+    // getRoles = () => {
+    //     console.log('in get roles');
+    //     this.props.dispatch({
+    //         type: 'GET_SPECIFIC_VOLUNTEERS',
+    //         payload: 2
+    //     })
+        
+    // }
+
+
+    handleBackButton = (id) => {
+        console.log('back button was clicked');
+        //ADD SWEETALERT
+        this.props.history.push(`/organizationHome/${id}`) 
+    }
+
+    handleDoneButton = () => {
+        console.log('done button was clicked');
+        //ADD SWEETALERT: YOURE DONE! OR SOMETHING SIMILAR
+        this.props.history.push(`/organizationHome`)
+    }
 
 
     render () {
@@ -54,30 +85,29 @@ class VolunteerSignup extends Component {
                     <Grid item xs={12}>
                         {/* <Card> */}
                             <CardContent>
-                                <h3>nonprofit information and logo goes here</h3>
-                                <div className={this.props.classes.nonprofitInfo} >
-                                    <img className={this.props.classes.logo} src="https://images.fastcompany.net/image/upload/w_596,c_limit,q_auto:best,f_auto/fc/3034007-inline-i-applelogo.jpg" alt=""/>
-                                </div>
-                                <div className={this.props.classes.nonprofitInfo} >
-                                    <p>nonprofit name<br/>
-                                        123 5th avenue S. <br/>
-                                        Woodbury, MN 55423
-                                    </p>
-                                </div>
+                                <NonprofitDetails />
+                        
                             </CardContent>
                         {/* </Card> */}
                     </Grid>
 
                     <Grid item xs={12}>
-                        {/* <Card> */}
                             <CardContent>
                                 <h3>signup information goes here</h3>
+                                {this.props.event.map(item => (
+                                    <>
+                                    <span>Event: {item.name}</span><br/>
+                                    <span>Description: {item.description}</span><br/>
+                                    <span>Date: {item.start_date} - {item.end_date}</span><br/>
+                                    <span>Location: {item.address} </span>
+                                    <span>{item.city}, {item.state} {item.zip_code}</span><br/>
+                                    </>
+                                ))}
                                 <h4>Volunteers Needed Role (3)</h4>
                                 <h5>Date: </h5>
                                 <h5>Time: </h5>
                                 <h5>Description: </h5>
                             </CardContent>
-                        {/* </Card> */}
                     </Grid>
 
                     <Grid item xs={12}>
@@ -85,27 +115,35 @@ class VolunteerSignup extends Component {
                     </Grid>
 
                     <Grid item xs={12}>
-                        {/* <Card> */}
                             <CardContent>
                                 <h3>volunteers added goes here</h3>
                             </CardContent>
-                        {/* </Card> */}
                     </Grid>
 
                     <Grid item xs={12}>
-                        {/* <Card> */}
                             <CardContent>
-                                {/* <h3>back and done buttons here</h3> */}
-                                <Button className={this.props.classes.backButton} variant="contained" >back</Button>
-                                <Button className={this.props.classes.doneButton} variant="contained">Done</Button>
+                                <Button className={this.props.classes.backButton} variant="contained" 
+                                    onClick={this.handleBackButton} >back</Button>
+                                <Button className={this.props.classes.doneButton} variant="contained"
+                                    onClick={this.handleDoneButton} >Done</Button>
                             </CardContent>
-                        {/* </Card> */}
                     </Grid>
-
                 </Grid>
+                {JSON.stringify(this.props.role)}
+
             </div>
         )
     }
 }
 
-export default withStyles(styles) (VolunteerSignup);
+const mapStateToProps = reduxStore => {
+    return {
+        event: reduxStore.event.eventDetails,
+        user: reduxStore.user,
+        role: reduxStore.volunteer
+    }
+}
+
+
+
+export default withStyles(styles) (connect(mapStateToProps) (VolunteerSignup));
