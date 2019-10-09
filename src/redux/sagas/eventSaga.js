@@ -1,11 +1,13 @@
-import { put, takeLatest } from 'redux-saga/effects';
+import { put, takeLatest, takeEvery } from 'redux-saga/effects';
 import axios from 'axios';
 
 //worker Saga: requests all details on a specific event
 function* getEventDetails (action){
   try {
     let response = yield axios.get(`/api/event/${action.payload}`);
+    console.log(response.data)
     yield put ({ type: 'SET_EVENT_DETAILS', payload: response.data });
+    yield put({ type: 'GET_NONPROFIT', payload: response.data[0].non_profit_id });
   } catch (error) {
     console.log('error in getEventDetails', error);
   }
@@ -27,7 +29,7 @@ function* addEvent(action) {
 
 //root saga
 function* eventSaga(){
-  yield takeLatest('GET_EVENT_DETAILS', getEventDetails);
+  yield takeEvery('GET_EVENT_DETAILS', getEventDetails);
   yield takeLatest('ADD_EVENT', addEvent);
 }
 

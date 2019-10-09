@@ -4,7 +4,7 @@ const router = express.Router();
 const { rejectUnauthenticated } = require('../modules/authentication-middleware');
 
 //gets the roles for a specifc event
-router.get('/role/:id', rejectUnauthenticated, (req, res) => {
+router.get('/role/:id', (req, res) => {
   let queryText = `SELECT * FROM "role" WHERE "event_id" = $1;`;
   pool.query(queryText, [req.params.id])
   .then((results) => {

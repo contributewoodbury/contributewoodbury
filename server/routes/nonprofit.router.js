@@ -5,20 +5,43 @@ const { rejectUnauthenticated } = require('../modules/authentication-middleware'
 
 //get the nonprofit's information from the database
 router.get('/:id', (req, res) => {
-    let queryText =  `SELECT "event".name, "event".id, "event".start_date, "nonprofit".name AS "nonprofit_name", 
-        "nonprofit".address AS "nonprofit_address", "nonprofit".city 
-        AS "nonprofit_city", "nonprofit".zip_code AS "nonprofit_zip_code", "nonprofit".contact_email 
-        AS "nonprofit_contact_email", "nonprofit".description AS "nonprofit_description"  FROM "event" 
-        JOIN "nonprofit" ON "nonprofit".id = "event".non_profit_id
-        WHERE "nonprofit".id = $1;`;
-    let id = req.params.id
+    let queryText = `SELECT * FROM "event" WHERE "non_profit_id" = $1;`;
+    let id = req.params.id;
     pool.query(queryText, [id])
+        .then((result) => {
+            console.log(result.rows)
+            if (result.rows[0]) {
+        let queryText = `SELECT "event".name AS "event_name", "event".id AS "event_id", "event".start_date, "nonprofit".name AS "nonprofit_name", 
+         "nonprofit".address, "nonprofit".city, "nonprofit".zip_code, "nonprofit".contact_email, "nonprofit".description, "nonprofit".logo, "nonprofit".website FROM "nonprofit" 
+        JOIN "event" ON "nonprofit".id = "event".non_profit_id
+         WHERE "nonprofit".id = $1;`;
+        let id = req.params.id
+        pool.query(queryText, [id])
         .then((result) => {
             res.send(result.rows)
         })
         .catch((error) => {
             console.log('error in nonprofit GET', error);
             res.sendStatus(500);
+        })
+            } else {
+                 let secondQueryText = `SELECT "nonprofit".name AS "nonprofit_name", "nonprofit".address, 
+                 "nonprofit".city, "nonprofit".zip_code, "nonprofit".contact_email, 
+                 "nonprofit".description, "nonprofit".logo, "nonprofit".website FROM "nonprofit" WHERE "id" = $1;`;
+                let id = req.params.id;
+                pool.query(secondQueryText, [id])
+                    .then((result) => {
+                        console.log(result.rows)
+                        res.send(result.rows)
+                    })
+                    .catch((error) => {
+                        console.log('error in nonprofit GET second', error)
+                        res.sendStatus(500);
+                    })
+            }
+        }).catch((error) => {
+            console.log('error in nonprofit get', error)
+            res.sendStatus(500)
         })
 })
 

@@ -34,6 +34,8 @@ router.get('/nonprofit/:id', rejectUnauthenticated, (req,res) => {
 
 // grabs details of a specific event
 router.get('/:id', (req, res) => {
+  console.log('get details of event for this id:', req.params.id);
+  
   let queryText = 'SELECT * FROM "event" WHERE "id" = $1;';
   pool.query(queryText, [req.params.id])
   .then((results) => {
