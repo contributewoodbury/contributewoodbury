@@ -137,7 +137,7 @@ class DirectoryPage extends Component {
                                 </TableRow>
                             )}})}
 
-
+                        </TableBody>
                         {/* conditional rendering of the COLUMN HEADINGS based on the user being an admin or not */}
                         {
                             nonprofitName === 'Admin' ?
@@ -224,8 +224,6 @@ class DirectoryPage extends Component {
                                     ))}
                                 </TableBody>
                         }
-
-
                     </Table>
                 </Paper>
 
