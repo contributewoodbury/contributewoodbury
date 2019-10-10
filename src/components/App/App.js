@@ -80,13 +80,11 @@ class App extends Component {
               component={EditNonprofit}
             />
 
-
             <Route
               exact
               path="/directory"
               component={DirectoryPage}
             />
-
 
 
             <Route 
