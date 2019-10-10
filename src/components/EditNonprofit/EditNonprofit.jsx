@@ -1,7 +1,8 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { Button, CardContent, Grid, InputLabel, MenuItem, FormControlLabel, Checkbox, FormControl, Select, TextField } from '@material-ui/core';
+import { Button, Grid, InputLabel, MenuItem, Select, TextField } from '@material-ui/core';
 import { withStyles } from '@material-ui/styles';
+import Swal from 'sweetalert2';
 
 const styles = theme => ({
     heading: {
@@ -36,7 +37,50 @@ const styles = theme => ({
 
 
 
+
+
+
+
+
 class EditNonprofit extends Component {
+
+    handleBackButton = (id) => {
+        Swal.fire({
+            title: 'Are you sure?',
+            text: "Your data has not been saved.",
+            type: 'warning',
+            showCancelButton: true,
+            confirmButtonColor: '#3085d6',
+            cancelButtonColor: '#d33',
+            confirmButtonText: 'OK',
+            confirmButtonColor: '#457736'
+        }).then((result) => {
+            if (result.value) {
+               
+                this.props.history.push(`/organizationHome/${id}`)
+            }
+        })
+        console.log('back button was clicked');
+       
+    }
+
+    handleSubmitButton = (id) => {
+        Swal.fire({
+            title: 'Success!',
+            text: 'Your event was submitted.',
+            type: 'success',
+            confirmButtonText: 'OK',
+            confirmButtonColor: '#457736'
+        }).then((result) => {
+            if (result.value) {
+
+                this.props.history.push(`/organizationHome/${id}`)
+            }
+        })
+        console.log('submit event button clicked');
+        
+    }
+
 
     render() {
 
@@ -100,8 +144,8 @@ class EditNonprofit extends Component {
                 </Grid>
                 <Grid container spacing={3}>
                     <Grid item xs={12}>
-                        <Button className={this.props.classes.backButton} variant="contained">Back</Button>
-                        <Button className={this.props.classes.submitButton} variant="contained">Submit</Button>
+                        <Button className={this.props.classes.backButton} onClick={this.handleBackButton}  variant="contained">Back</Button>
+                        <Button className={this.props.classes.submitButton} onClick={this.handleSubmitButton} variant="contained">Submit</Button>
                     </Grid>
                 </Grid>
             </div>
