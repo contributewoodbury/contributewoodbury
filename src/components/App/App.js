@@ -14,7 +14,7 @@ import Footer from '../Footer/Footer';
 import ProtectedRoute from '../ProtectedRoute/ProtectedRoute'
 
 import AboutPage from '../AboutPage/AboutPage';
-import UserPage from '../UserPage/UserPage';
+// import UserPage from '../UserPage/UserPage';
 import InfoPage from '../InfoPage/InfoPage';
 import AddEvent from '../AddEvent/AddEvent';
 import EditNonprofit from '../EditNonprofit/EditNonprofit';
@@ -81,7 +81,7 @@ class App extends Component {
               component={EditNonprofit}
             />
 
-            <ProtectedRoute
+            <Route
               exact
               path="/directory"
               component={DirectoryPage}

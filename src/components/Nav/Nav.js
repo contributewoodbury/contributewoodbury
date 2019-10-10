@@ -27,7 +27,7 @@ const Nav = (props) => {
         <Link className="nav-link" to="/directory">
           Directory
       </Link>
-        <a className="nav-link" target="_blank" href="https://www.woodburyfoundation.org">
+        <a className="nav-link" target="_blank" href="https://www.woodburyfoundation.org" rel="noopener noreferrer">
           WCF
         </a>
 

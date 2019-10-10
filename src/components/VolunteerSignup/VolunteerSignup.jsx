@@ -54,8 +54,6 @@ class VolunteerSignup extends Component {
 
     render () {
 
-        let id = this.props.match.params.id
-
         return (
 
             <div className={this.props.classes.rootDiv} >
