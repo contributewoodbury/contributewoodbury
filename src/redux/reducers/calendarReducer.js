@@ -7,7 +7,7 @@ const calendar = (state = [], action) => {
       let calendar = { lastWeek: [], currentWeek: [], nextWeek: [], future: [] }
       for (const event of action.payload) {
         let endDate = moment(event.end_date).format('YYYYMMDD')
-        let now = moment(Date()).format('YYYYMMDD');
+        let now = moment(Date()).format('');
         if (endDate < now && endDate > moment().subtract(7, 'days').format('YYYYMMDD')) {
           console.log(endDate, 'now', now)
           calendar.lastWeek.push(event);
