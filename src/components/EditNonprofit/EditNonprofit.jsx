@@ -36,13 +36,26 @@ const styles = theme => ({
 })
 
 
-
-
-
-
-
-
 class EditNonprofit extends Component {
+
+    state = {
+        name: '',
+        description: '',
+        contact_name: '',
+        contact_email: '',
+        contact_phone: '',
+        website: '',
+        logo: '',
+        category_id: 1
+    }
+
+    handleInputChange = (propertyName, event) => {
+        console.log('in handle input change');
+        this.setState({
+            ...this.state,
+            [propertyName]: event.target.value,
+        });
+    }
 
     handleBackButton = (id) => {
         Swal.fire({
@@ -89,12 +102,12 @@ class EditNonprofit extends Component {
         return(
             <div className={this.props.classes.rootDiv}>
                 <h1 className={this.props.classes.heading}>Edit Nonprofit</h1>
-
+                {JSON.stringify(this.state)}
                 <Grid container spacing={3}>
                     <Grid item xs={12}>
-                        <TextField className={this.props.classes.textFields} type="text" placeholder="Name of Organization" variant="outlined" />
+                        <TextField className={this.props.classes.textFields} type="text" placeholder="Name of Organization" variant="outlined" onChange={(event) => { this.handleInputChange('name', event) }}/>
                         <br/>
-                        <TextField className={this.props.classes.description} type="text" placeholder="Event Description" variant="outlined" multiline rows="4" />
+                        <TextField className={this.props.classes.description} type="text" placeholder="Organization Description" variant="outlined" multiline rows="4" onChange={(event) => { this.handleInputChange('description', event) }}/>
                     </Grid>
 
                 </Grid>
@@ -104,15 +117,15 @@ class EditNonprofit extends Component {
                         <h2>
                             left column
                         </h2>
-                        <TextField className={this.props.classes.textFields} type="text" placeholder="Point of Contact Name" variant="outlined" />
+                        <TextField className={this.props.classes.textFields} type="text" placeholder="Point of Contact Name" variant="outlined" onChange={(event) => { this.handleInputChange('contact_name', event) }}/>
                         <br />
-                        <TextField className={this.props.classes.textFields} type="text" placeholder="Point of Contact Email" variant="outlined" />
+                        <TextField className={this.props.classes.textFields} type="text" placeholder="Point of Contact Email" variant="outlined" onChange={(event) => { this.handleInputChange('contact_email', event) }}/>
                         <br />
-                        <TextField className={this.props.classes.textFields} type="text" placeholder="Point of Contact Phone" variant="outlined" />
+                        <TextField className={this.props.classes.textFields} type="text" placeholder="Point of Contact Phone" variant="outlined" onChange={(event) => { this.handleInputChange('contact_phone', event) }}/>
                         <br />
-                        <TextField className={this.props.classes.textFields} type="text" placeholder="Organization Website URL" variant="outlined" />
+                        <TextField className={this.props.classes.textFields} type="text" placeholder="Organization Website URL" variant="outlined" onChange={(event) => { this.handleInputChange('website', event) }}/>
                         <br />
-                        <TextField className={this.props.classes.textFields} type="text" placeholder="Organization Logo URL" variant="outlined" />
+                        <TextField className={this.props.classes.textFields} type="text" placeholder="Organization Logo URL" variant="outlined" onChange={(event) => { this.handleInputChange('logo', event) }}/>
                         <br />
                     </Grid>
                     <Grid item xs={6}>
@@ -123,14 +136,8 @@ class EditNonprofit extends Component {
                             Choose Organization Category
                         </InputLabel>
                         <Select
-                            className={this.props.classes.dropdownBox}
-                        // value={values.age}
-                        // onChange={handleChange}
-                        // labelWidth={labelWidth}
-                        // inputProps={{
-                        //     name: 'age',
-                        //     id: 'outlined-age-simple',
-                        // }}
+                            className={this.props.classes.dropdownBox} defaultValue={this.state.category_id} 
+                        
                         >
                             <MenuItem value="">
                                 <em>None</em>
@@ -138,7 +145,7 @@ class EditNonprofit extends Component {
                             <MenuItem value={10}>Community Development</MenuItem>
                             <MenuItem value={20}>Health</MenuItem>
                             <MenuItem value={30}>Human Services</MenuItem>
-                            <MenuItem value={30}>Youth</MenuItem>
+                            <MenuItem value={40}>Youth</MenuItem>
                         </Select>
                     </Grid>
                 </Grid>
