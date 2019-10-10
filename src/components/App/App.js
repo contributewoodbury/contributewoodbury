@@ -65,7 +65,7 @@ class App extends Component {
 
             <ProtectedRoute
               exact
-              path="/addevent"
+              path="/addevent/:id"
               component={AddEvent}
             />
             <ProtectedRoute
@@ -76,7 +76,7 @@ class App extends Component {
 
             <Route
               exact
-              path="/editNonprofit"
+              path="/editNonprofit/:id"
               component={EditNonprofit}
             />
 

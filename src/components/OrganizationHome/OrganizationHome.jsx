@@ -51,6 +51,26 @@ class OrganizationHome extends Component {
         this.props.history.push(`/eventDetails/${id}`);
     }//end handleVolunteerClick
 
+    handleEditDetails = () => {
+        console.log('edit details button clicked')
+        let id = this.props.match.params.id
+        this.props.history.push(`/editNonprofit/${id}`)
+    }//end handleEditDetails
+
+    handleVolunteerListClick = (id) => {
+        console.log('volunteer list button clicked id:', id)
+    }//end handleVolunteerListClick
+
+    handleEditClick = (id) => {
+        console.log('edit button clicked id:', id)
+    }//end handleEditClick
+
+    handleAddEvent = () => {
+        console.log('add event clicked')
+        let id = this.props.match.params.id
+        this.props.history.push(`/addEvent/${id}`)
+    }//end handleAddEvent
+
     render() {
         let nonprofitInfo = this.props.nonprofit[0] || 'a';
         return (
@@ -72,7 +92,7 @@ class OrganizationHome extends Component {
                 <Grid container spacing={1}>
                     <p>Organization Description: {this.props.nonprofit[0] && this.props.nonprofit[0].description}</p>
                 </Grid>
-                {nonprofitInfo.nonprofit_name === this.props.user.name && <Button className={this.props.classes.button}>Edit Details</Button>}
+                {nonprofitInfo.nonprofit_name === this.props.user.name && <Button className={this.props.classes.button} onClick={this.handleEditDetails}>Edit Details</Button>}
                 <Grid container spacing={1} justify="center">
                     <h2>Event List</h2>
                 </Grid>
@@ -92,7 +112,8 @@ class OrganizationHome extends Component {
                                 this.props.nonprofit.map((info) => {
                                     let button = ''
                                     if (info.nonprofit_name === this.props.user.name) {
-                                        button = <><Button className={this.props.classes.button}>Volunteer List</Button> <Button className={this.props.classes.button}>Edit</Button></>
+                                        button = <><Button className={this.props.classes.button} onClick={() => this.handleVolunteerListClick(info.event_id)}>Volunteer List</Button> <Button 
+                                        className={this.props.classes.button} onClick={() => this.handleEditClick(info.event_id)}>Edit</Button></>
                                     }
                                     if (info.event_id) {
                                     return <>
@@ -113,7 +134,7 @@ class OrganizationHome extends Component {
                         </Table>
                     </Paper>
                     <Grid container spacing={0} justify="center">
-                    {nonprofitInfo.nonprofit_name === this.props.user.name && <Button className={this.props.classes.button}>Add Event</Button>}
+                    {nonprofitInfo.nonprofit_name === this.props.user.name && <Button className={this.props.classes.button} onClick={this.handleAddEvent}>Add Event</Button>}
                     </Grid>
                 </Grid>
 
