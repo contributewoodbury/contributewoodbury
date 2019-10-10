@@ -55,19 +55,19 @@ class EventDetails extends Component {
                     {
                         this.props.nonprofit.map((information) => {
                             return (<>
-                                <Grid container spacing={3}>
+                                <Grid container spacing={3} key={information.id}>
                                     <Grid item xs={6}>
                                         <CardContent>
-                                    <img src={information.nonprofit_logo} alt={information.nonprofit_name} width="400"  hight="500"/>
+                                    <img src={information.logo} alt={information.nonprofit_name} width="400"  hight="500"/>
                                         </CardContent>
                                     </Grid>
                                     <Grid item xs={6}>
                                         <CardContent>
                                             <h2>{information.nonprofit_name}</h2>
                                             <address>
-                                            <p>{information.nonprofit_address}<br></br>
-                                            {information.nonprofit_city} &nbsp;
-                                            {information.nonprofit_zip_code}</p>
+                                            {information.address}<br></br>
+                                            {information.city} &nbsp;
+                                            {information.zip_code}
                                             </address>
                                         </CardContent>
                                     </Grid>
@@ -75,16 +75,16 @@ class EventDetails extends Component {
                                 {
                                     this.props.event.eventDetails.map((info) => {
                                         return <>
-                                            <Grid container spacing={3}>
+                                            <Grid container spacing={3} key={info.id}>
                                                 <Grid item xs={6}>
                                                     <h2>{info.name}</h2>
                                                     <p>Date: {info.start_date}</p>
-                                                    <p><address>Location:
-                                            <p>{info.address}<br></br>
-                                                            {info.city} &nbsp;
-                                            {info.zip_code}</p>
-                                                    </address></p>
-                                                    <p>Contact: {information.nonprofit_contact_email}</p>
+                                                    <address>Location:
+                                                        <p>{info.address}<br></br>
+                                                        {info.city} &nbsp;
+                                                        {info.zip_code}</p>
+                                                    </address>
+                                                    <p>Contact: {information.contact_email}</p>
                                                     <p>Description: {info.description}</p>
                                                 </Grid>
                                             </Grid>
@@ -108,10 +108,10 @@ class EventDetails extends Component {
                             {
                                 this.props.volunteers.volunteerRoleList.map((person) => {
                                     return <> 
-                                    <CustomTableCell>{person.start_time} - {person.end_time}</CustomTableCell>
+                                    <CustomTableCell key={person.id}>{person.start_time} - {person.end_time}</CustomTableCell>
                                         <CustomTableCell align="right"><Link component="button"
                                             variant="body2"
-                                            onClick={() => {this.handleClick(person.event_id)}}>Volunteers Needed({person.number_needed})
+                                            onClick={() => {this.handleClick(person.id)}}>Volunteers Needed({person.number_needed})
                                             </Link></CustomTableCell>
                                     <CustomTableCell align="right">
                                             {person.description}
