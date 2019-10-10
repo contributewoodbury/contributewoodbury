@@ -51,11 +51,6 @@ class OrganizationHome extends Component {
         this.props.history.push(`/eventDetails/${id}`);
     }//end handleVolunteerClick
 
-//      let editButton = ''
-// if (info.nonprofit_name === this.props.user.name) {
-//     editButton = <Button className={this.props.classes.button}>Edit Details</Button>
-// } 
-
     render() {
         let nonprofitInfo = this.props.nonprofit[0] || 'a';
         return (
@@ -88,20 +83,25 @@ class OrganizationHome extends Component {
                                 <TableRow>
                                     <CustomTableCell>Name</CustomTableCell>
                                     <CustomTableCell align="right">Event Date</CustomTableCell>
-                                    <CustomTableCell align="right">Actions</CustomTableCell>
+                                    <CustomTableCell align="center">Actions</CustomTableCell>
 
                                 </TableRow>
                             </TableHead>
                             <TableBody>
                             {
                                 this.props.nonprofit.map((info) => {
+                                    let button = ''
+                                    if (info.nonprofit_name === this.props.user.name) {
+                                        button = <><Button className={this.props.classes.button}>Volunteer List</Button> <Button className={this.props.classes.button}>Edit</Button></>
+                                    }
                                     if (info.event_id) {
                                     return <>
                                     <TableRow key={info.id}>
                                     <CustomTableCell>{info.event_name}</CustomTableCell>
                                     <CustomTableCell align="right">{info.start_date}</CustomTableCell>
                                     <CustomTableCell align="right"><Button className={this.props.classes.button}
-                                        onClick={() => {this.handleVolunteerClick(info.event_id)}}>Volunteer</Button></CustomTableCell>
+                                        onClick={() => {this.handleVolunteerClick(info.event_id)}}>Volunteer</Button> {button}</CustomTableCell>
+                                    
                                     </TableRow>
                                     </>
                                     } else {
@@ -112,6 +112,9 @@ class OrganizationHome extends Component {
                             </TableBody>
                         </Table>
                     </Paper>
+                    <Grid container spacing={0} justify="center">
+                    {nonprofitInfo.nonprofit_name === this.props.user.name && <Button className={this.props.classes.button}>Add Event</Button>}
+                    </Grid>
                 </Grid>
 
             </div>
