@@ -7,7 +7,7 @@ function* approveNonprofit (action) {
         yield axios.put(`/api/admin/approve/${action.payload}`);
         yield put({
             type: 'GET_NONPROFIT_REQUESTS'
-        })
+        });
     } catch (error) {
         console.log('error in approveNonprofit PUT', error)
     }
@@ -20,7 +20,7 @@ function* declineNonprofit(action) {
         yield put({
             type: 'GET_NONPROFIT_REQUESTS'
         });
-        yield put({ type:'GET_NONPROFIT_DIRECTORY', })
+        yield put({ type: 'GET_ADMIN_DIRECTORY', });
     }
     catch(error) {
         console.log('error in declineNonprofit', error)
@@ -42,7 +42,7 @@ function* getNonprofitRequests() {
 }
 
 //worker saga: requests all nonprofits from database, ordered by when they were last updated
-function* getNonprofitDirectory() {
+function* getAdminDirectory() {
     try {
         let response = yield axios.get('/api/admin/directory');
         yield put({ type: 'SET_ADMIN_DIRECTORY', payload: response.data })
@@ -56,7 +56,7 @@ function* adminSaga () {
     yield takeLatest('APPROVE_NONPROFIT', approveNonprofit);
     yield takeLatest('DECLINE_NONPROFIT', declineNonprofit);
     yield takeLatest('GET_NONPROFIT_REQUESTS', getNonprofitRequests);
-    yield takeLatest('GET_NONPROFIT_DIRECTORY', getNonprofitDirectory);
+    yield takeLatest('GET_ADMIN_DIRECTORY', getAdminDirectory);
 }
 
 export default adminSaga;
