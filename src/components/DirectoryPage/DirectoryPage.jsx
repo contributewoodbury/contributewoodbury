@@ -69,6 +69,17 @@ class DirectoryPage extends Component {
 
     }
 
+    handleDeleteButton = (id) => {
+        console.log('delete button was clicked');
+        console.log(id);
+        this.props.dispatch({
+            type: 'DELETE_NONPROFIT',
+            payload: id
+        })
+        
+
+    }
+
 
 
     render() {
@@ -167,8 +178,8 @@ class DirectoryPage extends Component {
 
                                                 </TableCell>
 
-                                                <TableCell align="center"><Button className={this.props.classes.backButton} variant="contained">
-                                                    <a className={this.props.classes.backButtonText} href={nonprofit.website} >Delete</a></Button></TableCell>
+                                                <TableCell align="center"><Button onClick = {() => this.handleDeleteButton(nonprofit.id)} className={this.props.classes.backButton} variant="contained">
+                                                    Delete</Button></TableCell>
                                             </TableRow>
                                         )
                                     })}

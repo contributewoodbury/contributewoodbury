@@ -26,6 +26,19 @@ function* declineNonprofit(action) {
     }
 }
 
+//deletes a nonprofit from the directory admin view
+function* deleteNonprofit(action) {
+    try {
+        yield axios.delete(`/api/admin/decline/${action.payload}`);
+        yield put({
+            type: 'GET_DIRECTORY'
+        })
+    }
+    catch (error) {
+        console.log('error in declineNonprofit', error)
+    }
+}
+
 //gets the nonprofit requests that are still pending
 function* getNonprofitRequests() {
     try {
@@ -56,6 +69,7 @@ function* adminSaga () {
     yield takeLatest('DECLINE_NONPROFIT', declineNonprofit);
     yield takeLatest('GET_NONPROFIT_REQUESTS', getNonprofitRequests);
     yield takeLatest('GET_NONPROFIT_DIRECTORY', getNonprofitDirectory);
+    yield takeLatest('DELETE_NONPROFIT', deleteNonprofit);
 }
 
 export default adminSaga;
