@@ -42,8 +42,22 @@ function* addVolunteers(action) {
 function* volunteerSignUp(action) {
   try {
     yield axios.post(`/api/volunteer/signup`, action.payload);
+    
   } catch (error) {
     console.log('error in volunteerSignUp', error);
+  }
+}
+
+function* getSpecificVolunteerRole(action) {
+  try {
+    let response = yield axios.get(`api/volunteer/specificrole/${action.payload}`)
+    console.log('what is the response?', response);
+    yield put ({
+      type: 'SET_SPECIFIC_ROLES',
+      payload: response.data[0]
+    })
+  } catch (error) {
+    
   }
 }
 
@@ -51,6 +65,7 @@ function* volunteerSignUp(action) {
 function* volunteerSaga() {
   yield takeEvery('GET_EVENT_DETAILS', getVolunteerRoles);
   yield takeLatest('GET_SPECIFIC_VOLUNTEERS', getSpecificVolunteers);
+  yield takeLatest('GET_SPECIFIC_VOLUNTEER_ROLE', getSpecificVolunteerRole)
   yield takeLatest('ADD_VOLUNTEERS', addVolunteers);
   yield takeLatest('VOLUNTEER_SIGNUP', volunteerSignUp);
 }

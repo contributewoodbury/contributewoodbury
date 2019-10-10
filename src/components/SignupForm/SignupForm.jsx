@@ -23,12 +23,10 @@ const styles = theme => ({
 })
 
 class SignupForm extends Component {
-
-    
-    
+        
     state = {
         name: '',
-        role_id: '',
+        role_id: this.props.roleId,
         start_time: '', 
         end_time: '',
         comments: '',
@@ -40,10 +38,13 @@ class SignupForm extends Component {
         zip_code: ''
     }
 
+
     //SET STATE WITH VOLUNTEER INFORMATION
     handleChange = (propertyName, event) => {
         this.setState ({
-            [propertyName]: event.target.value
+            [propertyName]: event.target.value,
+            start_time: this.props.role.start_time,
+            end_time: this.props.role.end_time
         })
         console.log(this.state);  
     }
@@ -55,11 +56,11 @@ class SignupForm extends Component {
             type: 'VOLUNTEER_SIGNUP',
             payload: this.state
         })
-        //SWEET ALERT: THANKS FOR SIGNING UP. SOMEONE WILL CONTACT YOU -- YOU WILL RECIEVE AN EMAIL?
-        //CLEAR FIELDS
+        // SWEET ALERT: THANKS FOR SIGNING UP. SOMEONE WILL CONTACT YOU -- YOU WILL RECIEVE AN EMAIL?
+        // CLEAR FIELDS
         this.setState ({
             name: '',
-            role_id: '',
+            role_id: this.props.roleId,
             start_time: '',
             end_time: '',
             comments: '',
@@ -77,10 +78,12 @@ class SignupForm extends Component {
 
 
 
+
         return (
 
 
             <div>
+                {JSON.stringify(this.state)}
                 <CardContent>
                     <h3>Sign me up!</h3>
                     <TextField className={this.props.classes.textFields} type="text" placeholder="Full Name" variant="outlined" label="Full Name"
@@ -92,7 +95,7 @@ class SignupForm extends Component {
                         value={this.state.address} onChange={(event) => this.handleChange('address', event)} />
                     <TextField className={this.props.classes.textFields} type="text" placeholder="city" variant="outlined" label="city" 
                         value={this.state.city} onChange={(event) => this.handleChange('city', event)} />
-                    
+                    <br />
                     <TextField className={this.props.classes.stateZipPhone} type="text" placeholder="state" variant="outlined" label="state"
                         value={this.state.state} onChange={(event) => this.handleChange('state', event)} />
                     <TextField className={this.props.classes.stateZipPhone} type="text" placeholder="zipcode" variant="outlined" label="zip code"
@@ -108,10 +111,17 @@ class SignupForm extends Component {
                     <Button variant="contained" className={this.props.classes.saveButton}
                             onClick={this.handleAddVolunteer} >Sign Up!</Button>
                 </CardContent>
+                {JSON.stringify(this.props.roles)}
             </div>
         )
     }
 }
 
+const mapStateToProps = reduxStore => {
+    return {
+        role: reduxStore.volunteer.specificRole
+    }
+}
 
-export default withStyles(styles) (connect() (SignupForm));
+
+export default withStyles(styles) (connect(mapStateToProps) (SignupForm));
