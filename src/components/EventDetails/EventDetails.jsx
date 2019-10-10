@@ -44,6 +44,8 @@ class EventDetails extends Component {
         })
     }//end componentDidMount
 
+    
+
     handleClick = (id) => {
         console.log('clicked')
         this.props.history.push(`/signup/${id}`)
