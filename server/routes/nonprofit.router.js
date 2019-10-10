@@ -15,7 +15,6 @@ router.get('/:id', (req, res) => {
          "nonprofit".address, "nonprofit".city, "nonprofit".zip_code, "nonprofit".id AS "nonprofit_id", "nonprofit".contact_email, "nonprofit".description, "nonprofit".logo, "nonprofit".website FROM "nonprofit" 
         JOIN "event" ON "nonprofit".id = "event".non_profit_id
          WHERE "nonprofit".id = $1;`;
-        let id = req.params.id
         pool.query(queryText, [id])
         .then((result) => {
             res.send(result.rows)
