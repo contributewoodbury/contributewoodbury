@@ -21,26 +21,9 @@ router.put('/approve/:id', rejectUnauthenticated, (req, res) => {
     }
 })
 
-//deletes a nonprofit when their request is denied
-router.delete('/decline/:id', rejectUnauthenticated, (req, res) => {
-    if (req.user.name === 'Admin') {
-        let queryText = `DELETE FROM "nonprofit" WHERE "id" = $1;`;
-        let id = req.params.id;
-        pool.query(queryText, [id])
-            .then((result) => {
-                res.sendStatus(200)
-            })
-            .catch((error) => {
-                console.log('error in deleted declined requests for nonprofits', error)
-                res.sendStatus(500);
-            })
-    } else {
-        res.sendStatus(403)
-    }
-});
 
 //deletes Nonprofits and all their related data (events, roles, etc)
-router.delete('/delete/:id', rejectUnauthenticated, async (req, res) => {
+router.delete('/decline/:id', rejectUnauthenticated, async (req, res) => {
     if (req.user.name === 'Admin') {
         let queryText = `SELECT array_agg("id") AS "event_ids" FROM "event" WHERE "non_profit_id" = $1;`;
         const conn = await pool.connect();

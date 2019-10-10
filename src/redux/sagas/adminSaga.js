@@ -18,7 +18,7 @@ function* declineNonprofit(action) {
     try {
         yield axios.delete(`/api/admin/decline/${action.payload}`);
         yield put({
-            type: 'GET_NONPROFIT'
+            type: 'GET_NONPROFIT_REQUESTS'
         })
     }
     catch(error) {
