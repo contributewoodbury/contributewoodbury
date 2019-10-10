@@ -108,6 +108,36 @@ class DirectoryPage extends Component {
 
                     <Table hover={true} size="large">
 
+                        <TableHead>
+                            <TableRow className={this.props.classes.rows}>
+                                <TableCell align="left">Image</TableCell>
+                                <TableCell align="left">Agency</TableCell>
+                                <TableCell align="left">Category</TableCell>
+                                <TableCell align="left">Volunteer Opportunities</TableCell>
+                                <TableCell align="center">Website Link</TableCell>
+                            </TableRow>
+                        </TableHead>
+                        <TableBody>
+
+                            {this.props.reduxStore.directory.map((nonprofit) => {
+                            if (nonprofit.name !== 'Admin') {
+                                return (
+                                <TableRow key={nonprofit.id} className={this.props.classes.rows} hover={true}>
+                                    <TableCell align="left">{nonprofit.logo}</TableCell>
+                                    <TableCell align="left">{nonprofit.name}<br/>
+                                                              {nonprofit.address}<br/>
+                                                              {nonprofit.city}, MN 
+                                                              {nonprofit.state}  
+                                                              {nonprofit.zip_code}  </TableCell>
+                                    <TableCell align="left">{nonprofit.category_id}</TableCell>
+                                    <TableCell align="left"><Button className={this.props.classes.backButton} variant="contained"
+                                                onClick={(event) => this.handleVolunteerButton(nonprofit.id)} >Volunteer</Button></TableCell>
+                                    <TableCell align="center"><Button className={this.props.classes.backButton} variant="contained">
+                                        <a className={this.props.classes.backButtonText} href={nonprofit.website} >Website</a></Button></TableCell>
+                                </TableRow>
+                            )}})}
+
+
                         {/* conditional rendering of the COLUMN HEADINGS based on the user being an admin or not */}
                         {
                             nonprofitName === 'Admin' ?
@@ -194,6 +224,7 @@ class DirectoryPage extends Component {
                                     ))}
                                 </TableBody>
                         }
+
 
                     </Table>
                 </Paper>
