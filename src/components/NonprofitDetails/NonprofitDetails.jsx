@@ -50,7 +50,7 @@ class NonprofitDetails extends Component {
 
 const mapStateToProps = reduxStore => {
     return {
-        nonprofit: reduxStore.nonprofit
+        nonprofit: reduxStore.nonprofit.nonprofit
     }
 }
 

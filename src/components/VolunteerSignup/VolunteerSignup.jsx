@@ -4,6 +4,7 @@ import { Button, Grid, CardContent } from '@material-ui/core';
 import { withStyles } from '@material-ui/styles';
 import SignupForm from '../SignupForm/SignupForm';
 import NonprofitDetails from '../NonprofitDetails/NonprofitDetails';
+import moment from 'moment';
 
 
 const styles = theme => ({
@@ -30,13 +31,21 @@ const styles = theme => ({
 
 class VolunteerSignup extends Component {
 
-    //REVISIT THE WIREFRAME AND DATABASE TO MAKE SURE PROPERTIES MATCH
-    state = {
-
-
+    componentDidMount() {
+        this.getSelectedRole();
     }
 
+    //REVISIT THE WIREFRAME AND DATABASE TO MAKE SURE PROPERTIES MATCH
+  
 
+    getSelectedRole = () => {
+        this.props.dispatch({
+            type: 'GET_SPECIFIC_VOLUNTEER_ROLE',
+            payload: this.props.match.params.id
+        })
+        console.log('the role id is:', this.props.match.params.id);
+        
+    }
 
 
     handleBackButton = (id) => {
@@ -54,6 +63,9 @@ class VolunteerSignup extends Component {
 
     render () {
 
+        let id = this.props.match.params.id
+
+
         return (
 
             <div className={this.props.classes.rootDiv} >
@@ -67,37 +79,56 @@ class VolunteerSignup extends Component {
 
                     <Grid item xs={12}>
                             <CardContent>
-                                <h3>signup information goes here</h3>
-                                {this.props.event.map(item => (
-                                    <>
-                                    <span>Event: {item.name}</span><br/>
-                                    <span>Description: {item.description}</span><br/>
-                                    <span>Date: {item.start_date} - {item.end_date}</span><br/>
-                                    <span>Location: {item.address} </span>
-                                    <span>{item.city}, {item.state} {item.zip_code}</span><br/>
-                                    </>
-                                ))}
+                                {/* <h3>signup information goes here</h3> */}
+                                {this.props.event.map((item) => {
+                                    let startDate= moment(item.start_date).format("MM-DD-YYYY")
+                                    let endDate =  moment(item.end_date).format("MM-DD-YYYY")
+                                    return(
+                                        <>
+                                            <span>Event: {item.name}</span><br />
+                                            <span>Description: {item.description}</span><br />
+                                            <span>Date: {startDate} - {endDate}</span><br />
+                                            <span>Location: {item.address} </span>
+                                            <span>{item.city}, {item.state} {item.zip_code}</span><br />
+                                        </>
+                                    )
+                                })}
+                        </CardContent>
+                        <CardContent>
+                            <div>
+                                
+                                <span>{this.props.role.name} ({this.props.role.number_needed} volunteers needed)</span><br />
+                                <span>Date: {this.props.role.date} </span><br />
+                                <span>Time: {this.props.role.start_time} - {this.props.role.end_time} </span><br />
+                                <span>Description: {this.props.role.description} </span><br />
+                            </div>
 
                             
-                                {this.props.role.map((each) => {
+                                {/* {this.props.role.map((each) => {
                                     if(parseFloat(this.props.match.params.id) === each.id) {
+                                        let date = moment(each.date).format("MM-DD-YYYY");
+                                        let startTime = moment(parseFloat(each.start_time)).format("hh:mm")
+                                        let endTime = moment(parseFloat(each.end_time)).format("hh:mm")
                                         return (
                                             <>
-                                                <h4>{each.name} ({each.number_needed} volunteers needed)</h4>
-                                                <h5>Date: {each.date} </h5>
-                                                <h5>Time: {each.start_time} - {each.end_time} </h5>
-                                                <h5>Description: {each.description} </h5>
+                                            <div>
+                                                <span>{each.name} ({each.number_needed} volunteers needed)</span><br/>
+                                                    <span>Date: {date} </span><br />
+                                                    <span>Time: {startTime} - {endTime} </span><br />
+                                                    <span>Description: {each.description} </span><br />
+                                            </div>
+                                                
                                             </>
                                         )  
                                     } else {
                                         return false
                                     }
-                                })}
+                                })} */}
                             </CardContent>
                     </Grid>
 
                     <Grid item xs={12}>
-                        <SignupForm />
+                        <SignupForm roleId={this.props.match.params.id} roles={this.props.role.start_time} />
                     </Grid>
 
                     <Grid item xs={12}>
@@ -124,7 +155,7 @@ const mapStateToProps = reduxStore => {
     return {
         event: reduxStore.event.eventDetails,
         user: reduxStore.user,
-        role: reduxStore.volunteer.volunteerRoleList,
+        role: reduxStore.volunteer.specificRole,
         nonprofit: reduxStore.nonprofit
     }
 }

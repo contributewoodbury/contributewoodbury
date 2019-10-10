@@ -16,6 +16,20 @@ router.get('/role/:id', (req, res) => {
   });
 });
 
+//gets one specific volunteer role to sign up for
+router.get('/specificrole/:id', (req, res) => {
+  let queryText = `SELECT * FROM "role" WHERE "id" = $1;`;
+  pool.query(queryText, [req.params.id])
+    .then((results) => {
+      console.log('role result:', results.rows);
+      
+      res.send(results.rows);
+    })
+    .catch((error) => {
+      console.log('error in volunteer roles get', error);
+      res.sendStatus(500);
+    });
+});
 
 //gets all the volunteers for a specific event
 router.get('/eventVolunteers/:id', rejectUnauthenticated, (req,res) => {
@@ -73,7 +87,9 @@ router.post('/addVolunteers', rejectUnauthenticated, (req, res) => {
 });
 
 // adds volunteer data for a specific role
-router.post('/signUp', (req, res) => {
+router.post('/signup', (req, res) => {
+  console.log('signing up req.body:', req.body);
+  
   let queryText = `INSERT INTO "volunteer_role" ("name", "role_id", "start_time", "end_time", "comments", "email", "phone_number", "address", "city", "zip_code")
    VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10);`;
   let newVolunteer = req.body;
