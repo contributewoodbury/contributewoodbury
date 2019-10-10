@@ -17,6 +17,7 @@ import IconButton from '@material-ui/core/IconButton';
 import { AssistantPhoto } from '@material-ui/icons';
 import moment from 'moment';
 // import Typography from '@material-ui/core/Typography';
+import Swal from 'sweetalert2';
 
 const styles = theme => ({
     backButton: {
@@ -72,12 +73,23 @@ class DirectoryPage extends Component {
     handleDeleteButton = (id) => {
         console.log('delete button was clicked');
         console.log(id);
-        this.props.dispatch({
-            type: 'DELETE_NONPROFIT',
-            payload: id
+        Swal.fire({
+            title: 'Are you sure?',
+            text: "This nonprofit will be deleted forever",
+            type: 'warning',
+            showCancelButton: true,
+            confirmButtonColor: '#3085d6',
+            cancelButtonColor: '#d33',
+            confirmButtonText: 'OK',
+            confirmButtonColor: '#457736'
+        }).then((result) => {
+            if (result.value) {
+                this.props.dispatch({
+                    type: 'DELETE_NONPROFIT',
+                    payload: id
+                })
+            }
         })
-        
-
     }
 
 
