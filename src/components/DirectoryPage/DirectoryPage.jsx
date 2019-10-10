@@ -95,6 +95,10 @@ class DirectoryPage extends Component {
         this.props.dispatch({ type: 'SEARCH', payload: this.state.searchbar });
     }
 
+    handleDelete = (id) => {
+        this.props.dispatch({ type: 'DECLINE_NONPROFIT', payload: id});
+    }
+
     render() {
 
         const nonprofitName = this.props.reduxStore.user.name;
@@ -189,8 +193,11 @@ class DirectoryPage extends Component {
 
                                                     </TableCell>
 
-                                                    <TableCell align="center"><Button className={this.props.classes.backButton} variant="contained">
-                                                        <a className={this.props.classes.backButtonText} href={nonprofit.website} >Delete</a></Button></TableCell>
+                                                    <TableCell align="center">
+                                                        <Button className={this.props.classes.backButton} variant="contained"
+                                                        onClick={() => { this.handleDelete(nonprofit.id) }}> Delete
+                                                        </Button>
+                                                    </TableCell>
                                                 </TableRow>
                                             )
                                         } else { return false; }
