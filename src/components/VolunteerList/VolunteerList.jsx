@@ -43,4 +43,4 @@ const mapStateToProps = state => {
     }
 }
 
-export default connect()(withStyles(styles)(VolunteerList));
+export default connect(mapStateToProps)(withStyles(styles)(VolunteerList));
