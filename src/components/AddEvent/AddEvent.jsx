@@ -2,6 +2,8 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { Button, CardContent, Grid, InputLabel, MenuItem, FormControlLabel, Checkbox, FormControl, Select, TextField } from '@material-ui/core';
 import { withStyles } from '@material-ui/styles';
+import Swal from 'sweetalert2';
+
 
 const styles = theme => ({
     backButton: {
@@ -53,7 +55,26 @@ class AddEvent extends Component {
         volunteers_needed: true
     }
 
-    handleBackButton = () => {
+    handleBackButton = (id) => {
+        Swal.fire({
+            title: 'Are you sure?',
+            text: "The event has not been saved.",
+            type: 'warning',
+            showCancelButton: true,
+            confirmButtonColor: '#3085d6',
+            cancelButtonColor: '#d33',
+            confirmButtonText: 'OK',
+            confirmButtonColor: '#457736'
+        }).then((result) => {
+            if (result.value) {
+                // Swal.fire(
+                //     'Deleted!',
+                //     'Your file has been deleted.',
+                //     'success'
+                // )
+                this.props.history.push(`/organizationHome/${id}`)
+            }
+        })
         console.log('back button was clicked');
         //link to the nonprofit home page
         //add sweetalert warning: no event has been saved
@@ -61,6 +82,13 @@ class AddEvent extends Component {
     }
 
     handleSubmitButton = () => {
+        Swal.fire({
+            title: 'Success!',
+            text: 'Your event was submitted.',
+            type: 'success',
+            confirmButtonText: 'OK',
+            confirmButtonColor: '#457736'
+        })
         console.log('submit event button clicked');
         //dispatch state to saga
         //add sweetalert event has been added (if volunteers needed is not checked)
@@ -68,6 +96,7 @@ class AddEvent extends Component {
         //else dispatch and link to volunteers needed form
     }
 
+    
 
 
     render() {

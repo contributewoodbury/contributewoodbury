@@ -51,29 +51,31 @@ class EventDetails extends Component {
         this.props.history.push(`/signup/${id}`)
     }//end handleClick
 
+    handleButtonClick = () => {
+        console.log('clicked')
+    }
+
     render() {
+        let nonprofitInfo = this.props.nonprofit[0] || 'a';
         return (
             <div className={this.props.classes.rootDiv}>
-                    {
-                        this.props.nonprofit.map((information) => {
-                            return (<>
-                                <Grid container spacing={3} key={information.id}>
-                                    <Grid item xs={6}>
-                                        <CardContent>
-                                    <img src={information.logo} alt={information.nonprofit_name} width="400"  hight="500"/>
-                                        </CardContent>
-                                    </Grid>
-                                    <Grid item xs={6}>
-                                        <CardContent>
-                                            <h2>{information.nonprofit_name}</h2>
-                                            <address>
-                                            {information.address}<br></br>
-                                            {information.city} &nbsp;
-                                            {information.zip_code}
-                                            </address>
-                                        </CardContent>
-                                    </Grid>
-                                </Grid>
+            <Grid container spacing={3}>
+                <Grid item xs={6}>
+                <CardContent>
+                        <img src={this.props.nonprofit[0] && this.props.nonprofit[0].logo} width="400" />
+                </CardContent>
+                </Grid>
+                <Grid item xs={6}>
+                    <CardContent>
+                        <h2>{this.props.nonprofit[0] && this.props.nonprofit[0].nonprofit_name}</h2>
+                        <address>
+                        {this.props.nonprofit[0] && this.props.nonprofit[0].address} <br></br>
+                        {this.props.nonprofit[0] && this.props.nonprofit[0].city} &nbsp;
+                        {this.props.nonprofit[0] && this.props.nonprofit[0].zip_code}
+                        </address>
+                    </CardContent>
+                </Grid>
+            </Grid>
                                 {
                                     this.props.event.eventDetails.map((info) => {
                                         return <>
@@ -86,16 +88,13 @@ class EventDetails extends Component {
                                                         {info.city} &nbsp;
                                                         {info.zip_code}</p>
                                                     </address>
-                                                    <p>Contact: {information.contact_email}</p>
+                                                    <p>Contact: {this.props.nonprofit[0] && this.props.nonprofit[0].contact_email} </p>
                                                     <p>Description: {info.description}</p>
                                                 </Grid>
                                             </Grid>
                                         </>
                                     })
                                 }
-                            </>)
-                        })
-                    }
                 <h3>Volunteer Opportunities for this event:</h3>
                 <Paper className={this.props.classes.root}>
                     <Table className={this.props.classes.table}>
@@ -104,12 +103,20 @@ class EventDetails extends Component {
                                 <CustomTableCell>Times</CustomTableCell>
                                 <CustomTableCell align="right">Volunteers Needed</CustomTableCell>
                                 <CustomTableCell align="right">Description</CustomTableCell>
+                                <CustomTableCell align="right"></CustomTableCell>
                             </TableRow>
                         </TableHead>
                         <TableBody>
                             {
                                 this.props.volunteers.volunteerRoleList.map((person) => {
-                                    return <> 
+                                    let button = ''
+                                    if (this.props.nonprofit[0] && this.props.nonprofit[0].nonprofit_name === this.props.user.name) {
+                                        button = <>
+                                                    <CustomTableCell><Link component="button" variant="body2" onClick={this.handleButtonClick}>Volunteer List</Link></CustomTableCell>
+                                         </>
+                                    }
+                                    return (<> 
+                                    <TableRow>
                                     <CustomTableCell key={person.id}>{person.start_time} - {person.end_time}</CustomTableCell>
                                         <CustomTableCell align="right"><Link component="button"
                                             variant="body2"
@@ -118,7 +125,9 @@ class EventDetails extends Component {
                                     <CustomTableCell align="right">
                                             {person.description}
                                     </CustomTableCell>
-                                    </>
+                                            {button}
+                                    </TableRow>
+                                    </>)
                                 })
                             }
                         </TableBody>
@@ -134,7 +143,8 @@ const mapStateToProps = (state) => {
     return {
         event: state.event,
         nonprofit: state.nonprofit,
-        volunteers: state.volunteer
+        volunteers: state.volunteer,
+        user: state.user
     }
 }
 
