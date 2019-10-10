@@ -6,7 +6,7 @@ function* approveNonprofit (action) {
     try {
         yield axios.put(`/api/admin/approve/${action.payload}`);
         yield put({
-            type: 'GET_NONPROFIT'
+            type: 'GET_NONPROFIT_REQUESTS'
         })
     } catch (error) {
         console.log('error in approveNonprofit PUT', error)

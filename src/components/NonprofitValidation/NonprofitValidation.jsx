@@ -62,7 +62,7 @@ class NonprofitValidation extends Component {
                     {this.props.reduxStore.admin.admin.map(nonprofit => (
                      
                         <Card className={this.props.classes.card}>
-                            <CardContent>
+                            <CardContent key={nonprofit.id}>
                                 {nonprofit.name}
                                 <br/>
                                 {nonprofit.description}
