@@ -30,33 +30,13 @@ const styles = theme => ({
 
 class VolunteerSignup extends Component {
 
-    componentDidMount() {
-        this.getEvent();
-        // this.getRoles();
-    }
-
     //REVISIT THE WIREFRAME AND DATABASE TO MAKE SURE PROPERTIES MATCH
     state = {
 
 
     }
 
-    getEvent = () => {
-        console.log('get roles id');
-        this.props.dispatch({
-            type: 'GET_EVENT_DETAILS',
-            payload: this.props.match.params.id
-        })
-    }
 
-    // getRoles = () => {
-    //     console.log('in get roles');
-    //     this.props.dispatch({
-    //         type: 'GET_SPECIFIC_VOLUNTEERS',
-    //         payload: 2
-    //     })
-        
-    // }
 
 
     handleBackButton = (id) => {
@@ -74,21 +54,17 @@ class VolunteerSignup extends Component {
 
     render () {
 
-
+        let id = this.props.match.params.id
 
         return (
 
-            // REMOVE CARDS WHEN DONE
             <div className={this.props.classes.rootDiv} >
                 <h1 className={this.props.classes.heading} >Volunteers Sign Up</h1>
                 <Grid container spacing={0}>
                     <Grid item xs={12}>
-                        {/* <Card> */}
                             <CardContent>
                                 <NonprofitDetails />
-                        
                             </CardContent>
-                        {/* </Card> */}
                     </Grid>
 
                     <Grid item xs={12}>
@@ -103,10 +79,22 @@ class VolunteerSignup extends Component {
                                     <span>{item.city}, {item.state} {item.zip_code}</span><br/>
                                     </>
                                 ))}
-                                <h4>Volunteers Needed Role (3)</h4>
-                                <h5>Date: </h5>
-                                <h5>Time: </h5>
-                                <h5>Description: </h5>
+
+                            
+                                {this.props.role.map((each) => {
+                                    if(parseFloat(this.props.match.params.id) === each.id) {
+                                        return (
+                                            <>
+                                                <h4>{each.name} ({each.number_needed} volunteers needed)</h4>
+                                                <h5>Date: {each.date} </h5>
+                                                <h5>Time: {each.start_time} - {each.end_time} </h5>
+                                                <h5>Description: {each.description} </h5>
+                                            </>
+                                        )  
+                                    } else {
+                                        return false
+                                    }
+                                })}
                             </CardContent>
                     </Grid>
 
@@ -129,8 +117,6 @@ class VolunteerSignup extends Component {
                             </CardContent>
                     </Grid>
                 </Grid>
-                {JSON.stringify(this.props.role)}
-
             </div>
         )
     }
@@ -140,7 +126,8 @@ const mapStateToProps = reduxStore => {
     return {
         event: reduxStore.event.eventDetails,
         user: reduxStore.user,
-        role: reduxStore.volunteer
+        role: reduxStore.volunteer.volunteerRoleList,
+        nonprofit: reduxStore.nonprofit
     }
 }
 
