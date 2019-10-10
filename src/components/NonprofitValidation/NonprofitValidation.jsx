@@ -12,7 +12,18 @@ const styles = theme => ({
         margin: '10px 20px 10px 20px',
     },
     approveButton: {
-        
+        color: 'white',
+        backgroundColor: '#457736'
+    },
+    declineButton: {
+        float: 'right',
+        color: 'white',
+        backgroundColor: '#457736'
+    },
+    directoryButton: {
+        float: 'right',
+        color: 'white',
+        backgroundColor: '#457736',
     }
 })
 
