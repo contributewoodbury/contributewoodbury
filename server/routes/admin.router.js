@@ -40,7 +40,7 @@ router.delete('/decline/:id', rejectUnauthenticated, (req, res) => {
 });
 
 //deletes Nonprofits and all their related data (events, roles, etc)
-router.delete('/delete/:id', rejectUnauthenticated, async (req, res) => {
+router.delete('/decline/:id', rejectUnauthenticated, async (req, res) => {
     if (req.user.name === 'Admin') {
         let queryText = `SELECT array_agg("id") AS "event_ids" FROM "event" WHERE "non_profit_id" = $1;`;
         const conn = await pool.connect();

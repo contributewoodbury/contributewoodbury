@@ -24,17 +24,25 @@ class NonprofitDetails extends Component {
         return (
             <>
                 <h3>nonprofit information and logo goes here</h3>
-                <div className={this.props.classes.nonprofitInfo} >
-                    <img className={this.props.classes.logo} src={this.props.user.logo} alt="" />
-                </div>
-                <div className={this.props.classes.nonprofitInfo} >
+
                     <>
-                        <p>{this.props.user.name}<br />
-                            {this.props.user.address}<br />
-                            {this.props.user.city}, MN {this.props.user.zip_code} </p>
+                    {this.props.nonprofit.map(each => (
+                        <>
+                        <div className={this.props.classes.nonprofitInfo} >
+                            <img className={this.props.classes.logo} src={each.logo} alt="" />
+                        </div>
+                        <div className={this.props.classes.nonprofitInfo} >
+                            <p>
+                                {each.nonprofit_name}<br />
+                                {each.address}<br/>
+                                {each.city}, {each.state} {each.zip_code}
+                            </p>
+                        </div>   
+                        </>
+                    ))}
                     </>
-                </div>
-                {/* {JSON.stringify(this.props)} */}
+
+                {/* {JSON.stringify(this.props.nonprofit)} */}
             </>
         )
     }
@@ -42,8 +50,7 @@ class NonprofitDetails extends Component {
 
 const mapStateToProps = reduxStore => {
     return {
-        event: reduxStore.event.eventDetails,
-        user: reduxStore.user
+        nonprofit: reduxStore.nonprofit
     }
 }
 
