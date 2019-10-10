@@ -88,7 +88,7 @@ class OrganizationHome extends Component {
                                 </TableRow>
                             </TableHead>
                             <TableBody>
-                            {
+                            { nonprofitInfo &&
                                 this.props.nonprofit.map((info) => {
                                     let button = ''
                                     if (info.nonprofit_name === this.props.user.name) {
