@@ -12,10 +12,9 @@ router.get('/:id', (req, res) => {
             console.log(result.rows)
             if (result.rows[0]) {
         let queryText = `SELECT "event".name AS "event_name", "event".id AS "event_id", "event".start_date, "nonprofit".name AS "nonprofit_name", 
-         "nonprofit".address, "nonprofit".city, "nonprofit".zip_code, "nonprofit".contact_email, "nonprofit".description, "nonprofit".logo, "nonprofit".website FROM "nonprofit" 
+         "nonprofit".address, "nonprofit".city, "nonprofit".zip_code, "nonprofit".id AS "nonprofit_id", "nonprofit".contact_email, "nonprofit".description, "nonprofit".logo, "nonprofit".website FROM "nonprofit" 
         JOIN "event" ON "nonprofit".id = "event".non_profit_id
          WHERE "nonprofit".id = $1;`;
-        let id = req.params.id
         pool.query(queryText, [id])
         .then((result) => {
             res.send(result.rows)
@@ -26,7 +25,7 @@ router.get('/:id', (req, res) => {
         })
             } else {
                  let secondQueryText = `SELECT "nonprofit".name AS "nonprofit_name", "nonprofit".address, 
-                 "nonprofit".city, "nonprofit".zip_code, "nonprofit".contact_email, 
+                 "nonprofit".city, "nonprofit".zip_code, "nonprofit".contact_email, "nonprofit".id AS "nonprofit_id",
                  "nonprofit".description, "nonprofit".logo, "nonprofit".website FROM "nonprofit" WHERE "id" = $1;`;
                 let id = req.params.id;
                 pool.query(secondQueryText, [id])

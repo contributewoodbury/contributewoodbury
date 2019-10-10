@@ -64,7 +64,7 @@ class AddEvent extends Component {
             confirmButtonColor: '#3085d6',
             cancelButtonColor: '#d33',
             confirmButtonText: 'OK',
-            confirmButtonColor: '#457736'
+            // confirmButtonColor: '#457736'
         }).then((result) => {
             if (result.value) {
                 // Swal.fire(

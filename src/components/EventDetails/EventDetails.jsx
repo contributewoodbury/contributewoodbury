@@ -9,6 +9,7 @@ import TableHead from '@material-ui/core/TableHead';
 import TableRow from '@material-ui/core/TableRow';
 import Paper from '@material-ui/core/Paper';
 import Link from '@material-ui/core/Link';
+import { Button } from '@material-ui/core/';
 
 
 const CustomTableCell = withStyles(theme => ({
@@ -32,6 +33,10 @@ const styles = theme => ({
     },
     table: {
         minWidth: 700,
+    },
+    button: {
+        color: 'white',
+        backgroundColor: '#457736'
     }
 })
 
@@ -52,8 +57,10 @@ class EventDetails extends Component {
     }//end handleClick
 
     handleButtonClick = () => {
-        console.log('clicked')
-    }
+        console.log('clicked volunteer list')
+        let id = this.props.match.params.id
+        this.props.history.push(`/volunteerList/${id}`)
+    }//end handleClick
 
     render() {
         let nonprofitInfo = this.props.nonprofit[0] || 'a';
@@ -62,7 +69,7 @@ class EventDetails extends Component {
             <Grid container spacing={3}>
                 <Grid item xs={6}>
                 <CardContent>
-                        <img src={this.props.nonprofit[0] && this.props.nonprofit[0].logo} width="400" />
+                        <img src={this.props.nonprofit[0] && this.props.nonprofit[0].logo} alt="nonprofit logo" width="400" />
                 </CardContent>
                 </Grid>
                 <Grid item xs={6}>
@@ -103,18 +110,12 @@ class EventDetails extends Component {
                                 <CustomTableCell>Times</CustomTableCell>
                                 <CustomTableCell align="right">Volunteers Needed</CustomTableCell>
                                 <CustomTableCell align="right">Description</CustomTableCell>
-                                <CustomTableCell align="right"></CustomTableCell>
+                                
                             </TableRow>
                         </TableHead>
                         <TableBody>
                             {
                                 this.props.volunteers.volunteerRoleList.map((person) => {
-                                    let button = ''
-                                    if (this.props.nonprofit[0] && this.props.nonprofit[0].nonprofit_name === this.props.user.name) {
-                                        button = <>
-                                                    <CustomTableCell><Link component="button" variant="body2" onClick={this.handleButtonClick}>Volunteer List</Link></CustomTableCell>
-                                         </>
-                                    }
                                     return (<> 
                                     <TableRow>
                                     <CustomTableCell key={person.id}>{person.start_time} - {person.end_time}</CustomTableCell>
@@ -125,7 +126,6 @@ class EventDetails extends Component {
                                     <CustomTableCell align="right">
                                             {person.description}
                                     </CustomTableCell>
-                                            {button}
                                     </TableRow>
                                     </>)
                                 })
@@ -133,7 +133,9 @@ class EventDetails extends Component {
                         </TableBody>
                     </Table>
                 </Paper>
-
+                <Grid container justify='center'>
+                {nonprofitInfo.nonprofit_name === this.props.user.name && <Button className={this.props.classes.button} onClick={this.handleButtonClick}> Volunteer List </Button>}
+                </Grid>
             </div>
         )
     }

@@ -14,7 +14,7 @@ import Footer from '../Footer/Footer';
 import ProtectedRoute from '../ProtectedRoute/ProtectedRoute'
 
 import AboutPage from '../AboutPage/AboutPage';
-import UserPage from '../UserPage/UserPage';
+// import UserPage from '../UserPage/UserPage';
 import InfoPage from '../InfoPage/InfoPage';
 import AddEvent from '../AddEvent/AddEvent';
 import EditNonprofit from '../EditNonprofit/EditNonprofit';
@@ -30,6 +30,7 @@ import DirectoryPage from '../DirectoryPage/DirectoryPage';
 import VolunteerSignup from '../VolunteerSignup/VolunteerSignup';
 import NonprofitValidation from '../NonprofitValidation/NonprofitValidation';
 import LoginPage from '../LoginPage/LoginPage';
+import VolunteerList from '../VolunteerList/VolunteerList';
 
 class App extends Component {
   componentDidMount() {
@@ -66,7 +67,7 @@ class App extends Component {
 
             <ProtectedRoute
               exact
-              path="/addevent"
+              path="/addevent/:id"
               component={AddEvent}
             />
             <ProtectedRoute
@@ -77,11 +78,11 @@ class App extends Component {
 
             <Route
               exact
-              path="/editNonprofit"
+              path="/editNonprofit/:id"
               component={EditNonprofit}
             />
 
-            <ProtectedRoute
+            <Route
               exact
               path="/directory"
               component={DirectoryPage}
@@ -91,6 +92,12 @@ class App extends Component {
               exact
               path="/validation"
               component={NonprofitValidation}
+            />
+
+            <ProtectedRoute
+              exact
+              path="/volunteerList/:id"
+              component={VolunteerList}
             />
 
 
