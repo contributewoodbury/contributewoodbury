@@ -59,6 +59,7 @@ class OrganizationHome extends Component {
 
     handleVolunteerListClick = (id) => {
         console.log('volunteer list button clicked id:', id)
+        this.props.history.push(`/volunteerList/${id}`)
     }//end handleVolunteerListClick
 
     handleEditClick = (id) => {
