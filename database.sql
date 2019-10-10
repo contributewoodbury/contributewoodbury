@@ -17,6 +17,8 @@ CREATE TABLE "nonprofit" (
     "name" VARCHAR(100),
     "password" VARCHAR(250),
     "contact_email" VARCHAR(150),
+    "contact_name" VARCHAR (75),
+    "contact_phone" VARCHAR (20),
     "address" VARCHAR(150),
     "city" VARCHAR(50),
     "state" VARCHAR(25),
