@@ -18,14 +18,12 @@ function* addEvent(action) {
   try{
     let response = yield axios.post(`/api/event/addEvent`, action.payload);
     console.log('addevent saga response:', response.data[0].id);
-    
-
     if (action.payload.volunteers_needed === true) {
       yield action.history.push(`/addvolunteers/${response.data[0].id}`)
     }
     yield put({
       type: 'GET_EVENT_DETAILS',
-      payload: response.data.id
+      payload: response.data[0].id
     })
   }
   catch(error) {
