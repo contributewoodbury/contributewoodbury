@@ -97,13 +97,13 @@ class VolunteerSignup extends Component {
                             <CardContent>
                                 {/* <h3>signup information goes here</h3> */}
                                 {this.props.event.map((item) => {
-                                    let startDate= moment(item.start_date).format("MM-DD-YYYY")
-                                    let endDate =  moment(item.end_date).format("MM-DD-YYYY")
+                                    let startDate = moment(item.start_date).format('MM[/]DD[/]YYYY')
+                                    let endDate = moment(item.end_date).format('MM[/]DD[/]YYYY')
                                     return(
                                         <>
                                             <span><b>Event:</b> {item.name}</span><br />
                                             <span><b>Description:</b> {item.description}</span><br />
-                                            <span><b>Date:</b> {moment({ startDate }).format('MM[/]DD[/]YYYY')} - {moment({ endDate }).format('MM[/]DD[/]YYYY')}</span><br />
+                                            <span><b>Date:</b> { startDate } - { endDate }</span><br />
                                             <span><b>Location:</b> {item.address} </span>
                                             <span>{item.city}, {item.state} {item.zip_code}</span><br />
                                         </>
@@ -115,7 +115,7 @@ class VolunteerSignup extends Component {
                                 
                                 <span><b>{this.props.role.name} ({this.props.role.number_needed} volunteers needed)</b></span><br />
                                 <span><b>Date:</b> {moment( this.props.role.date ).format('MM[/]DD[/]YYYY')} </span><br />
-                                <span><b>Time:</b> {this.props.role.start_time} - {this.props.role.end_time} </span><br />
+                                <span><b>Time:</b> {moment(this.props.role.start_time, 'hh:mm').format('LT')} - {moment(this.props.role.end_time, 'hh:mm').format('LT')} </span><br />
                                 <span><b>Description:</b> {this.props.role.description} </span><br />
                             </div>
 
@@ -128,17 +128,22 @@ class VolunteerSignup extends Component {
 
                     <Grid item xs={12}>
                             <CardContent>
+                                {this.props.saved.length > 0  ? 
+                                <>
                                 <h3>Thank you for volunteering! Your information has been sent to the organization.</h3>
                                 {/* {JSON.stringify(this.props.saved)} */}
-                                {this.props.saved.map(volunteer => (
+                                {this.props.saved.map((volunteer) => {
+                                    // let moment = moment().format('hh:mm')
+
+                                    return (
                                         <CardContent className={this.props.classes.cardContent} >
                                             <span>name: {volunteer.name} </span><br />
                                             <span>phone: {volunteer.phone_number} </span><br />
-                                            <span>date: {volunteer.start_time} </span> <span> - </span> <span>{volunteer.end_time}</span><br />
+                                            <span>date: {moment(volunteer.start_time, 'hh:mm').format('LT')} </span> <span> - </span> <span>{moment(volunteer.end_time, 'hh:mm').format('LT')}</span><br />
                                             <Button className={this.props.classes.doneButton} >Remove</Button>
                                         </CardContent>
-                                    
-                                ))}
+                                    )
+                                })}</> : <span></span> }
                             </CardContent>
                     </Grid>
 
