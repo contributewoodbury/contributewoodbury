@@ -44,7 +44,7 @@ class EditNonprofit extends Component {
         id: this.props.match.params.id,
         name: '',
         description: '',
-        contact_name: '',
+        contact_name:  '',
         contact_email: '',
         contact_phone: '',
         website: '',
@@ -128,6 +128,18 @@ class EditNonprofit extends Component {
     }
 
 
+    editNonprofitInformation = event => {
+        // event.preventDefault();
+        this.props.dispatch({ type: 'EDIT_NONPROFIT', payload: this.state })
+        // this.setState({
+        //     name: '',
+        //     description: '',
+        //     id: 0
+        // });
+        // this.props.history.push('/coursesAvailable');
+    }
+
+
     render() {
         let dropdownMenu = {
             communityDevelopment: {
@@ -148,16 +160,28 @@ class EditNonprofit extends Component {
             },
         }
 
+        let currentNonProfit = this.props.reduxStore.nonprofit.nonprofit[0];
+
 
         return(
             <div className={this.props.classes.rootDiv}>
                 <h1 className={this.props.classes.heading}>Edit Nonprofit</h1>
                 {JSON.stringify(this.state)}
+                <br/>
+                {JSON.stringify(this.props.reduxStore.nonprofit)}
+                <br/>
+                {JSON.stringify(currentNonProfit)}
+
+            {/* Below is conditionally rendered based on the existance of the currentNonProfit information in the reducer */}
+
+            {   currentNonProfit ?
+                <div>
                 <Grid container spacing={3}>
                     <Grid item xs={12}>
-                        <TextField className={this.props.classes.textFields} type="text" placeholder="Name of Organization" variant="outlined" onChange={(event) => { this.handleInputChange('name', event) }}/>
+                        <TextField className={this.props.classes.textFields} type="text" value= {currentNonProfit.nonprofit_name}
+                        placeholder="Name of Organization" variant="outlined" onChange={(event) => { this.handleInputChange('name', event) }}/>
                         <br/>
-                        <TextField className={this.props.classes.description} type="text" placeholder="Organization Description" variant="outlined" multiline rows="4" onChange={(event) => { this.handleInputChange('description', event) }}/>
+                                <TextField className={this.props.classes.description} value={currentNonProfit.description} type="text" placeholder="Organization Description" variant="outlined" multiline rows="4" onChange={(event) => { this.handleInputChange('description', event) }}/>
                     </Grid>
 
                 </Grid>
@@ -167,15 +191,15 @@ class EditNonprofit extends Component {
                         <h2>
                             left column
                         </h2>
-                        <TextField className={this.props.classes.textFields} type="text" placeholder="Point of Contact Name" variant="outlined" onChange={(event) => { this.handleInputChange('contact_name', event) }}/>
+                                <TextField className={this.props.classes.textFields} value={currentNonProfit.contact_name} type="text" placeholder="Point of Contact Name" variant="outlined" onChange={(event) => { this.handleInputChange('contact_name', event) }}/>
                         <br />
-                        <TextField className={this.props.classes.textFields} type="text" placeholder="Point of Contact Email" variant="outlined" onChange={(event) => { this.handleInputChange('contact_email', event) }}/>
+                                <TextField className={this.props.classes.textFields} value={currentNonProfit.contact_email} type="text" placeholder="Point of Contact Email" variant="outlined" onChange={(event) => { this.handleInputChange('contact_email', event) }}/>
                         <br />
-                        <TextField className={this.props.classes.textFields} type="text" placeholder="Point of Contact Phone" variant="outlined" onChange={(event) => { this.handleInputChange('contact_phone', event) }}/>
+                                <TextField className={this.props.classes.textFields} value={currentNonProfit.nonprofit_phone} type="text" placeholder="Point of Contact Phone" variant="outlined" onChange={(event) => { this.handleInputChange('contact_phone', event) }}/>
                         <br />
-                        <TextField className={this.props.classes.textFields} type="text" placeholder="Organization Website URL" variant="outlined" onChange={(event) => { this.handleInputChange('website', event) }}/>
+                                <TextField className={this.props.classes.textFields} value={currentNonProfit.website} type="text" placeholder="Organization Website URL" variant="outlined" onChange={(event) => { this.handleInputChange('website', event) }}/>
                         <br />
-                        <TextField className={this.props.classes.textFields} type="text" placeholder="Organization Logo URL" variant="outlined" onChange={(event) => { this.handleInputChange('logo', event) }}/>
+                                <TextField className={this.props.classes.textFields} type="text" value={currentNonProfit.logo} placeholder="Organization Logo URL" variant="outlined" onChange={(event) => { this.handleInputChange('logo', event) }}/>
                         <br />
                     </Grid>
                     <Grid item xs={6}>
@@ -207,6 +231,69 @@ class EditNonprofit extends Component {
                         <Button className={this.props.classes.submitButton} onClick={this.handleSubmitButton} variant="contained">Submit</Button>
                     </Grid>
                 </Grid>
+                </div>
+
+                :
+
+                    <div>
+                    <Grid container spacing={3}>
+                        <Grid item xs={12}>
+                            <TextField className={this.props.classes.textFields} type="text"
+                                placeholder="Name of Organization" variant="outlined" onChange={(event) => { this.handleInputChange('name', event) }} />
+                            <br />
+                            <TextField className={this.props.classes.description}  type="text" placeholder="Organization Description" variant="outlined" multiline rows="4" onChange={(event) => { this.handleInputChange('description', event) }} />
+                        </Grid>
+
+                    </Grid>
+
+                    <Grid container spacing={3}>
+                        <Grid item xs={6}>
+                            <h2>
+                                left column
+                        </h2>
+                            <TextField className={this.props.classes.textFields} type="text" placeholder="Point of Contact Name" variant="outlined" onChange={(event) => { this.handleInputChange('contact_name', event) }} />
+                            <br />
+                            <TextField className={this.props.classes.textFields} value={this.state.contact_email} type="text" placeholder="Point of Contact Email" variant="outlined" onChange={(event) => { this.handleInputChange('contact_email', event) }} />
+                            <br />
+                            <TextField className={this.props.classes.textFields} type="text" placeholder="Point of Contact Phone" variant="outlined" onChange={(event) => { this.handleInputChange('contact_phone', event) }} />
+                            <br />
+                            <TextField className={this.props.classes.textFields} type="text" placeholder="Organization Website URL" variant="outlined" onChange={(event) => { this.handleInputChange('website', event) }} />
+                            <br />
+                            <TextField className={this.props.classes.textFields} type="text" placeholder="Organization Logo URL" variant="outlined" onChange={(event) => { this.handleInputChange('logo', event) }} />
+                            <br />
+                        </Grid>
+                        <Grid item xs={6}>
+                            <h2>
+                                right column
+                        </h2>
+                            <FormControl variant="filled">
+                                <InputLabel >
+                                    Choose Organization Category
+                            </InputLabel>
+                                <Select
+                                    className={this.props.classes.dropdownBox} value={this.state.category_name} onChange={(event) => { this.handleDropdownChange('category_id', 'category_name', event) }}
+
+                                >
+                                    <MenuItem value={this.state.category_name}>
+                                        <em>{this.state.category_name}</em>
+                                    </MenuItem>
+                                    <MenuItem value={dropdownMenu.communityDevelopment}>Community Development</MenuItem>
+                                    <MenuItem value={dropdownMenu.health}>Health</MenuItem>
+                                    <MenuItem value={dropdownMenu.humanServices}>Human Services</MenuItem>
+                                    <MenuItem value={dropdownMenu.youth}>Youth</MenuItem>
+                                </Select>
+                            </FormControl>
+                        </Grid>
+                    </Grid>
+                    <Grid container spacing={3}>
+                        <Grid item xs={12}>
+                            <Button className={this.props.classes.backButton} onClick={this.handleBackButton} variant="contained">Back</Button>
+                            <Button className={this.props.classes.submitButton} onClick={this.handleSubmitButton} variant="contained">Submit</Button>
+                        </Grid>
+                    </Grid>
+                    </div>
+
+            }
             </div>
 
         )
@@ -215,4 +302,10 @@ class EditNonprofit extends Component {
     }
 }
 
-export default withStyles(styles) (connect()(EditNonprofit));
+const mapStateToProps = reduxStore => {
+    return {
+        reduxStore
+    }
+}
+
+export default withStyles(styles)(connect(mapStateToProps)(EditNonprofit));
