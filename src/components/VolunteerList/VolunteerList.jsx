@@ -51,9 +51,13 @@ class VolunteerList extends Component {
         })
     }//end componentDidMount
 
+    componentDidUpdate(prevProps) {
+        console.log(prevProps)
+    }//end componentDidUpdate
+
     handleClick = () => {
         console.log('clicked')
-        this.props.history.push(`/organizationHome/`)
+        this.props.history.goBack()
     }//end handleClick
   
 
@@ -63,7 +67,6 @@ class VolunteerList extends Component {
             <div className={this.props.classes.rootDiv}>
                 <Grid container spacing={1}>
                 <Grid container spacing={1} justify= "center">
-                        
                         {
                             this.props.event.map((name) => {
                                 return <h1>Volunteers signed up for {name.name}</h1>
@@ -71,6 +74,7 @@ class VolunteerList extends Component {
                         }
                 </Grid>
                 <Grid container spacing={1}>
+                        {JSON.stringify(this.props.history)}
                 <Paper className={classes.root}>
                     <Table className={classes.table}>
                         <TableHead>
