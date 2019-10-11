@@ -3,6 +3,8 @@ import { connect } from 'react-redux';
 import { Button, Grid, InputLabel, MenuItem, Select, TextField } from '@material-ui/core';
 import { withStyles } from '@material-ui/styles';
 import Swal from 'sweetalert2';
+import FormControl from '@material-ui/core/FormControl';
+
 
 const styles = theme => ({
     heading: {
@@ -39,6 +41,7 @@ const styles = theme => ({
 class EditNonprofit extends Component {
 
     state = {
+        id: this.props.match.params.id,
         name: '',
         description: '',
         contact_name: '',
@@ -46,14 +49,25 @@ class EditNonprofit extends Component {
         contact_phone: '',
         website: '',
         logo: '',
-        category_id: 1
+        category_id: 1,
+        category_name: 'NONE'
     }
+
 
     handleInputChange = (propertyName, event) => {
         console.log('in handle input change');
         this.setState({
             ...this.state,
             [propertyName]: event.target.value,
+        });
+    }
+
+    handleDropdownChange = (propertyName1, propertyName2, event) => {
+        console.log('in handle dropdown change');
+        this.setState({
+            ...this.state,
+            [propertyName1]: event.target.value.id,
+            [propertyName2]: event.target.value.name
         });
     }
 
@@ -77,7 +91,19 @@ class EditNonprofit extends Component {
        
     }
 
-    handleSubmitButton = (id) => {
+    addNewCourse = event => {
+        event.preventDefault();
+        this.props.dispatch({ type: 'ADD_NEW_COURSE', payload: this.state })
+        this.setState({
+            name: '',
+            description: '',
+            creator_id: 0
+        });
+        // this.props.history.push('/coursesAvailable');
+    }
+
+    handleSubmitButton = () => {
+        let id = this.props.match.params.id
         Swal.fire({
             title: 'Success!',
             text: 'Your event was submitted.',
@@ -86,7 +112,14 @@ class EditNonprofit extends Component {
             confirmButtonColor: '#457736'
         }).then((result) => {
             if (result.value) {
-
+                this.props.dispatch({
+                    type: 'EDIT_NONPROFIT',
+                    payload: this.state
+                })
+                this.props.dispatch({
+                    type: 'GET_NONPROFIT',
+                    payload: id
+                })
                 this.props.history.push(`/organizationHome/${id}`)
             }
         })
@@ -96,7 +129,24 @@ class EditNonprofit extends Component {
 
 
     render() {
-
+        let dropdownMenu = {
+            communityDevelopment: {
+                id: 1,
+                name: 'Community Development'
+            },
+            humanServices: {
+                id: 2,
+                name: 'Human Services'
+            },
+            health: {
+                id: 3,
+                name: 'Health'
+            },
+            youth: {
+                id: 4,
+                name: 'Youth'
+            },
+        }
 
 
         return(
@@ -132,21 +182,23 @@ class EditNonprofit extends Component {
                         <h2>
                             right column
                         </h2>
-                        <InputLabel >
-                            Choose Organization Category
-                        </InputLabel>
-                        <Select
-                            className={this.props.classes.dropdownBox} defaultValue={this.state.category_id} 
-                        
-                        >
-                            <MenuItem value="">
-                                <em>None</em>
-                            </MenuItem>
-                            <MenuItem value={10}>Community Development</MenuItem>
-                            <MenuItem value={20}>Health</MenuItem>
-                            <MenuItem value={30}>Human Services</MenuItem>
-                            <MenuItem value={40}>Youth</MenuItem>
-                        </Select>
+                        <FormControl variant="filled">
+                            <InputLabel >
+                                Choose Organization Category
+                            </InputLabel>
+                            <Select
+                                className={this.props.classes.dropdownBox}value={this.state.category_name} onChange={(event) => { this.handleDropdownChange('category_id', 'category_name', event) }}
+                            
+                            >
+                                <MenuItem value={this.state.category_name}>
+                                    <em>{this.state.category_name}</em>
+                                </MenuItem>
+                                <MenuItem value={dropdownMenu.communityDevelopment}>Community Development</MenuItem>
+                                <MenuItem value={dropdownMenu.health}>Health</MenuItem>
+                                <MenuItem value={dropdownMenu.humanServices}>Human Services</MenuItem>
+                                <MenuItem value={dropdownMenu.youth}>Youth</MenuItem>
+                            </Select>
+                        </FormControl>
                     </Grid>
                 </Grid>
                 <Grid container spacing={3}>
