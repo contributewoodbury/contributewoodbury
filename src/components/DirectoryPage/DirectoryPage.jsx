@@ -16,6 +16,7 @@ import IconButton from '@material-ui/core/IconButton';
 // import { thisExpression } from '@babel/types';
 import { AssistantPhoto } from '@material-ui/icons';
 import moment from 'moment';
+import Swal from 'sweetalert2';
 // import Typography from '@material-ui/core/Typography';
 
 const styles = theme => ({
@@ -31,14 +32,14 @@ const styles = theme => ({
     root: {
         maxHeight: '800px',
         width: '80%',
-        marginTop: theme.spacing.unit * 3,
+        marginTop: theme.spacing(3),
         overflowY: 'scroll',
         margin: 'auto'
     },
     search: {
         float: 'right',
         width: '50%',
-        margin: theme.spacing.unit * 3,
+        margin: theme.spacing(3),
 
     },
     rows: {
@@ -52,15 +53,29 @@ const styles = theme => ({
 
 
 class DirectoryPage extends Component {
+
+    state = {
+        searchbar: ''
+    }
     componentDidMount() {
         this.getOrganizationDetails();
+    }
+
+    componentDidUpdate(prevProps) {
+        console.log("prevProps", prevProps);
+        if (this.props.reduxStore.user.name === 'Admin' && prevProps.reduxStore.user.name !== this.props.reduxStore.user.name) {
+            this.props.dispatch({
+                type: 'GET_ADMIN_DIRECTORY'
+            });
+        }
     }
 
     getOrganizationDetails = () => {
         console.log('in get org. details');
         this.props.dispatch({
             type: 'GET_DIRECTORY'
-        })
+        });
+
     }
 
     handleVolunteerButton = (id) => {
@@ -69,7 +84,22 @@ class DirectoryPage extends Component {
 
     }
 
+    searchbarInput = (event) => {
+        this.setState({
+            searchbar: event.target.value
+        });
+    }
 
+    searchSubmit = (event) => {
+        event.preventDefault();
+        console.log("searched");
+        this.props.dispatch({ type: 'SEARCH', payload: this.state.searchbar });
+    }
+
+    handleDelete = (id) => {
+        //swal statement
+        this.props.dispatch({ type: 'DECLINE_NONPROFIT', payload: id});
+    }
 
     render() {
 
@@ -80,15 +110,11 @@ class DirectoryPage extends Component {
         console.log("six months before todays date: ", sixMonthsBeforeTodaysDate);
 
 
-
-
         return (
             <div>
                 <h1>
-                    Nonprofit Directory Page
+                    Directory
                 </h1>
-
-
 
                 {nonprofitName === 'Admin' ? <h1>You are an ADMIN!</h1> : <h1>You are just a plain ol' user!</h1>}
 
@@ -97,47 +123,19 @@ class DirectoryPage extends Component {
 
                     <div className={this.props.classes.search}>
                         <Paper elevation={1}>
-                            <IconButton aria-label="Search">
-                                <SearchIcon />
-                            </IconButton>
-                            <InputBase placeholder="Search Local Nonprofits" />
+                            <form onSubmit={this.searchSubmit}>
+                                <IconButton aria-label="Search" onClick={this.searchSubmit} >
+                                    <SearchIcon />
+                                </IconButton>
+                                <InputBase placeholder="Search Local Nonprofits" onChange={this.searchbarInput} value={this.state.searchbar} />
+                            </form>
                             <Divider />
                         </Paper>
                     </div>
 
 
-                    <Table hover={true} size="large">
+                    <Table hover="true" size="medium">
 
-                        <TableHead>
-                            <TableRow className={this.props.classes.rows}>
-                                <TableCell align="left">Image</TableCell>
-                                <TableCell align="left">Agency</TableCell>
-                                <TableCell align="left">Category</TableCell>
-                                <TableCell align="left">Volunteer Opportunities</TableCell>
-                                <TableCell align="center">Website Link</TableCell>
-                            </TableRow>
-                        </TableHead>
-                        <TableBody>
-
-                            {this.props.reduxStore.directory.map((nonprofit) => {
-                            if (nonprofit.name !== 'Admin') {
-                                return (
-                                <TableRow key={nonprofit.id} className={this.props.classes.rows} hover={true}>
-                                    <TableCell align="left">{nonprofit.logo}</TableCell>
-                                    <TableCell align="left">{nonprofit.name}<br/>
-                                                              {nonprofit.address}<br/>
-                                                              {nonprofit.city}, MN 
-                                                              {nonprofit.state}  
-                                                              {nonprofit.zip_code}  </TableCell>
-                                    <TableCell align="left">{nonprofit.category_id}</TableCell>
-                                    <TableCell align="left"><Button className={this.props.classes.backButton} variant="contained"
-                                                onClick={(event) => this.handleVolunteerButton(nonprofit.id)} >Volunteer</Button></TableCell>
-                                    <TableCell align="center"><Button className={this.props.classes.backButton} variant="contained">
-                                        <a className={this.props.classes.backButtonText} href={nonprofit.website} >Website</a></Button></TableCell>
-                                </TableRow>
-                            )}})}
-
-                        </TableBody>
                         {/* conditional rendering of the COLUMN HEADINGS based on the user being an admin or not */}
                         {
                             nonprofitName === 'Admin' ?
@@ -168,60 +166,70 @@ class DirectoryPage extends Component {
                         {
                             nonprofitName === 'Admin' ?
                                 <TableBody>
-                                    {this.props.reduxStore.directory.map(nonprofit => {
+                                    {this.props.reduxStore.admin.adminDirectory.map(nonprofit => {
                                         let lastConfirmed = moment(nonprofit.last_confirmed).format("YYYY-MM-DD");
-
-                                        return (
-                                            <TableRow key={nonprofit.id} className={this.props.classes.rows} hover={true}>
-                                                <TableCell align="left">{nonprofit.logo}</TableCell>
-                                                <TableCell align="left">{nonprofit.name}<br />
-                                                    {nonprofit.address}<br />
-                                                    {nonprofit.city}, MN
+                                        if (nonprofit.name !== 'Admin') {
+                                            return (
+                                                <TableRow key={nonprofit.id} className={this.props.classes.rows} hover={true}>
+                                                    <TableCell align="left">{nonprofit.logo}</TableCell>
+                                                    <TableCell align="left">{nonprofit.name}<br />
+                                                        {nonprofit.address}<br />
+                                                        {nonprofit.city}, MN
                                                               {nonprofit.state}
-                                                    {nonprofit.zip_code}  </TableCell>
-                                                <TableCell align="left">{nonprofit.category_id}</TableCell>
+                                                        {nonprofit.zip_code}  </TableCell>
+                                                    <TableCell align="left">{nonprofit.category_id}</TableCell>
 
-                                                <TableCell align="left">
+                                                    <TableCell align="left">
 
-                                                    {lastConfirmed < sixMonthsBeforeTodaysDate ?
-                                                        <div>
-                                                            {/* conditionally show this if date of lastConfirmed is <6months */}
-                                                            <AssistantPhoto fontSize="large" className={this.props.classes.flag} />
-                                                        </div>
-                                                        :
-                                                        <div>
-                                                            <div>Should be ok</div>
-                                                        </div>
-                                                    }
+                                                        {lastConfirmed < sixMonthsBeforeTodaysDate ?
+                                                            <div>
+                                                                {/* conditionally show this if date of lastConfirmed is <6months */}
+                                                                <AssistantPhoto fontSize="large" className={this.props.classes.flag} />
+                                                            </div>
+                                                            :
+                                                            <div>
+                                                                <div>Should be ok</div>
+                                                            </div>
+                                                        }
 
 
-                                                </TableCell>
+                                                    </TableCell>
 
-                                                <TableCell align="center"><Button className={this.props.classes.backButton} variant="contained">
-                                                    <a className={this.props.classes.backButtonText} href={nonprofit.website} >Delete</a></Button></TableCell>
-                                            </TableRow>
-                                        )
+                                                    <TableCell align="center">
+                                                        <Button className={this.props.classes.backButton} variant="contained"
+                                                        onClick={() => { this.handleDelete(nonprofit.id) }}> Delete
+                                                        </Button>
+                                                    </TableCell>
+                                                </TableRow>
+                                            )
+                                        } else { return false; }
                                     })}
                                 </TableBody>
 
                                 :
 
                                 <TableBody>
-                                    {this.props.reduxStore.directory.map(nonprofit => (
-                                        <TableRow key={nonprofit.id} className={this.props.classes.rows} hover={true}>
-                                            <TableCell align="left">{nonprofit.logo}</TableCell>
-                                            <TableCell align="left">{nonprofit.name}<br />
-                                                {nonprofit.address}<br />
-                                                {nonprofit.city}, MN
-                                                        {nonprofit.state}
-                                                {nonprofit.zip_code}  </TableCell>
-                                            <TableCell align="left">{nonprofit.category_id}</TableCell>
-                                            <TableCell align="left"><Button className={this.props.classes.backButton} variant="contained"
-                                                onClick={(event) => this.handleVolunteerButton(nonprofit.id)} >Volunteer</Button></TableCell>
-                                            <TableCell align="center"><Button className={this.props.classes.backButton} variant="contained">
-                                                <a className={this.props.classes.backButtonText} href={nonprofit.website} >Website</a></Button></TableCell>
-                                        </TableRow>
-                                    ))}
+
+                                    {this.props.reduxStore.directory.map((nonprofit) => {
+                                        if (nonprofit.name !== 'Admin') {
+                                            return (
+                                                <TableRow key={nonprofit.id} className={this.props.classes.rows} hover={true}>
+                                                    <TableCell align="left">{nonprofit.logo}</TableCell>
+                                                    <TableCell align="left">{nonprofit.name}<br />
+                                                        {nonprofit.address}<br />
+                                                        {nonprofit.city}, MN &nbsp;
+                                                              {nonprofit.state}
+                                                        {nonprofit.zip_code}  </TableCell>
+                                                    <TableCell align="left">{nonprofit.category_id}</TableCell>
+                                                    <TableCell align="left"><Button className={this.props.classes.backButton} variant="contained"
+                                                        onClick={() => this.handleVolunteerButton(nonprofit.id)} >Volunteer</Button></TableCell>
+                                                    <TableCell align="center"><Button className={this.props.classes.backButton} variant="contained">
+                                                        <a className={this.props.classes.backButtonText} href={nonprofit.website} >Website</a></Button></TableCell>
+                                                </TableRow>
+                                            )
+                                        } else { return false; }
+                                    })}
+
                                 </TableBody>
                         }
                     </Table>
@@ -231,7 +239,7 @@ class DirectoryPage extends Component {
                 <br />
                 <br />
                 {JSON.stringify(this.props.reduxStore.user)}
-            </div>
+            </div >
         )
 
 

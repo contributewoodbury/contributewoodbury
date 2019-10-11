@@ -1,14 +1,14 @@
-import React, {Component} from 'react';
-import {Grid} from '@material-ui/core';
-import {withStyles} from '@material-ui/styles';
+import React, { Component } from 'react';
+import { Grid } from '@material-ui/core';
+import { withStyles } from '@material-ui/styles';
 import Table from '@material-ui/core/Table';
 import TableBody from '@material-ui/core/TableBody';
 import TableCell from '@material-ui/core/TableCell';
 import TableHead from '@material-ui/core/TableHead';
 import TableRow from '@material-ui/core/TableRow';
 import Paper from '@material-ui/core/Paper';
-import {Button, Link} from '@material-ui/core/';
-import {connect} from 'react-redux';
+import { Button, Link } from '@material-ui/core/';
+import { connect } from 'react-redux';
 
 const CustomTableCell = withStyles(theme => ({
     head: {
@@ -39,7 +39,7 @@ const styles = theme => ({
 
 class OrganizationHome extends Component {
 
-    componentDidMount () {
+    componentDidMount() {
         this.props.dispatch({
             type: 'GET_NONPROFIT',
             payload: this.props.match.params.id
@@ -109,36 +109,46 @@ class OrganizationHome extends Component {
                                 </TableRow>
                             </TableHead>
                             <TableBody>
-                            {
-                                this.props.nonprofit.map((info) => {
-                                    let button = ''
-                                    if (info.nonprofit_name === this.props.user.name) {
-                                        button = <><Button className={this.props.classes.button} onClick={() => this.handleVolunteerListClick(info.event_id)}>Volunteer List</Button> <Button 
-                                        className={this.props.classes.button} onClick={() => this.handleEditClick(info.event_id)}>Edit</Button></>
-                                    }
-                                    if (info.event_id) {
-                                    return <>
-                                    <TableRow key={info.id}>
-                                    <CustomTableCell>{info.event_name}</CustomTableCell>
-                                    <CustomTableCell align="right">{info.start_date}</CustomTableCell>
-                                    <CustomTableCell align="right"><Button className={this.props.classes.button}
-                                        onClick={() => {this.handleVolunteerClick(info.event_id)}}>Volunteer</Button> {button}</CustomTableCell>
-                                    
-                                    </TableRow>
-                                    </>
-                                    } else {
-                                        return <p>No listed events</p>
-                                    }
-                                })
-                            }
+                                {
+                                    this.props.nonprofit.map((info) => {
+                                        let button = ''
+                                        if (info.nonprofit_name === this.props.user.name) {
+                                            let vkey = `Volunteer${info.event_id}`;
+                                            let ekey = `Edit${info.event_id}`;
+                                            button = <>
+                                                <Button className={this.props.classes.button}
+                                                    onClick={() => this.handleVolunteerListClick(info.event_id)} key={vkey}>Volunteer List
+                                                </Button>
+                                                <Button key={ekey}
+                                                    className={this.props.classes.button} onClick={() => this.handleEditClick(info.event_id)}>Edit
+                                                </Button>
+                                            </>
+                                        }
+                                        if (info.event_id) {
+                                            let vkey = `Volunteer${info.id}`;
+                                            return (
+                                                <TableRow key={info.id}>
+                                                    <CustomTableCell>{info.event_name}</CustomTableCell>
+                                                    <CustomTableCell align="right">{info.start_date}</CustomTableCell>
+                                                    <CustomTableCell align="right"><Button className={this.props.classes.button} key={vkey}
+                                                        onClick={() => { this.handleVolunteerClick(info.event_id) }}>Volunteer</Button> &nbsp; {button}</CustomTableCell>
+
+                                                </TableRow>
+                                            )
+                                        } else {
+                                            return <p>No listed events</p>
+                                        }
+                                    })
+                                }
                             </TableBody>
                         </Table>
                     </Paper>
-                    <Grid container spacing={0} justify="center">
-                    {nonprofitInfo.nonprofit_name === this.props.user.name && <Button className={this.props.classes.button} onClick={this.handleAddEvent}>Add Event</Button>}
-                    </Grid>
                 </Grid>
-
+                <br></br>
+                    <Grid container spacing={12} justify="center">
+                        {nonprofitInfo.nonprofit_name === this.props.user.name && <Button className={this.props.classes.button} onClick={this.handleAddEvent}>Add Event</Button>}
+                    </Grid>
+        
             </div>
         )
     }
@@ -146,7 +156,7 @@ class OrganizationHome extends Component {
 
 const mapStateToProps = (state) => {
     return {
-        nonprofit: state.nonprofit,
+        nonprofit: state.nonprofit.nonprofit,
         user: state.user
     }
 }

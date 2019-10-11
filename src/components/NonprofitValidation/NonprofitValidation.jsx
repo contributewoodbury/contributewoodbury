@@ -87,7 +87,7 @@ class NonprofitValidation extends Component {
             text: "Declining will delete the nonprofit.",
             type: 'warning',
             showCancelButton: true,
-            confirmButtonColor: '#3085d6',
+            // confirmButtonColor: '#3085d6',
             cancelButtonColor: '#d33',
             confirmButtonText: 'OK',
             confirmButtonColor: '#457736'

@@ -27,15 +27,15 @@ const Calendar = () => {
   function eventItem(event) {
     let path = `/eventDetails/${event.id}`;
     return (
-      <>
-        <Grid item md={12} key={event.id}> <b>Event:</b> {event.name} &nbsp;
+      <div key={event.id}>
+        <Grid item md={12} > <b>Event:</b> {event.name} &nbsp;
           <Link to={path}>Learn More</Link>
         </Grid>
-        <Grid item md={12} key={event.id}><b> Organization: </b> {findName(event.non_profit_id)}
+        <Grid item md={12} ><b> Organization: </b> {findName(event.non_profit_id)}
           <br /> <b>Dates: </b>
           {moment(event.start_date).format('MMM Do YYYY')} - {moment(event.end_date).format('MMM Do YYYY')}
         </Grid> <br />
-      </>);
+      </div>);
   }
 
   return (
@@ -43,13 +43,19 @@ const Calendar = () => {
       <div className="calendarHeader"><h1>Calendar</h1></div>
       <Grid container spacing={4}>
         <Grid item md={6} xs={12}>
-          <h4 className="calendarDividers">{moment().subtract(7, 'days').calendar('MM[/]DD[/]YYYY')} - {moment().subtract(1, 'days').calendar('MM[/]DD[/]YYYY')}</h4>
+          <h4 className="calendarDividers">{moment().subtract(30, 'days').calendar()} - {moment().subtract(8, 'days').calendar()}</h4>
+          <ul>
+            {eventList.lastMonth ? eventList.lastMonth.map(event => eventItem(event)) : 'No Events'}
+          </ul>
+        </Grid>
+        <Grid item md={6} xs={12}>
+          <h4 className="calendarDividers">{moment().subtract(7, 'days').calendar()} - {moment().subtract(1, 'days').calendar('MM/DD/YYYY')}</h4>
           <ul>
             {eventList.lastWeek ? eventList.lastWeek.map(event => eventItem(event)) : 'No Events this week'}
           </ul>
         </Grid>
         <Grid item md={6} xs={12}>
-          <h4 className="calendarDividers">{moment().format('MM[/]DD[/]YYYY')} - {moment().add(6, 'days').calendar('MM[/]DD[/]YYYY')}</h4>
+          <h4 className="calendarDividers">{moment().format('MM/DD/YYYY')} - {moment().add(6, 'days').calendar('MM/DD/YYYY')}</h4>
           <ul>
             {eventList.currentWeek ? eventList.currentWeek.map(event => eventItem(event)) : 'No Events this week'}
           </ul>

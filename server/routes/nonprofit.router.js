@@ -15,7 +15,6 @@ router.get('/:id', (req, res) => {
          "nonprofit".address, "nonprofit".city, "nonprofit".zip_code, "nonprofit".id AS "nonprofit_id", "nonprofit".contact_email, "nonprofit".description, "nonprofit".logo, "nonprofit".website FROM "nonprofit" 
         JOIN "event" ON "nonprofit".id = "event".non_profit_id
          WHERE "nonprofit".id = $1;`;
-        let id = req.params.id
         pool.query(queryText, [id])
         .then((result) => {
             res.send(result.rows)
@@ -91,6 +90,18 @@ router.put('/editNonprofit', rejectUnauthenticated, (req,res) => {
 })
 
 
+// obtains all categories from the DB
+router.get('/all/categories', (req, res) => {
+    let queryText = `SELECT * FROM "categories"`;
+    pool.query(queryText)
+    .then((result) => {
+        res.send(result.rows);
+    })
+    .catch((error) => {
+        console.log('error in GET categories', error);
+        res.sendStatus(500);
+    });
+})
 
 
 
