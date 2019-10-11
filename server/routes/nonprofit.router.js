@@ -73,6 +73,7 @@ router.put('/editNonprofit', rejectUnauthenticated, (req,res) => {
     let description = req.body.description;
     let id = req.body.id;
     let category_id = req.body.category_id;
+    
     pool.query(queryText, [name, contact_email, address, city, zip_code, website, logo, description, id, category_id])
         .then((result) => {
             res.sendStatus(200);
@@ -82,7 +83,18 @@ router.put('/editNonprofit', rejectUnauthenticated, (req,res) => {
         })
 })
 
-
+// obtains all categories from the DB
+router.get('/all/categories', (req, res) => {
+    let queryText = `SELECT * FROM "categories"`;
+    pool.query(queryText)
+    .then((result) => {
+        res.send(result.rows);
+    })
+    .catch((error) => {
+        console.log('error in GET categories', error);
+        res.sendStatus(500);
+    });
+})
 
 
 
