@@ -131,7 +131,7 @@ class OrganizationHome extends Component {
                                                     <CustomTableCell>{info.event_name}</CustomTableCell>
                                                     <CustomTableCell align="right">{info.start_date}</CustomTableCell>
                                                     <CustomTableCell align="right"><Button className={this.props.classes.button} key={vkey}
-                                                        onClick={() => { this.handleVolunteerClick(info.event_id) }}>Volunteer</Button> {button}</CustomTableCell>
+                                                        onClick={() => { this.handleVolunteerClick(info.event_id) }}>Volunteer</Button> &nbsp; {button}</CustomTableCell>
 
                                                 </TableRow>
                                             )
@@ -143,11 +143,12 @@ class OrganizationHome extends Component {
                             </TableBody>
                         </Table>
                     </Paper>
-                    <Grid container spacing={0} justify="center">
+                </Grid>
+                <br></br>
+                    <Grid container spacing={12} justify="center">
                         {nonprofitInfo.nonprofit_name === this.props.user.name && <Button className={this.props.classes.button} onClick={this.handleAddEvent}>Add Event</Button>}
                     </Grid>
-                </Grid>
-
+        
             </div>
         )
     }

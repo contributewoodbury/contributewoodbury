@@ -42,7 +42,10 @@ function* addVolunteers(action) {
 function* volunteerSignUp(action) {
   try {
     yield axios.post(`/api/volunteer/signup`, action.payload);
-    
+    yield put({
+      type: 'ADD_SIGNUP',
+      payload: action.payload
+    })
   } catch (error) {
     console.log('error in volunteerSignUp', error);
   }

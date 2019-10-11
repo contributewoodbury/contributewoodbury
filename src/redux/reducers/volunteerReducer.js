@@ -20,6 +20,15 @@ const specificRole = (state = {}, action) => {
   }
 }
 
+// const savedVolunteers = (state = [], action) => {
+//   switch(action.type) {
+//     case 'SHOW_SAVED_VOLUNTEERS' :
+//       return [...state, action.payload]
+//     default :
+//     return state
+//   }
+// }
+
 const previousSignUps = (state = [], action) => {
   switch (action.type) {
     case 'ADD_SIGNUP':
@@ -34,5 +43,6 @@ const previousSignUps = (state = [], action) => {
 export default combineReducers({
   volunteerRoleList,
   previousSignUps,
-  specificRole
+  specificRole,
+  // savedVolunteers
 });

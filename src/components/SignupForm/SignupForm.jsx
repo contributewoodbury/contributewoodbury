@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { CardContent, TextField, Button } from '@material-ui/core';
 import { withStyles } from '@material-ui/styles';
+import Swal from 'sweetalert2';
 
 const styles = theme => ({
     textFields: {
@@ -27,8 +28,8 @@ class SignupForm extends Component {
     state = {
         name: '',
         role_id: this.props.roleId,
-        start_time: '', 
-        end_time: '',
+        start_time: this.props.role.start_time, 
+        end_time: this.props.role.end_time,
         comments: '',
         email: '',
         phone_number: '',
@@ -43,8 +44,6 @@ class SignupForm extends Component {
     handleChange = (propertyName, event) => {
         this.setState ({
             [propertyName]: event.target.value,
-            start_time: this.props.role.start_time,
-            end_time: this.props.role.end_time
         })
         console.log(this.state);  
     }
@@ -61,8 +60,8 @@ class SignupForm extends Component {
         this.setState ({
             name: '',
             role_id: this.props.roleId,
-            start_time: '',
-            end_time: '',
+            start_time: this.props.role.start_time,
+            end_time: this.props.role.end_time,
             comments: '',
             email: '',
             phone_number: '',
@@ -70,6 +69,13 @@ class SignupForm extends Component {
             city: '',
             state: '',
             zip_code: ''
+        })
+        Swal.fire({
+            title: 'Success!',
+            text: `We've sent your information to the organization. Please reach out to the organization if you have additional questions.`,
+            type: 'success',
+            confirmButtonText: 'OK',
+            confirmButtonColor: '#457736'
         })
     }
 
@@ -83,7 +89,7 @@ class SignupForm extends Component {
 
 
             <div>
-                {JSON.stringify(this.state)}
+                {/* {JSON.stringify(this.state)} */}
                 <CardContent>
                     <h3>Sign me up!</h3>
                     <TextField className={this.props.classes.textFields} type="text" placeholder="Full Name" variant="outlined" label="Full Name"
@@ -111,7 +117,8 @@ class SignupForm extends Component {
                     <Button variant="contained" className={this.props.classes.saveButton}
                             onClick={this.handleAddVolunteer} >Sign Up!</Button>
                 </CardContent>
-                {JSON.stringify(this.props.roles)}
+                {/* {JSON.stringify(this.props.roles)} */}
+
             </div>
         )
     }
