@@ -28,8 +28,8 @@ class SignupForm extends Component {
     state = {
         name: '',
         role_id: this.props.roleId,
-        start_time: '', 
-        end_time: '',
+        start_time: this.props.role.start_time, 
+        end_time: this.props.role.end_time,
         comments: '',
         email: '',
         phone_number: '',
@@ -44,8 +44,6 @@ class SignupForm extends Component {
     handleChange = (propertyName, event) => {
         this.setState ({
             [propertyName]: event.target.value,
-            start_time: this.props.role.start_time,
-            end_time: this.props.role.end_time
         })
         console.log(this.state);  
     }
@@ -62,8 +60,8 @@ class SignupForm extends Component {
         this.setState ({
             name: '',
             role_id: this.props.roleId,
-            start_time: '',
-            end_time: '',
+            start_time: this.props.role.start_time,
+            end_time: this.props.role.end_time,
             comments: '',
             email: '',
             phone_number: '',
