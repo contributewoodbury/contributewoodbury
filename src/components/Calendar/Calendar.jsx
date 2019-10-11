@@ -43,7 +43,7 @@ const Calendar = () => {
       <div className="calendarHeader"><h1>Calendar</h1></div>
       <Grid container spacing={4}>
         <Grid item md={6} xs={12}>
-          <h4 className="calendarDividers">{moment().subtract(30, 'days').calendar()} - {moment().subtract(7, 'days').calendar()}</h4>
+          <h4 className="calendarDividers">{moment().subtract(30, 'days').calendar()} - {moment().subtract(8, 'days').calendar()}</h4>
           <ul>
             {eventList.lastMonth ? eventList.lastMonth.map(event => eventItem(event)) : 'No Events'}
           </ul>

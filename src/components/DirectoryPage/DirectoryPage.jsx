@@ -16,6 +16,7 @@ import IconButton from '@material-ui/core/IconButton';
 // import { thisExpression } from '@babel/types';
 import { AssistantPhoto } from '@material-ui/icons';
 import moment from 'moment';
+import Swal from 'sweetalert2';
 // import Typography from '@material-ui/core/Typography';
 
 const styles = theme => ({
@@ -96,6 +97,7 @@ class DirectoryPage extends Component {
     }
 
     handleDelete = (id) => {
+        //swal statement
         this.props.dispatch({ type: 'DECLINE_NONPROFIT', payload: id});
     }
 
