@@ -64,7 +64,7 @@ class DirectoryPage extends Component {
         console.log("prevProps", prevProps);
         if (this.props.reduxStore.user.name === 'Admin' && prevProps.reduxStore.user.name !== this.props.reduxStore.user.name) {
             this.props.dispatch({
-                type: 'GET_NONPROFIT_DIRECTORY'
+                type: 'GET_ADMIN_DIRECTORY'
             });
         }
     }
@@ -93,6 +93,10 @@ class DirectoryPage extends Component {
         event.preventDefault();
         console.log("searched");
         this.props.dispatch({ type: 'SEARCH', payload: this.state.searchbar });
+    }
+
+    handleDelete = (id) => {
+        this.props.dispatch({ type: 'DECLINE_NONPROFIT', payload: id});
     }
 
     render() {
@@ -189,8 +193,11 @@ class DirectoryPage extends Component {
 
                                                     </TableCell>
 
-                                                    <TableCell align="center"><Button className={this.props.classes.backButton} variant="contained">
-                                                        <a className={this.props.classes.backButtonText} href={nonprofit.website} >Delete</a></Button></TableCell>
+                                                    <TableCell align="center">
+                                                        <Button className={this.props.classes.backButton} variant="contained"
+                                                        onClick={() => { this.handleDelete(nonprofit.id) }}> Delete
+                                                        </Button>
+                                                    </TableCell>
                                                 </TableRow>
                                             )
                                         } else { return false; }
