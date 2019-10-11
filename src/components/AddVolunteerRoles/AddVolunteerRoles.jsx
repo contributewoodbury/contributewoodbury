@@ -109,12 +109,23 @@ class AddVolunteerRoles extends Component {
     handleRemoveRole = (id) => {
         console.log('remove roles button was clicked for this id:', id);
         //alert: "are you sure?" and "this role has been deleted"
-        //delete role based on id of clicked item
-        this.props.dispatch({
-            type: 'DELETE_ROLE',
-            payload: {role_id: id, event_id: this.props.match.params.id}
+        Swal.fire({
+            title: 'Are you sure?',
+            text: "This role will be deleted forever.",
+            type: 'warning',
+            showCancelButton: true,
+            confirmButtonColor: '#3085d6',
+            cancelButtonColor: '#d33',
+            confirmButtonText: 'OK',
+        }).then((result) => {
+            if (result.value) {
+                //delete role based on id of clicked item
+                this.props.dispatch({
+                    type: 'DELETE_ROLE',
+                    payload: { role_id: id, event_id: this.props.match.params.id }
+                })
+            }
         })
-        //render updated volunter roles created list
     }
 
 
