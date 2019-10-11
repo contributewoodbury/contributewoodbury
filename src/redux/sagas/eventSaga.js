@@ -16,9 +16,14 @@ function* getEventDetails (action){
 //adds a new event for a specific nonprofit
 function* addEvent(action) {
   try{
-    yield axios.post(`/api/event/addEvent`, action.payload);
+    let response = yield axios.post(`/api/event/addEvent`, action.payload);
+
+    if (action.payload.volunteers_needed === true) {
+      yield action.history.push(`/addvolunteers/${response.data.id}`)
+    }
     yield put({
-      type: 'GET_EVENT_DETAILS'
+      type: 'GET_EVENT_DETAILS',
+      payload: response.data.id
     })
   }
   catch(error) {
