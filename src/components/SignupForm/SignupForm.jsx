@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { CardContent, TextField, Button } from '@material-ui/core';
 import { withStyles } from '@material-ui/styles';
+import Swal from 'sweetalert2';
 
 const styles = theme => ({
     textFields: {
@@ -71,6 +72,13 @@ class SignupForm extends Component {
             state: '',
             zip_code: ''
         })
+        Swal.fire({
+            title: 'Success!',
+            text: `We've sent your information to the organization. Please reach out to the organization if you have additional questions.`,
+            type: 'success',
+            confirmButtonText: 'OK',
+            confirmButtonColor: '#457736'
+        })
     }
 
 
@@ -112,7 +120,7 @@ class SignupForm extends Component {
                             onClick={this.handleAddVolunteer} >Sign Up!</Button>
                 </CardContent>
                 {/* {JSON.stringify(this.props.roles)} */}
-                
+
             </div>
         )
     }

@@ -5,6 +5,7 @@ import { withStyles } from '@material-ui/styles';
 import SignupForm from '../SignupForm/SignupForm';
 import NonprofitDetails from '../NonprofitDetails/NonprofitDetails';
 import moment from 'moment';
+import Swal from 'sweetalert2';
 
 
 const styles = theme => ({
@@ -46,7 +47,6 @@ class VolunteerSignup extends Component {
             type: 'GET_SPECIFIC_VOLUNTEER_ROLE',
             payload: this.props.match.params.id
         })
-        console.log('the role id is:', this.props.match.params.id);
         
     }
 
@@ -54,7 +54,20 @@ class VolunteerSignup extends Component {
     handleBackButton = (id) => {
         console.log('back button was clicked');
         //ADD SWEETALERT
-        this.props.history.push(`/organizationHome/${id}`) 
+        Swal.fire({
+            title: 'Are you sure?',
+            text: "Your information has been saved!",
+            type: 'question',
+            showCancelButton: true,
+            confirmButtonColor: '#3085d6',
+            cancelButtonColor: '#d33',
+            confirmButtonText: 'OK',
+            // confirmButtonColor: '#457736'
+        }).then((result) => {
+            if (result.value) {
+                this.props.history.push(`/organizationHome/${id}`)
+            }
+        })
     }
 
     handleDoneButton = () => {
@@ -115,7 +128,7 @@ class VolunteerSignup extends Component {
 
                     <Grid item xs={12}>
                             <CardContent>
-                                <h3>volunteers added goes here</h3>
+                                <h3>Thank you for volunteering! Your information has been sent to the organization.</h3>
                                 {/* {JSON.stringify(this.props.saved)} */}
                                 {this.props.saved.map(volunteer => (
                                         <CardContent className={this.props.classes.cardContent} >
