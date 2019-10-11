@@ -8,9 +8,9 @@ const calendar = (state = [], action) => {
       for (const event of action.payload) {
         let endDate = moment(event.end_date).format('YYYYMMDD');
         let now = moment().format('YYYYMMDD');
-        if (endDate < moment().subtract(7, 'days').format('YYYYMMDD')){
+        if (endDate < moment().subtract(8, 'days').format('YYYYMMDD')){
           calendar.lastMonth.push(event);
-        } else if (endDate < now && endDate > moment().subtract(7, 'days').format('YYYYMMDD')) {
+        } else if (endDate < now && endDate >= moment().subtract(7, 'days').format('YYYYMMDD')) {
           console.log(endDate, 'now', now)
           calendar.lastWeek.push(event);
         } else if (endDate > now && endDate < moment().add(7, 'days').format('YYYYMMDD')) {

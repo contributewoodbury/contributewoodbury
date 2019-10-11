@@ -109,23 +109,32 @@ class OrganizationHome extends Component {
                                 </TableRow>
                             </TableHead>
                             <TableBody>
-                                {  
+                                {
                                     this.props.nonprofit.map((info) => {
                                         let button = ''
                                         if (info.nonprofit_name === this.props.user.name) {
-                                            button = <><Button className={this.props.classes.button} onClick={() => this.handleVolunteerListClick(info.event_id)}>Volunteer List</Button> &nbsp; 
-                                            <Button className={this.props.classes.button} onClick={() => this.handleEditClick(info.event_id)}>Edit</Button></>
+                                            let vkey = `Volunteer${info.event_id}`;
+                                            let ekey = `Edit${info.event_id}`;
+                                            button = <>
+                                                <Button className={this.props.classes.button}
+                                                    onClick={() => this.handleVolunteerListClick(info.event_id)} key={vkey}>Volunteer List
+                                                </Button>
+                                                <Button key={ekey}
+                                                    className={this.props.classes.button} onClick={() => this.handleEditClick(info.event_id)}>Edit
+                                                </Button>
+                                            </>
                                         }
                                         if (info.event_id) {
-                                            return <>
+                                            let vkey = `Volunteer${info.id}`;
+                                            return (
                                                 <TableRow key={info.id}>
                                                     <CustomTableCell>{info.event_name}</CustomTableCell>
                                                     <CustomTableCell align="right">{info.start_date}</CustomTableCell>
-                                                    <CustomTableCell align="right"><Button className={this.props.classes.button}
+                                                    <CustomTableCell align="right"><Button className={this.props.classes.button} key={vkey}
                                                         onClick={() => { this.handleVolunteerClick(info.event_id) }}>Volunteer</Button> &nbsp; {button}</CustomTableCell>
 
                                                 </TableRow>
-                                            </>
+                                            )
                                         } else {
                                             return <p>No listed events</p>
                                         }
