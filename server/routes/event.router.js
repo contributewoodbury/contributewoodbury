@@ -63,6 +63,8 @@ router.post('/addEvent', rejectUnauthenticated, (req,res) => {
   let end_time = req.body.end_time;
   let event_url = req.body.event_url;
   pool.query(queryText, [name, non_profit_id, description, address, city, zip_code, start_date, end_date, start_time, end_time, event_url])
+  if(req.user.id === non_profit_id){
+  pool.query(queryText, [name, non_profit_id, description, address, city, zip_code, start_date, end_date, event_url])
     .then((result) => {
       console.log('returning id for event:', result.rows);
       res.send(result.rows)
@@ -71,6 +73,9 @@ router.post('/addEvent', rejectUnauthenticated, (req,res) => {
       console.log('error in addEvent POST', error)
       res.sendStatus(500);
     })
+  } else {
+    res.sendStatus(403);
+  }
 })
 
 module.exports = router;

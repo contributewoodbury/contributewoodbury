@@ -49,8 +49,6 @@ class EventDetails extends Component {
         })
     }//end componentDidMount
 
-    
-
     handleClick = (id) => {
         console.log('clicked')
         this.props.history.push(`/signup/${id}`)
@@ -61,6 +59,11 @@ class EventDetails extends Component {
         let id = this.props.match.params.id
         this.props.history.push(`/volunteerList/${id}`)
     }//end handleClick
+
+    handleEditEvent = () => {
+        let id = this.props.match.params.id
+        console.log('clicked the event id is:', id)
+    }//end handleEditEvent
 
     render() {
         let nonprofitInfo = this.props.nonprofit[0] || 'a';
@@ -102,6 +105,7 @@ class EventDetails extends Component {
                                         </>
                                     })
                                 }
+                {nonprofitInfo.nonprofit_name === this.props.user.name && <Button className={this.props.classes.button} onClick={this.handleEditEvent}>Edit</Button>}
                 <h3>Volunteer Opportunities for this event:</h3>
                 <Paper className={this.props.classes.root}>
                     <Table className={this.props.classes.table}>
@@ -133,6 +137,7 @@ class EventDetails extends Component {
                         </TableBody>
                     </Table>
                 </Paper>
+                <br></br>
                 <Grid container justify='center'>
                 {nonprofitInfo.nonprofit_name === this.props.user.name && <Button className={this.props.classes.button} onClick={this.handleButtonClick}> Volunteer List </Button>}
                 </Grid>
@@ -144,7 +149,7 @@ class EventDetails extends Component {
 const mapStateToProps = (state) => {
     return {
         event: state.event,
-        nonprofit: state.nonprofit,
+        nonprofit: state.nonprofit.nonprofit,
         volunteers: state.volunteer,
         user: state.user
     }
