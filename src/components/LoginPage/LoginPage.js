@@ -26,6 +26,14 @@ handleSeeEvents = () => {
   this.props.history.push('/calendar')
 }
 
+handleNonprofit = () => {
+  console.log(this.props.user);
+  if (this.props.user) {
+    this.props.history.push(`/organizationHome/${this.props.user.id}`);
+  } else {
+    this.props.dispatch({ type: 'SET_TO_REGISTER_MODE' });
+  }
+}
 
 
 
@@ -55,7 +63,7 @@ handleSeeEvents = () => {
           <center>
           <h3 className={this.props.classes.heading}>Are you a nonprofit? Share your upcoming events on our calendar!</h3>
               <Button className={this.props.classes.buttons} variant="contained"
-                onClick={() => { this.props.dispatch({ type: 'SET_TO_REGISTER_MODE' }) }}>
+                onClick={() => this.handleNonprofit()}>
                   I'm a nonprofit</Button>
           </center>
         </div>
@@ -70,6 +78,7 @@ handleSeeEvents = () => {
 // const mapStateToProps = ({errors}) => ({ errors });
 const mapStateToProps = state => ({
   errors: state.errors,
+  user: state.user
 });
 
 export default withStyles(styles) (connect(mapStateToProps)(LoginPage));
