@@ -16,7 +16,7 @@ router.get('/role/:id', (req, res) => {
   });
 });
 
-//gets one specific volunteer role to sign up for
+//gets one specific role to sign up for (sign up page)
 router.get('/specificrole/:id', (req, res) => {
   let queryText = `SELECT * FROM "role" WHERE "id" = $1;`;
   pool.query(queryText, [req.params.id])
@@ -67,6 +67,8 @@ router.get('/eventVolunteers/:id', rejectUnauthenticated, (req,res) => {
 
 //adds volunteer roles for specific events
 router.post('/addVolunteers', rejectUnauthenticated, (req, res) => {
+  console.log('add volunteers req.body:', req.body);
+  
   let queryText = `INSERT INTO "role" ("name", "description", "number_needed", "start_time", "end_time", "date", "event_id")
     VALUES ($1, $2, $3, $4, $5, $6, $7);`;
   let name = req.body.name;
