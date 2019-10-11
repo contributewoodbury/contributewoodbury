@@ -50,7 +50,7 @@ class VolunteerList extends Component {
         })
         this.props.dispatch({
             type: 'GET_SPECIFIC_VOLUNTEERS',
-            payload: this.props.match.params.id
+            payload: { id: this.props.match.params.id, user_id: this.props.user.id }
         })
     }//end componentDidMount
 
@@ -99,11 +99,11 @@ class VolunteerList extends Component {
                         </Table>
                     </Paper>
                 </Grid>
-                    <br></br>
-                    <Grid container spacing={24} justify="center">
-                        <Button className={classes.button} onClick={this.handleClick}>Back</Button>
-                    </Grid>
-                
+                <br></br>
+                <Grid container spacing={24} justify="center">
+                    <Button className={classes.button} onClick={this.handleClick}>Back</Button>
+                </Grid>
+
             </div>
         )
     }
