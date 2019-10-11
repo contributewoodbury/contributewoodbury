@@ -69,7 +69,7 @@ class EventDetails extends Component {
             <Grid container spacing={3}>
                 <Grid item xs={6}>
                 <CardContent>
-                        <img src={this.props.nonprofit[0] && this.props.nonprofit[0].logo} width="400" />
+                        <img src={this.props.nonprofit[0] && this.props.nonprofit[0].logo} alt="nonprofit logo" width="400" />
                 </CardContent>
                 </Grid>
                 <Grid item xs={6}>

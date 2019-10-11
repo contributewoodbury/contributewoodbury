@@ -1,7 +1,6 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
-import { Link as CoreLink } from '@material-ui/core';
 // import LoginPage from '../LoginPage/LoginPage';
 import NavLogin from '../NavLogin/NavLogin';
 import LogOutButton from '../LogOutButton/LogOutButton';
@@ -28,7 +27,7 @@ const Nav = (props) => {
         <Link className="nav-link" to="/directory">
           Directory
       </Link>
-        <a className="nav-link" target="_blank" href="https://www.woodburyfoundation.org">
+        <a className="nav-link" target="_blank" href="https://www.woodburyfoundation.org" rel="noopener noreferrer">
           WCF
         </a>
 
