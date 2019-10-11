@@ -25,6 +25,9 @@ const styles = theme => ({
         backgroundColor: '#457736',
         margin: '0px 330px 0px 0px'
     },
+    cardContent: {
+        margin: '25px'
+    }
     
 })
 
@@ -103,27 +106,6 @@ class VolunteerSignup extends Component {
                                 <span>Description: {this.props.role.description} </span><br />
                             </div>
 
-                            
-                                {/* {this.props.role.map((each) => {
-                                    if(parseFloat(this.props.match.params.id) === each.id) {
-                                        let date = moment(each.date).format("MM-DD-YYYY");
-                                        let startTime = moment(parseFloat(each.start_time)).format("hh:mm")
-                                        let endTime = moment(parseFloat(each.end_time)).format("hh:mm")
-                                        return (
-                                            <>
-                                            <div>
-                                                <span>{each.name} ({each.number_needed} volunteers needed)</span><br/>
-                                                    <span>Date: {date} </span><br />
-                                                    <span>Time: {startTime} - {endTime} </span><br />
-                                                    <span>Description: {each.description} </span><br />
-                                            </div>
-                                                
-                                            </>
-                                        )  
-                                    } else {
-                                        return false
-                                    }
-                                })} */}
                             </CardContent>
                     </Grid>
 
@@ -134,6 +116,16 @@ class VolunteerSignup extends Component {
                     <Grid item xs={12}>
                             <CardContent>
                                 <h3>volunteers added goes here</h3>
+                                {/* {JSON.stringify(this.props.saved)} */}
+                                {this.props.saved.map(volunteer => (
+                                        <CardContent className={this.props.classes.cardContent} >
+                                            <span>name: {volunteer.name} </span><br />
+                                            <span>phone: {volunteer.phone_number} </span><br />
+                                            <span>date: {volunteer.start_time} </span> <span> - </span> <span>{volunteer.end_time}</span><br />
+                                            <Button className={this.props.classes.doneButton} >Remove</Button>
+                                        </CardContent>
+                                    
+                                ))}
                             </CardContent>
                     </Grid>
 
@@ -156,7 +148,8 @@ const mapStateToProps = reduxStore => {
         event: reduxStore.event.eventDetails,
         user: reduxStore.user,
         role: reduxStore.volunteer.specificRole,
-        nonprofit: reduxStore.nonprofit
+        nonprofit: reduxStore.nonprofit,
+        saved: reduxStore.volunteer.previousSignUps
     }
 }
 

@@ -83,7 +83,7 @@ class SignupForm extends Component {
 
 
             <div>
-                {JSON.stringify(this.state)}
+                {/* {JSON.stringify(this.state)} */}
                 <CardContent>
                     <h3>Sign me up!</h3>
                     <TextField className={this.props.classes.textFields} type="text" placeholder="Full Name" variant="outlined" label="Full Name"
@@ -111,7 +111,8 @@ class SignupForm extends Component {
                     <Button variant="contained" className={this.props.classes.saveButton}
                             onClick={this.handleAddVolunteer} >Sign Up!</Button>
                 </CardContent>
-                {JSON.stringify(this.props.roles)}
+                {/* {JSON.stringify(this.props.roles)} */}
+                
             </div>
         )
     }
