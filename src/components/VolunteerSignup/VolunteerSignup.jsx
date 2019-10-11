@@ -23,7 +23,7 @@ const styles = theme => ({
         float: 'right',
         color: 'white',
         backgroundColor: '#457736',
-        margin: '0px 330px 0px 0px'
+        margin: '0px 550px 0px 0px'
     },
     cardContent: {
         margin: '25px'
@@ -88,10 +88,10 @@ class VolunteerSignup extends Component {
                                     let endDate =  moment(item.end_date).format("MM-DD-YYYY")
                                     return(
                                         <>
-                                            <span>Event: {item.name}</span><br />
-                                            <span>Description: {item.description}</span><br />
-                                            <span>Date: {startDate} - {endDate}</span><br />
-                                            <span>Location: {item.address} </span>
+                                            <span><b>Event:</b> {item.name}</span><br />
+                                            <span><b>Description:</b> {item.description}</span><br />
+                                            <span><b>Date:</b> {moment({ startDate }).format('MM[/]DD[/]YYYY')} - {moment({ endDate }).format('MM[/]DD[/]YYYY')}</span><br />
+                                            <span><b>Location:</b> {item.address} </span>
                                             <span>{item.city}, {item.state} {item.zip_code}</span><br />
                                         </>
                                     )
@@ -100,10 +100,10 @@ class VolunteerSignup extends Component {
                         <CardContent>
                             <div>
                                 
-                                <span>{this.props.role.name} ({this.props.role.number_needed} volunteers needed)</span><br />
-                                <span>Date: {this.props.role.date} </span><br />
-                                <span>Time: {this.props.role.start_time} - {this.props.role.end_time} </span><br />
-                                <span>Description: {this.props.role.description} </span><br />
+                                <span><b>{this.props.role.name} ({this.props.role.number_needed} volunteers needed)</b></span><br />
+                                <span><b>Date:</b> {moment( this.props.role.date ).format('MM[/]DD[/]YYYY')} </span><br />
+                                <span><b>Time:</b> {this.props.role.start_time} - {this.props.role.end_time} </span><br />
+                                <span><b>Description:</b> {this.props.role.description} </span><br />
                             </div>
 
                             </CardContent>
