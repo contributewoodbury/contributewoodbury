@@ -5,6 +5,7 @@ import { withStyles } from '@material-ui/styles';
 import SignupForm from '../SignupForm/SignupForm';
 import NonprofitDetails from '../NonprofitDetails/NonprofitDetails';
 import moment from 'moment';
+import Swal from 'sweetalert2';
 
 
 const styles = theme => ({
@@ -23,8 +24,11 @@ const styles = theme => ({
         float: 'right',
         color: 'white',
         backgroundColor: '#457736',
-        margin: '0px 330px 0px 0px'
+        margin: '0px 550px 0px 0px'
     },
+    cardContent: {
+        margin: '25px'
+    }
     
 })
 
@@ -43,7 +47,6 @@ class VolunteerSignup extends Component {
             type: 'GET_SPECIFIC_VOLUNTEER_ROLE',
             payload: this.props.match.params.id
         })
-        console.log('the role id is:', this.props.match.params.id);
         
     }
 
@@ -51,7 +54,20 @@ class VolunteerSignup extends Component {
     handleBackButton = (id) => {
         console.log('back button was clicked');
         //ADD SWEETALERT
-        this.props.history.push(`/organizationHome/${id}`) 
+        Swal.fire({
+            title: 'Are you sure?',
+            text: "Your information has been saved!",
+            type: 'question',
+            showCancelButton: true,
+            confirmButtonColor: '#3085d6',
+            cancelButtonColor: '#d33',
+            confirmButtonText: 'OK',
+            // confirmButtonColor: '#457736'
+        }).then((result) => {
+            if (result.value) {
+                this.props.history.push(`/organizationHome/${id}`)
+            }
+        })
     }
 
     handleDoneButton = () => {
@@ -81,14 +97,14 @@ class VolunteerSignup extends Component {
                             <CardContent>
                                 {/* <h3>signup information goes here</h3> */}
                                 {this.props.event.map((item) => {
-                                    let startDate= moment(item.start_date).format("MM-DD-YYYY")
-                                    let endDate =  moment(item.end_date).format("MM-DD-YYYY")
+                                    let startDate = moment(item.start_date).format('MM[/]DD[/]YYYY')
+                                    let endDate = moment(item.end_date).format('MM[/]DD[/]YYYY')
                                     return(
                                         <>
-                                            <span>Event: {item.name}</span><br />
-                                            <span>Description: {item.description}</span><br />
-                                            <span>Date: {startDate} - {endDate}</span><br />
-                                            <span>Location: {item.address} </span>
+                                            <span><b>Event:</b> {item.name}</span><br />
+                                            <span><b>Description:</b> {item.description}</span><br />
+                                            <span><b>Date:</b> { startDate } - { endDate }</span><br />
+                                            <span><b>Location:</b> {item.address} </span>
                                             <span>{item.city}, {item.state} {item.zip_code}</span><br />
                                         </>
                                     )
@@ -97,33 +113,12 @@ class VolunteerSignup extends Component {
                         <CardContent>
                             <div>
                                 
-                                <span>{this.props.role.name} ({this.props.role.number_needed} volunteers needed)</span><br />
-                                <span>Date: {this.props.role.date} </span><br />
-                                <span>Time: {this.props.role.start_time} - {this.props.role.end_time} </span><br />
-                                <span>Description: {this.props.role.description} </span><br />
+                                <span><b>{this.props.role.name} ({this.props.role.number_needed} volunteers needed)</b></span><br />
+                                <span><b>Date:</b> {moment( this.props.role.date ).format('MM[/]DD[/]YYYY')} </span><br />
+                                <span><b>Time:</b> {moment(this.props.role.start_time, 'hh:mm').format('LT')} - {moment(this.props.role.end_time, 'hh:mm').format('LT')} </span><br />
+                                <span><b>Description:</b> {this.props.role.description} </span><br />
                             </div>
 
-                            
-                                {/* {this.props.role.map((each) => {
-                                    if(parseFloat(this.props.match.params.id) === each.id) {
-                                        let date = moment(each.date).format("MM-DD-YYYY");
-                                        let startTime = moment(parseFloat(each.start_time)).format("hh:mm")
-                                        let endTime = moment(parseFloat(each.end_time)).format("hh:mm")
-                                        return (
-                                            <>
-                                            <div>
-                                                <span>{each.name} ({each.number_needed} volunteers needed)</span><br/>
-                                                    <span>Date: {date} </span><br />
-                                                    <span>Time: {startTime} - {endTime} </span><br />
-                                                    <span>Description: {each.description} </span><br />
-                                            </div>
-                                                
-                                            </>
-                                        )  
-                                    } else {
-                                        return false
-                                    }
-                                })} */}
                             </CardContent>
                     </Grid>
 
@@ -133,7 +128,22 @@ class VolunteerSignup extends Component {
 
                     <Grid item xs={12}>
                             <CardContent>
-                                <h3>volunteers added goes here</h3>
+                                {this.props.saved.length > 0  ? 
+                                <>
+                                <h3>Thank you for volunteering! Your information has been sent to the organization.</h3>
+                                {/* {JSON.stringify(this.props.saved)} */}
+                                {this.props.saved.map((volunteer) => {
+                                    // let moment = moment().format('hh:mm')
+
+                                    return (
+                                        <CardContent className={this.props.classes.cardContent} >
+                                            <span>name: {volunteer.name} </span><br />
+                                            <span>phone: {volunteer.phone_number} </span><br />
+                                            <span>date: {moment(volunteer.start_time, 'hh:mm').format('LT')} </span> <span> - </span> <span>{moment(volunteer.end_time, 'hh:mm').format('LT')}</span><br />
+                                            <Button className={this.props.classes.doneButton} >Remove</Button>
+                                        </CardContent>
+                                    )
+                                })}</> : <span></span> }
                             </CardContent>
                     </Grid>
 
@@ -156,7 +166,8 @@ const mapStateToProps = reduxStore => {
         event: reduxStore.event.eventDetails,
         user: reduxStore.user,
         role: reduxStore.volunteer.specificRole,
-        nonprofit: reduxStore.nonprofit
+        nonprofit: reduxStore.nonprofit,
+        saved: reduxStore.volunteer.previousSignUps
     }
 }
 
