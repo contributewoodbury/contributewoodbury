@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 import { Button, CardContent, Grid, InputLabel, MenuItem, FormControlLabel, Checkbox, FormControl, Select, TextField } from '@material-ui/core';
 import { withStyles } from '@material-ui/styles';
 import Swal from 'sweetalert2';
-import { thisExpression } from '@babel/types';
+// import { thisExpression } from '@babel/types';
 
 
 const styles = theme => ({
@@ -57,6 +57,8 @@ class AddEvent extends Component {
         zip_code: '',
         start_date: '',
         end_date: '',
+        start_time: '',
+        end_time: '',
         event_url: '',
         volunteers_needed: true,
     }
@@ -111,6 +113,11 @@ class AddEvent extends Component {
 
     handleSubmitButton = () => {
         console.log('submit event button clicked');
+        this.props.dispatch({
+            type: 'ADD_EVENT',
+            payload: this.state,
+            history: this.props.history
+        })
         Swal.fire({
             title: 'Success!',
             text: 'Your event was submitted.',
@@ -118,13 +125,6 @@ class AddEvent extends Component {
             confirmButtonText: 'OK',
             confirmButtonColor: '#457736'
         })
-        //dispatch state to saga
-        this.props.dispatch({
-            type: 'ADD_EVENT',
-            payload: this.state,
-            history: this.props.history
-        })
-        //IF VOLUNTEERS NEEDED === TRUE ROUTE TO ADD VOLUNTEERS PAGE ELSE GO TO HOMEPAGE
     }
 
     
