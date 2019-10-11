@@ -131,6 +131,7 @@ class EventDetails extends Component {
                         </TableBody>
                     </Table>
                 </Paper>
+                <br></br>
                 <Grid container justify='center'>
                 {nonprofitInfo.nonprofit_name === this.props.user.name && <Button className={this.props.classes.button} onClick={this.handleButtonClick}> Volunteer List </Button>}
                 </Grid>
@@ -142,7 +143,7 @@ class EventDetails extends Component {
 const mapStateToProps = (state) => {
     return {
         event: state.event,
-        nonprofit: state.nonprofit,
+        nonprofit: state.nonprofit.nonprofit,
         volunteers: state.volunteer,
         user: state.user
     }
