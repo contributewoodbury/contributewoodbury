@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { Button, Grid, CardContent, TextField } from '@material-ui/core';
 import { withStyles } from '@material-ui/styles';
+import Swal from 'sweetalert2';
 
 
 const styles = theme => ({
@@ -91,11 +92,18 @@ class AddVolunteerRoles extends Component {
         //links back to add event page for edits?
     }
 
-    handleSubmitButton = () => {
+    handleDoneButton = () => {
         console.log('done button clicked');
         //alert: "thanks you're done!" or something similar
+        Swal.fire({
+            title: 'Success!',
+            text: `You're done!`,
+            type: 'success',
+            confirmButtonText: 'OK',
+            confirmButtonColor: '#457736'
+        })
         //links to nonprofit home page
-        //no dispatch
+        this.props.history.push(`/eventDetails/${this.props.match.params.id}`)
     }
 
     handleRemove = () => {
@@ -152,42 +160,34 @@ class AddVolunteerRoles extends Component {
 
                     <Grid item xs={12}>
                         <CardContent className={this.props.classes.displayRoles} >
-                            {/* this could be a component later */}
-                            <h3>Volunteer Roles Created:</h3>
-                            <div>
-                                <h5>volunteer role #1:</h5>
-                                <ul>
-                                    <li>description</li>
-                                    <li>date and time</li>
-                                    <li># of roles needed</li>
-                                </ul>
-                                <Button variant="contained" size="small" className={this.props.classes.removeButton}
-                                        onClick={this.handleRemove} >remove</Button>
-                            </div>
+                            
+                            <h3>Current Volunteer Roles:</h3>
 
-                            <div>
-                                <h5>volunteer role #2:</h5>
-                                <ul>
-                                    <li>description</li>
-                                    <li>date and time</li>
-                                    <li># of roles needed</li>
-                                </ul>
-                                <Button variant="contained" size="small" className={this.props.classes.removeButton}
-                                        onClick={this.handleRemove} >remove</Button>
-                            </div>
+                            {this.props.reduxStore.volunteer.volunteerRoleList.map(roleInfo => (
+                                <>
+                                <CardContent>
+                                        <span><b>role: </b>{roleInfo.name}</span><br />
+                                        <span><b>description: </b>{roleInfo.description}</span><br />
+                                        <span><b>volunteers needed: </b>{roleInfo.number_needed}</span><br />
+                                        <span><b>date: </b>{roleInfo.date}</span><br />
+                                        <span><b>time: </b>{roleInfo.start_time} - {roleInfo.end_time} </span><br />
+                                        <Button>Remove</Button>
+                                </CardContent>
+                                </>
+                            ))}
  
                         </CardContent>
                     </Grid>
 
                     <Grid item xs={12}>
-                        {/* <Card> */}
+
                             <CardContent>
                                 <Button className={this.props.classes.backButton} variant="contained"
                                     onClick={this.handleBackButton} >Back</Button>
                                 <Button className={this.props.classes.doneButton} variant="contained"
-                                    onClick={this.handleSubmitButton} >Done</Button>
+                                    onClick={this.handleDoneButton} >Done</Button>
                             </CardContent>
-                        {/* </Card> */}
+    
                     </Grid>
                 </Grid>
             </div>
@@ -195,5 +195,10 @@ class AddVolunteerRoles extends Component {
     }
 }
 
+const mapStateToProps = reduxStore => {
+    return {
+        reduxStore
+    }
+}
 
-export default withStyles (styles) (connect()(AddVolunteerRoles));
+export default withStyles (styles) (connect(mapStateToProps)(AddVolunteerRoles));
