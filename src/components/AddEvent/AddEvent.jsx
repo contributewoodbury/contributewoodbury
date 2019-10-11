@@ -44,7 +44,7 @@ class AddEvent extends Component {
 
     state = {
         name: '',
-        non_profit_id: '',
+        non_profit_id: this.props.match.params.id,
         description: '',
         address: '',
         city: '',
@@ -153,12 +153,14 @@ class AddEvent extends Component {
                                     label="Volunteers Needed"
                                 />
 
-                                <TextField className={this.props.classes.textFields} type="text" label="Enter the event Name" variant="outlined"/>
+                                <TextField className={this.props.classes.textFields} type="text" label="Enter the event Name" variant="outlined"
+                                    value={this.state.name} onChange={(event) => this.handleChange('name', event)} />
 
                                 <TextField className={this.props.classes.description} type="text" 
                                             placeholder="Enter the event description and any links where tickets can be purchased if required to attend" 
                                             label="description"
-                                            variant="outlined" multiline rows="4" />
+                                            variant="outlined" multiline rows="4" 
+                                            value={this.state.description} onChange={(event) => this.handleChange('name', event)}/>
                             </FormControl>
                             </CardContent>
                         {/* </Card> */}
