@@ -57,7 +57,7 @@ class AddVolunteerRoles extends Component {
         start_time: '',
         end_time: '',
         date: '',
-        event_id: this.props.match.params.id
+        event_id: this.props.match.params.id,
     }
 
     handleChange = (propertyName, event) => {
@@ -106,12 +106,17 @@ class AddVolunteerRoles extends Component {
         this.props.history.push(`/eventDetails/${this.props.match.params.id}`)
     }
 
-    handleRemove = () => {
-        console.log('remove roles button was clicked');
+    handleRemoveRole = (id) => {
+        console.log('remove roles button was clicked for this id:', id);
+        //alert: "are you sure?" and "this role has been deleted"
         //delete role based on id of clicked item
-        //alert: "this role has been deleted"
+        this.props.dispatch({
+            type: 'DELETE_ROLE',
+            payload: {role_id: id, event_id: this.props.match.params.id}
+        })
         //render updated volunter roles created list
     }
+
 
 
 
@@ -171,7 +176,7 @@ class AddVolunteerRoles extends Component {
                                         <span><b>volunteers needed: </b>{roleInfo.number_needed}</span><br />
                                         <span><b>date: </b>{roleInfo.date}</span><br />
                                         <span><b>time: </b>{roleInfo.start_time} - {roleInfo.end_time} </span><br />
-                                        <Button>Remove</Button>
+                                        <Button onClick={() => this.handleRemoveRole(roleInfo.id)} >Remove</Button>
                                 </CardContent>
                                 </>
                             ))}

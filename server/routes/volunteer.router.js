@@ -94,4 +94,19 @@ router.post('/signup', (req, res) => {
   });
 })
 
+router.delete('/deleteRole/:id', (req, res) => {
+  console.log('in delete volunteer role:', req.params.id);
+
+  let id = req.params.id
+  let queryText = `DELETE FROM "role" WHERE "id" = $1;`
+
+  pool.query(queryText, [id])
+  .then((result) => {
+    res.sendStatus(200);
+  }).catch((err) => {
+    console.log('error in volunteer role delete route');
+    res.sendStatus(500)
+  })
+})
+
 module.exports = router;
