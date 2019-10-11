@@ -60,6 +60,11 @@ class EventDetails extends Component {
         this.props.history.push(`/volunteerList/${id}`)
     }//end handleClick
 
+    handleEditEvent = () => {
+        let id = this.props.match.params.id
+        console.log('clicked the event id is:', id)
+    }//end handleEditEvent
+
     render() {
         let nonprofitInfo = this.props.nonprofit[0] || 'a';
         return (
@@ -100,6 +105,7 @@ class EventDetails extends Component {
                                         </>
                                     })
                                 }
+                {nonprofitInfo.nonprofit_name === this.props.user.name && <Button className={this.props.classes.button} onClick={this.handleEditEvent}>Edit</Button>}
                 <h3>Volunteer Opportunities for this event:</h3>
                 <Paper className={this.props.classes.root}>
                     <Table className={this.props.classes.table}>
