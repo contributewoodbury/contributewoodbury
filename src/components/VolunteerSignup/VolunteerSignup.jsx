@@ -76,6 +76,11 @@ class VolunteerSignup extends Component {
         this.props.history.push(`/organizationHome`)
     }
 
+    // handleRemoveVolunteer = () => {
+    //     console.log('remove volunteer button clicked');
+        
+    // }
+
 
     render () {
 
@@ -137,7 +142,7 @@ class VolunteerSignup extends Component {
                                             <span>name: {volunteer.name} </span><br />
                                             <span>phone: {volunteer.phone_number} </span><br />
                                             <span>date: {moment(volunteer.start_time, 'hh:mm').format('LT')} </span> <span> - </span> <span>{moment(volunteer.end_time, 'hh:mm').format('LT')}</span><br />
-                                            <Button className={this.props.classes.doneButton} >Remove</Button>
+                                            <Button className={this.props.classes.doneButton} onClick={this.handleRemoveVolunteer} >Remove</Button>
                                         </CardContent>
                                     )
                                 })}</> : <span></span> }

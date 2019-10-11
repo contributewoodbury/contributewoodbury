@@ -30,7 +30,8 @@ function* addVolunteers(action) {
   try {
     yield axios.post(`/api/volunteer/addVolunteers`, action.payload)
     yield put({
-      type: 'GET_EVENT_DETAILS'
+      type: 'GET_EVENT_DETAILS',
+      payload: action.payload.event_id
     })
   }
   catch (error) {

@@ -55,12 +55,34 @@ class AddVolunteerRoles extends Component {
         number_needed: '',
         start_time: '',
         end_time: '',
-        date: ''
+        date: '',
+        event_id: this.props.match.params.id
+    }
+
+    handleChange = (propertyName, event) => {
+        this.setState({
+            [propertyName]: event.target.value
+        })
+        console.log(this.state);
     }
 
     handleAddRolesButton = () => {
         console.log('add roles button clicked');
         //dispatches state to saga
+        this.props.dispatch({
+            type: 'ADD_VOLUNTEERS',
+            payload: this.state
+        })
+        //sweet alert?
+        //clear fields
+        this.setState({
+            name: '',
+            description: '',
+            number_needed: '',
+            start_time: '',
+            end_time: '',
+            date: ''
+        })
     }
 
     handleBackButton = () => {
@@ -108,15 +130,22 @@ class AddVolunteerRoles extends Component {
                         {/* <Card> */}
                             <CardContent>
                                 <h2 className={this.props.classes.heading} >What do you need volunteers to help with?</h2>
-                                <TextField className={this.props.classes.textFields} type="text" label="Role" variant="outlined" />
-                                <TextField className={this.props.classes.textFields} type="date" variant="outlined" />
+                                <TextField className={this.props.classes.textFields} type="text" label="Role" variant="outlined"
+                                            value={this.state.name} onChange={(event) => this.handleChange('name', event)} />
+                                <TextField className={this.props.classes.textFields} type="date" variant="outlined"
+                                value={this.state.date} onChange={(event) => this.handleChange('date', event)} />
                                 <br/>
-                                <TextField className={this.props.classes.textFields} type="text" label="description" variant="outlined" multiline rows="4" />
-                                <TextField className={this.props.classes.textFields} type="text" label="# of volunteers needed" variant="outlined" />
+                                <TextField className={this.props.classes.textFields} type="text" label="description" variant="outlined" multiline rows="4"
+                                value={this.state.description} onChange={(event) => this.handleChange('description', event)} />
+                                <TextField className={this.props.classes.textFields} type="number" label="number of volunteers needed" variant="outlined"
+                                value={this.state.number_needed} onChange={(event) => this.handleChange('number_needed', event)} />
                                 <br/>
-                                <TextField className={this.props.classes.times} type="time" variant="outlined" />
+                                <TextField className={this.props.classes.times} type="time" variant="outlined"
+                                value={this.state.start_time} onChange={(event) => this.handleChange('start_time', event)} />
+                                <TextField className={this.props.classes.times} type="time" variant="outlined"
+                                value={this.state.end_time} onChange={(event) => this.handleChange('end_time', event)} />
                                 <Button className={this.props.classes.addRolesButton} variant="contained" size="small"
-                                    onClick={this.handleAddRolesButton} >Add role(s)</Button>
+                                onClick={this.handleAddRolesButton} >Add role(s)</Button>
                             </CardContent>
                         {/* </Card> */}
                     </Grid>
