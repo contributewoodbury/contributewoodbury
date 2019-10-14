@@ -76,8 +76,6 @@ router.put('/editNonprofit', rejectUnauthenticated, (req,res) => {
     let category_name = req.body.category_name;
     let contact_phone = req.body.contact_phone;
     let contact_name = req.body.contact_name;
-
-   
        
     pool.query(queryText, [name, contact_email, address, city, zip_code, website, logo, description, category_id, category_name, contact_name, contact_phone, id])
         .then((result) => {
