@@ -8,10 +8,10 @@ const nonprofit = ((state = [], action) => {
             console.log('edit nonprofit action made it to reducer');
             console.log(state);
             console.log(action.payload);
-            return {
+            return [{
                 ...state[0],
                 ...action.payload
-            }
+            }]
             
         default :
             return state;

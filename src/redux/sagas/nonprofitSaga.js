@@ -41,9 +41,10 @@ function* getNonprofitEdit(action) {
 function* editNonprofit(action) {
     try {
         yield axios.put(`/api/nonprofit/editNonprofit`, action.payload)
-        // yield put ({
-        //     type: 'GET_NONPROFIT',
-        // })
+        yield put ({
+            payload: action.payload.nonprofit_id,
+            type: 'GET_NONPROFIT',
+        })
     }
     catch (error) {
         console.log('errror in editNonprofit', error)

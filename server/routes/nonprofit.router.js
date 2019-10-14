@@ -12,7 +12,7 @@ router.get('/:id', (req, res) => {
             console.log(result.rows)
             if (result.rows[0]) {
         let queryText = `SELECT "event".name AS "event_name", "event".id AS "event_id", "event".start_date, "nonprofit".name AS "nonprofit_name", 
-         "nonprofit".address, "nonprofit".city, "nonprofit".zip_code, "nonprofit".id AS "nonprofit_id", "nonprofit".contact_email, "nonprofit".description, "nonprofit".logo, "nonprofit".website FROM "nonprofit" 
+         "nonprofit".address, "nonprofit".city, "nonprofit".zip_code, "nonprofit".id AS "nonprofit_id", "nonprofit".contact_email, "nonprofit".conta "nonprofit".description, "nonprofit".logo, "nonprofit".website FROM "nonprofit" 
         JOIN "event" ON "nonprofit".id = "event".non_profit_id
          WHERE "nonprofit".id = $1;`;
         pool.query(queryText, [id])
@@ -71,7 +71,7 @@ router.put('/editNonprofit', rejectUnauthenticated, (req,res) => {
     let website = req.body.website;
     let logo = req.body.logo;
     let description = req.body.description;
-    let id = req.body.id;
+    let id = req.body.nonprofit_id;
     let category_id = req.body.category_id;
     let category_name = req.body.category_name;
     let contact_phone = req.body.contact_phone;
