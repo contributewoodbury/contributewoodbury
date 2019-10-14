@@ -18,6 +18,7 @@ function* addEvent(action) {
   try{
     let response = yield axios.post(`/api/event/addEvent`, action.payload);
     console.log('addevent saga response:', response.data[0].id);
+    
     if (action.payload.volunteers_needed === true) {
       yield action.history.push(`/addvolunteers/${response.data[0].id}`)
     }
