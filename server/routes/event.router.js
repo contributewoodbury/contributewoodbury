@@ -18,12 +18,14 @@ router.get('/calendar', (req, res) => {
 
 //get the past events for a specific nonprofit
 router.get('/nonprofit/:id', rejectUnauthenticated, (req,res) => {
-  let queryText = `SELECT "event".name, "event".id, "event".start_date FROM "event" JOIN "nonprofit"
-    ON "nonprofit".id = "event".non_profit_id
-    WHERE "nonprofit".id = $1 AND "event".end_date < CURRENT_DATE;`;
+  console.log('get past events for this id:', req.params.id);
+  
+  let queryText = `SELECT * FROM "event" WHERE "non_profit_id" = $1 AND "end_date" < CURRENT_DATE;`;
   let id = req.params.id
   pool.query(queryText, [id])
     .then((result) => {
+      console.log('GET PAST EVENTS::', result.rows);
+      
       res.send(result.rows)
     })
     .catch((error) => {
