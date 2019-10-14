@@ -77,6 +77,9 @@ class EditEvent extends Component {
                 event_url: this.state.event_url || this.props.event[0].event_url,
                 start_date: this.state.start_date || this.props.event[0].start_date,
                 end_date: this.state.end_date || this.props.event[0].end_date,
+                states: this.state.states || this.props.event[0].state,
+                start_time: this.state.start_time || this.props.event[0].start_time,
+                end_time: this.state.end_time || this.props.event[0].end_time,
                 id: Number(this.props.match.params.id)
             }
         })
@@ -173,6 +176,33 @@ class EditEvent extends Component {
                                         <Grid container spacing={3} justify="center">
                                             <Grid item xs={6}>
                                                 <CardContent>
+                                                <label className={this.props.classes.textFields}>The current start time inputed is: {ev.start_time}</label>
+                                                <TextField
+                                                    className={this.props.classes.times}
+                                                    type="time"
+                                                    placeholder="Start Time"
+                                                    variant="outlined"
+                                                    onChange={(event) => this.handleChange('start_time', event)}
+                                                />
+                                                </CardContent>
+                                            </Grid>
+                                            <Grid item xs={6}>
+                                                <CardContent>
+                                                    <label className={this.props.classes.textFields}>The current end time inputed is: {ev.end_time}</label>
+                                                    <TextField
+                                                        classname={this.props.classes.times}
+                                                        type="time"
+                                                        placeholder="End Time"
+                                                        variant="outlined"
+                                                        onChange={(event) => this.handleChange('end_time', event)}
+                                                    />
+                                                </CardContent>
+                                            </Grid>
+
+                                        </Grid>
+                                        <Grid container spacing={3} justify="center">
+                                            <Grid item xs={6}>
+                                                <CardContent>
                                                     <label className={this.props.classes.textFields}>Change address</label>
                                                     <TextField
                                                         className={this.props.classes.textFields}
@@ -205,7 +235,7 @@ class EditEvent extends Component {
                                                         type="text"
                                                         label={ev.state}
                                                         variant="outlined"
-                                                        onChange={(event) => this.handleChange('state', event)}
+                                                        onChange={(event) => this.handleChange('states', event)}
                                                     />
                                                 </CardContent>
                                             </Grid>
