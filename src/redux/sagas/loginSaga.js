@@ -12,7 +12,7 @@ function* loginUser(action) {
       withCredentials: true,
     };
 
-    let loginCredentials = {name: action.payload.name, password: action.payload.password};
+    let loginCredentials = {username: action.payload.username, password: action.payload.password};
     console.log(loginCredentials);
 
     // send the action.payload as the body

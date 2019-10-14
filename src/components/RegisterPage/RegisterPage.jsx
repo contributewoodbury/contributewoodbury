@@ -40,7 +40,7 @@ const styles = theme => ({
 
 class RegisterPage extends Component {
   state = {
-    name: '',
+    username: '',
     password: '',
     description: '',
     address: '',
@@ -62,7 +62,7 @@ class RegisterPage extends Component {
 
   registerUser = (event) => {
     event.preventDefault();
-    if (this.state.name && this.state.password) {
+    if (this.state.username && this.state.password) {
       this.props.dispatch({
         type: 'REGISTER',
         payload: this.state
@@ -145,7 +145,7 @@ class RegisterPage extends Component {
                 type="text"
                 name="Name"
                 value={this.state.name}
-                onChange={(event) => this.handleInputChange('name', event)}
+                onChange={(event) => this.handleInputChange('username', event)}
               />
             </label>
             <br />
