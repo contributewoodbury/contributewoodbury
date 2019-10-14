@@ -1,5 +1,6 @@
 import { put, takeLatest, takeEvery } from 'redux-saga/effects';
 import axios from 'axios';
+import Swal from 'sweetalert2';
 
 //worker Saga: requests all details on a specific event
 function* getEventDetails (action){
@@ -37,9 +38,17 @@ function* editEvent(action) {
   try{
     yield axios.put(`/api/event/editEvent`, action.payload)
     console.log(action.payload)
+    Swal.fire({
+      type: 'success',
+      text: 'Your event has been updated!'
+    })
   }
   catch(error) {
     console.log('error in editEvent', error)
+    Swal.fire({
+      type: 'error',
+      text: 'Your event could not be updated at this time, please try again later!'
+    })
   }
 } 
 

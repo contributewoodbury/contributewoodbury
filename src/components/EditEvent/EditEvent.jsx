@@ -3,6 +3,7 @@ import {connect} from 'react-redux';
 import {withStyles} from '@material-ui/styles';
 import {CardContent, Grid, FormControl, TextField, Button} from '@material-ui/core';
 import moment from 'moment';
+import Swal from 'sweetalert2';
 
 const styles = theme => ({
     rootDiv: {
@@ -11,10 +12,15 @@ const styles = theme => ({
     grid: {
         justify: 'center'
     },
-    button: {
+    backButton: {
         color: 'white',
         backgroundColor: '#457736',
+        margin: '0px 0px 0px 30px'
+    },
+    submitButton: {
         float: 'right',
+        color: 'white',
+        backgroundColor: '#457736',
         margin: '0px 130px 0px 0px'
     },
     textFields: {
@@ -64,6 +70,22 @@ class EditEvent extends Component {
         console.log(this.state)
     }//end handleChange
 
+    handleBackButton = () => {
+        Swal.fire({
+            title: 'Are you sure?',
+            text: "If any changes have been made they won't be saved!",
+            type: 'warning',
+            showCancelButton: true,
+            confirmButtonColor: '#3085d6',
+            cancelButtonColor: '#d33',
+            confirmButtonText: 'OK'
+        }).then((result) => {
+            if (result.value) {
+                this.props.history.goBack()
+            }
+        })
+    }//end handleBackButton
+
     handleSubmitButton = () => {
         console.log('clicked')
         this.props.dispatch({
@@ -77,6 +99,9 @@ class EditEvent extends Component {
                 event_url: this.state.event_url || this.props.event[0].event_url,
                 start_date: this.state.start_date || this.props.event[0].start_date,
                 end_date: this.state.end_date || this.props.event[0].end_date,
+                states: this.state.states || this.props.event[0].state,
+                start_time: this.state.start_time || this.props.event[0].start_time,
+                end_time: this.state.end_time || this.props.event[0].end_time,
                 id: Number(this.props.match.params.id)
             }
         })
@@ -173,6 +198,33 @@ class EditEvent extends Component {
                                         <Grid container spacing={3} justify="center">
                                             <Grid item xs={6}>
                                                 <CardContent>
+                                                <label className={this.props.classes.textFields}>The current start time inputed is: {ev.start_time}</label>
+                                                <TextField
+                                                    className={this.props.classes.times}
+                                                    type="time"
+                                                    placeholder="Start Time"
+                                                    variant="outlined"
+                                                    onChange={(event) => this.handleChange('start_time', event)}
+                                                />
+                                                </CardContent>
+                                            </Grid>
+                                            <Grid item xs={6}>
+                                                <CardContent>
+                                                    <label className={this.props.classes.textFields}>The current end time inputed is: {ev.end_time}</label>
+                                                    <TextField
+                                                        classname={this.props.classes.times}
+                                                        type="time"
+                                                        placeholder="End Time"
+                                                        variant="outlined"
+                                                        onChange={(event) => this.handleChange('end_time', event)}
+                                                    />
+                                                </CardContent>
+                                            </Grid>
+
+                                        </Grid>
+                                        <Grid container spacing={3} justify="center">
+                                            <Grid item xs={6}>
+                                                <CardContent>
                                                     <label className={this.props.classes.textFields}>Change address</label>
                                                     <TextField
                                                         className={this.props.classes.textFields}
@@ -205,7 +257,7 @@ class EditEvent extends Component {
                                                         type="text"
                                                         label={ev.state}
                                                         variant="outlined"
-                                                        onChange={(event) => this.handleChange('state', event)}
+                                                        onChange={(event) => this.handleChange('states', event)}
                                                     />
                                                 </CardContent>
                                             </Grid>
@@ -234,12 +286,14 @@ class EditEvent extends Component {
                 </Grid>
                 <Grid container spacing={3}>
                     <Grid item xs={12}>
-                        <CardContent>
-                            <Button className={this.props.classes.button} variant="contained"
+                            <CardContent>
+                    <Button className={this.props.classes.backButton} variant="contained"
+                            onClick={this.handleBackButton}>Back</Button>
+                
+                            <Button className={this.props.classes.submitButton} variant="contained"
                                 onClick={this.handleSubmitButton}>Submit</Button>
                         </CardContent>
                     </Grid>
-
                 </Grid>
             </div>
         )
