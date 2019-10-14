@@ -18,12 +18,14 @@ router.get('/calendar', (req, res) => {
 
 //get the past events for a specific nonprofit
 router.get('/nonprofit/:id', rejectUnauthenticated, (req,res) => {
-  let queryText = `SELECT "event".name, "event".id, "event".start_date FROM "event" JOIN "nonprofit"
-    ON "nonprofit".id = "event".non_profit_id
-    WHERE "nonprofit".id = $1 AND "event".end_date < CURRENT_DATE;`;
+  console.log('get past events for this id:', req.params.id);
+  
+  let queryText = `SELECT * FROM "event" WHERE "non_profit_id" = $1 AND "end_date" < CURRENT_DATE;`;
   let id = req.params.id
   pool.query(queryText, [id])
     .then((result) => {
+      console.log('GET PAST EVENTS::', result.rows);
+      
       res.send(result.rows)
     })
     .catch((error) => {
@@ -52,7 +54,7 @@ router.post('/addEvent', rejectUnauthenticated, (req,res) => {
   console.log('user id is:', req.user.id);
   
   let queryText = `INSERT INTO "event" ("name", "non_profit_id", "description", "address", "city", "zip_code",
-    "start_date", "end_date", "start_time", "end_time", "event_url") VALUES($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11) RETURNING *;`;
+    "start_date", "end_date", "start_time", "end_time", "event_url", "state") VALUES($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, $12) RETURNING *;`;
   let name =  req.body.name;
   let non_profit_id = +(req.body.non_profit_id);
   let description = req.body.description;
@@ -63,10 +65,12 @@ router.post('/addEvent', rejectUnauthenticated, (req,res) => {
   let end_date = req.body.end_date;
   let start_time = req.body.start_time;
   let end_time = req.body.end_time;
+  let state = req.body.state;
   let event_url = req.body.event_url;
+  console.log(req.body)
 
   if(req.user.id === non_profit_id){
-    pool.query(queryText, [name, non_profit_id, description, address, city, zip_code, start_date, end_date, start_time, end_time, event_url])
+    pool.query(queryText, [name, non_profit_id, description, address, city, zip_code, start_date, end_date, start_time , end_time, event_url, state])
     .then((result) => {
       console.log('returning results for event:', result.rows);
       res.send(result.rows)
@@ -78,6 +82,34 @@ router.post('/addEvent', rejectUnauthenticated, (req,res) => {
   } else {
     res.sendStatus(403);
   }
+})
+
+//edits event details
+router.put('/editEvent', rejectUnauthenticated, (req,res) => {
+let queryText = `UPDATE "event" SET "name" = $1, "description" = $2, "address" = $3, "city" = $4, "zip_code" = $5, "start_date" = $6, 
+  "end_date" = $7, "event_url" = $8, "state" = $9, "start_time" = $10, "end_time" = $11 WHERE "id" = $12;`;
+  let name = req.body.name;
+  let description = req.body.description;
+  let address = req.body.address;
+  let city = req.body.city;
+  let zip_code = req.body.zip_code;
+  let start_date = req.body.start_date;
+  let end_date = req.body.end_date;
+  let event_url = req.body.event_url;
+  let state = req.body.states;
+  let start_time = req.body.start_time;
+  let end_time = req.body.end_time;
+  let id = req.body.id;
+
+
+  pool.query(queryText, [name, description, address, city, zip_code, start_date, end_date, event_url, state, start_time, end_time, id])
+      .then((result) => {
+        res.sendStatus(200)
+      })
+      .catch((error) => {
+        console.log('error in editevent put', error)
+        res.sendStatus(500)
+      })
 })
 
 module.exports = router;
