@@ -56,7 +56,7 @@ class VolunteerSignup extends Component {
         //ADD SWEETALERT
         Swal.fire({
             title: 'Are you sure?',
-            text: "Your information has been saved!",
+            text: "Your information has not been saved!",
             type: 'question',
             showCancelButton: true,
             confirmButtonColor: '#3085d6',
