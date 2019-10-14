@@ -1,7 +1,7 @@
 import React from 'react';
 import {Route} from 'react-router-dom'
 import {connect} from 'react-redux';
-import LoginPage from '../LoginPage/LoginPage';
+import Home from '../Home/Home';
 // import NavLogin from '../NavLogin/NavLogin';
 import RegisterPage from '../RegisterPage/RegisterPage';
 
@@ -34,8 +34,8 @@ const ProtectedRoute = (props) => {
     ComponentToShow = ComponentToProtect;
   } else if (loginMode === 'login') {
     // if they are not logged in, check the loginMode on Redux State
-    // if the mode is 'login', show the LoginPage
-    ComponentToShow = LoginPage;
+    // if the mode is 'login', show the Home page
+    ComponentToShow = Home;
   } else {
     // the the user is not logged in and the mode is not 'login'
     // show the RegisterPage

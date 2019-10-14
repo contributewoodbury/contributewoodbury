@@ -10,6 +10,7 @@ import Paper from '@material-ui/core/Paper';
 import { Button, Link } from '@material-ui/core/';
 import { connect } from 'react-redux';
 import moment from 'moment';
+import Swal from 'sweetalert2';
 
 const CustomTableCell = withStyles(theme => ({
     head: {
@@ -70,8 +71,19 @@ class OrganizationHome extends Component {
 
     handleAddEvent = () => {
         console.log('add event clicked')
-        let id = this.props.match.params.id
-        this.props.history.push(`/addEvent/${id}`)
+        if (this.props.user.is_approved) {
+            let id = this.props.match.params.id
+            this.props.history.push(`/addEvent/${id}`)
+        } else {
+            Swal.fire({
+                title: 'Oops!',
+                text: 'Contribute Woodbury has recieved your request to join and will get back to you upon acceptance. Please wait for the email signalling your approval before trying to add any events.',
+                type: 'warning',
+                showCancelButton: false,
+                confirmButtonColor: '#3085d6',
+                confirmButtonText: 'OK',
+            });
+        }
     }//end handleAddEvent
 
     render() {
@@ -138,7 +150,7 @@ class OrganizationHome extends Component {
                                                 </TableRow>
                                             )
                                         } else {
-                                            return <p>No listed events</p>
+                                            return <TableRow><CustomTableCell>No listed events</CustomTableCell></TableRow>
                                         }
                                     })
                                 }
@@ -147,10 +159,9 @@ class OrganizationHome extends Component {
                     </Paper>
                 </Grid>
                 <br></br>
-                    <Grid container spacing={1} justify="center">
-                        {nonprofitInfo.nonprofit_name === this.props.user.name && <Button className={this.props.classes.button} onClick={this.handleAddEvent}>Add Event</Button>}
-                    </Grid>
-        
+                <Grid container spacing={1} justify="center">
+                    {nonprofitInfo.nonprofit_name === this.props.user.name && <Button className={this.props.classes.button} onClick={this.handleAddEvent}>Add Event</Button>}
+                </Grid>
             </div>
         )
     }
