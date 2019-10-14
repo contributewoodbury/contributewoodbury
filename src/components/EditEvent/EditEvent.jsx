@@ -2,6 +2,7 @@ import React, {Component} from 'react';
 import {connect} from 'react-redux';
 import {withStyles} from '@material-ui/styles';
 import {CardContent, Grid, FormControl, TextField, Button} from '@material-ui/core';
+import moment from 'moment';
 
 const styles = theme => ({
     rootDiv: {
@@ -80,8 +81,10 @@ class EditEvent extends Component {
     render() {
         return (
             <div className={this.props.classes.rootDiv}>
-                <h1>Edit Event</h1>
-                <Grid container spacing={3} className={this.props.classes.grid}>
+            <Grid container spacing={3} justify="center">
+                <h1>Edit Your Event</h1>
+                </Grid>
+                <Grid container spacing={3} justify="center">
                     <Grid item xs={12}>
                         <CardContent>
                             <h2>Edit your upcoming event</h2>
@@ -116,22 +119,33 @@ class EditEvent extends Component {
                                         variant="outlined"
                                         onChange={(event) => this.handleChange('event_url', event)}
                                     />
-                                        <label className={this.props.classes.textFields}>Change date <br></br><br></br> The current start date inputed is: {ev.start_date}</label>
-                                      <TextField
-                                            className={this.props.classes.dateFields}
-                                            type="date"
-                                            placeholder={ev.start_date}
-                                            variant="outlined"
-                                            onChange={(event) => this.handleChange(('start_date'), event)}
-                                       />
-                                       <label className={this.props.classes.textFields}>The current end date inputed is: {ev.end_date}</label>
-                                       <TextField
-                                            className={this.props.classes.dateFields}
-                                            type="date"
-                                            placeholder="End"
-                                            variant="outlined"
-                                            onChange={(event) => this.handleChange(('end_date'), event)}
-                                        />
+                                        <label className={this.props.classes.textFields} alignText="center">Change date</label>
+                                        <Grid container spacing={3}>
+                                            <Grid item xs={6}>
+                                                <CardContent>
+                                                    <label className={this.props.classes.textFields}>The current start date inputed is: {moment(ev.start_date).format("MM-DD-YYYY")}</label>
+                                                    <TextField
+                                                        className={this.props.classes.dateFields}
+                                                        type="date"
+                                                        placeholder={ev.start_date}
+                                                        variant="outlined"
+                                                        onChange={(event) => this.handleChange(('start_date'), event)}
+                                                    />
+                                                </CardContent>
+                                            </Grid>
+                                            <Grid item xs={6}>
+                                                <CardContent>
+                                                    <label className={this.props.classes.textFields}>The current end date inputed is: {moment(ev.end_date).format("MM-DD-YYYY")}</label>
+                                                    <TextField
+                                                        className={this.props.classes.dateFields}
+                                                        type="date"
+                                                        placeholder="End"
+                                                        variant="outlined"
+                                                        onChange={(event) => this.handleChange(('end_date'), event)}
+                                                    />
+                                                </CardContent>
+                                            </Grid>
+                                        </Grid>
                                     <label className={this.props.classes.textFields}>Change address</label>
                                     <TextField
                                         className={this.props.classes.textFields}

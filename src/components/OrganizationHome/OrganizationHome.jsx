@@ -146,7 +146,7 @@ class OrganizationHome extends Component {
                     </Paper>
                 </Grid>
                 <br></br>
-                    <Grid container spacing={12} justify="center">
+                    <Grid container spacing={1} justify="center">
                         {nonprofitInfo.nonprofit_name === this.props.user.name && <Button className={this.props.classes.button} onClick={this.handleAddEvent}>Add Event</Button>}
                     </Grid>
         
