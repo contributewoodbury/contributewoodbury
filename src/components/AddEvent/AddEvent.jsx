@@ -186,7 +186,7 @@ class AddEvent extends Component {
                             Leave the "Volunteers Needed" checkbox unchecked if you do not want to add volunteer opportunities at this time for the event.
                             </p>
                             {/* {JSON.stringify(this.state)} */}
-                            <FormControl variant="outlined">
+                            <FormControl variant="filled">
                                 <InputLabel >
                                     Re-Use previous event
                                 </InputLabel>
