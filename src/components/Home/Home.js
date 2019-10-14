@@ -15,7 +15,7 @@ const styles = theme => ({
   },
 })
 
-class LoginPage extends Component {
+class Home extends Component {
   
 handleBrowse = () => {
   console.log('browse nonprofits button clicked');
@@ -28,10 +28,11 @@ handleSeeEvents = () => {
 
 handleNonprofit = () => {
   console.log(this.props.user);
-  if (this.props.user) {
+  if (this.props.user.id) {
     this.props.history.push(`/organizationHome/${this.props.user.id}`);
   } else {
     this.props.dispatch({ type: 'SET_TO_REGISTER_MODE' });
+    this.props.history.push(`/home`);
   }
 }
 
@@ -81,4 +82,4 @@ const mapStateToProps = state => ({
   user: state.user
 });
 
-export default withStyles(styles) (connect(mapStateToProps)(LoginPage));
+export default withStyles(styles) (connect(mapStateToProps)(Home));
