@@ -10,6 +10,7 @@ import TableRow from '@material-ui/core/TableRow';
 import Paper from '@material-ui/core/Paper';
 import Link from '@material-ui/core/Link';
 import { Button } from '@material-ui/core/';
+import moment from 'moment';
 
 
 const CustomTableCell = withStyles(theme => ({
@@ -93,7 +94,7 @@ class EventDetails extends Component {
                                             <Grid container spacing={3} key={info.id}>
                                                 <Grid item xs={6}>
                                                     <h2>{info.name}</h2>
-                                                    <p>Date: {info.start_date}</p>
+                                                    <p>Date: {moment(info.start_date).format("MM/DD/YYYY")}</p>
                                                     <address>Location:
                                                         <p>{info.address}<br></br>
                                                         {info.city} &nbsp;

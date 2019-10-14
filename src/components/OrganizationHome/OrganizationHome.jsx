@@ -9,6 +9,7 @@ import TableRow from '@material-ui/core/TableRow';
 import Paper from '@material-ui/core/Paper';
 import { Button, Link } from '@material-ui/core/';
 import { connect } from 'react-redux';
+import moment from 'moment';
 
 const CustomTableCell = withStyles(theme => ({
     head: {
@@ -130,7 +131,7 @@ class OrganizationHome extends Component {
                                             return (
                                                 <TableRow key={info.id}>
                                                     <CustomTableCell>{info.event_name}</CustomTableCell>
-                                                    <CustomTableCell align="right">{info.start_date}</CustomTableCell>
+                                                    <CustomTableCell align="right">{moment(info.start_date).format("MM/DD/YYYY")}</CustomTableCell>
                                                     <CustomTableCell align="right"><Button className={this.props.classes.button} key={vkey}
                                                         onClick={() => { this.handleVolunteerClick(info.event_id) }}>Volunteer</Button> &nbsp; {button}</CustomTableCell>
 

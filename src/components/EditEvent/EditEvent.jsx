@@ -85,15 +85,20 @@ class EditEvent extends Component {
                 <h1>Edit Your Event</h1>
                 </Grid>
                 <Grid container spacing={3} justify="center">
+                    <h3>Edit your upcoming event</h3>
+                </Grid>
+                <Grid container spacing={3} justify="center">
+                    <p>Please edit the fields that need to be edited!</p>
+                </Grid>
+                <Grid container spacing={3} justify="center">
                     <Grid item xs={12}>
                         <CardContent>
-                            <h2>Edit your upcoming event</h2>
-                            <p>Please edit the fields that need to be edited!</p>
+                           
                             <FormControl variant="outlined">
                             {
                                 this.props.event.map((ev) => {
                                     return <>
-                                    <label className={this.props.classes.textFields}>Change the event name</label>
+                                    <label className={this.props.classes.textFields} key={ev.id}>Change the event name</label>
                                     <TextField
                                         className={this.props.classes.textFields}
                                         type="text"
@@ -119,11 +124,11 @@ class EditEvent extends Component {
                                         variant="outlined"
                                         onChange={(event) => this.handleChange('event_url', event)}
                                     />
-                                        <label className={this.props.classes.textFields} alignText="center">Change date</label>
+                                        <label className={this.props.classes.textFields}>Change date</label>
                                         <Grid container spacing={3}>
                                             <Grid item xs={6}>
                                                 <CardContent>
-                                                    <label className={this.props.classes.textFields}>The current start date inputed is: {moment(ev.start_date).format("MM-DD-YYYY")}</label>
+                                                    <label className={this.props.classes.textFields}>The current start date inputed is: {moment(ev.start_date).format("MM/DD/YYYY")}</label>
                                                     <TextField
                                                         className={this.props.classes.dateFields}
                                                         type="date"
@@ -135,7 +140,7 @@ class EditEvent extends Component {
                                             </Grid>
                                             <Grid item xs={6}>
                                                 <CardContent>
-                                                    <label className={this.props.classes.textFields}>The current end date inputed is: {moment(ev.end_date).format("MM-DD-YYYY")}</label>
+                                                    <label className={this.props.classes.textFields}>The current end date inputed is: {moment(ev.end_date).format("MM/DD/YYYY")}</label>
                                                     <TextField
                                                         className={this.props.classes.dateFields}
                                                         type="date"
