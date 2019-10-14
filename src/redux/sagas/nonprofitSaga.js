@@ -17,7 +17,7 @@ function* getNonprofit(action) {
 //gets the past events for a specific nonprofit
 function* getPastEvents(action) {
     try {
-        let response = yield axios.get(`/event/nonprofit/${action.payload}`)
+        let response = yield axios.get(`/api/event/nonprofit/${action.payload}`)
         yield put ({
             type: 'SET_PAST_EVENTS',
             payload: response.data
