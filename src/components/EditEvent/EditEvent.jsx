@@ -26,6 +26,10 @@ const styles = theme => ({
     },
     times: {
         margin: '10px 10px 10px 30px'
+    },
+    dateFields: {
+        margin: '10px 10px 10px 30px',
+        width: '40%'
     }
 })
 
@@ -61,6 +65,8 @@ class EditEvent extends Component {
                 city: this.state.city || this.props.event[0].city,
                 zip_code: this.state.zip_code || this.props.event[0].zip_code,
                 event_url: this.state.event_url || this.props.event[0].event_url,
+                start_date: this.state.start_date || this.props.event[0].start_date,
+                end_date: this.state.end_date || this.props.event[0].end_date,
                 id: Number(this.props.match.params.id)
             }
         })
@@ -75,7 +81,6 @@ class EditEvent extends Component {
         return (
             <div className={this.props.classes.rootDiv}>
                 <h1>Edit Event</h1>
-                {JSON.stringify(this.state)}
                 <Grid container spacing={3} className={this.props.classes.grid}>
                     <Grid item xs={12}>
                         <CardContent>
@@ -111,14 +116,22 @@ class EditEvent extends Component {
                                         variant="outlined"
                                         onChange={(event) => this.handleChange('event_url', event)}
                                     />
-                                        <label className={this.props.classes.textFields}>Change date <br></br> The current date inputed is: {ev.start_date}</label>
-                                       {/* <TextField
-                                            className={this.props.classes.textFields}
+                                        <label className={this.props.classes.textFields}>Change date <br></br><br></br> The current start date inputed is: {ev.start_date}</label>
+                                      <TextField
+                                            className={this.props.classes.dateFields}
                                             type="date"
                                             placeholder={ev.start_date}
                                             variant="outlined"
-                                            onChange={(event) => this.handleChange(Number('date'), event)}
-                                       /> */}
+                                            onChange={(event) => this.handleChange(('start_date'), event)}
+                                       />
+                                       <label className={this.props.classes.textFields}>The current end date inputed is: {ev.end_date}</label>
+                                       <TextField
+                                            className={this.props.classes.dateFields}
+                                            type="date"
+                                            placeholder="End"
+                                            variant="outlined"
+                                            onChange={(event) => this.handleChange(('end_date'), event)}
+                                        />
                                     <label className={this.props.classes.textFields}>Change address</label>
                                     <TextField
                                         className={this.props.classes.textFields}

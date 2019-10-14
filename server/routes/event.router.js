@@ -66,7 +66,7 @@ router.post('/addEvent', rejectUnauthenticated, (req,res) => {
   let event_url = req.body.event_url;
 
   if(req.user.id === non_profit_id){
-    pool.query(queryText, [name, non_profit_id, description, address, city, zip_code, start_date, end_date, start_time, end_time, event_url])
+    pool.query(queryText, [name, non_profit_id, description, address, city, zip_code, start_date, end_date, start_time , end_time, event_url])
     .then((result) => {
       console.log('returning results for event:', result.rows);
       res.send(result.rows)
@@ -92,7 +92,7 @@ let queryText = `UPDATE "event" SET "name" = $1, "description" = $2, "address" =
   let start_date = req.body.start_date;
   let end_date = req.body.end_date;
   let event_url = req.body.event_url;
-  let id = req.body.id
+  let id = req.body.id;
 
   pool.query(queryText, [name, description, address, city, zip_code, start_date, end_date, event_url, id])
       .then((result) => {
