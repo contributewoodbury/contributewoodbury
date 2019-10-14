@@ -47,6 +47,12 @@ const styles = theme => ({
 
 
 class AddEvent extends Component {
+    componentDidMount() {
+        this.props.dispatch({
+            type: 'GET_PAST_EVENTS',
+            payload: +(this.props.match.params.id)
+        })
+    }
 
     state = {
         name: '',
@@ -54,6 +60,7 @@ class AddEvent extends Component {
         description: '',
         address: '',
         city: '',
+        state: '',
         zip_code: '',
         start_date: '',
         end_date: '',
@@ -127,6 +134,26 @@ class AddEvent extends Component {
         })
     }
 
+    handleChangeFor = (event) => {
+        console.log('past event was selected for this id:', event.target.value);
+        // console.log('the state is currently:', this.state);
+        this.setState({
+            name: event.target.value.name,
+            non_profit_id: this.props.match.params.id,
+            description: event.target.value.description,
+            address: event.target.value.address,
+            city: event.target.value.city,
+            state: event.target.value.state,
+            zip_code: event.target.value.zip_code,
+            start_time: event.target.value.start_time,
+            end_time: event.target.value.end_time,
+            event_url: event.target.value.event_url,
+        })
+        console.log('checking state', this.state);
+        
+        
+    }
+
     
 
 
@@ -149,27 +176,34 @@ class AddEvent extends Component {
                             Select from the dropdown list to reuse information from a previous event. <br/>
                             Leave the "Volunteers Needed" checkbox unchecked if you do not want to add volunteer opportunities at this time for the event.
                             </p>
+                            {/* {JSON.stringify(this.state)} */}
                             <FormControl variant="outlined">
                                 <InputLabel >
                                     Re-Use previous event
                                 </InputLabel>
                                 <Select
                                     className={this.props.classes.dropdownBox}
-                                    // value={values.age}
-                                    // onChange={handleChange}
+                                    onChange={(event) => this.handleChangeFor(event)}
+                                    value={this.state.name}
                                     // labelWidth={labelWidth}
                                     // inputProps={{
                                     //     name: 'age',
                                     //     id: 'outlined-age-simple',
                                     // }}
                                 >
-                                    <MenuItem value="">
-                                        <em>None</em>
+                                    <MenuItem value={this.state.name}>
+                                        <em>{this.state.name}</em>
                                     </MenuItem>
-                                    <MenuItem value={10}>Event 1</MenuItem>
-                                    <MenuItem value={20}>Event 2</MenuItem>
-                                    <MenuItem value={30}>Event 3</MenuItem>
+                                    
+                                    
+                                    {this.props.pastEvents.map(each => (
+                                        
+                                            <MenuItem key={each.id} value={each} >{each.name}</MenuItem>
+                                        
+                                    ))}
+
                                 </Select>
+                                
 
                                 <FormControlLabel 
                                     className={this.props.classes.checkbox}
@@ -197,7 +231,7 @@ class AddEvent extends Component {
                     </Grid>
                 </Grid>
 
-
+                
                 <Grid container spacing={3}>
                     <Grid item xs={6}>
                         {/* <Card> */}
@@ -260,5 +294,12 @@ class AddEvent extends Component {
     }
 }
 
+const mapStateToProps = reduxStore => {
+    return {
+        nonprofit: reduxStore.nonprofit.nonprofit,
+        pastEvents: reduxStore.nonprofit.nonprofitPastEvents
+    }
+}
 
-export default withStyles(styles) (connect()(AddEvent));
+
+export default withStyles(styles) (connect(mapStateToProps)(AddEvent));

@@ -26,7 +26,20 @@ class NonprofitDetails extends Component {
                 <h3>nonprofit information and logo goes here</h3>
 
                     <>
-                    {this.props.nonprofit.map(each => (
+                    {/* {JSON.stringify(this.props.nonprofit[0].nonprofit_name)} */}
+                    {this.props.nonprofit ? 
+                    <>
+                        <div className={this.props.classes.nonprofitInfo} >
+                            <img className={this.props.classes.logo} src={this.props.nonprofit[0].logo} alt="" />
+                        </div>
+                        <div className={this.props.classes.nonprofitInfo} >
+                            <p>
+                                {this.props.nonprofit[0].nonprofit_name}<br />
+                                {this.props.nonprofit[0].address}<br />
+                                {this.props.nonprofit[0].city}, {this.props.nonprofit[0].state} {this.props.nonprofit[0].zip_code}
+                            </p>
+                        </div></> : <span></span>  }
+                     {/* {this.props.nonprofit.map(each => (
                         <>
                         <div className={this.props.classes.nonprofitInfo} >
                             <img className={this.props.classes.logo} src={each.logo} alt="" />
@@ -39,7 +52,7 @@ class NonprofitDetails extends Component {
                             </p>
                         </div>   
                         </>
-                    ))}
+                    ))} */}
                     </>
 
                 {/* {JSON.stringify(this.props.nonprofit)} */}
