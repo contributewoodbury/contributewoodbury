@@ -224,7 +224,7 @@ class DirectoryPage extends Component {
                                                     <TableCell align="left"><Button className={this.props.classes.backButton} variant="contained"
                                                         onClick={() => this.handleVolunteerButton(nonprofit.id)} >Volunteer</Button></TableCell>
                                                     <TableCell align="center"><Button className={this.props.classes.backButton} variant="contained">
-                                                        <a className={this.props.classes.backButtonText} href={nonprofit.website} >Website</a></Button></TableCell>
+                                                        <a className={this.props.classes.backButtonText} target="_blank" href={nonprofit.website} >Website</a></Button></TableCell>
                                                 </TableRow>
                                             )
                                         } else { return false; }
