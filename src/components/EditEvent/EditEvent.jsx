@@ -19,11 +19,13 @@ const styles = theme => ({
     },
     textFields: {
         margin: '10px 10px 10px 30px',
-        width: '400px'
+        width: '400px',
+        color: '#714723',
+        fontSize: '20px'
     },
     description: {
         margin: '10px 10px 10px 30px',
-        width: '925px'
+        width: '1045px'
     },
     times: {
         margin: '10px 10px 10px 30px'
@@ -31,6 +33,13 @@ const styles = theme => ({
     dateFields: {
         margin: '10px 10px 10px 30px',
         width: '40%'
+    },
+    label: {
+        color: '#714723',
+        fontSize: '20px'
+    },
+    title: {
+        marginLeft: '450px'
     }
 })
 
@@ -81,14 +90,14 @@ class EditEvent extends Component {
     render() {
         return (
             <div className={this.props.classes.rootDiv}>
-            <Grid container spacing={3} justify="center">
+            <Grid container spacing={3} className={this.props.classes.title}>
                 <h1>Edit Your Event</h1>
                 </Grid>
-                <Grid container spacing={3} justify="center">
+                <Grid container className={this.props.classes.title}>
                     <h3>Edit your upcoming event</h3>
                 </Grid>
-                <Grid container spacing={3} justify="center">
-                    <p>Please edit the fields that need to be edited!</p>
+                <Grid container spacing={3} className={this.props.classes.title}>
+                    <p>Please edit the fields that you would like to edit!</p>
                 </Grid>
                 <Grid container spacing={3} justify="center">
                     <Grid item xs={12}>
@@ -98,24 +107,34 @@ class EditEvent extends Component {
                             {
                                 this.props.event.map((ev) => {
                                     return <>
-                                    <label className={this.props.classes.textFields} key={ev.id}>Change the event name</label>
-                                    <TextField
-                                        className={this.props.classes.textFields}
-                                        type="text"
-                                        label={ev.name}
-                                        placeholder={ev.event_name}
-                                        variant="outlined"
-                                        onChange={(event) => this.handleChange('name', event)}
-                                    />
-                                    <label className={this.props.classes.textFields}>Change the event description</label>
-                                    <TextField
-                                        className={this.props.classes.description}
-                                        type="text"
-                                        label={ev.description}
-                                        variant="outlined"
-                                        mutiline rows = "4"
-                                            onChange={(event) => this.handleChange('description', event)}
-                                    />
+                                    <Grid container spacing={3} justify="center">
+                                        <Grid item xs={6}>
+                                        <CardContent>
+                                                    <label className={this.props.classes.textFields} key={ev.id}>Change the event name</label>
+                                                    <TextField
+                                                        className={this.props.classes.textFields}
+                                                        type="text"
+                                                        label={ev.name}
+                                                        placeholder={ev.event_name}
+                                                        variant="outlined"
+                                                        onChange={(event) => this.handleChange('name', event)}
+                                                    />
+                                        </CardContent>
+                                        </Grid>
+                                        <Grid item xs={6}>
+                                        <CardContent>
+                                                    <label className={this.props.classes.textFields}>Change the event description</label>
+                                                    <TextField
+                                                        className={this.props.classes.textFields}
+                                                        type="text"
+                                                        label={ev.description}
+                                                        variant="outlined"
+                                                        multiline rows="4"
+                                                        onChange={(event) => this.handleChange('description', event)}
+                                                    />
+                                        </CardContent>
+                                        </Grid>
+                                    </Grid>
                                     <label className={this.props.classes.textFields}>Change event image url</label>
                                     <TextField
                                         className={this.props.classes.description}
@@ -124,7 +143,7 @@ class EditEvent extends Component {
                                         variant="outlined"
                                         onChange={(event) => this.handleChange('event_url', event)}
                                     />
-                                        <label className={this.props.classes.textFields}>Change date</label>
+        
                                         <Grid container spacing={3}>
                                             <Grid item xs={6}>
                                                 <CardContent>
@@ -151,39 +170,58 @@ class EditEvent extends Component {
                                                 </CardContent>
                                             </Grid>
                                         </Grid>
-                                    <label className={this.props.classes.textFields}>Change address</label>
-                                    <TextField
-                                        className={this.props.classes.textFields}
-                                        type="text"
-                                        label={ev.address}
-                                        variant="outlined"
-                                        onChange={(event) => this.handleChange('address', event)}
-                                    />
-                                    <label className={this.props.classes.textFields}>Change city</label>
-                                    <TextField
-                                        className={this.props.classes.textFields}
-                                        type="text"
-                                        label={ev.city}
-                                        variant="outlined"
-                                        onChange={(event) => this.handleChange('city', event)}
-                                    />
-                                    <label className={this.props.classes.textFields}>Change state</label>
-                                    <TextField
-                                        className={this.props.classes.textFields}
-                                        type="text"
-                                        label={ev.state}
-                                        variant="outlined"
-                                        onChange={(event) => this.handleChange('state', event)}
-                                    />
-                                    <label className={this.props.classes.textFields}>Change zip code</label>
-                                    <TextField
-                                        className={this.props.classes.textFields}
-                                        type="number"
-                                        label={ev.zip_code}
-                                        variant="outlined"
-                                        onChange={(event) => this.handleChange('zip_code', event)}
-                                    />
-                                   
+                                        <Grid container spacing={3} justify="center">
+                                            <Grid item xs={6}>
+                                                <CardContent>
+                                                    <label className={this.props.classes.textFields}>Change address</label>
+                                                    <TextField
+                                                        className={this.props.classes.textFields}
+                                                        type="text"
+                                                        label={ev.address}
+                                                        variant="outlined"
+                                                        onChange={(event) => this.handleChange('address', event)}
+                                                    />
+                                                </CardContent>
+                                            </Grid>
+                                            <Grid item xs={6}>
+                                                <CardContent>
+                                                    <label className={this.props.classes.textFields}>Change city</label>
+                                                    <TextField
+                                                        className={this.props.classes.textFields}
+                                                        type="text"
+                                                        label={ev.city}
+                                                        variant="outlined"
+                                                        onChange={(event) => this.handleChange('city', event)}
+                                                    />
+                                                </CardContent>
+                                            </Grid>
+                                        </Grid>
+                                        <Grid container spacing={3} justify="center">
+                                            <Grid item xs={6}>
+                                                <CardContent>
+                                                    <label className={this.props.classes.textFields}>Change state</label>
+                                                    <TextField
+                                                        className={this.props.classes.textFields}
+                                                        type="text"
+                                                        label={ev.state}
+                                                        variant="outlined"
+                                                        onChange={(event) => this.handleChange('state', event)}
+                                                    />
+                                                </CardContent>
+                                            </Grid>
+                                            <Grid item xs={6}>
+                                                <CardContent>
+                                                    <label className={this.props.classes.textFields}>Change zip code</label>
+                                                    <TextField
+                                                        className={this.props.classes.textFields}
+                                                        type="number"
+                                                        label={ev.zip_code}
+                                                        variant="outlined"
+                                                        onChange={(event) => this.handleChange('zip_code', event)}
+                                                    />
+                                                </CardContent>
+                                            </Grid>
+                                        </Grid>
                                     </>
                                 })
                             }
