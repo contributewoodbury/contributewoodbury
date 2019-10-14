@@ -17,7 +17,8 @@ function* search(action) {
     yield put({
       type: 'SET_DIRECTORY',
       payload: response.data
-    })
+    });
+    yield put({ type: 'SET_ADMIN_DIRECTORY', payload: response.data });
   } catch (error) {
     console.log('error in search request', error);
   }
