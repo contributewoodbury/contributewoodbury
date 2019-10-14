@@ -6,7 +6,17 @@ import LogOutButton from '../LogOutButton/LogOutButton';
 import './Nav.css';
 
 const Nav = (props) => {
-  let orgRoute = `/organizationHome/${props.user.id}`
+  
+  function routeDecider(){
+    let homeRoute;
+    if(props.user.name === 'Admin'){
+      homeRoute = `/validation`;
+    } else {
+      homeRoute = `/organizationHome/${props.user.id}`;
+    }
+    return <Link className="nav-link" to={homeRoute}>Home</Link>;
+  }
+  
   return (
     <div className="nav">
       <Link to="/home">
@@ -18,7 +28,7 @@ const Nav = (props) => {
         but call this link 'Home' if they are logged in,
         and call this link 'Login / Register' if they are not */}
         {/* {props.user.id ? 'Home' : 'Login / Register'} */}
-        {props.user.id ? <Link className="nav-link" to={orgRoute}>Home</Link> : <NavLogin className="nav-link" />}
+        {props.user.id ? routeDecider() : <NavLogin className="nav-link" />}
 
         <Link className="nav-link" to="/calendar">
           Calendar
