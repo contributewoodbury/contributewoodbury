@@ -62,7 +62,6 @@ class DirectoryPage extends Component {
     }
 
     componentDidUpdate(prevProps) {
-        console.log("prevProps", prevProps);
         if (this.props.reduxStore.user.name === 'Admin' && prevProps.reduxStore.user.name !== this.props.reduxStore.user.name) {
             this.props.dispatch({
                 type: 'GET_ADMIN_DIRECTORY'
@@ -106,9 +105,6 @@ class DirectoryPage extends Component {
         const nonprofitName = this.props.reduxStore.user.name;
         let sixMonthsBeforeTodaysDate = moment().subtract(6, "months").format("YYYY-MM-DD");
         // let lastConfirmed = moment(this.props.reduxStore.user.last_confirmed).format("YYYY-MM-DD");
-
-        console.log("six months before todays date: ", sixMonthsBeforeTodaysDate);
-
 
         return (
             <div>
@@ -239,6 +235,9 @@ class DirectoryPage extends Component {
                 <br />
                 <br />
                 {JSON.stringify(this.props.reduxStore.user)}
+                <br /> 
+                <br />
+                {JSON.stringify(this.props.reduxStore.admin.adminDirectory)}
             </div >
         )
 
