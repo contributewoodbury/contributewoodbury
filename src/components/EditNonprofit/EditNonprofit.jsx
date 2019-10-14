@@ -91,22 +91,11 @@ class EditNonprofit extends Component {
        
     }
 
-    addNewCourse = event => {
-        event.preventDefault();
-        this.props.dispatch({ type: 'ADD_NEW_COURSE', payload: this.state })
-        this.setState({
-            name: '',
-            description: '',
-            creator_id: 0
-        });
-        // this.props.history.push('/coursesAvailable');
-    }
-
     handleSubmitButton = () => {
         let id = this.props.match.params.id
         Swal.fire({
             title: 'Success!',
-            text: 'Your event was submitted.',
+            text: 'Your nonProfit was submitted. Please wait for Admin approval before adding new events!  You will be contacted upon approval.',
             type: 'success',
             confirmButtonText: 'OK',
             confirmButtonColor: '#457736'

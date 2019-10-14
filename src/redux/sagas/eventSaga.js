@@ -32,11 +32,23 @@ function* addEvent(action) {
   }
 }
 
+//edits event information
+function* editEvent(action) {
+  try{
+    yield axios.put(`/api/event/editEvent`, action.payload)
+    console.log(action.payload)
+  }
+  catch(error) {
+    console.log('error in editEvent', error)
+  }
+} 
+
 
 //root saga
 function* eventSaga(){
   yield takeEvery('GET_EVENT_DETAILS', getEventDetails);
   yield takeLatest('ADD_EVENT', addEvent);
+  yield takeLatest('EDIT_EVENT', editEvent);
 }
 
 export default eventSaga;

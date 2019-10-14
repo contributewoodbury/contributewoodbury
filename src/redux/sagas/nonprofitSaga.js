@@ -46,7 +46,17 @@ function* editNonprofit(action) {
         // })
     }
     catch (error) {
-        console.log('errror in editNonprofit', error)
+        console.log('error in editNonprofit', error)
+    }
+}
+
+//worker saga: requests list of all categories
+function* getCategories () {
+    try {
+        let response = yield axios.get('/api/nonprofit/all/categories');
+        yield put({ type: 'SET_CATEGORIES', payload: response.data });
+    } catch (error) {
+        console.log('error in getCategories', error);
     }
 }
 
@@ -56,6 +66,7 @@ function* nonprofitSaga() {
     yield takeLatest('GET_PAST_EVENTS', getPastEvents);
     yield takeLatest('GET_NONPROFIT_EDIT', getNonprofitEdit);
     yield takeLatest('EDIT_NONPROFIT', editNonprofit);
+    yield takeLatest('GET_CATEGORIES', getCategories);
 }
 
 export default nonprofitSaga;
