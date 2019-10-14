@@ -27,10 +27,14 @@ const styles = theme => ({
     },
     description: {
         margin: '10px 10px 10px 30px',
-        width: '1030px'
+        width: '900px'
     },
     dropdownBox: {
-        width: '500px'
+        margin: '10px 10px 10px 30px',
+        width: '400px'
+    },
+    inputLabel: {
+        margin: '10px 10px 10px 30px'
     },
     rootDiv: {
         margin: '0px 100px 0px 100px'
@@ -112,7 +116,7 @@ class EditNonprofit extends Component {
         let id = this.props.match.params.id
         Swal.fire({
             title: 'Success!',
-            text: 'Your nonProfit was submitted. Please wait for Admin approval before adding new events!  You will be contacted upon approval.',
+            text: 'The changes you made to your nonprofit have been submitted.',
             type: 'success',
             confirmButtonText: 'OK',
             confirmButtonColor: '#457736'
@@ -160,11 +164,11 @@ class EditNonprofit extends Component {
         return(
             <div className={this.props.classes.rootDiv}>
                 <h1 className={this.props.classes.heading}>Edit Nonprofit</h1>
-                {JSON.stringify(this.state)}
+                {/* {JSON.stringify(this.state)} */}
                 <br/>
                 {/* {JSON.stringify(this.props.reduxStore.nonprofit)} */}
                 <br/>
-                {JSON.stringify(currentNonProfit)}
+                {/* {JSON.stringify(currentNonProfit)} */}
 
             {/* Below is conditionally rendered based on the existance of the currentNonProfit information in the reducer */}
 
@@ -182,9 +186,9 @@ class EditNonprofit extends Component {
 
                 <Grid container spacing={3}>
                     <Grid item xs={6}>
-                        <h2>
+                        {/* <h2>
                             left column
-                        </h2>
+                        </h2> */}
                                 <TextField className={this.props.classes.textFields} defaultValue={currentNonProfit.contact_name} type="text" placeholder="Point of Contact Name" variant="outlined" onChange={(event) => { this.handleEditInputChange('contact_name', event) }}/>
                         <br />
                                 <TextField className={this.props.classes.textFields} defaultValue={currentNonProfit.contact_email} type="text" placeholder="Point of Contact Email" variant="outlined" onChange={(event) => { this.handleEditInputChange('contact_email', event) }}/>
@@ -197,9 +201,9 @@ class EditNonprofit extends Component {
                         <br />
                     </Grid>
                     <Grid item xs={6}>
-                        <h2>
+                        {/* <h2>
                             right column
-                        </h2>
+                        </h2> */}
                         
                             <TextField className={this.props.classes.textFields} defaultValue={currentNonProfit.address} type="text" placeholder="Street Address" variant="outlined" onChange={(event) => { this.handleEditInputChange('address', event) }} />
                             <br />
@@ -210,9 +214,9 @@ class EditNonprofit extends Component {
                             <TextField className={this.props.classes.textFields} type="text" defaultValue={currentNonProfit.zip_code} placeholder="Zip Code" variant="outlined" onChange={(event) => { this.handleEditInputChange('zip_code', event) }} />
                             <br />
                             <FormControl variant="filled">
-                                <InputLabel >
+                                <InputLabel className={this.props.classes.inputLabel}>
                                     Choose Organization Category
-                            </InputLabel>
+                                </InputLabel>
                                 <Select
                                     className={this.props.classes.dropdownBox} value={this.state.category_name} onChange={(event) => { this.handleDropdownChange('category_id', 'category_name', event) }}
 
