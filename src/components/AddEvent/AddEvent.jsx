@@ -221,12 +221,12 @@ class AddEvent extends Component {
                                     label="Volunteers Needed"
                                 />
 
-                                <TextField className={this.props.classes.textFields} type="text" label="Enter the event Name" variant="outlined"
+                                <TextField className={this.props.classes.textFields} type="text" label="Enter the event Name" variant="outlined" required={true}
                                     value={this.state.name} onChange={(event) => this.handleChange('name', event)} />
 
                                 <TextField className={this.props.classes.description} type="text" 
                                             placeholder="Enter the event description and any links where tickets can be purchased if required to attend" 
-                                            label="description"
+                                            label="description" required={true}
                                             variant="outlined" multiline rows="4" 
                                             value={this.state.description} onChange={(event) => this.handleChange('description', event)}/>
                             </FormControl>
@@ -241,15 +241,15 @@ class AddEvent extends Component {
                         {/* <Card> */}
                             <CardContent>
                             <h2>left column</h2>
-                            <TextField className={this.props.classes.dateFields} type="date" placeholder="Start"
+                            <TextField className={this.props.classes.dateFields} type="date" placeholder="Start" required={true}
                                 variant="outlined" value={this.state.start_date} onChange={(event) => this.handleChange('start_date', event)} />
                             <TextField className={this.props.classes.dateFields} type="date" placeholder="End" variant="outlined"
                                 value={this.state.end_date} onChange={(event) => this.handleChange('end_date', event)} />
                             <br />
                             
-                            <TextField className={this.props.classes.times} type="time" placeholder="Start Time" 
+                            <TextField className={this.props.classes.times} type="time" placeholder="Start Time" required={true}
                                 variant="outlined" value={this.state.start_time} onChange={(event) => this.handleChange('start_time', event)} />
-                            <TextField className={this.props.classes.times} type="time" placeholder="End Time" 
+                            <TextField className={this.props.classes.times} type="time" placeholder="End Time" required={true}
                                 variant="outlined" value={this.state.end_time} onChange={(event) => this.handleChange('end_time', event)} />
                             <br/>
                     
@@ -263,16 +263,16 @@ class AddEvent extends Component {
                             <CardContent>
                             <h2>right column</h2>
                             
-                            <TextField className={this.props.classes.textFields} type="text" label="Address" variant="outlined"
+                            <TextField className={this.props.classes.textFields} type="text" label="Address" variant="outlined" required={true}
                                 value={this.state.address} onChange={(event) => this.handleChange('address', event)} />
                             <br />
-                            <TextField className={this.props.classes.textFields} type="text" label="City" variant="outlined"
+                            <TextField className={this.props.classes.textFields} type="text" label="City" variant="outlined" required={true}
                                 value={this.state.city} onChange={(event) => this.handleChange('city', event)} />
                             <br />
-                            <TextField className={this.props.classes.textFields} type="text" label="State" variant="outlined"
+                            <TextField className={this.props.classes.textFields} type="text" label="State" variant="outlined" required={true}
                                 value={this.state.state} onChange={(event) => this.handleChange('state', event)} />
                             <br />
-                            <TextField className={this.props.classes.textFields} type="text" label="Zip Code" variant="outlined"
+                            <TextField className={this.props.classes.textFields} type="text" label="Zip Code" variant="outlined" required={true}
                                 value={this.state.zip_code} onChange={(event) => this.handleChange('zip_code', event)} />
                             <br />
                             
