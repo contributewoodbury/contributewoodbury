@@ -42,7 +42,7 @@ router.get('/:id', (req, res) => {
             console.log('error in nonprofit get', error)
             res.sendStatus(500)
         })
-})
+});
 
 //grabs editable information from the specified nonprofit for editing. 
 router.get('/edit/:id', rejectUnauthenticated, (req, res) => {
@@ -57,10 +57,11 @@ router.get('/edit/:id', rejectUnauthenticated, (req, res) => {
         console.log('error in edit nonprofit GET', error);
         res.sendStatus(500);
     });
-})
+});
 
 //edits nonprofits information 
 router.put('/editNonprofit', rejectUnauthenticated, (req,res) => {
+    if(req.user.id === req.body.nonprofit_id){
     let queryText = `UPDATE "nonprofit" SET "name" = $1, "contact_email" = $2, "address" = $3, "city" = $4, 
         "zip_code" = $5, "website" = $6, "logo" = $7, "description" = $8, "last_confirmed" = CURRENT_DATE, "category_id" = $9, "category_name" = $10, "contact_name" = $11, "contact_phone" = $12  WHERE "id" = $13;`;
     let name = req.body.name;
@@ -71,7 +72,7 @@ router.put('/editNonprofit', rejectUnauthenticated, (req,res) => {
     let website = req.body.website;
     let logo = req.body.logo;
     let description = req.body.description;
-    let id = req.body.id;
+    let id = req.body.nonprofit_id;
     let category_id = req.body.category_id;
     let category_name = req.body.category_name;
     let contact_phone = req.body.contact_phone;
@@ -84,8 +85,10 @@ router.put('/editNonprofit', rejectUnauthenticated, (req,res) => {
         .catch((error) => {
             console.log('error in edit nonprofit PUT', error);
         })
-    
-})
+    } else {
+        res.sendStatus(500);
+    }
+});
 
 
 // obtains all categories from the DB
@@ -99,9 +102,7 @@ router.get('/all/categories', (req, res) => {
         console.log('error in GET categories', error);
         res.sendStatus(500);
     });
-})
-
-
+});
 
 
 module.exports = router;
