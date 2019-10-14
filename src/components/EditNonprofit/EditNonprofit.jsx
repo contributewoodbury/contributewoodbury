@@ -101,13 +101,16 @@ class EditNonprofit extends Component {
        
     }
 
+<<<<<<< HEAD
     
 
+=======
+>>>>>>> f8767af48682dcd27c78f6fad978f945cf1b096f
     handleSubmitButton = () => {
         let id = this.props.match.params.id
         Swal.fire({
             title: 'Success!',
-            text: 'Your event was submitted.',
+            text: 'Your nonProfit was submitted. Please wait for Admin approval before adding new events!  You will be contacted upon approval.',
             type: 'success',
             confirmButtonText: 'OK',
             confirmButtonColor: '#457736'

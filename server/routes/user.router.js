@@ -15,25 +15,28 @@ router.get('/', rejectUnauthenticated, (req, res) => {
 // Handles POST request with new user data
 // The only thing different from this and every other post we've seen
 // is that the password gets encrypted before being inserted
-router.post('/register', (req, res, next) => {  
+router.post('/register', (req, res, next) => {
   const username = req.body.username;
   const password = encryptLib.encryptPassword(req.body.password);
   let contact_email = req.body.contact_email;
+  let contact_name = req.body.contact_name;
+  let contact_phone = req.body.contact_phone;
   let address = req.body.address;
   let city = req.body.city;
+  let state = req.body.state;
   let zip_code = req.body.zip_code;
   let website = req.body.website;
   let logo = req.body.logo;
-  const is_approved = 'false';
+  let category_id = req.body.category_id;
   let description = req.body.description;
 
-  const queryText = `INSERT INTO "nonprofit" (name, password, contact_email, address, city, zip_code, website, logo, is_approved, last_confirmed, description)
-     VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, CURRENT_DATE, $10) RETURNING id`;
-  pool.query(queryText, [username, password, contact_email, address, city, zip_code, website, logo, is_approved, description])
+  const queryText = `INSERT INTO "nonprofit" (name, password, contact_email, contact_name, contact_phone, address, city, state, zip_code, website, logo, category_id, last_confirmed, description)
+     VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, $12, CURRENT_DATE, $13) RETURNING id`;
+  pool.query(queryText, [username, password, contact_email, contact_name, contact_phone, address, city, state, zip_code, website, logo, category_id, description])
     .then(() => res.sendStatus(201))
     .catch((error) => {
-      console.log(error)
-      res.sendStatus(500)
+      console.log(error);
+      res.sendStatus(500);
     });
 });
 

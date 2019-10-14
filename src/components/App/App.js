@@ -29,8 +29,8 @@ import Calendar from '../Calendar/Calendar';
 import DirectoryPage from '../DirectoryPage/DirectoryPage';
 import VolunteerSignup from '../VolunteerSignup/VolunteerSignup';
 import NonprofitValidation from '../NonprofitValidation/NonprofitValidation';
-import LoginPage from '../LoginPage/LoginPage';
 import VolunteerList from '../VolunteerList/VolunteerList';
+import Home from '../Home/Home';
 
 class App extends Component {
   componentDidMount() {
@@ -119,7 +119,7 @@ class App extends Component {
             <ProtectedRoute
               exact
               path="/home"
-              component={LoginPage}
+              component={Home}
             />
             {/* This works the same as the other protected route, except that if the user is logged in,
             they will see the info page instead. */}

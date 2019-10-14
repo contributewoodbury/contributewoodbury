@@ -58,7 +58,7 @@ router.post('/addVolunteers', rejectUnauthenticated, (req, res) => {
   console.log('add volunteers req.body:', req.body);
   
   let queryText = `INSERT INTO "role" ("name", "description", "number_needed", "start_time", "end_time", "date", "event_id")
-    VALUES ($1, $2, $3, $4, $5, $6, $7);`;
+    VALUES ($1, $2, $3, $4, $5, $6, $7) RETURNING *`;
   let name = req.body.name;
   let description = req.body.description;
   let number_needed = req.body.number_needed;
@@ -68,7 +68,8 @@ router.post('/addVolunteers', rejectUnauthenticated, (req, res) => {
   let event_id= req.body.event_id;
   pool.query(queryText, [name, description, number_needed,start_time, end_time, date, event_id])
     .then((result) => {
-      res.sendStatus(200);
+      console.log('event volunteer roles added:', result.rows);
+      res.send(result.rows);
     })
     .catch((error) => {
       console.log('error in addVolunteers post', error);
@@ -91,6 +92,21 @@ router.post('/signup', (req, res) => {
     console.log('error in volunteer signup POST', error);
     res.sendStatus(500);
   });
+})
+
+router.delete('/deleteRole/:id', (req, res) => {
+  console.log('in delete volunteer role:', req.params.id);
+
+  let id = req.params.id
+  let queryText = `DELETE FROM "role" WHERE "id" = $1;`
+
+  pool.query(queryText, [id])
+  .then((result) => {
+    res.sendStatus(200);
+  }).catch((err) => {
+    console.log('error in volunteer role delete route');
+    res.sendStatus(500)
+  })
 })
 
 module.exports = router;
