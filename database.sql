@@ -14,7 +14,7 @@ CREATE TABLE "categories" (
 
 CREATE TABLE "nonprofit" (
     "id" SERIAL PRIMARY KEY,
-    "name" VARCHAR(100),
+    "name" VARCHAR(100) UNIQUE,
     "password" VARCHAR(250),
     "contact_email" VARCHAR(150),
     "contact_name" VARCHAR(75),
