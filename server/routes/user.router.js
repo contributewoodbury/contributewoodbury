@@ -35,8 +35,8 @@ router.post('/register', (req, res, next) => {
   pool.query(queryText, [username, password, contact_email, contact_name, contact_phone, address, city, state, zip_code, website, logo, category_id, description])
     .then(() => res.sendStatus(201))
     .catch((error) => {
-      console.log(error)
-      res.sendStatus(500)
+      console.log(error);
+      res.sendStatus(500);
     });
 });
 

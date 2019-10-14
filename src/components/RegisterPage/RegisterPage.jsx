@@ -70,6 +70,20 @@ class RegisterPage extends Component {
     } else {
       this.props.dispatch({ type: 'REGISTRATION_INPUT_ERROR' });
     }
+    // Swal.fire({
+    //   title: 'Thank You!',
+    //   text: 'Contribute Woodbury has recieved your request to join and will get back to you upon acceptance. Please wait for the email signalling your approval before trying to add any events.',
+    //   type: 'success',
+    //   showCancelButton: true,
+    //   confirmButtonColor: '#3085d6',
+    //   cancelButtonColor: '#d33',
+    //   confirmButtonText: 'OK',
+    //   // confirmButtonColor: '#457736'
+    // }).then((result) => {
+    //   if (result.value) {
+    //     this.props.history.push('/home');
+    //   }
+    // });
   } // end registerUser
 
   handleInputChange = (propertyName, event) => {
