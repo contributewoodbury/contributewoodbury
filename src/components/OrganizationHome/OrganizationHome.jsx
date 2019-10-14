@@ -9,6 +9,7 @@ import TableRow from '@material-ui/core/TableRow';
 import Paper from '@material-ui/core/Paper';
 import { Button, Link } from '@material-ui/core/';
 import { connect } from 'react-redux';
+import moment from 'moment';
 import Swal from 'sweetalert2';
 
 const CustomTableCell = withStyles(theme => ({
@@ -65,6 +66,7 @@ class OrganizationHome extends Component {
 
     handleEditClick = (id) => {
         console.log('edit button clicked id:', id)
+        this.props.history.push(`/editEvent/${id}`)
     }//end handleEditClick
 
     handleAddEvent = () => {
@@ -130,7 +132,7 @@ class OrganizationHome extends Component {
                                             button = <>
                                                 <Button className={this.props.classes.button}
                                                     onClick={() => this.handleVolunteerListClick(info.event_id)} key={vkey}>Volunteer List
-                                                </Button>
+                                                </Button> &nbsp;
                                                 <Button key={ekey}
                                                     className={this.props.classes.button} onClick={() => this.handleEditClick(info.event_id)}>Edit
                                                 </Button>
@@ -141,7 +143,7 @@ class OrganizationHome extends Component {
                                             return (
                                                 <TableRow key={info.id}>
                                                     <CustomTableCell>{info.event_name}</CustomTableCell>
-                                                    <CustomTableCell align="right">{info.start_date}</CustomTableCell>
+                                                    <CustomTableCell align="right">{moment(info.start_date).format("MM/DD/YYYY")}</CustomTableCell>
                                                     <CustomTableCell align="right"><Button className={this.props.classes.button} key={vkey}
                                                         onClick={() => { this.handleVolunteerClick(info.event_id) }}>Volunteer</Button> &nbsp; {button}</CustomTableCell>
 
@@ -160,7 +162,6 @@ class OrganizationHome extends Component {
                 <Grid container spacing={1} justify="center">
                     {nonprofitInfo.nonprofit_name === this.props.user.name && <Button className={this.props.classes.button} onClick={this.handleAddEvent}>Add Event</Button>}
                 </Grid>
-
             </div>
         )
     }

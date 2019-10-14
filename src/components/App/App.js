@@ -21,6 +21,7 @@ import EditNonprofit from '../EditNonprofit/EditNonprofit';
 import OrganizationHome from '../OrganizationHome/OrganizationHome';
 // import NavLogin from '../NavLogin/NavLogin';
 import EventDetails from '../EventDetails/EventDetails';
+import EditEvent from '../EditEvent/EditEvent';
 
 
 import './App.css';
@@ -76,7 +77,13 @@ class App extends Component {
               component={AddVolunteerRoles}
             />
 
-            <Route
+            <ProtectedRoute
+              exact
+              path="/editEvent/:id"
+              component={EditEvent}
+            />
+
+            <ProtectedRoute
               exact
               path="/editNonprofit/:id"
               component={EditNonprofit}

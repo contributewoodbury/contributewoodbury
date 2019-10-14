@@ -66,7 +66,7 @@ router.post('/addEvent', rejectUnauthenticated, (req,res) => {
   let event_url = req.body.event_url;
 
   if(req.user.id === non_profit_id){
-    pool.query(queryText, [name, non_profit_id, description, address, city, zip_code, start_date, end_date, start_time, end_time, event_url])
+    pool.query(queryText, [name, non_profit_id, description, address, city, zip_code, start_date, end_date, start_time , end_time, event_url])
     .then((result) => {
       console.log('returning results for event:', result.rows);
       res.send(result.rows)
@@ -78,6 +78,30 @@ router.post('/addEvent', rejectUnauthenticated, (req,res) => {
   } else {
     res.sendStatus(403);
   }
+})
+
+//edits event details
+router.put('/editEvent', rejectUnauthenticated, (req,res) => {
+let queryText = `UPDATE "event" SET "name" = $1, "description" = $2, "address" = $3, "city" = $4, "zip_code" = $5, "start_date" = $6, 
+  "end_date" = $7, "event_url" = $8 WHERE "id" = $9;`;
+  let name = req.body.name;
+  let description = req.body.description;
+  let address = req.body.address;
+  let city = req.body.city;
+  let zip_code = req.body.zip_code;
+  let start_date = req.body.start_date;
+  let end_date = req.body.end_date;
+  let event_url = req.body.event_url;
+  let id = req.body.id;
+
+  pool.query(queryText, [name, description, address, city, zip_code, start_date, end_date, event_url, id])
+      .then((result) => {
+        res.sendStatus(200)
+      })
+      .catch((error) => {
+        console.log('error in editevent put', error)
+        res.sendStatus(500)
+      })
 })
 
 module.exports = router;
