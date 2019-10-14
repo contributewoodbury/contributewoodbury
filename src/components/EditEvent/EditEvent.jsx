@@ -32,12 +32,6 @@ const styles = theme => ({
 class EditEvent extends Component {
 
     state = {
-        name: '',
-        description: '',
-        address: '',
-        city: '',
-        zip_code: '',
-        event_url: '',
         id: Number(this.props.match.params.id)
     }
 
@@ -61,12 +55,12 @@ class EditEvent extends Component {
         this.props.dispatch({
             type: 'EDIT_EVENT',
             payload: {
-                name: this.state.name || this.props.event.event_name,
-                description: this.state.description || this.props.event.description,
-                address: this.state.address || this.props.event.address,
-                city: this.state.city || this.props.event.city,
-                zip_code: this.state.zip_code || this.props.event.zip_code,
-                event_url: this.state.event_url || this.props.event.event_url,
+                name: this.state.name || this.props.event[0].event_name,
+                description: this.state.description || this.props.event[0].description,
+                address: this.state.address || this.props.event[0].address,
+                city: this.state.city || this.props.event[0].city,
+                zip_code: this.state.zip_code || this.props.event[0].zip_code,
+                event_url: this.state.event_url || this.props.event[0].event_url,
                 id: Number(this.props.match.params.id)
             }
         })
@@ -184,7 +178,7 @@ class EditEvent extends Component {
 
 const mapStateToProps = (state) => {
     return {
-        event: state.event.eventDetails
+        event: state.event.eventDetails,
     }
 }
 
