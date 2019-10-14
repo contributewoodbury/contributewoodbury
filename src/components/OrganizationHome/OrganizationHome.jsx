@@ -64,6 +64,7 @@ class OrganizationHome extends Component {
 
     handleEditClick = (id) => {
         console.log('edit button clicked id:', id)
+        this.props.history.push(`/editEvent/${id}`)
     }//end handleEditClick
 
     handleAddEvent = () => {
@@ -118,7 +119,7 @@ class OrganizationHome extends Component {
                                             button = <>
                                                 <Button className={this.props.classes.button}
                                                     onClick={() => this.handleVolunteerListClick(info.event_id)} key={vkey}>Volunteer List
-                                                </Button>
+                                                </Button> &nbsp;
                                                 <Button key={ekey}
                                                     className={this.props.classes.button} onClick={() => this.handleEditClick(info.event_id)}>Edit
                                                 </Button>

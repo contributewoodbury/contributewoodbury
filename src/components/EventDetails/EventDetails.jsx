@@ -63,6 +63,7 @@ class EventDetails extends Component {
     handleEditEvent = () => {
         let id = this.props.match.params.id
         console.log('clicked the event id is:', id)
+        this.props.history.push(`/editEvent/${id}`)
     }//end handleEditEvent
 
     render() {

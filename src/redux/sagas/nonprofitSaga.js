@@ -46,7 +46,7 @@ function* editNonprofit(action) {
         })
     }
     catch (error) {
-        console.log('errror in editNonprofit', error)
+        console.log('error in editNonprofit', error)
     }
 }
 
