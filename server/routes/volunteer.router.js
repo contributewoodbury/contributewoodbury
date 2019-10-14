@@ -16,7 +16,7 @@ router.get('/role/:id', (req, res) => {
   });
 });
 
-//gets one specific volunteer role to sign up for
+//gets one specific role to sign up for (sign up page)
 router.get('/specificrole/:id', (req, res) => {
   let queryText = `SELECT * FROM "role" WHERE "id" = $1;`;
   pool.query(queryText, [req.params.id])
@@ -32,12 +32,13 @@ router.get('/specificrole/:id', (req, res) => {
 });
 
 //gets all the volunteers for a specific event
-router.get('/eventVolunteers/:id', rejectUnauthenticated, (req,res) => {
+router.get('/eventVolunteers/:id/:uid', rejectUnauthenticated, (req,res) => {
   let queryText = `SELECT "volunteer_role".name, "volunteer_role".city, "volunteer_role".zip_code, 
       "volunteer_role".address, "volunteer_role".start_time, "role".name AS "role_name", "volunteer_role".comments, "volunteer_role".end_time, "volunteer_role".email, "volunteer_role".phone_number FROM "volunteer_role"
       JOIN "role" ON "role".id = "volunteer_role".role_id
       WHERE "role".event_id = $1;`;
   let id = req.params.id
+if(req.user.id === +(req.params.uid)){
   pool.query(queryText, [id])
       .then((result) => {
         res.send(result.rows);
@@ -46,29 +47,18 @@ router.get('/eventVolunteers/:id', rejectUnauthenticated, (req,res) => {
         console.log('error in eventVolunteers get', error)
         res.sendStatus(500); 
       })
+    } else {
+      res.sendStatus(403);
+    }
 })
 
-//gets all the volunteers for a specific event
-router.get('/eventVolunteers/:id', rejectUnauthenticated, (req,res) => {
-  let queryText = `SELECT "volunteer_role".name, "volunteer_role".city, "volunteer_role".zip_code, 
-      "volunteer_role".address, "volunteer_role".start_time,"volunteer_role".end_time, "volunteer_role".email, "volunteer_role".phone_numebr, "role".name AS "role_name" FROM "volunteer_role"
-      JOIN "role" ON "role".id = "volunteer_role".role_id
-      WHERE "role".event_id = $1;`;
-  let id = req.params.id
-  pool.query(queryText, [id])
-      .then((result) => {
-        res.send(result.rows);
-      })
-      .catch((error) => {
-        console.log('error in eventVolunteers get', error)
-        res.sendStatus(500); 
-      })
-})
 
 //adds volunteer roles for specific events
 router.post('/addVolunteers', rejectUnauthenticated, (req, res) => {
+  console.log('add volunteers req.body:', req.body);
+  
   let queryText = `INSERT INTO "role" ("name", "description", "number_needed", "start_time", "end_time", "date", "event_id")
-    VALUES ($1, $2, $3, $4, $5, $6, $7);`;
+    VALUES ($1, $2, $3, $4, $5, $6, $7) RETURNING *`;
   let name = req.body.name;
   let description = req.body.description;
   let number_needed = req.body.number_needed;
@@ -78,7 +68,8 @@ router.post('/addVolunteers', rejectUnauthenticated, (req, res) => {
   let event_id= req.body.event_id;
   pool.query(queryText, [name, description, number_needed,start_time, end_time, date, event_id])
     .then((result) => {
-      res.sendStatus(200);
+      console.log('event volunteer roles added:', result.rows);
+      res.send(result.rows);
     })
     .catch((error) => {
       console.log('error in addVolunteers post', error);
@@ -101,6 +92,21 @@ router.post('/signup', (req, res) => {
     console.log('error in volunteer signup POST', error);
     res.sendStatus(500);
   });
+})
+
+router.delete('/deleteRole/:id', (req, res) => {
+  console.log('in delete volunteer role:', req.params.id);
+
+  let id = req.params.id
+  let queryText = `DELETE FROM "role" WHERE "id" = $1;`
+
+  pool.query(queryText, [id])
+  .then((result) => {
+    res.sendStatus(200);
+  }).catch((err) => {
+    console.log('error in volunteer role delete route');
+    res.sendStatus(500)
+  })
 })
 
 module.exports = router;

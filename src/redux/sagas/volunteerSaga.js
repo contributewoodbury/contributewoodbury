@@ -14,7 +14,7 @@ function* getVolunteerRoles(action) {
 //requests all the volunteers that are signed up for this specific event
 function* getSpecificVolunteers(action) {
   try{
-    let response = yield axios.get(`/api/volunteer/eventVolunteers/${action.payload}`)
+    let response = yield axios.get(`/api/volunteer/eventVolunteers/${action.payload.id}/${action.payload.user_id}`)
     yield put({
       type: 'SET_SPECIFIC_VOLUNTEERS',
       payload: response.data
@@ -28,9 +28,10 @@ function* getSpecificVolunteers(action) {
 //adds a new volunteers for specific event
 function* addVolunteers(action) {
   try {
-    yield axios.post(`/api/volunteer/addVolunteers`, action.payload)
+    let response = yield axios.post(`/api/volunteer/addVolunteers`, action.payload)
     yield put({
-      type: 'GET_EVENT_DETAILS'
+      type: 'GET_EVENT_DETAILS',
+      payload: action.payload.event_id
     })
   }
   catch (error) {
@@ -60,7 +61,22 @@ function* getSpecificVolunteerRole(action) {
       payload: response.data[0]
     })
   } catch (error) {
+    console.log('in getSpecificVolunteerRole error');
     
+  }
+}
+
+function* deleteRole(action) {
+  try {
+    console.log('DELETE ROLE PAYLOAD:', action.payload);
+    
+    yield axios.delete(`/api/volunteer/deleteRole/${action.payload.role_id}`)
+    yield put ({
+      type: 'GET_EVENT_DETAILS',
+      payload: action.payload.event_id
+    })
+  } catch (error) {
+    console.log('in deleteRole saga error');
   }
 }
 
@@ -71,6 +87,7 @@ function* volunteerSaga() {
   yield takeLatest('GET_SPECIFIC_VOLUNTEER_ROLE', getSpecificVolunteerRole)
   yield takeLatest('ADD_VOLUNTEERS', addVolunteers);
   yield takeLatest('VOLUNTEER_SIGNUP', volunteerSignUp);
+  yield takeLatest('DELETE_ROLE', deleteRole);
 }
 
 export default volunteerSaga;
