@@ -42,6 +42,8 @@ CREATE TABLE "event" (
     "zip_code" INT,
     "start_date" DATE,
     "end_date" DATE,
+    "start_time" TIME,
+    "end_time" TIME,
     "event_url" VARCHAR(400),
 );
 
