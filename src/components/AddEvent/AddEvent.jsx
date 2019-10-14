@@ -120,11 +120,21 @@ class AddEvent extends Component {
 
     handleSubmitButton = () => {
         console.log('submit event button clicked');
-        this.props.dispatch({
-            type: 'ADD_EVENT',
-            payload: this.state,
-            history: this.props.history
-        })
+        if(!this.state.past_event_id){
+            this.props.dispatch({
+                type: 'ADD_EVENT',
+                payload: this.state,
+                history: this.props.history
+            })
+        } else {
+            console.log('update the event instead');
+            this.props.dispatch({
+                type: 'ADD_PAST_EVENT',
+                payload: this.state,
+                history: this.props.history
+            })
+        }
+        
         Swal.fire({
             title: 'Success!',
             text: 'Your event was submitted.',
@@ -148,10 +158,9 @@ class AddEvent extends Component {
             start_time: event.target.value.start_time,
             end_time: event.target.value.end_time,
             event_url: event.target.value.event_url,
+            past_event_id: event.target.value.id
         })
         console.log('checking state', this.state);
-        
-        
     }
 
     

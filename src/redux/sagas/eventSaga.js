@@ -32,6 +32,23 @@ function* addEvent(action) {
   }
 }
 
+//updates a past event with new information for a "new" event
+function* addPastEvent(action) {
+  try {
+    let response = yield axios.put('/api/event/addPastEvent', action.payload);
+    if(action.payload.volunteers_needed === true) {
+      yield action.history.push(`/addvolunteers/${response.data[0].id}`)
+    }
+    yield put ({
+      type: 'GET_EVENT_DETAILS',
+      payload: response.data[0].id
+    })
+  } catch (error) {
+    console.log('error in addPastEvent saga');
+    
+  }
+}
+
 //edits event information
 function* editEvent(action) {
   try{
@@ -44,11 +61,13 @@ function* editEvent(action) {
 } 
 
 
+
 //root saga
 function* eventSaga(){
   yield takeEvery('GET_EVENT_DETAILS', getEventDetails);
   yield takeLatest('ADD_EVENT', addEvent);
   yield takeLatest('EDIT_EVENT', editEvent);
+  yield takeLatest('ADD_PAST_EVENT', addPastEvent)
 }
 
 export default eventSaga;
