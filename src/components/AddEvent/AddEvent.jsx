@@ -194,14 +194,9 @@ class AddEvent extends Component {
                                     className={this.props.classes.dropdownBox}
                                     onChange={(event) => this.handleChangeFor(event)}
                                     value={this.state.name}
-                                    // labelWidth={labelWidth}
-                                    // inputProps={{
-                                    //     name: 'age',
-                                    //     id: 'outlined-age-simple',
-                                    // }}
                                 >
                                     <MenuItem value={this.state.name}>
-                                        <em>{this.state.name}</em>
+                                        <em>{this.state.past_event_id ? this.state.name : 'Re-Use previous event' } </em>
                                     </MenuItem>
                                     
                                     
