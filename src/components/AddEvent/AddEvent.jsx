@@ -240,7 +240,7 @@ class AddEvent extends Component {
                     <Grid item xs={6}>
                         {/* <Card> */}
                             <CardContent>
-                            <h2>left column</h2>
+                            <h2>Date and Time:</h2>
                             <TextField className={this.props.classes.dateFields} type="date" placeholder="Start" required={true}
                                 variant="outlined" value={this.state.start_date} onChange={(event) => this.handleChange('start_date', event)} />
                             <TextField className={this.props.classes.dateFields} type="date" placeholder="End" variant="outlined"
@@ -261,7 +261,7 @@ class AddEvent extends Component {
                     <Grid item xs={6}>
                         {/* <Card> */}
                             <CardContent>
-                            <h2>right column</h2>
+                            <h2>Location:</h2>
                             
                             <TextField className={this.props.classes.textFields} type="text" label="Address" variant="outlined" required={true}
                                 value={this.state.address} onChange={(event) => this.handleChange('address', event)} />
