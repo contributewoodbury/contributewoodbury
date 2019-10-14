@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { Button } from '@material-ui/core';
 import { withStyles } from '@material-ui/styles';
+import Swal from 'sweetalert2';
 
 
 const styles = theme => ({
@@ -36,6 +37,16 @@ handleNonprofit = () => {
   }
 }
 
+registrationSuccessful = () => {
+    Swal.fire({
+      title: 'Thank You!',
+      text: 'Contribute Woodbury has recieved your request to join and will get back to you upon acceptance. Please wait for the email signalling your approval before trying to add any events.',
+      type: 'success',
+      showCancelButton: false,
+      confirmButtonColor: '#3085d6',
+      confirmButtonText: 'OK',
+    });
+  }
 
 
   render() {
@@ -49,7 +60,8 @@ handleNonprofit = () => {
             {this.props.errors.loginMessage}
           </h2>
         )}
-        <div >
+        {this.props.user.is_approved === false && this.registrationSuccessful()}
+        <div>
         <div>
           <center>
           <h1 className={this.props.classes.heading} >What are you looking for?</h1>
