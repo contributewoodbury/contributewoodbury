@@ -11,6 +11,7 @@ import Paper from '@material-ui/core/Paper';
 import Link from '@material-ui/core/Link';
 import { Button } from '@material-ui/core/';
 import moment from 'moment';
+import './EventDetails.css';
 
 
 const CustomTableCell = withStyles(theme => ({
@@ -73,20 +74,21 @@ class EventDetails extends Component {
             <div className={this.props.classes.rootDiv}>
             <Grid container spacing={3}>
                 <Grid item xs={6}>
-                <CardContent>
-                        <img src={this.props.nonprofit[0] && this.props.nonprofit[0].logo} alt="nonprofit logo" width="400" />
-                </CardContent>
-                </Grid>
-                <Grid item xs={6}>
                     <CardContent>
-                        <h2>{this.props.nonprofit[0] && this.props.nonprofit[0].nonprofit_name}</h2>
-                        <address>
+                        <h2 className="name">{this.props.nonprofit[0] && this.props.nonprofit[0].nonprofit_name}</h2>
+                        <address className="address">
                         {this.props.nonprofit[0] && this.props.nonprofit[0].address} <br></br>
-                        {this.props.nonprofit[0] && this.props.nonprofit[0].city} &nbsp;
+                        {this.props.nonprofit[0] && this.props.nonprofit[0].city}&nbsp;
+                        {this.props.nonprofit[0] && this.props.nonprofit[0].state}&nbsp;
                         {this.props.nonprofit[0] && this.props.nonprofit[0].zip_code}
                         </address>
                     </CardContent>
                 </Grid>
+                    <Grid item xs={6}>
+                        <CardContent>
+                            <img src={this.props.nonprofit[0] && this.props.nonprofit[0].logo} alt="nonprofit logo" width="400" />
+                        </CardContent>
+                    </Grid>
             </Grid>
                                 {
                                     this.props.event.eventDetails.map((info) => {
