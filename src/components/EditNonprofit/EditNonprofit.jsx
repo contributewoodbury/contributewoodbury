@@ -176,10 +176,10 @@ class EditNonprofit extends Component {
                 <div>
                 <Grid container spacing={3}>
                     <Grid item xs={12}>
-                        <TextField className={this.props.classes.textFields} type="text" defaultValue= {currentNonProfit.nonprofit_name}
+                        <TextField className={this.props.classes.textFields} type="text" label= "organization name" defaultValue= {currentNonProfit.nonprofit_name}
                         placeholder="Name of Organization" variant="outlined" onChange={(event) => { this.handleEditInputChange('nonprofit_name', event) }}/>
                         <br/>
-                                <TextField className={this.props.classes.description} defaultValue={currentNonProfit.description} type="text" placeholder="Organization Description" variant="outlined" multiline rows="4" onChange={(event) => { this.handleEditInputChange('description', event) }}/>
+                                <TextField className={this.props.classes.description} defaultValue={currentNonProfit.description} type="text" placeholder="Organization Description" label="organization description" variant="outlined" multiline rows="4" onChange={(event) => { this.handleEditInputChange('description', event) }}/>
                     </Grid>
 
                 </Grid>
@@ -189,15 +189,15 @@ class EditNonprofit extends Component {
                         {/* <h2>
                             left column
                         </h2> */}
-                                <TextField className={this.props.classes.textFields} defaultValue={currentNonProfit.contact_name} type="text" placeholder="Point of Contact Name" variant="outlined" onChange={(event) => { this.handleEditInputChange('contact_name', event) }}/>
+                                <TextField className={this.props.classes.textFields} defaultValue={currentNonProfit.contact_name} type="text" placeholder="Point of Contact Name" label="contact name" variant="outlined" onChange={(event) => { this.handleEditInputChange('contact_name', event) }}/>
                         <br />
-                                <TextField className={this.props.classes.textFields} defaultValue={currentNonProfit.contact_email} type="text" placeholder="Point of Contact Email" variant="outlined" onChange={(event) => { this.handleEditInputChange('contact_email', event) }}/>
+                                <TextField className={this.props.classes.textFields} defaultValue={currentNonProfit.contact_email} type="text" placeholder="Point of Contact Email" label="contact email" variant="outlined" onChange={(event) => { this.handleEditInputChange('contact_email', event) }}/>
                         <br />
-                                <TextField className={this.props.classes.textFields} defaultValue={currentNonProfit.nonprofit_phone} type="text" placeholder="Point of Contact Phone" variant="outlined" onChange={(event) => { this.handleEditInputChange('contact_phone', event) }}/>
+                                <TextField className={this.props.classes.textFields} defaultValue={currentNonProfit.nonprofit_phone} type="text" placeholder="Point of Contact Phone" label="contact phone" variant="outlined" onChange={(event) => { this.handleEditInputChange('contact_phone', event) }}/>
                         <br />
-                                <TextField className={this.props.classes.textFields} defaultValue={currentNonProfit.website} type="text" placeholder="Organization Website URL" variant="outlined" onChange={(event) => { this.handleEditInputChange('website', event) }}/>
+                                <TextField className={this.props.classes.textFields} defaultValue={currentNonProfit.website} type="text" placeholder="Organization Website URL" label="website URL" variant="outlined" onChange={(event) => { this.handleEditInputChange('website', event) }}/>
                         <br />
-                                <TextField className={this.props.classes.textFields} type="text" defaultValue={currentNonProfit.logo} placeholder="Organization Logo URL" variant="outlined" onChange={(event) => { this.handleEditInputChange('logo', event) }}/>
+                                <TextField className={this.props.classes.textFields} type="text" defaultValue={currentNonProfit.logo} placeholder="Organization Logo URL" label="logo URL" variant="outlined" onChange={(event) => { this.handleEditInputChange('logo', event) }}/>
                         <br />
                     </Grid>
                     <Grid item xs={6}>
@@ -205,13 +205,13 @@ class EditNonprofit extends Component {
                             right column
                         </h2> */}
                         
-                            <TextField className={this.props.classes.textFields} defaultValue={currentNonProfit.address} type="text" placeholder="Street Address" variant="outlined" onChange={(event) => { this.handleEditInputChange('address', event) }} />
+                            <TextField className={this.props.classes.textFields} defaultValue={currentNonProfit.address} type="text" placeholder="Street Address" label="address" variant="outlined" onChange={(event) => { this.handleEditInputChange('address', event) }} />
                             <br />
-                            <TextField className={this.props.classes.textFields} defaultValue={currentNonProfit.city} type="text" placeholder="City" variant="outlined" onChange={(event) => { this.handleEditInputChange('city', event) }} />
+                            <TextField className={this.props.classes.textFields} defaultValue={currentNonProfit.city} type="text" placeholder="City" label="city" variant="outlined" onChange={(event) => { this.handleEditInputChange('city', event) }} />
                             <br />
-                            <TextField className={this.props.classes.textFields} defaultValue={currentNonProfit.state} type="text" placeholder="State" variant="outlined" onChange={(event) => { this.handleEditInputChange('state', event) }} />
+                            <TextField className={this.props.classes.textFields} defaultValue={currentNonProfit.state} type="text" placeholder="State" label="state" variant="outlined" onChange={(event) => { this.handleEditInputChange('state', event) }} />
                             <br />
-                            <TextField className={this.props.classes.textFields} type="text" defaultValue={currentNonProfit.zip_code} placeholder="Zip Code" variant="outlined" onChange={(event) => { this.handleEditInputChange('zip_code', event) }} />
+                            <TextField className={this.props.classes.textFields} type="text" defaultValue={currentNonProfit.zip_code} placeholder="Zip Code" label="zip code" variant="outlined" onChange={(event) => { this.handleEditInputChange('zip_code', event) }} />
                             <br />
                             <FormControl variant="filled">
                                 <InputLabel className={this.props.classes.inputLabel}>
