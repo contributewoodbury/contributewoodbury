@@ -3,6 +3,7 @@ import { connect } from 'react-redux';
 import { Button, CardContent, Grid, InputLabel, MenuItem, FormControlLabel, Checkbox, FormControl, Select, TextField } from '@material-ui/core';
 import { withStyles } from '@material-ui/styles';
 import Swal from 'sweetalert2';
+import moment from 'moment';
 // import { thisExpression } from '@babel/types';
 
 
@@ -115,9 +116,10 @@ class AddEvent extends Component {
     }
 
     handleSubmitButton = () => {
-        if (this.state.end_date < this.state.start_date) {
-            this.props.dispatch({ type: 'DATE_ERROR' })
-            return false
+        console.log(moment(this.state.end_date).format('YYYYMMDD'), moment(this.state.start_date).format('YYYYMMDD'));
+        if (moment(this.state.end_date).format('YYYYMMDD') < moment(this.state.start_date).format('YYYYMMDD')) {
+            this.props.dispatch({ type: 'DATE_ERROR' });
+            return false;
         }
         if (!this.state.past_event_id) {
             this.props.dispatch({
@@ -170,6 +172,13 @@ class AddEvent extends Component {
 
             <div className={this.props.classes.rootDiv}>
                 <h1>Add Event</h1>
+                {this.props.dateError && 
+                <h2
+                    className="alert"
+                    role="alert"
+                >
+                    {this.props.dateError}
+                </h2>}
                 <Grid container spacing={3}>
                     <Grid item xs={12}>
                         {/* <Card> */}
@@ -296,7 +305,8 @@ class AddEvent extends Component {
 const mapStateToProps = reduxStore => {
     return {
         nonprofit: reduxStore.nonprofit.nonprofit,
-        pastEvents: reduxStore.nonprofit.nonprofitPastEvents
+        pastEvents: reduxStore.nonprofit.nonprofitPastEvents,
+        dateError: reduxStore.errors.dateMessage
     }
 }
 

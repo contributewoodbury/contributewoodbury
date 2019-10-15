@@ -24,7 +24,7 @@ const registrationMessage = (state = '', action) => {
     case 'CLEAR_REGISTRATION_ERROR':
       return '';
     case 'REGISTRATION_INPUT_ERROR':
-      return 'Please make sure all required fields are filled out!';
+      return 'Oops! Please make sure all required fields are filled out!';
     case 'REGISTRATION_FAILED':
       return 'Oops! That didn\'t work. The username might already be taken. Try again!';
     default:
@@ -33,7 +33,12 @@ const registrationMessage = (state = '', action) => {
 };
 
 const dateMessage = (state = '', action) => {
-  switch;
+  switch (action.type) {
+    case 'DATE_ERROR':
+      return 'Oops! You entered an invalid start/end date!';
+    default:
+      return '';
+  }
 }
 
 // make one object that has keys loginMessage, registrationMessage
@@ -42,4 +47,5 @@ const dateMessage = (state = '', action) => {
 export default combineReducers({
   loginMessage,
   registrationMessage,
+  dateMessage,
 });
