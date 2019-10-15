@@ -65,7 +65,7 @@ registrationSuccessful = () => {
         <div>
           <center>
           <h1 className={this.props.classes.heading} >What are you looking for?</h1>
-          <h3 className={this.props.classes.heading}>I'm interested in participating or volunteering</h3>
+          <h3 className={this.props.classes.heading}>I'm interested in participating or volunteering.</h3>
           <Button className={this.props.classes.buttons} variant="contained"
                   onClick={this.handleBrowse} >Browse Nonprofits</Button>
           <Button className={this.props.classes.buttons} variant="contained"

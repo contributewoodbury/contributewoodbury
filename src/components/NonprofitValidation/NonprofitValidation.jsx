@@ -9,21 +9,28 @@ const styles = theme => ({
     card: {
         width: '400px',
         height: '400px',
-        margin: '10px 20px 10px 20px',
+        margin: '40px 20px 10px 100px',
     },
     approveButton: {
         color: 'white',
-        backgroundColor: '#457736'
+        backgroundColor: '#457736',
+        margin: '40px 10px 10px 10px'
     },
     declineButton: {
         float: 'right',
         color: 'white',
-        backgroundColor: '#457736'
+        backgroundColor: '#457736',
+        margin: '40px 10px 10px 10px'
     },
     directoryButton: {
         float: 'right',
         color: 'white',
         backgroundColor: '#457736',
+        margin: '10px 150px 10px 10px'
+    },
+    heading: {
+        margin: '40px 10px 10px 40px',
+        color: '#714723'
     }
 })
 
@@ -115,7 +122,7 @@ class NonprofitValidation extends Component {
 
 
             <div>
-                <h1>Nonprofit Validation</h1>
+                <h1 className={this.props.classes.heading}>Nonprofit Validation</h1>
                 
                 <Button className={this.props.classes.directoryButton} onClick={this.handleDirectoryButton} variant="contained">Directory</Button>
                 
@@ -125,19 +132,19 @@ class NonprofitValidation extends Component {
                      
                         <Card className={this.props.classes.card}>
                             <CardContent key={nonprofit.id}>
-                                {nonprofit.name}
+                                Name: {nonprofit.name}
                                 <br/>
-                                {nonprofit.description}
+                                Description: {nonprofit.description}
                                 <br />
-                                {nonprofit.contact_email}
+                                Contact Email: {nonprofit.contact_email}
                                 <br />
-                                {nonprofit.address}
+                                Address: {nonprofit.address}
                                 <br />
-                                {nonprofit.city}
+                                City: {nonprofit.city}
                                 <br />
-                                {nonprofit.state}
+                                State: {nonprofit.state}
                                 <br />
-                                {nonprofit.zip_code}
+                                Zip Code: {nonprofit.zip_code}
                                 <br/>
                                     <Button className={this.props.classes.approveButton} variant="contained"
                                         onClick={(event) => this.handleApproveButton(nonprofit.id)} >Approve</Button>

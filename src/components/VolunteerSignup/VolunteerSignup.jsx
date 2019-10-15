@@ -36,19 +36,16 @@ const styles = theme => ({
 class VolunteerSignup extends Component {
 
     componentDidMount() {
-        this.getSelectedRole();
+        this.props.dispatch({
+            type: 'GET_SPECIFIC_VOLUNTEER_ROLE',
+            payload: this.props.match.params.id
+        })
     }
 
     //REVISIT THE WIREFRAME AND DATABASE TO MAKE SURE PROPERTIES MATCH
   
 
-    getSelectedRole = () => {
-        this.props.dispatch({
-            type: 'GET_SPECIFIC_VOLUNTEER_ROLE',
-            payload: this.props.match.params.id
-        })
-        
-    }
+
 
 
     handleBackButton = (id) => {
