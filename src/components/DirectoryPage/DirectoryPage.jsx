@@ -184,7 +184,7 @@ class DirectoryPage extends Component {
                                                             </div>
                                                             :
                                                             <div>
-                                                                <div>Should be ok</div>
+                                                                <div> </div>
                                                             </div>
                                                         }
 

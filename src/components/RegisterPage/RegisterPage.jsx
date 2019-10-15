@@ -52,7 +52,7 @@ class RegisterPage extends Component {
     contact_phone: '',
     website: '',
     logo: '',
-    category_id: 1,
+    category_id: '',
     category_name: 'NONE'
   };
 
@@ -62,7 +62,8 @@ class RegisterPage extends Component {
 
   registerUser = (event) => {
     event.preventDefault();
-    if (this.state.username && this.state.password) {
+    if (this.state.username && this.state.password && this.state.address && this.state.city && this.state.zipcode && this.state.state && this.state.contact_email 
+      && this.state.contact_phone && this.state.website) {
       this.props.dispatch({
         type: 'REGISTER',
         payload: this.state
@@ -107,7 +108,6 @@ class RegisterPage extends Component {
   render() {
     return (
       <div className={this.props.classes.rootDiv}>
-        {JSON.stringify(this.state)}
         {this.props.errors.registrationMessage && (
           <h2
             className="alert"
@@ -152,15 +152,20 @@ class RegisterPage extends Component {
             <h2>
               Contact Information
                         </h2>
-            <TextField className={this.props.classes.textFields} type="text" placeholder="Point of Contact Name" variant="outlined" onChange={(event) => { this.handleInputChange('contact_name', event) }} />
+            <TextField className={this.props.classes.textFields} type="text" placeholder="Point of Contact Name" label="Contact Name"
+              value={this.state.contact_name} variant="outlined" onChange={(event) => { this.handleInputChange('contact_name', event) }} />
             <br />
-            <TextField required className={this.props.classes.textFields} type="text" placeholder="Point of Contact Email" variant="outlined" onChange={(event) => { this.handleInputChange('contact_email', event) }} />
+            <TextField required className={this.props.classes.textFields} type="text" placeholder="Point of Contact Email" label="Contact Email"
+            value={this.state.contact_email} variant="outlined" onChange={(event) => { this.handleInputChange('contact_email', event) }} />
             <br />
-            <TextField required className={this.props.classes.textFields} type="text" placeholder="Point of Contact Phone" variant="outlined" onChange={(event) => { this.handleInputChange('contact_phone', event) }} />
+            <TextField required className={this.props.classes.textFields} type="text" placeholder="Point of Contact Phone" label="Contact Phone Number"
+            value={this.state.contact_phone} variant="outlined" onChange={(event) => { this.handleInputChange('contact_phone', event) }} />
             <br />
-            <TextField required className={this.props.classes.textFields} type="text" placeholder="Organization Website URL" variant="outlined" onChange={(event) => { this.handleInputChange('website', event) }} />
+            <TextField required className={this.props.classes.textFields} type="text" placeholder="Organization Website URL" label="Website"
+            value={this.state.website} variant="outlined" onChange={(event) => { this.handleInputChange('website', event) }} />
             <br />
-            <TextField className={this.props.classes.textFields} type="text" placeholder="Organization Logo URL" variant="outlined" onChange={(event) => { this.handleInputChange('logo', event) }} />
+            <TextField className={this.props.classes.textFields} type="text" placeholder="Organization Logo URL" label="Logo"
+            value={this.state.logo} variant="outlined" onChange={(event) => { this.handleInputChange('logo', event) }} />
             <br />
           </Grid>
 
@@ -204,7 +209,7 @@ class RegisterPage extends Component {
               className={this.props.classes.backButton}
               onClick={() => { this.props.dispatch({ type: 'SET_TO_LOGIN_MODE' }) }}
             >
-              back
+              Back
           </Button>
             <Button
               className={this.props.classes.submitButton}

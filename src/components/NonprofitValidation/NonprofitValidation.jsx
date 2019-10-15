@@ -46,7 +46,7 @@ class NonprofitValidation extends Component {
     handleApproveButton = (id) => {
         Swal.fire({
             title: 'Success!',
-            text: 'Your event was approved.',
+            text: 'Nonprofit approved.',
             type: 'success',
             confirmButtonText: 'OK',
             confirmButtonColor: '#457736'
