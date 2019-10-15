@@ -95,9 +95,21 @@ class DirectoryPage extends Component {
         this.props.dispatch({ type: 'SEARCH', payload: this.state.searchbar });
     }
 
-    handleDelete = (id) => {
-        //swal statement
-        this.props.dispatch({ type: 'DECLINE_NONPROFIT', payload: id});
+    handleDelete = (id, orgName) => {
+        Swal.fire({
+            title: 'Are you sure?',
+            text: `You are about to delete ${orgName}. Do you wish to continue?`,
+            type: 'warning',
+            showCancelButton: true,
+            confirmButtonColor: '#3085d6',
+            cancelButtonColor: '#d33',
+            confirmButtonText: 'OK',
+            // confirmButtonColor: '#457736'
+        }).then((result) => {
+            if (result.value) {
+                this.props.dispatch({ type: 'DECLINE_NONPROFIT', payload: id });
+            }
+        });
     }
 
     render() {
@@ -111,9 +123,6 @@ class DirectoryPage extends Component {
                 <h1>
                     Directory
                 </h1>
-
-                {nonprofitName === 'Admin' ? <h1>You are an ADMIN!</h1> : <h1>You are just a plain ol' user!</h1>}
-
 
                 <Paper className={this.props.classes.root}>
 
@@ -162,7 +171,8 @@ class DirectoryPage extends Component {
                         {
                             nonprofitName === 'Admin' ?
                                 <TableBody>
-                                    {this.props.reduxStore.admin.adminDirectory.map(nonprofit => {
+                                    {this.props.reduxStore.admin.adminDirectory &&
+                                        this.props.reduxStore.admin.adminDirectory.map(nonprofit => {
                                         let lastConfirmed = moment(nonprofit.last_confirmed).format("YYYY-MM-DD");
                                         if (nonprofit.name !== 'Admin') {
                                             return (
@@ -176,24 +186,17 @@ class DirectoryPage extends Component {
                                                     <TableCell align="left">{nonprofit.category_id}</TableCell>
 
                                                     <TableCell align="left">
-
-                                                        {lastConfirmed < sixMonthsBeforeTodaysDate ?
+                                                        {lastConfirmed < sixMonthsBeforeTodaysDate &&
                                                             <div>
                                                                 {/* conditionally show this if date of lastConfirmed is <6months */}
                                                                 <AssistantPhoto fontSize="large" className={this.props.classes.flag} />
                                                             </div>
-                                                            :
-                                                            <div>
-                                                                <div> </div>
-                                                            </div>
                                                         }
-
-
                                                     </TableCell>
 
                                                     <TableCell align="center">
                                                         <Button className={this.props.classes.backButton} variant="contained"
-                                                        onClick={() => { this.handleDelete(nonprofit.id) }}> Delete
+                                                        onClick={() => { this.handleDelete(nonprofit.id, nonprofit.name) }}> Delete
                                                         </Button>
                                                     </TableCell>
                                                 </TableRow>
@@ -220,7 +223,7 @@ class DirectoryPage extends Component {
                                                     <TableCell align="left"><Button className={this.props.classes.backButton} variant="contained"
                                                         onClick={() => this.handleVolunteerButton(nonprofit.id)} >Volunteer</Button></TableCell>
                                                     <TableCell align="center"><Button className={this.props.classes.backButton} variant="contained">
-                                                        <a className={this.props.classes.backButtonText} target="_blank" href={nonprofit.website} >Website</a></Button></TableCell>
+                                                        <a className={this.props.classes.backButtonText} href={nonprofit.website} >Website</a></Button></TableCell>
                                                 </TableRow>
                                             )
                                         } else { return false; }
@@ -230,14 +233,6 @@ class DirectoryPage extends Component {
                         }
                     </Table>
                 </Paper>
-
-                {JSON.stringify(this.props.reduxStore.directory)}
-                <br />
-                <br />
-                {JSON.stringify(this.props.reduxStore.user)}
-                <br /> 
-                <br />
-                {JSON.stringify(this.props.reduxStore.admin.adminDirectory)}
             </div >
         )
 
