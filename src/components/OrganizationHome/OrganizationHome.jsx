@@ -99,7 +99,7 @@ class OrganizationHome extends Component {
                     </Grid>
                     <Grid item xs={5}>
                         <CardContent>
-                            <img src={this.props.nonprofit[0] && this.props.nonprofit[0].logo} alt="nonprofit logo" width="300" height="300"/>
+                            <img src={this.props.nonprofit[0] && this.props.nonprofit[0].logo} alt="nonprofit logo" width="400" />
                         </CardContent>
                     </Grid>
                 </Grid>
@@ -118,7 +118,7 @@ class OrganizationHome extends Component {
                     </address>
                 </Grid>
                 <Grid container spacing={1}>
-                    <Link variant="body1" href={this.props.nonprofit[0] && this.props.nonprofit[0].website} target="_blank">Link To Website</Link>
+                    <Link variant="body1" href={this.props.nonprofit[0] && this.props.nonprofit[0].website} target="_blank" rel="noopener noreferrer">Link To Website</Link>
                 </Grid>
                 <Grid container spacing={1}>
                     <p>Organization Description: {this.props.nonprofit[0] && this.props.nonprofit[0].description}</p>
@@ -160,7 +160,7 @@ class OrganizationHome extends Component {
                                                 <TableRow key={info.id}>
                                                     <CustomTableCell>{info.event_name}</CustomTableCell>
                                                     <CustomTableCell align="right">{moment(info.start_date).format("MM/DD/YYYY")}</CustomTableCell>
-                                                    <CustomTableCell align="right">{moment(info.start_time, "HH:MM").format('LT')}</CustomTableCell>
+                                                    <CustomTableCell align="right">{moment(info.start_time, "hh:mm").format('LT')}</CustomTableCell>
                                                     <CustomTableCell align="right"><Button className={this.props.classes.button} key={vkey}
                                                         onClick={() => { this.handleVolunteerClick(info.event_id) }}>Volunteer</Button> &nbsp; {button}</CustomTableCell>
 

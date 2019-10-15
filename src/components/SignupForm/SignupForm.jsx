@@ -15,7 +15,7 @@ const styles = theme => ({
     },
     saveButton: {
         color: 'white',
-        backgroundColor: 'orange',
+        backgroundColor: '#714723',
         margin: '10px 10px 10px 30px',
     },
     stateZipPhone: {
@@ -28,8 +28,8 @@ class SignupForm extends Component {
     state = {
         name: '',
         role_id: this.props.roleId,
-        start_time: this.props.role.start_time, 
-        end_time: this.props.role.end_time,
+        start_time: '', 
+        end_time: '',
         comments: '',
         email: '',
         phone_number: '',
@@ -43,7 +43,10 @@ class SignupForm extends Component {
     //SET STATE WITH VOLUNTEER INFORMATION
     handleChange = (propertyName, event) => {
         this.setState ({
+            ...this.state,
             [propertyName]: event.target.value,
+            start_time: this.props.role.start_time,
+            end_time: this.props.role.end_time 
         })
         console.log(this.state);  
     }
@@ -82,7 +85,7 @@ class SignupForm extends Component {
 
     render () {
 
-
+        
 
 
         return (
@@ -111,13 +114,13 @@ class SignupForm extends Component {
                         value={this.state.phone_number} onChange={(event) => this.handleChange('phone_number', event)} />
                     <br />
                     <TextField className={this.props.classes.messageInput} type="text"
-                        placeholder="Let us know your needs. Can you volunteer for more or less hours than needed? Do you have questions?"
-                        variant="outlined" label="Message" multiline rows={4}
+                        placeholder="Have a question or comment? Let the organization know by leaving a message here!"
+                        variant="outlined" label="Questions/Comments?" multiline rows={4}
                         value={this.state.comments} onChange={(event) => this.handleChange('comments', event)} /><br />
                     <Button variant="contained" className={this.props.classes.saveButton}
                             onClick={this.handleAddVolunteer} >Sign Up!</Button>
+                    
                 </CardContent>
-                {/* {JSON.stringify(this.props.roles)} */}
 
             </div>
         )

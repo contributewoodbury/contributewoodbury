@@ -74,9 +74,9 @@ CREATE TABLE "volunteer_role" (
 );
 
 
-INSERT INTO "categories" ("name") VALUES ('test');
+INSERT INTO "categories" ("name") VALUES ('Community Development', 'Health', 'Human Services', 'Youth');
 
-INSERT INTO "nonprofit" ("name", "password", "contact-email", "address", "city", "zip_code", "website", "logo", "last_confirmed", "category_id") VALUES('test', 'test', 'test', 'test', 'test', 1, 'test', 'test', '1/1/1', 1);
+INSERT INTO "nonprofit" ("name", "password", "contact_email", "contact_name", "contact_phone", "address", "city", "state", "zip_code", "website", "logo", "description", "category_id") VALUES('test', 'test', 'test', 'test', 'test', 1, 'test', 'test', '1/1/1', 1);
 
 INSERT INTO "event" ("name", "description", "address", "city", "zip_code", "start_date", "end_date", "event_url", "non_profit_id") VALUES ('test', 'test', 'test', 'test', 1, '1/1/1', '1/1/1', 'test', 1);
 

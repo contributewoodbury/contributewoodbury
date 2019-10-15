@@ -46,7 +46,7 @@ class NonprofitValidation extends Component {
     handleApproveButton = (id) => {
         Swal.fire({
             title: 'Success!',
-            text: 'Your event was approved.',
+            text: 'Nonprofit approved.',
             type: 'success',
             confirmButtonText: 'OK',
             confirmButtonColor: '#457736'
@@ -115,7 +115,7 @@ class NonprofitValidation extends Component {
 
 
             <div>
-                <h1>Nonprofit Validation Admin Page View</h1>
+                <h1>Nonprofit Validation</h1>
                 
                 <Button className={this.props.classes.directoryButton} onClick={this.handleDirectoryButton} variant="contained">Directory</Button>
                 
@@ -150,8 +150,6 @@ class NonprofitValidation extends Component {
                     ))}
                     
                 </Grid>
-
-                {JSON.stringify(this.props.reduxStore.admin.admin)}
             </div>
         )
     }
