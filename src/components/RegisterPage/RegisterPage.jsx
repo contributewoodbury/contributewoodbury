@@ -62,7 +62,8 @@ class RegisterPage extends Component {
 
   registerUser = (event) => {
     event.preventDefault();
-    if (this.state.username && this.state.password && this.state.address && this.state.city && this.state.zipcode && this.state.state && this.state.contact_email 
+    console.log(this.state);
+    if (this.state.username && this.state.password && this.state.address && this.state.city && this.state.zip_code && this.state.state && this.state.contact_email 
       && this.state.contact_phone && this.state.website) {
       this.props.dispatch({
         type: 'REGISTER',
