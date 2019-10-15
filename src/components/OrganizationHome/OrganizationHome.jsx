@@ -134,8 +134,8 @@ class OrganizationHome extends Component {
                                 <TableRow>
                                     <CustomTableCell>Name</CustomTableCell>
                                     <CustomTableCell align="right">Event Date</CustomTableCell>
-                                    <CustomTableCell align="center">Actions</CustomTableCell>
-
+                                    <CustomTableCell align="right">Start Time</CustomTableCell>
+                                    <CustomTableCell align="right"></CustomTableCell>
                                 </TableRow>
                             </TableHead>
                             <TableBody>
@@ -160,6 +160,7 @@ class OrganizationHome extends Component {
                                                 <TableRow key={info.id}>
                                                     <CustomTableCell>{info.event_name}</CustomTableCell>
                                                     <CustomTableCell align="right">{moment(info.start_date).format("MM/DD/YYYY")}</CustomTableCell>
+                                                    <CustomTableCell align="right">{info.start_time}</CustomTableCell>
                                                     <CustomTableCell align="right"><Button className={this.props.classes.button} key={vkey}
                                                         onClick={() => { this.handleVolunteerClick(info.event_id) }}>Volunteer</Button> &nbsp; {button}</CustomTableCell>
 
