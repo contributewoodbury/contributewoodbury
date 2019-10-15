@@ -115,9 +115,9 @@ router.put('/addPastEvent', rejectUnauthenticated, (req, res) => {
 
 //edits event details
 router.put('/editEvent', rejectUnauthenticated, (req,res) => {
-  if (req.user.id === non_profit_id) {
+  if (req.user.id === req.body.non_profit_id) {
 let queryText = `UPDATE "event" SET "name" = $1, "description" = $2, "address" = $3, "city" = $4, "zip_code" = $5, "start_date" = $6, 
-  "end_date" = $7, "event_url" = $8, "state" = $9, "start_time" = $10, "end_time" = $11 WHERE "id" = $12;`;
+  "end_date" = $7, "event_url" = $8, "state" = $9, "start_time" = $10, "end_time" = $11, "non_profit_id" = $12 WHERE "id" = $13;`;
   let name = req.body.name;
   let description = req.body.description;
   let address = req.body.address;
@@ -129,9 +129,10 @@ let queryText = `UPDATE "event" SET "name" = $1, "description" = $2, "address" =
   let state = req.body.states;
   let start_time = req.body.start_time;
   let end_time = req.body.end_time;
+  let non_profit_id = req.body.non_profit_id;
   let id = req.body.id;
 
-  pool.query(queryText, [name, description, address, city, zip_code, start_date, end_date, event_url, state, start_time, end_time, id])
+  pool.query(queryText, [name, description, address, city, zip_code, start_date, end_date, event_url, state, start_time, end_time, non_profit_id, id])
       .then((result) => {
         res.sendStatus(200)
       })
