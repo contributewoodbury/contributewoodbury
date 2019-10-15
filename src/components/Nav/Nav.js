@@ -4,6 +4,7 @@ import { connect } from 'react-redux';
 import NavLogin from '../NavLogin/NavLogin';
 import LogOutButton from '../LogOutButton/LogOutButton';
 import './Nav.css';
+import logo from './woodbury-CF-logo.png';
 
 const Nav = (props) => {
   
@@ -19,8 +20,10 @@ const Nav = (props) => {
   
   return (
     <div className="nav">
+      <img className="woodbury-logo" src={logo} ></img>
+      
       <Link to="/home">
-        <h2 className="nav-title">Contribute Woodbury</h2>
+        {/* <h2 className="nav-title">Contribute Woodbury</h2> */}
       </Link>
       <div className="nav-right">
 
