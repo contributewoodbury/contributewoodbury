@@ -33,12 +33,12 @@ router.get('/specificrole/:id', (req, res) => {
 
 //gets all the volunteers for a specific event
 router.get('/eventVolunteers/:id/:uid', rejectUnauthenticated, (req,res) => {
+  if (req.user.id === +(req.params.uid)) {
   let queryText = `SELECT "volunteer_role".name, "volunteer_role".city, "volunteer_role".zip_code, 
       "volunteer_role".address, "volunteer_role".start_time, "role".name AS "role_name", "volunteer_role".comments, "volunteer_role".end_time, "volunteer_role".email, "volunteer_role".phone_number FROM "volunteer_role"
       JOIN "role" ON "role".id = "volunteer_role".role_id
       WHERE "role".event_id = $1;`;
   let id = req.params.id
-if(req.user.id === +(req.params.uid)){
   pool.query(queryText, [id])
       .then((result) => {
         res.send(result.rows);
