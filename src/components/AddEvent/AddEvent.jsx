@@ -74,11 +74,10 @@ class AddEvent extends Component {
         this.setState({
             [propertyName]: event.target.value
         })
-        console.log(this.state);
     }
 
     handleVolunteerChange = (event) => {
-        if(this.state.volunteers_needed === true) {
+        if (this.state.volunteers_needed === true) {
             this.setState({
                 volunteers_needed: false,
             })
@@ -87,9 +86,6 @@ class AddEvent extends Component {
                 volunteers_needed: true
             })
         }
-        
-        console.log('volunteer needed state:', this.state);
-        
     }
 
     handleBackButton = (id) => {
@@ -119,8 +115,11 @@ class AddEvent extends Component {
     }
 
     handleSubmitButton = () => {
-        console.log('submit event button clicked');
-        if(!this.state.past_event_id){
+        if (this.state.end_date < this.state.start_date) {
+            this.props.dispatch({ type: 'DATE_ERROR' })
+            return false
+        }
+        if (!this.state.past_event_id) {
             this.props.dispatch({
                 type: 'ADD_EVENT',
                 payload: this.state,
@@ -134,7 +133,7 @@ class AddEvent extends Component {
                 history: this.props.history
             })
         }
-        
+
         Swal.fire({
             title: 'Success!',
             text: 'Your event was submitted.',
@@ -163,11 +162,8 @@ class AddEvent extends Component {
         console.log('checking state', this.state);
     }
 
-    
-
 
     render() {
-
 
 
         return (
@@ -177,13 +173,13 @@ class AddEvent extends Component {
                 <Grid container spacing={3}>
                     <Grid item xs={12}>
                         {/* <Card> */}
-                            <CardContent>
+                        <CardContent>
 
-                            
+
                             <h2>Advertise your upcoming event</h2>
-                            <p>Please complete the required fields to add your event. <br/>
-                            Select from the dropdown list to reuse information from a previous event. <br/>
-                            Leave the "Volunteers Needed" checkbox unchecked if you do not want to add volunteer opportunities at this time for the event.
+                            <p>Please complete the required fields to add your event. <br />
+                                Select from the dropdown list to reuse information from a previous event. <br />
+                                Leave the "Volunteers Needed" checkbox unchecked if you do not want to add volunteer opportunities at this time for the event.
                             </p>
                             {/* {JSON.stringify(this.state)} */}
                             <FormControl variant="filled">
@@ -196,20 +192,19 @@ class AddEvent extends Component {
                                     value={this.state.name}
                                 >
                                     <MenuItem value={this.state.name}>
-                                        <em>{this.state.past_event_id ? this.state.name : 'Re-Use previous event' } </em>
+                                        <em>{this.state.past_event_id ? this.state.name : 'Re-Use previous event'} </em>
                                     </MenuItem>
-                                    
-                                    
+
                                     {this.props.pastEvents.map(each => (
-                                        
-                                            <MenuItem key={each.id} value={each} >{each.name}</MenuItem>
-                                        
+
+                                        <MenuItem key={each.id} value={each} >{each.name}</MenuItem>
+
                                     ))}
 
                                 </Select>
-                                
 
-                                <FormControlLabel 
+
+                                <FormControlLabel
                                     className={this.props.classes.checkbox}
                                     control={
                                         <Checkbox
@@ -224,45 +219,45 @@ class AddEvent extends Component {
                                 <TextField className={this.props.classes.textFields} type="text" label="Enter the event Name" variant="outlined" required={true}
                                     value={this.state.name} onChange={(event) => this.handleChange('name', event)} />
 
-                                <TextField className={this.props.classes.description} type="text" 
-                                            placeholder="Enter the event description and any links where tickets can be purchased if required to attend" 
-                                            label="description" required={true}
-                                            variant="outlined" multiline rows="4" 
-                                            value={this.state.description} onChange={(event) => this.handleChange('description', event)}/>
+                                <TextField className={this.props.classes.description} type="text"
+                                    placeholder="Enter the event description and any links where tickets can be purchased if required to attend"
+                                    label="description" required={true}
+                                    variant="outlined" multiline rows="4"
+                                    value={this.state.description} onChange={(event) => this.handleChange('description', event)} />
                             </FormControl>
-                            </CardContent>
+                        </CardContent>
                         {/* </Card> */}
                     </Grid>
                 </Grid>
 
-                
+
                 <Grid container spacing={3}>
                     <Grid item xs={6}>
                         {/* <Card> */}
-                            <CardContent>
+                        <CardContent>
                             <h2>Date and Time:</h2>
                             <TextField className={this.props.classes.dateFields} type="date" placeholder="Start" required={true}
                                 variant="outlined" value={this.state.start_date} onChange={(event) => this.handleChange('start_date', event)} />
                             <TextField className={this.props.classes.dateFields} type="date" placeholder="End" variant="outlined"
                                 value={this.state.end_date} onChange={(event) => this.handleChange('end_date', event)} />
                             <br />
-                            
+
                             <TextField className={this.props.classes.times} type="time" placeholder="Start Time" required={true}
                                 variant="outlined" value={this.state.start_time} onChange={(event) => this.handleChange('start_time', event)} />
                             <TextField className={this.props.classes.times} type="time" placeholder="End Time" required={true}
                                 variant="outlined" value={this.state.end_time} onChange={(event) => this.handleChange('end_time', event)} />
-                            <br/>
-                    
+                            <br />
+
                             <TextField className={this.props.classes.textFields} type="text" label="Image url" variant="outlined"
                                 value={this.state.event_url} onChange={(event) => this.handleChange('event_url', event)} />
-                            </CardContent>
+                        </CardContent>
                         {/* </Card> */}
                     </Grid>
                     <Grid item xs={6}>
                         {/* <Card> */}
-                            <CardContent>
+                        <CardContent>
                             <h2>Location:</h2>
-                            
+
                             <TextField className={this.props.classes.textFields} type="text" label="Address" variant="outlined" required={true}
                                 value={this.state.address} onChange={(event) => this.handleChange('address', event)} />
                             <br />
@@ -275,8 +270,8 @@ class AddEvent extends Component {
                             <TextField className={this.props.classes.textFields} type="text" label="Zip Code" variant="outlined" required={true}
                                 value={this.state.zip_code} onChange={(event) => this.handleChange('zip_code', event)} />
                             <br />
-                            
-                            </CardContent>
+
+                        </CardContent>
                         {/* </Card> */}
                     </Grid>
                 </Grid>
@@ -284,14 +279,14 @@ class AddEvent extends Component {
                     <Grid item xs={12}>
                         <CardContent>
                             <Button className={this.props.classes.backButton} variant="contained"
-                                    onClick={this.handleBackButton} >Back</Button>
+                                onClick={this.handleBackButton} >Back</Button>
                             <Button className={this.props.classes.submitButton} variant="contained"
-                                    onClick={this.handleSubmitButton} >Submit</Button>
+                                onClick={this.handleSubmitButton} >Submit</Button>
                         </CardContent>
-                        
+
                     </Grid>
                 </Grid>
-                
+
 
             </div>
         )
@@ -306,4 +301,4 @@ const mapStateToProps = reduxStore => {
 }
 
 
-export default withStyles(styles) (connect(mapStateToProps)(AddEvent));
+export default withStyles(styles)(connect(mapStateToProps)(AddEvent));
