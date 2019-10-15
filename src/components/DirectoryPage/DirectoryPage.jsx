@@ -182,7 +182,7 @@ class DirectoryPage extends Component {
                                                     <TableCell align="left">{nonprofit.logo}</TableCell>
                                                     <TableCell align="left">{nonprofit.name}<br />
                                                         {nonprofit.address}<br />
-                                                        {nonprofit.city}, MN
+                                                        {nonprofit.city}, 
                                                               {nonprofit.state}
                                                         {nonprofit.zip_code}  </TableCell>
                                                     <TableCell align="left">{nonprofit.category_id}</TableCell>
@@ -218,8 +218,7 @@ class DirectoryPage extends Component {
                                                     <TableCell align="left">{nonprofit.logo}</TableCell>
                                                     <TableCell align="left">{nonprofit.name}<br />
                                                         {nonprofit.address}<br />
-                                                        {nonprofit.city}, MN &nbsp;
-                                                              {nonprofit.state}
+                                                        {nonprofit.city},&nbsp;{nonprofit.state}&nbsp;
                                                         {nonprofit.zip_code}  </TableCell>
                                                     <TableCell align="left">{nonprofit.category_id}</TableCell>
                                                     <TableCell align="left"><Button className={this.props.classes.backButton} variant="contained"
