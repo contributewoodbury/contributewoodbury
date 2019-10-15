@@ -113,8 +113,8 @@ class OrganizationHome extends Component {
                     <p>Email: {this.props.nonprofit[0] && this.props.nonprofit[0].contact_email}</p>
                 </Grid>
                 <Grid container spacing={1}>
-                    Organization Address: <br></br> <address>{this.props.nonprofit[0] && this.props.nonprofit[0].address} <br></br>
-                        {this.props.nonprofit[0] && this.props.nonprofit[0].city} &nbsp; {this.props.nonprofit[0] && this.props.nonprofit[0].zip_code}
+                    Organization Address: &nbsp; <address>{this.props.nonprofit[0] && this.props.nonprofit[0].address} <br></br>
+                        {this.props.nonprofit[0] && this.props.nonprofit[0].city}&nbsp;{ this.props.nonprofit[0] && this.props.nonprofit[0].state}&nbsp;{this.props.nonprofit[0] && this.props.nonprofit[0].zip_code}
                     </address>
                 </Grid>
                 <Grid container spacing={1}>
