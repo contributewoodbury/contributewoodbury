@@ -24,7 +24,7 @@ const registrationMessage = (state = '', action) => {
     case 'CLEAR_REGISTRATION_ERROR':
       return '';
     case 'REGISTRATION_INPUT_ERROR':
-      return 'Choose a username and password!';
+      return 'Oops! Please make sure all required fields are filled out!';
     case 'REGISTRATION_FAILED':
       return 'Oops! That didn\'t work. The username might already be taken. Try again!';
     default:
@@ -32,10 +32,22 @@ const registrationMessage = (state = '', action) => {
   }
 };
 
+const formMessage = (state = '', action) => {
+  switch (action.type) {
+    case 'DATE_ERROR':
+      return 'Oops! You entered an invalid start/end date!';
+    case 'REQUIRED_ERROR':
+      return 'Oops! Please make sure all required fields are filled out!';
+    default:
+      return '';
+  }
+}
+
 // make one object that has keys loginMessage, registrationMessage
 // these will be on the redux state at:
 // state.errors.loginMessage and state.errors.registrationMessage
 export default combineReducers({
   loginMessage,
   registrationMessage,
+  formMessage,
 });

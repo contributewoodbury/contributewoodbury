@@ -88,30 +88,8 @@ class AddVolunteerRoles extends Component {
 
     handleBackButton = () => {
         console.log('back button clicked');
-        //alert: "are you sure? your saved roles have been added"
-        //links back to add event page for edits?
-    }
-
-    handleDoneButton = () => {
-        console.log('done button clicked');
-        //alert: "thanks you're done!" or something similar
         Swal.fire({
-            title: 'Success!',
-            text: `You're done!`,
-            type: 'success',
-            confirmButtonText: 'OK',
-            confirmButtonColor: '#457736'
-        })
-        //links to nonprofit home page
-        this.props.history.push(`/eventDetails/${this.props.match.params.id}`)
-    }
-
-    handleRemoveRole = (id) => {
-        console.log('remove roles button was clicked for this id:', id);
-        //alert: "are you sure?" and "this role has been deleted"
-        Swal.fire({
-            title: 'Are you sure?',
-            text: "This role will be deleted forever.",
+            text: "Only your saved roles have been saved. Do you wish to go back?",
             type: 'warning',
             showCancelButton: true,
             confirmButtonColor: '#3085d6',
@@ -119,83 +97,115 @@ class AddVolunteerRoles extends Component {
             confirmButtonText: 'OK',
         }).then((result) => {
             if (result.value) {
-                //delete role based on id of clicked item
-                this.props.dispatch({
-                    type: 'DELETE_ROLE',
-                    payload: { role_id: id, event_id: this.props.match.params.id }
-                })
+                this.props.history.push(`/editEvent/${this.props.match.params.id}`);
             }
         })
     }
 
+    handleDoneButton = () => {
+                console.log('done button clicked');
+                //alert: "thanks you're done!" or something similar
+                Swal.fire({
+                    title: 'Success!',
+                    text: `You're done!`,
+                    type: 'success',
+                    confirmButtonText: 'OK',
+                    confirmButtonColor: '#457736'
+                })
+                //links to nonprofit home page
+                this.props.history.push(`/eventDetails/${this.props.match.params.id}`)
+            }
+
+    handleRemoveRole = (id) => {
+                console.log('remove roles button was clicked for this id:', id);
+                //alert: "are you sure?" and "this role has been deleted"
+                Swal.fire({
+                    title: 'Are you sure?',
+                    text: "This role will be deleted forever.",
+                    type: 'warning',
+                    showCancelButton: true,
+                    confirmButtonColor: '#3085d6',
+                    cancelButtonColor: '#d33',
+                    confirmButtonText: 'OK',
+                }).then((result) => {
+                    if (result.value) {
+                        //delete role based on id of clicked item
+                        this.props.dispatch({
+                            type: 'DELETE_ROLE',
+                            payload: { role_id: id, event_id: this.props.match.params.id }
+                        })
+                    }
+                })
+            }
 
 
 
 
-    render () {
+
+    render() {
 
 
-        return (
-            <div className={this.props.classes.rootDiv} >
-                <h1 className={this.props.classes.heading} >add volunteer roles page</h1>
-                <Grid container spacing={3}>
-                    <Grid item xs={12}>
-                        {/* <Card> */}
+            return(
+            <div className = { this.props.classes.rootDiv } >
+                    <h1 className={this.props.classes.heading} >add volunteer roles page</h1>
+                    <Grid container spacing={3}>
+                        <Grid item xs={12}>
+                            {/* <Card> */}
                             <CardContent>
-                                <p>Please enter the required information for each volunteer role for your event. <br/>
-                                Add as many roles as you would like. <br/>
-                                The roles will be displayed on your event page.
+                                <p>Please enter the required information for each volunteer role for your event. <br />
+                                    Add as many roles as you would like. <br />
+                                    The roles will be displayed on your event page.
                                 </p>
                             </CardContent>
-                        {/* </Card> */}
-                    </Grid>
+                            {/* </Card> */}
+                        </Grid>
 
-                    <Grid item xs={12}>
-                        {/* <Card> */}
+                        <Grid item xs={12}>
+                            {/* <Card> */}
                             <CardContent>
                                 <h2 className={this.props.classes.heading} >What do you need volunteers to help with?</h2>
                                 <TextField className={this.props.classes.textFields} type="text" label="Role" variant="outlined"
-                                            value={this.state.name} onChange={(event) => this.handleChange('name', event)} />
+                                    value={this.state.name} onChange={(event) => this.handleChange('name', event)} />
                                 <TextField className={this.props.classes.textFields} type="date" variant="outlined"
-                                value={this.state.date} onChange={(event) => this.handleChange('date', event)} />
-                                <br/>
+                                    value={this.state.date} onChange={(event) => this.handleChange('date', event)} />
+                                <br />
                                 <TextField className={this.props.classes.textFields} type="text" label="description" variant="outlined" multiline rows="4"
-                                value={this.state.description} onChange={(event) => this.handleChange('description', event)} />
+                                    value={this.state.description} onChange={(event) => this.handleChange('description', event)} />
                                 <TextField className={this.props.classes.textFields} type="number" label="number of volunteers needed" variant="outlined"
-                                value={this.state.number_needed} onChange={(event) => this.handleChange('number_needed', event)} />
-                                <br/>
+                                    value={this.state.number_needed} onChange={(event) => this.handleChange('number_needed', event)} />
+                                <br />
                                 <TextField className={this.props.classes.times} type="time" variant="outlined"
-                                value={this.state.start_time} onChange={(event) => this.handleChange('start_time', event)} />
+                                    value={this.state.start_time} onChange={(event) => this.handleChange('start_time', event)} />
                                 <TextField className={this.props.classes.times} type="time" variant="outlined"
-                                value={this.state.end_time} onChange={(event) => this.handleChange('end_time', event)} />
+                                    value={this.state.end_time} onChange={(event) => this.handleChange('end_time', event)} />
                                 <Button className={this.props.classes.addRolesButton} variant="contained" size="small"
-                                onClick={this.handleAddRolesButton} >Add role(s)</Button>
+                                    onClick={this.handleAddRolesButton} >Add role(s)</Button>
                             </CardContent>
-                        {/* </Card> */}
-                    </Grid>
+                            {/* </Card> */}
+                        </Grid>
 
-                    <Grid item xs={12}>
-                        <CardContent className={this.props.classes.displayRoles} >
-                            
-                            <h3>Current Volunteer Roles:</h3>
+                        <Grid item xs={12}>
+                            <CardContent className={this.props.classes.displayRoles} >
 
-                            {this.props.reduxStore.volunteer.volunteerRoleList.map(roleInfo => (
-                                <>
-                                <CardContent>
-                                        <span><b>role: </b>{roleInfo.name}</span><br />
-                                        <span><b>description: </b>{roleInfo.description}</span><br />
-                                        <span><b>volunteers needed: </b>{roleInfo.number_needed}</span><br />
-                                        <span><b>date: </b>{roleInfo.date}</span><br />
-                                        <span><b>time: </b>{roleInfo.start_time} - {roleInfo.end_time} </span><br />
-                                        <Button onClick={() => this.handleRemoveRole(roleInfo.id)} >Remove</Button>
-                                </CardContent>
-                                </>
-                            ))}
- 
-                        </CardContent>
-                    </Grid>
+                                <h3>Current Volunteer Roles:</h3>
 
-                    <Grid item xs={12}>
+                                {this.props.reduxStore.volunteer.volunteerRoleList.map(roleInfo => (
+                                    <>
+                                        <CardContent>
+                                            <span><b>role: </b>{roleInfo.name}</span><br />
+                                            <span><b>description: </b>{roleInfo.description}</span><br />
+                                            <span><b>volunteers needed: </b>{roleInfo.number_needed}</span><br />
+                                            <span><b>date: </b>{roleInfo.date}</span><br />
+                                            <span><b>time: </b>{roleInfo.start_time} - {roleInfo.end_time} </span><br />
+                                            <Button onClick={() => this.handleRemoveRole(roleInfo.id)} >Remove</Button>
+                                        </CardContent>
+                                    </>
+                                ))}
+
+                            </CardContent>
+                        </Grid>
+
+                        <Grid item xs={12}>
 
                             <CardContent>
                                 <Button className={this.props.classes.backButton} variant="contained"
@@ -203,9 +213,9 @@ class AddVolunteerRoles extends Component {
                                 <Button className={this.props.classes.doneButton} variant="contained"
                                     onClick={this.handleDoneButton} >Done</Button>
                             </CardContent>
-    
+
+                        </Grid>
                     </Grid>
-                </Grid>
             </div>
         )
     }
@@ -217,4 +227,4 @@ const mapStateToProps = reduxStore => {
     }
 }
 
-export default withStyles (styles) (connect(mapStateToProps)(AddVolunteerRoles));
+export default withStyles(styles)(connect(mapStateToProps)(AddVolunteerRoles));
