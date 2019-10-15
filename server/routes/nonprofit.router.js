@@ -34,10 +34,11 @@ router.get('/edit/:id', rejectUnauthenticated, (req, res) => {
 
 //edits nonprofits information 
 router.put('/editNonprofit', rejectUnauthenticated, (req, res) => {
+    console.log(req.body);
     if (req.user.id === req.body.nonprofit_id) {
         let queryText = `UPDATE "nonprofit" SET "name" = $1, "contact_email" = $2, "address" = $3, "city" = $4, 
         "zip_code" = $5, "website" = $6, "logo" = $7, "description" = $8, "last_confirmed" = CURRENT_DATE, "category_id" = $9, "category_name" = $10, "contact_name" = $11, "contact_phone" = $12  WHERE "id" = $13;`;
-        let name = req.body.name;
+        let name = req.body.nonprofit_name;
         let contact_email = req.body.contact_email;
         let address = req.body.address;
         let city = req.body.city;

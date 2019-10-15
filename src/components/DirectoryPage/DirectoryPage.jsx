@@ -112,7 +112,7 @@ class DirectoryPage extends Component {
                     Directory
                 </h1>
 
-                {nonprofitName === 'Admin' ? <h1>You are an ADMIN!</h1> : <h1>You are just a plain ol' user!</h1>}
+                {/* {nonprofitName === 'Admin' ? <h1>You are an ADMIN!</h1> : <h1>You are just a plain ol' user!</h1>} */}
 
 
                 <Paper className={this.props.classes.root}>
@@ -231,13 +231,13 @@ class DirectoryPage extends Component {
                     </Table>
                 </Paper>
 
-                {JSON.stringify(this.props.reduxStore.directory)}
+                {/* {JSON.stringify(this.props.reduxStore.directory)}
                 <br />
                 <br />
                 {JSON.stringify(this.props.reduxStore.user)}
                 <br /> 
                 <br />
-                {JSON.stringify(this.props.reduxStore.admin.adminDirectory)}
+                {JSON.stringify(this.props.reduxStore.admin.adminDirectory)} */}
             </div >
         )
 
