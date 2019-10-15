@@ -97,18 +97,13 @@ class EventDetails extends Component {
                                                 <Grid item xs={6}>
                                                     <h2>{info.name}</h2>
                                                     <p>Date: {moment(info.start_date).format("MM/DD/YYYY")}</p>
-                                                    <p>Location:</p><address>
-                                                        {info.address}&nbsp;
-                                                        {info.city}&nbsp;
-                                                        {info.state}&nbsp;
-                                                        {info.zip_code}
-                                                    </address>
-                                                    <p>Location: <address>
-                                                        {info.address}
-                                                        {info.city}
-                                                        {info.state}
-                                                        {info.zip_code}
-                                                        </address></p>
+                                                        <Grid container spacing={1}>
+                                                            Location:&nbsp;<address>
+                                                                {info.address}<br></br>
+                                                                {info.city}&nbsp;{info.state}
+                                                                &nbsp;{info.zip_code}
+                                                            </address>
+                                                        </Grid>
                                                     <p>Contact: {this.props.nonprofit[0] && this.props.nonprofit[0].contact_email} </p>
                                                     <p>Description: {info.description}</p>
                                                 </Grid>
