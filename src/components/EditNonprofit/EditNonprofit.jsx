@@ -90,10 +90,19 @@ class EditNonprofit extends Component {
 
     handleDropdownChange = (propertyName1, propertyName2, event) => {
         console.log('in handle dropdown change');
+        
         this.setState({
             ...this.state,
             [propertyName1]: event.target.value.id,
             [propertyName2]: event.target.value.name
+        });
+
+        this.props.dispatch({
+            type: 'SET_EDITS_TO_NONPROFIT',
+            payload: {
+                [propertyName1]: event.target.value.id,
+                [propertyName2]: event.target.value.name
+            }
         });
     }
 
