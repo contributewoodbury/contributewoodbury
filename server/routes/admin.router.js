@@ -46,7 +46,9 @@ router.get('/requests', rejectUnauthenticated, rejectNonAdmin, (req, res) => {
 
 // selects all nonprofits from the database and sorts the by those whose last confirm date is over a year old.
 router.get('/directory', rejectUnauthenticated, rejectNonAdmin, (req, res) => {
-    let queryText = `SELECT * FROM "nonprofit" WHERE NOT "name" = 'Admin' ORDER BY "last_confirmed"`;
+    let queryText = `SELECT "categories".name AS "category_name", "nonprofit".name, "nonprofit".address, "nonprofit".city, "nonprofit".id, 
+        "nonprofit".logo, "nonprofit".last_confirmed, "nonprofit".zip_code, "nonprofit".state FROM "categories" FULL OUTER JOIN "nonprofit" ON 
+        "nonprofit".category_id="categories".id WHERE NOT "nonprofit".name='Admin' ORDER BY "last_confirmed";`;
         pool.query(queryText)
             .then((result) => {
                 res.send(result.rows);
