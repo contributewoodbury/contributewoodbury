@@ -39,20 +39,7 @@ class NonprofitDetails extends Component {
                                 {this.props.nonprofit[0].city}, {this.props.nonprofit[0].state} {this.props.nonprofit[0].zip_code}
                             </p>
                         </div></> : <span></span>  }
-                     {/* {this.props.nonprofit.map(each => (
-                        <>
-                        <div className={this.props.classes.nonprofitInfo} >
-                            <img className={this.props.classes.logo} src={each.logo} alt="" />
-                        </div>
-                        <div className={this.props.classes.nonprofitInfo} >
-                            <p>
-                                {each.nonprofit_name}<br />
-                                {each.address}<br/>
-                                {each.city}, {each.state} {each.zip_code}
-                            </p>
-                        </div>   
-                        </>
-                    ))} */}
+                    
                     </>
 
                 {/* {JSON.stringify(this.props.nonprofit)} */}

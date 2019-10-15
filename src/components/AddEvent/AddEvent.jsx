@@ -149,7 +149,7 @@ class AddEvent extends Component {
         // console.log('the state is currently:', this.state);
         this.setState({
             name: event.target.value.name,
-            non_profit_id: +(this.props.match.params.id),
+            non_profit_id: this.props.match.params.id,
             description: event.target.value.description,
             address: event.target.value.address,
             city: event.target.value.city,
