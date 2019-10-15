@@ -50,7 +50,7 @@ class VolunteerList extends Component {
         })
         this.props.dispatch({
             type: 'GET_SPECIFIC_VOLUNTEERS',
-            payload: { id: this.props.match.params.id, user_id: this.props.user.id }
+            payload: this.props.match.params.id
         })
     }//end componentDidMount
 

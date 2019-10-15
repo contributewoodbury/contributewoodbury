@@ -7,10 +7,11 @@ import TableCell from '@material-ui/core/TableCell';
 import TableHead from '@material-ui/core/TableHead';
 import TableRow from '@material-ui/core/TableRow';
 import Paper from '@material-ui/core/Paper';
-import { Button, Link } from '@material-ui/core/';
+import { Button, Link, CardContent } from '@material-ui/core/';
 import { connect } from 'react-redux';
 import moment from 'moment';
 import Swal from 'sweetalert2';
+import './OrganizationHome.css';
 
 const CustomTableCell = withStyles(theme => ({
     head: {
@@ -90,11 +91,26 @@ class OrganizationHome extends Component {
         let nonprofitInfo = this.props.nonprofit[0] || 'a';
         return (
             <div className={this.props.classes.rootDiv}>
-                <Grid container spacing={1} justify="center">
-                    <h1>{this.props.nonprofit[0] && this.props.nonprofit[0].nonprofit_name}</h1>
+                <Grid container spacing={1}>
+                    <Grid item xs={6} className="name">
+                        <CardContent>
+                            <h1>{this.props.nonprofit[0] && this.props.nonprofit[0].nonprofit_name}</h1>
+                        </CardContent>
+                    </Grid>
+                    <Grid item xs={6}>
+                        <CardContent>
+                            <img src={this.props.nonprofit[0] && this.props.nonprofit[0].logo} alt="nonprofit logo" width="400"/>
+                        </CardContent>
+                    </Grid>
                 </Grid>
                 <Grid container spacing={1}>
-                    <p>Contact: {this.props.nonprofit[0] && this.props.nonprofit[0].contact_email}</p>
+                    <p>Contact: {this.props.nonprofit[0] && this.props.nonprofit[0].contact_name}</p>
+                </Grid>
+                <Grid container spacing = {1}>
+                    <p>Phone: {this.props.nonprofit[0] && this.props.nonprofit[0].contact_phone}</p>
+                </Grid>
+                <Grid container spacing={1}>
+                    <p>Email: {this.props.nonprofit[0] && this.props.nonprofit[0].contact_email}</p>
                 </Grid>
                 <Grid container spacing={1}>
                     Organization Address: <br></br> <address>{this.props.nonprofit[0] && this.props.nonprofit[0].address} <br></br>
