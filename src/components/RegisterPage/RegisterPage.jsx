@@ -107,7 +107,7 @@ class RegisterPage extends Component {
   render() {
     return (
       <div className={this.props.classes.rootDiv}>
-        {JSON.stringify(this.state)}
+        {/* {JSON.stringify(this.state)} */}
         {this.props.errors.registrationMessage && (
           <h2
             className="alert"
@@ -144,7 +144,7 @@ class RegisterPage extends Component {
                 onChange={(event) => this.handleInputChange('password', event)}
               />
             </label>
-            <TextField className={this.props.classes.description} type="text" placeholder="Organization Description" variant="outlined" multiline rows="4" onChange={(event) => { this.handleInputChange('description', event) }} />
+            <TextField className={this.props.classes.description} type="text" placeholder="Organization Description" label="Organization Description" variant="outlined" multiline rows="4" onChange={(event) => { this.handleInputChange('description', event) }} />
           </Grid>
         </Grid>
         <Grid container spacing={3}>
@@ -152,15 +152,15 @@ class RegisterPage extends Component {
             <h2>
               Contact Information
                         </h2>
-            <TextField className={this.props.classes.textFields} type="text" placeholder="Point of Contact Name" variant="outlined" onChange={(event) => { this.handleInputChange('contact_name', event) }} />
+            <TextField className={this.props.classes.textFields} type="text" placeholder="Point of Contact Name" label="Point of Contact Name" variant="outlined" onChange={(event) => { this.handleInputChange('contact_name', event) }} />
             <br />
-            <TextField required className={this.props.classes.textFields} type="text" placeholder="Point of Contact Email" variant="outlined" onChange={(event) => { this.handleInputChange('contact_email', event) }} />
+            <TextField required className={this.props.classes.textFields} type="text" placeholder="Point of Contact Email" label="Point of Contact Email" variant="outlined" onChange={(event) => { this.handleInputChange('contact_email', event) }} />
             <br />
-            <TextField required className={this.props.classes.textFields} type="text" placeholder="Point of Contact Phone" variant="outlined" onChange={(event) => { this.handleInputChange('contact_phone', event) }} />
+            <TextField required className={this.props.classes.textFields} type="text" placeholder="Point of Contact Phone" label="Point of Contact Phone" variant="outlined" onChange={(event) => { this.handleInputChange('contact_phone', event) }} />
             <br />
-            <TextField required className={this.props.classes.textFields} type="text" placeholder="Organization Website URL" variant="outlined" onChange={(event) => { this.handleInputChange('website', event) }} />
+            <TextField required className={this.props.classes.textFields} type="text" placeholder="Organization Website URL" label="Organization Website URL" variant="outlined" onChange={(event) => { this.handleInputChange('website', event) }} />
             <br />
-            <TextField className={this.props.classes.textFields} type="text" placeholder="Organization Logo URL" variant="outlined" onChange={(event) => { this.handleInputChange('logo', event) }} />
+            <TextField className={this.props.classes.textFields} type="text" placeholder="Organization Logo URL" label="Organization Logo URL" variant="outlined" onChange={(event) => { this.handleInputChange('logo', event) }} />
             <br />
           </Grid>
 
