@@ -200,7 +200,7 @@ class EditEvent extends Component {
                                         <Grid container spacing={3} justify="center">
                                             <Grid item xs={6}>
                                                 <CardContent>
-                                                <label className={this.props.classes.textFields}>The current start time inputed is: {ev.start_time}</label>
+                                                <label className={this.props.classes.textFields}>The current start time inputed is: {ev.start_time}</label><br></br>
                                                 <TextField
                                                     className={this.props.classes.times}
                                                     type="time"
@@ -212,9 +212,9 @@ class EditEvent extends Component {
                                             </Grid>
                                             <Grid item xs={6}>
                                                 <CardContent>
-                                                    <label className={this.props.classes.textFields}>The current end time inputed is: {ev.end_time}</label>
+                                                    <label className={this.props.classes.textFields}>The current start time inputed is: {ev.end_time}</label><br></br>
                                                     <TextField
-                                                        classname={this.props.classes.times}
+                                                        className={this.props.classes.times}
                                                         type="time"
                                                         placeholder="End Time"
                                                         variant="outlined"
