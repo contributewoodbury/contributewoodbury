@@ -65,7 +65,8 @@ class EditEvent extends Component {
     handleChange = (propertyName, event) => {
         this.setState ({
             [propertyName]: event.target.value,
-            id: this.props.match.params.id
+            id: this.props.match.params.id,
+            non_profit_id: this.props.event[0].non_profit_id
         })
         console.log(this.state)
     }//end handleChange
@@ -102,6 +103,7 @@ class EditEvent extends Component {
                 states: this.state.states || this.props.event[0].state,
                 start_time: this.state.start_time || this.props.event[0].start_time,
                 end_time: this.state.end_time || this.props.event[0].end_time,
+                non_profit_id: this.props.event[0].non_profit_id,
                 id: Number(this.props.match.params.id)
             }
         })
