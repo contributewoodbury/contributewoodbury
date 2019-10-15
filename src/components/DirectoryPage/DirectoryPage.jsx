@@ -74,7 +74,9 @@ class DirectoryPage extends Component {
         this.props.dispatch({
             type: 'GET_DIRECTORY'
         });
-
+        this.props.dispatch({
+            type: 'GET_ADMIN_DIRECTORY'
+        });
     }
 
     handleVolunteerButton = (id) => {
