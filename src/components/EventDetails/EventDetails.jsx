@@ -107,6 +107,9 @@ class EventDetails extends Component {
                                                     <p>Contact: {this.props.nonprofit[0] && this.props.nonprofit[0].contact_email} </p>
                                                     <p>Description: {info.description}</p>
                                                 </Grid>
+                                                <Grid item xs={6}>
+                                                    <img src={info.event_url} alt="Event Logo" width="400"/>
+                                                </Grid>
                                             </Grid>
                                         </>
                                     })

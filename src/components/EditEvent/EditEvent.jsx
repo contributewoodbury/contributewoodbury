@@ -43,9 +43,6 @@ const styles = theme => ({
     label: {
         color: '#714723',
         fontSize: '20px'
-    },
-    title: {
-        marginLeft: '450px'
     }
 })
 
@@ -117,13 +114,13 @@ class EditEvent extends Component {
     render() {
         return (
             <div className={this.props.classes.rootDiv}>
-            <Grid container spacing={3} className={this.props.classes.title}>
+            <Grid container spacing={3} justify="center">
                 <h1>Edit Your Event</h1>
                 </Grid>
-                <Grid container className={this.props.classes.title}>
+                <Grid container justify="center">
                     <h3>Edit your upcoming event</h3>
                 </Grid>
-                <Grid container spacing={3} className={this.props.classes.title}>
+                <Grid container spacing={3} justify="center">
                     <p>Please edit the fields that you would like to edit!</p>
                 </Grid>
                 <Grid container spacing={3} justify="center">
