@@ -92,14 +92,14 @@ class OrganizationHome extends Component {
         return (
             <div className={this.props.classes.rootDiv}>
                 <Grid container spacing={1}>
-                    <Grid item xs={6} className="name">
-                        <CardContent>
-                            <h1>{this.props.nonprofit[0] && this.props.nonprofit[0].nonprofit_name}</h1>
-                        </CardContent>
-                    </Grid>
                     <Grid item xs={6}>
+                        
+                            <h1 className="name">{this.props.nonprofit[0] && this.props.nonprofit[0].nonprofit_name}</h1>
+                        
+                    </Grid>
+                    <Grid item xs={5}>
                         <CardContent>
-                            <img src={this.props.nonprofit[0] && this.props.nonprofit[0].logo} alt="nonprofit logo" width="400"/>
+                            <img src={this.props.nonprofit[0] && this.props.nonprofit[0].logo} alt="nonprofit logo" width="300" height="300"/>
                         </CardContent>
                     </Grid>
                 </Grid>
