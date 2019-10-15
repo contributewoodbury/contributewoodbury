@@ -7,10 +7,11 @@ import TableCell from '@material-ui/core/TableCell';
 import TableHead from '@material-ui/core/TableHead';
 import TableRow from '@material-ui/core/TableRow';
 import Paper from '@material-ui/core/Paper';
-import { Button, Link } from '@material-ui/core/';
+import { Button, Link, CardContent } from '@material-ui/core/';
 import { connect } from 'react-redux';
 import moment from 'moment';
 import Swal from 'sweetalert2';
+import './OrganizationHome.css';
 
 const CustomTableCell = withStyles(theme => ({
     head: {
@@ -90,15 +91,30 @@ class OrganizationHome extends Component {
         let nonprofitInfo = this.props.nonprofit[0] || 'a';
         return (
             <div className={this.props.classes.rootDiv}>
-                <Grid container spacing={1} justify="center">
-                    <h1>{this.props.nonprofit[0] && this.props.nonprofit[0].nonprofit_name}</h1>
+                <Grid container spacing={1}>
+                    <Grid item xs={6}>
+                        
+                            <h1 className="name">{this.props.nonprofit[0] && this.props.nonprofit[0].nonprofit_name}</h1>
+                        
+                    </Grid>
+                    <Grid item xs={5}>
+                        <CardContent>
+                            <img src={this.props.nonprofit[0] && this.props.nonprofit[0].logo} alt="nonprofit logo" width="300" height="300"/>
+                        </CardContent>
+                    </Grid>
                 </Grid>
                 <Grid container spacing={1}>
-                    <p>Contact: {this.props.nonprofit[0] && this.props.nonprofit[0].contact_email}</p>
+                    <p>Contact: {this.props.nonprofit[0] && this.props.nonprofit[0].contact_name}</p>
+                </Grid>
+                <Grid container spacing = {1}>
+                    <p>Phone: {this.props.nonprofit[0] && this.props.nonprofit[0].contact_phone}</p>
                 </Grid>
                 <Grid container spacing={1}>
-                    Organization Address: <br></br> <address>{this.props.nonprofit[0] && this.props.nonprofit[0].address} <br></br>
-                        {this.props.nonprofit[0] && this.props.nonprofit[0].city} &nbsp; {this.props.nonprofit[0] && this.props.nonprofit[0].zip_code}
+                    <p>Email: {this.props.nonprofit[0] && this.props.nonprofit[0].contact_email}</p>
+                </Grid>
+                <Grid container spacing={1}>
+                    Organization Address: &nbsp; <address>{this.props.nonprofit[0] && this.props.nonprofit[0].address} <br></br>
+                        {this.props.nonprofit[0] && this.props.nonprofit[0].city}&nbsp;{ this.props.nonprofit[0] && this.props.nonprofit[0].state}&nbsp;{this.props.nonprofit[0] && this.props.nonprofit[0].zip_code}
                     </address>
                 </Grid>
                 <Grid container spacing={1}>
@@ -118,8 +134,8 @@ class OrganizationHome extends Component {
                                 <TableRow>
                                     <CustomTableCell>Name</CustomTableCell>
                                     <CustomTableCell align="right">Event Date</CustomTableCell>
-                                    <CustomTableCell align="center">Actions</CustomTableCell>
-
+                                    <CustomTableCell align="right">Start Time</CustomTableCell>
+                                    <CustomTableCell align="right"></CustomTableCell>
                                 </TableRow>
                             </TableHead>
                             <TableBody>
@@ -144,6 +160,7 @@ class OrganizationHome extends Component {
                                                 <TableRow key={info.id}>
                                                     <CustomTableCell>{info.event_name}</CustomTableCell>
                                                     <CustomTableCell align="right">{moment(info.start_date).format("MM/DD/YYYY")}</CustomTableCell>
+                                                    <CustomTableCell align="right">{moment(info.start_time, "HH:MM").format('LT')}</CustomTableCell>
                                                     <CustomTableCell align="right"><Button className={this.props.classes.button} key={vkey}
                                                         onClick={() => { this.handleVolunteerClick(info.event_id) }}>Volunteer</Button> &nbsp; {button}</CustomTableCell>
 
