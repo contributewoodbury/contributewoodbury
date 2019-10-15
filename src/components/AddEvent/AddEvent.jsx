@@ -56,8 +56,8 @@ class AddEvent extends Component {
     }
 
     state = {
-        non_profit_id: this.props.match.params.id,
         name: '',
+        non_profit_id: +(this.props.match.params.id),
         description: '',
         address: '',
         city: '',
@@ -176,6 +176,7 @@ class AddEvent extends Component {
 
             <div className={this.props.classes.rootDiv}>
                 <h1>Add Event</h1>
+                {JSON.stringify(this.state)}
                 <Grid container spacing={3}>
                     <Grid item xs={12}>
                         {/* <Card> */}

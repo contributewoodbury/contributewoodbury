@@ -5,7 +5,7 @@ const { rejectUnauthenticated } = require('../modules/authentication-middleware'
 
 //get the nonprofit's information from the database
 router.get('/:id', (req, res) => {
-    let queryText = `SELECT "event"."name" AS "event_name", "event".id AS "event_id", "event".start_date, "nonprofit"."name" AS "nonprofit_name", "nonprofit".address, "nonprofit".city, "nonprofit".state, "nonprofit".zip_code, "nonprofit".contact_name, "nonprofit".contact_phone, "nonprofit".contact_email, "nonprofit".id AS "nonprofit_id", "nonprofit".description, "nonprofit".logo, "nonprofit".website FROM "nonprofit" FULL OUTER JOIN "event" on "event".non_profit_id = "nonprofit".id WHERE "nonprofit".id = $1;`;
+    let queryText = `SELECT "event"."name" AS "event_name", "event".id AS "event_id", "event".start_date, "nonprofit"."name" AS "nonprofit_name", "event".start_time, "nonprofit".address, "nonprofit".city, "nonprofit".state, "nonprofit".zip_code, "nonprofit".contact_name, "nonprofit".contact_phone, "nonprofit".contact_email, "nonprofit".id AS "nonprofit_id", "nonprofit".description, "nonprofit".logo, "nonprofit".website FROM "nonprofit" FULL OUTER JOIN "event" on "event".non_profit_id = "nonprofit".id WHERE "nonprofit".id = $1;`;
     let id = req.params.id;
     pool.query(queryText, [id])
         .then((result) => {
@@ -34,6 +34,7 @@ router.get('/edit/:id', rejectUnauthenticated, (req, res) => {
 
 //edits nonprofits information 
 router.put('/editNonprofit', rejectUnauthenticated, (req, res) => {
+    console.log(req.body);
     if (req.user.id === req.body.nonprofit_id) {
         let queryText = `UPDATE "nonprofit" SET "name" = $1, "contact_email" = $2, "address" = $3, "city" = $4, 
         "zip_code" = $5, "website" = $6, "logo" = $7, "description" = $8, "last_confirmed" = CURRENT_DATE, "category_id" = $9, "contact_name" = $10, "contact_phone" = $11, "state" = $12  WHERE "id" = $13;`;

@@ -73,7 +73,7 @@ class VolunteerSignup extends Component {
     handleDoneButton = () => {
         console.log('done button was clicked');
         //ADD SWEETALERT: YOURE DONE! OR SOMETHING SIMILAR
-        this.props.history.push(`/organizationHome`)
+        this.props.history.push(`/organizationHome/${this.props.user.id}`)
     }
 
     // handleRemoveVolunteer = () => {
@@ -115,17 +115,18 @@ class VolunteerSignup extends Component {
                         <CardContent>
                             <div>
                                 
-                                <span><b>{this.props.role.name} ({this.props.role.number_needed} volunteers needed)</b></span><br />
+                                <span><b>Role:</b> {this.props.role.name} ({this.props.role.number_needed} volunteers needed)</span><br />
+                                <span><b>Description:</b> {this.props.role.description} </span><br />
                                 <span><b>Date:</b> {moment( this.props.role.date ).format('MM[/]DD[/]YYYY')} </span><br />
                                 <span><b>Time:</b> {moment(this.props.role.start_time, 'hh:mm').format('LT')} - {moment(this.props.role.end_time, 'hh:mm').format('LT')} </span><br />
-                                <span><b>Description:</b> {this.props.role.description} </span><br />
+                                
                             </div>
 
                             </CardContent>
                     </Grid>
 
                     <Grid item xs={12}>
-                        <SignupForm roleId={this.props.match.params.id} roles={this.props.role.start_time} />
+                        <SignupForm roleId={this.props.match.params.id} />
                     </Grid>
 
                     <Grid item xs={12}>
@@ -139,9 +140,9 @@ class VolunteerSignup extends Component {
 
                                     return (
                                         <CardContent className={this.props.classes.cardContent} >
-                                            <span>name: {volunteer.name} </span><br />
-                                            <span>phone: {volunteer.phone_number} </span><br />
-                                            <span>date: {moment(volunteer.start_time, 'hh:mm').format('LT')} </span> <span> - </span> <span>{moment(volunteer.end_time, 'hh:mm').format('LT')}</span><br />
+                                            <span><b>Name:</b> {volunteer.name} </span><br />
+                                            <span><b>Phone:</b> {volunteer.phone_number} </span><br />
+                                            <span><b>Date/time:</b> {moment(volunteer.date).format('MM[/]DD[/]YYYY')} from {moment(volunteer.start_time, 'hh:mm').format('LT')} </span> -  <span>{moment(volunteer.end_time, 'hh:mm').format('LT')}</span><br />
                                             
                                         </CardContent>
                                     )

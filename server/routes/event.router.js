@@ -38,7 +38,7 @@ router.get('/nonprofit/:id', rejectUnauthenticated, (req,res) => {
 router.get('/:id', (req, res) => {
   console.log('get details of event for this id:', req.params.id);
 
-  let queryText = 'SELECT * FROM "event" WHERE "id" = $1;';
+  let queryText = 'SELECT * FROM "event" WHERE "id" = $1 ORDER BY "start_date";';
   pool.query(queryText, [req.params.id])
     .then((results) => {
       res.send(results.rows);
@@ -56,7 +56,7 @@ router.post('/addEvent', rejectUnauthenticated, (req, res) => {
   let queryText = `INSERT INTO "event" ("name", "non_profit_id", "description", "address", "city", "zip_code",
     "start_date", "end_date", "start_time", "end_time", "event_url", "state") VALUES($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, $12) RETURNING *;`;
   let name =  req.body.name;
-  let non_profit_id = +(req.body.non_profit_id);
+  let non_profit_id = req.body.non_profit_id;
   let description = req.body.description;
   let address = req.body.address;
   let city = req.body.city;

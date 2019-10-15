@@ -11,6 +11,7 @@ import Paper from '@material-ui/core/Paper';
 import Link from '@material-ui/core/Link';
 import { Button } from '@material-ui/core/';
 import moment from 'moment';
+import './EventDetails.css';
 
 
 const CustomTableCell = withStyles(theme => ({
@@ -73,20 +74,21 @@ class EventDetails extends Component {
             <div className={this.props.classes.rootDiv}>
             <Grid container spacing={3}>
                 <Grid item xs={6}>
-                <CardContent>
-                        <img src={this.props.nonprofit[0] && this.props.nonprofit[0].logo} alt="nonprofit logo" width="400" />
-                </CardContent>
-                </Grid>
-                <Grid item xs={6}>
                     <CardContent>
-                        <h2>{this.props.nonprofit[0] && this.props.nonprofit[0].nonprofit_name}</h2>
-                        <address>
+                        <h2 className="name">{this.props.nonprofit[0] && this.props.nonprofit[0].nonprofit_name}</h2>
+                        <address className="address">
                         {this.props.nonprofit[0] && this.props.nonprofit[0].address} <br></br>
-                        {this.props.nonprofit[0] && this.props.nonprofit[0].city} &nbsp;
+                        {this.props.nonprofit[0] && this.props.nonprofit[0].city}&nbsp;
+                        {this.props.nonprofit[0] && this.props.nonprofit[0].state}&nbsp;
                         {this.props.nonprofit[0] && this.props.nonprofit[0].zip_code}
                         </address>
                     </CardContent>
                 </Grid>
+                    <Grid item xs={6}>
+                        <CardContent>
+                            <img src={this.props.nonprofit[0] && this.props.nonprofit[0].logo} alt="nonprofit logo" width="400" />
+                        </CardContent>
+                    </Grid>
             </Grid>
                                 {
                                     this.props.event.eventDetails.map((info) => {
@@ -95,11 +97,13 @@ class EventDetails extends Component {
                                                 <Grid item xs={6}>
                                                     <h2>{info.name}</h2>
                                                     <p>Date: {moment(info.start_date).format("MM/DD/YYYY")}</p>
-                                                    <address>Location:
-                                                        <p>{info.address}<br></br>
-                                                        {info.city} &nbsp;
-                                                        {info.zip_code}</p>
-                                                    </address>
+                                                        <Grid container spacing={1}>
+                                                            Location:&nbsp;<address>
+                                                                {info.address}<br></br>
+                                                                {info.city}&nbsp;{info.state}
+                                                                &nbsp;{info.zip_code}
+                                                            </address>
+                                                        </Grid>
                                                     <p>Contact: {this.props.nonprofit[0] && this.props.nonprofit[0].contact_email} </p>
                                                     <p>Description: {info.description}</p>
                                                 </Grid>
@@ -108,14 +112,14 @@ class EventDetails extends Component {
                                     })
                                 }
                 {nonprofitInfo.nonprofit_name === this.props.user.name && <Button className={this.props.classes.button} onClick={this.handleEditEvent}>Edit</Button>}
-                <h3>Volunteer Opportunities for this event:</h3>
+                <h3 className="header">Volunteer Opportunities for this event:</h3>
                 <Paper className={this.props.classes.root}>
                     <Table className={this.props.classes.table}>
                         <TableHead>
                             <TableRow>
-                                <CustomTableCell>Times</CustomTableCell>
+                                <CustomTableCell>Name</CustomTableCell>
+                                <CustomTableCell align="right">Times</CustomTableCell>
                                 <CustomTableCell align="right">Volunteers Needed</CustomTableCell>
-                                <CustomTableCell align="right">Description</CustomTableCell>
                                 
                             </TableRow>
                         </TableHead>
@@ -123,15 +127,15 @@ class EventDetails extends Component {
                             {
                                 this.props.volunteers.volunteerRoleList.map((person) => {
                                     return (<> 
-                                    <TableRow>
-                                    <CustomTableCell key={person.id}>{person.start_time} - {person.end_time}</CustomTableCell>
-                                        <CustomTableCell align="right"><Link component="button"
-                                            variant="body2"
-                                            onClick={() => {this.handleClick(person.id)}}>Volunteers Needed({person.number_needed})
-                                            </Link></CustomTableCell>
+                                    <TableRow key={person.id}>
+                                    <CustomTableCell>{person.name}</CustomTableCell>
                                     <CustomTableCell align="right">
-                                            {person.description}
+                                                {moment(person.start_time, "hh:mm").format('LT')} - {moment(person.end_time, "hh:mm").format('LT')}
                                     </CustomTableCell>
+                                            <CustomTableCell align="right"><Link component="button"
+                                                variant="body2"
+                                                onClick={() => { this.handleClick(person.id) }}>Volunteers Needed({person.number_needed})
+                                            </Link></CustomTableCell>
                                     </TableRow>
                                     </>)
                                 })

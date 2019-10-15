@@ -97,7 +97,6 @@ class RegisterPage extends Component {
       confirmButtonColor: '#3085d6',
       cancelButtonColor: '#d33',
       confirmButtonText: 'OK',
-      // confirmButtonColor: '#457736'
     }).then((result) => {
       if (result.value) {
         this.props.history.goBack();
@@ -144,7 +143,7 @@ class RegisterPage extends Component {
                 onChange={(event) => this.handleInputChange('password', event)}
               />
             </label>
-            <TextField className={this.props.classes.description} type="text" placeholder="Organization Description" variant="outlined" multiline rows="4" onChange={(event) => { this.handleInputChange('description', event) }} />
+            <TextField className={this.props.classes.description} type="text" placeholder="Organization Description" label="Organization Description" variant="outlined" multiline rows="4" onChange={(event) => { this.handleInputChange('description', event) }} />
           </Grid>
         </Grid>
         <Grid container spacing={3}>
