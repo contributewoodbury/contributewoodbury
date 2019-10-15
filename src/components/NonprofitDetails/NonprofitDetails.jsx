@@ -17,6 +17,7 @@ const styles = theme => ({
 class NonprofitDetails extends Component {
 
 
+
     render () {
 
 
@@ -27,7 +28,7 @@ class NonprofitDetails extends Component {
 
                     <>
                     {/* {JSON.stringify(this.props.nonprofit[0].nonprofit_name)} */}
-                    {this.props.nonprofit ? 
+                    {/* {this.props.nonprofit ? 
                     <>
                         <div className={this.props.classes.nonprofitInfo} >
                             <img className={this.props.classes.logo} src={this.props.nonprofit[0].logo} alt="" />
@@ -38,21 +39,9 @@ class NonprofitDetails extends Component {
                                 {this.props.nonprofit[0].address}<br />
                                 {this.props.nonprofit[0].city}, {this.props.nonprofit[0].state} {this.props.nonprofit[0].zip_code}
                             </p>
-                        </div></> : <span></span>  }
-                     {/* {this.props.nonprofit.map(each => (
-                        <>
-                        <div className={this.props.classes.nonprofitInfo} >
-                            <img className={this.props.classes.logo} src={each.logo} alt="" />
-                        </div>
-                        <div className={this.props.classes.nonprofitInfo} >
-                            <p>
-                                {each.nonprofit_name}<br />
-                                {each.address}<br/>
-                                {each.city}, {each.state} {each.zip_code}
-                            </p>
-                        </div>   
-                        </>
-                    ))} */}
+                        </div></> : <span></span>  } */}
+                        
+                    {JSON.stringify(this.props.user)}
                     </>
 
                 {/* {JSON.stringify(this.props.nonprofit)} */}
@@ -63,7 +52,7 @@ class NonprofitDetails extends Component {
 
 const mapStateToProps = reduxStore => {
     return {
-        nonprofit: reduxStore.nonprofit.nonprofit
+        nonprofit: reduxStore.nonprofit.nonprofit,
     }
 }
 
