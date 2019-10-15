@@ -39,6 +39,9 @@ const styles = theme => ({
     rootDiv: {
         margin: '0px 100px 0px 100px'
     },
+    paragraph: {
+        margin: '10px 10px 0px 30px'
+    }
 })
 
 
@@ -105,7 +108,7 @@ class EditNonprofit extends Component {
         }).then((result) => {
             if (result.value) {
                
-                this.props.history.push(`/organizationHome/${id}`)
+                this.props.history.goBack()
             }
         })
         console.log('back button was clicked');
@@ -130,7 +133,7 @@ class EditNonprofit extends Component {
                     type: 'GET_NONPROFIT',
                     payload: id
                 })
-                this.props.history.push(`/organizationHome/${id}`)
+                this.props.history.goBack()
             }
         })
         console.log('submit event button clicked');
@@ -163,7 +166,9 @@ class EditNonprofit extends Component {
 
         return(
             <div className={this.props.classes.rootDiv}>
-                <h1 className={this.props.classes.heading}>Edit Nonprofit</h1>
+                <h1 className={this.props.classes.heading}>Edit Nonprofit Information</h1>
+                
+                <p className={this.props.classes.paragraph}>Please change any information about your organization below. After you submit your changes, your new information will be displayed in your organization page.</p>
                 {/* {JSON.stringify(this.state)} */}
                 <br/>
                 {/* {JSON.stringify(this.props.reduxStore.nonprofit)} */}
@@ -193,7 +198,7 @@ class EditNonprofit extends Component {
                         <br />
                                 <TextField className={this.props.classes.textFields} defaultValue={currentNonProfit.contact_email} type="text" placeholder="Point of Contact Email" label="contact email" variant="outlined" onChange={(event) => { this.handleEditInputChange('contact_email', event) }}/>
                         <br />
-                                <TextField className={this.props.classes.textFields} defaultValue={currentNonProfit.nonprofit_phone} type="text" placeholder="Point of Contact Phone" label="contact phone" variant="outlined" onChange={(event) => { this.handleEditInputChange('contact_phone', event) }}/>
+                                <TextField className={this.props.classes.textFields} defaultValue={currentNonProfit.contact_phone} type="text" placeholder="Point of Contact Phone" label="contact phone" variant="outlined" onChange={(event) => { this.handleEditInputChange('contact_phone', event) }}/>
                         <br />
                                 <TextField className={this.props.classes.textFields} defaultValue={currentNonProfit.website} type="text" placeholder="Organization Website URL" label="website URL" variant="outlined" onChange={(event) => { this.handleEditInputChange('website', event) }}/>
                         <br />
