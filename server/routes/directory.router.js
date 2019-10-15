@@ -6,7 +6,7 @@ const router = express.Router();
 router.get('/', (req, res) => {
   if (!req.query.q){
     let queryText = `SELECT "categories".name AS "category_name", "nonprofit".name, "nonprofit".address, "nonprofit".city, "nonprofit".id, "nonprofit".logo,
-       "nonprofit".last_confirmed, "nonprofit".zip_code, "nonprofit".state FROM "categories" FULL OUTER JOIN "nonprofit" ON "nonprofit".category_id = "categories".id
+       "nonprofit".last_confirmed, "nonprofit".zip_code, "nonprofit".state, "nonprofit".website FROM "categories" FULL OUTER JOIN "nonprofit" ON "nonprofit".category_id = "categories".id
        WHERE "is_approved" ORDER BY "name";`;
   pool.query(queryText)
   .then((results) => {
