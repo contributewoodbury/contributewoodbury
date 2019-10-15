@@ -112,14 +112,14 @@ class EventDetails extends Component {
                                     })
                                 }
                 {nonprofitInfo.nonprofit_name === this.props.user.name && <Button className={this.props.classes.button} onClick={this.handleEditEvent}>Edit</Button>}
-                <h3>Volunteer Opportunities for this event:</h3>
+                <h3 className="header">Volunteer Opportunities for this event:</h3>
                 <Paper className={this.props.classes.root}>
                     <Table className={this.props.classes.table}>
                         <TableHead>
                             <TableRow>
-                                <CustomTableCell>Times</CustomTableCell>
+                                <CustomTableCell>Name</CustomTableCell>
+                                <CustomTableCell align="right">Times</CustomTableCell>
                                 <CustomTableCell align="right">Volunteers Needed</CustomTableCell>
-                                <CustomTableCell align="right">Description</CustomTableCell>
                                 
                             </TableRow>
                         </TableHead>
@@ -127,15 +127,15 @@ class EventDetails extends Component {
                             {
                                 this.props.volunteers.volunteerRoleList.map((person) => {
                                     return (<> 
-                                    <TableRow>
-                                    <CustomTableCell key={person.id}>{person.start_time} - {person.end_time}</CustomTableCell>
-                                        <CustomTableCell align="right"><Link component="button"
-                                            variant="body2"
-                                            onClick={() => {this.handleClick(person.id)}}>Volunteers Needed({person.number_needed})
-                                            </Link></CustomTableCell>
+                                    <TableRow key={person.id}>
+                                    <CustomTableCell>{person.name}</CustomTableCell>
                                     <CustomTableCell align="right">
-                                            {person.description}
+                                                {moment(person.start_time, "hh:mm").format('LT')} - {moment(person.end_time, "hh:mm").format('LT')}
                                     </CustomTableCell>
+                                            <CustomTableCell align="right"><Link component="button"
+                                                variant="body2"
+                                                onClick={() => { this.handleClick(person.id) }}>Volunteers Needed({person.number_needed})
+                                            </Link></CustomTableCell>
                                     </TableRow>
                                     </>)
                                 })
