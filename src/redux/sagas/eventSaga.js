@@ -38,7 +38,9 @@ function* addPastEvent(action) {
   try {
     let response = yield axios.put('/api/event/addPastEvent', action.payload);
     if(action.payload.volunteers_needed === true) {
-      yield action.history.push(`/addvolunteers/${response.data[0].id}`)
+      yield action.history.push(`/addvolunteers/${response.data[0].id}`);
+    } else {
+      yield action.history.push(`/eventDetails/${response.data[0].id}`);
     }
     yield put ({
       type: 'GET_EVENT_DETAILS',
@@ -76,7 +78,7 @@ function* eventSaga(){
   yield takeEvery('GET_EVENT_DETAILS', getEventDetails);
   yield takeLatest('ADD_EVENT', addEvent);
   yield takeLatest('EDIT_EVENT', editEvent);
-  yield takeLatest('ADD_PAST_EVENT', addPastEvent)
+  yield takeLatest('ADD_PAST_EVENT', addPastEvent);
 }
 
 export default eventSaga;

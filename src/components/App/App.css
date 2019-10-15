@@ -4,8 +4,8 @@ body {
 }
 
 .alert {
-    background-color: #ff4545;
-    margin: 50px;
+    color: #ff4545;
+    margin: 25px;
 }
 
 /* form {
