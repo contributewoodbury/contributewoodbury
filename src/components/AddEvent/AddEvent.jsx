@@ -56,8 +56,8 @@ class AddEvent extends Component {
     }
 
     state = {
-        name: '',
         non_profit_id: this.props.match.params.id,
+        name: '',
         description: '',
         address: '',
         city: '',
@@ -68,6 +68,7 @@ class AddEvent extends Component {
         start_time: '',
         end_time: '',
         event_url: '',
+        past_event_id: '',
         volunteers_needed: true,
     }
 
@@ -116,26 +117,29 @@ class AddEvent extends Component {
     }
 
     handleSubmitButton = () => {
-        console.log(moment(this.state.end_date).format('YYYYMMDD'), moment(this.state.start_date).format('YYYYMMDD'));
         if (moment(this.state.end_date).format('YYYYMMDD') < moment(this.state.start_date).format('YYYYMMDD')) {
             this.props.dispatch({ type: 'DATE_ERROR' });
             return false;
-        }
-        if (!this.state.past_event_id) {
-            this.props.dispatch({
-                type: 'ADD_EVENT',
-                payload: this.state,
-                history: this.props.history
-            })
+        } else if (this.state.name && this.state.description && this.state.start_date && this.state.start_time && this.state.end_time
+            && this.state.address && this.state.city && this.state.state && this.state.zip_code) {
+            if (!this.state.past_event_id) {
+                this.props.dispatch({
+                    type: 'ADD_EVENT',
+                    payload: this.state,
+                    history: this.props.history
+                })
+            } else {
+                console.log('update the event instead');
+                this.props.dispatch({
+                    type: 'ADD_PAST_EVENT',
+                    payload: this.state,
+                    history: this.props.history
+                })
+            }
         } else {
-            console.log('update the event instead');
-            this.props.dispatch({
-                type: 'ADD_PAST_EVENT',
-                payload: this.state,
-                history: this.props.history
-            })
+            this.props.dispatch({ type: 'REQUIRED_ERROR' });
+            return false;
         }
-
         Swal.fire({
             title: 'Success!',
             text: 'Your event was submitted.',
@@ -172,13 +176,6 @@ class AddEvent extends Component {
 
             <div className={this.props.classes.rootDiv}>
                 <h1>Add Event</h1>
-                {this.props.dateError && 
-                <h2
-                    className="alert"
-                    role="alert"
-                >
-                    {this.props.dateError}
-                </h2>}
                 <Grid container spacing={3}>
                     <Grid item xs={12}>
                         {/* <Card> */}
@@ -198,8 +195,7 @@ class AddEvent extends Component {
                                 <Select
                                     className={this.props.classes.dropdownBox}
                                     onChange={(event) => this.handleChangeFor(event)}
-                                    value={this.state.name}
-                                >
+                                    value={this.state.name}>
                                     <MenuItem value={this.state.name}>
                                         <em>{this.state.past_event_id ? this.state.name : 'Re-Use previous event'} </em>
                                     </MenuItem>
@@ -219,8 +215,7 @@ class AddEvent extends Component {
                                         <Checkbox
                                             defaultChecked
                                             onChange={this.handleVolunteerChange}
-                                            color="primary"
-                                        />
+                                            color="primary" />
                                     }
                                     label="Volunteers Needed"
                                 />
@@ -238,7 +233,12 @@ class AddEvent extends Component {
                         {/* </Card> */}
                     </Grid>
                 </Grid>
-
+                {this.props.formError &&
+                    <h2
+                        className="alert"
+                        role="alert">
+                        {this.props.formError}
+                    </h2>}
 
                 <Grid container spacing={3}>
                     <Grid item xs={6}>
@@ -306,7 +306,7 @@ const mapStateToProps = reduxStore => {
     return {
         nonprofit: reduxStore.nonprofit.nonprofit,
         pastEvents: reduxStore.nonprofit.nonprofitPastEvents,
-        dateError: reduxStore.errors.dateMessage
+        formError: reduxStore.errors.formMessage
     }
 }
 

@@ -32,10 +32,12 @@ const registrationMessage = (state = '', action) => {
   }
 };
 
-const dateMessage = (state = '', action) => {
+const formMessage = (state = '', action) => {
   switch (action.type) {
     case 'DATE_ERROR':
       return 'Oops! You entered an invalid start/end date!';
+    case 'REQUIRED_ERROR':
+      return 'Oops! Please make sure all required fields are filled out!';
     default:
       return '';
   }
@@ -47,5 +49,5 @@ const dateMessage = (state = '', action) => {
 export default combineReducers({
   loginMessage,
   registrationMessage,
-  dateMessage,
+  formMessage,
 });
