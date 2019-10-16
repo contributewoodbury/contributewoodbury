@@ -55,7 +55,7 @@ class SignupForm extends Component {
     handleAddVolunteer = (id) => {
         console.log('sign up button was clicked');
         this.props.dispatch({
-            type: 'VOLUNTEER_SIGNUP',
+            type: 'SAVE_VOLUNTEER',
             payload: this.state
         })
         // SWEET ALERT: THANKS FOR SIGNING UP. SOMEONE WILL CONTACT YOU -- YOU WILL RECIEVE AN EMAIL?

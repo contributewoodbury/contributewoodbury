@@ -70,6 +70,10 @@ class VolunteerSignup extends Component {
     handleDoneButton = () => {
         console.log('done button was clicked');
         //ADD SWEETALERT: YOURE DONE! OR SOMETHING SIMILAR
+        this.props.dispatch({
+            type: 'VOLUNTEER_SIGNUP',
+            payload: this.props.signup
+        })
         this.props.history.push(`/organizationHome/${this.props.user.id}`)
     }
 
@@ -167,7 +171,8 @@ const mapStateToProps = reduxStore => {
         user: reduxStore.user,
         role: reduxStore.volunteer.specificRole,
         nonprofit: reduxStore.nonprofit,
-        saved: reduxStore.volunteer.previousSignUps
+        saved: reduxStore.volunteer.previousSignUps,
+        signedup: reduxStore.volunteersignedUpVolunteers,
     }
 }
 
