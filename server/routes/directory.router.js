@@ -4,6 +4,7 @@ const router = express.Router();
 
 // Gathers all nonprofits from the database who have been approved
 router.get('/', (req, res) => {
+  console.log(req.query.q);
   if (!req.query.q){
   let queryText = `SELECT * FROM "nonprofit" WHERE "is_approved" ORDER BY "name";`;
   pool.query(queryText)
@@ -17,7 +18,7 @@ router.get('/', (req, res) => {
 } else {
     let search = '%' + req.query.q + '%';
     let queryText = `SELECT * FROM "nonprofit" WHERE "name" ILIKE $1 OR "description" ILIKE $1 ORDER BY "name";`;
-    if(req.user.name === 'Admin') {
+    if(req.user && req.user.name === 'Admin') {
       queryText = `SELECT * FROM "nonprofit" WHERE "name" ILIKE $1 OR "description" ILIKE $1 ORDER BY "last_confirmed";`;
     }
     pool.query(queryText, [search])
