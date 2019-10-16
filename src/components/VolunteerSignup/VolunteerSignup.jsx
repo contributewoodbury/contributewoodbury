@@ -66,11 +66,20 @@ class VolunteerSignup extends Component {
     }
 
     handleDoneButton = () => {
-        let id = this.props.role.event_id;
+        console.log('done button was clicked');
         //ADD SWEETALERT: YOURE DONE! OR SOMETHING SIMILAR
         this.props.dispatch({
+            type: 'VOLUNTEER_SIGNUP',
+            payload: this.props.signedup
+        })
+        
+        this.props.dispatch({
             type: 'CLEAR_SIGNUP_LIST'
-        });
+        })
+        this.props.history.push(`/organizationHome/${this.props.user.id}`)
+        
+        let id = this.props.role.event_id;
+        
         this.props.history.push(`/eventDetails/${id}`);
     }
 
@@ -124,11 +133,11 @@ class VolunteerSignup extends Component {
 
                     <Grid item xs={12}>
                         <CardContent>
-                            {this.props.saved.length > 0 ?
+                            {this.props.signedup.length > 0 ?
                                 <>
                                     <h3>Thank you for volunteering! Your information has been sent to the organization.</h3>
                                     {/* {JSON.stringify(this.props.saved)} */}
-                                    {this.props.saved.map((volunteer) => {
+                                    {this.props.signedup.map((volunteer) => {
                                         // let moment = moment().format('hh:mm')
 
                                         return (
@@ -162,8 +171,9 @@ const mapStateToProps = reduxStore => {
         event: reduxStore.event.eventDetails,
         user: reduxStore.user,
         role: reduxStore.volunteer.specificRole,
+        saved: reduxStore.volunteer.previousSignUps,
+        signedup: reduxStore.volunteer.signedUpVolunteers,
         nonprofit: reduxStore.nonprofit.nonprofit,
-        saved: reduxStore.volunteer.previousSignUps
     }
 }
 
