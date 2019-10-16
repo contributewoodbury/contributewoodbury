@@ -289,7 +289,7 @@ class AddEvent extends Component {
                     <Grid item xs={12}>
                         <CardContent>
                             <Button className={this.props.classes.backButton} variant="contained"
-                                onClick={this.handleBackButton} >Back</Button>
+                                onClick={()=>this.handleBackButton(this.props.match.params.id)} >Back</Button>
                             <Button className={this.props.classes.submitButton} variant="contained"
                                 onClick={this.handleSubmitButton} >Submit</Button>
                         </CardContent>
