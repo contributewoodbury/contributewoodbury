@@ -113,9 +113,12 @@ class OrganizationHome extends Component {
                             {this.props.nonprofit[0] && this.props.nonprofit[0].state}&nbsp;
                             {this.props.nonprofit[0] && this.props.nonprofit[0].zip_code}
                             </address><br></br>
-                            <div className="cat">
-                        Area of service: {this.props.nonprofit[0] && this.getCategory(this.props.nonprofit[0].category_id)}
+                            {
+                            nonprofitInfo.category_id && <div className="cat">
+                                Area of service: {this.props.nonprofit[0] && this.getCategory(this.props.nonprofit[0].category_id)}
                             </div>
+                            } 
+                            
                     </Grid>
                     <Grid item xs={5}>
                         <CardContent>
