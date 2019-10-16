@@ -101,26 +101,26 @@ INSERT INTO "event" ("name", "description", "address", "city", "zip_code"
 ('Goat Yoga Day','Come join us for a relaxing morning. You don/t need to bring your own goat. We have you covered. Just bring a yoga mat to share with your goat.','352 Farm Bend Road','Woodbury',55125,'11/08/19','11/08/19','https://static.wixstatic.com/media/355b37_871f939a107c4a4eab928a3ae07ba4ee~mv2_d_2016_1512_s_2.jpg',2,'9:00 AM', '11:00 AM', 'MN');
 
 INSERT INTO "role" ("name", "description", "number_needed", "start_time", "end_time", "date", "event_id")
-VALUES ('Ticket Taker','For this position you will be take a ticket from each event participant. You will not need to make change. Tickets are purchased online.',2,'8:45 AM','10:30 AM','11/08/10',16),
+VALUES ('Ticket Taker','For this position you will be take a ticket from each event participant. You will not need to make change. Tickets are purchased online.',2,'8:45 AM','10:30 AM','11/08/10',5),
 
-('Goat Feeder','For this position you will make sure the goats are comfortable. Goat food is provided. Make sure to wash your hands after your shift!.',2,'8:45 AM','10:30 AM','11/08/10',16),
+('Goat Feeder','For this position you will make sure the goats are comfortable. Goat food is provided. Make sure to wash your hands after your shift!.',2,'8:45 AM','10:30 AM','11/08/10',5),
 
-('Goat Clean-up Specialist','For this position you will make sure the goats are clean as a whistle. A shovel and poop bucket is provided. Again, make sure to wash your hands after your shift!.',3,'9:00 AM','11:30 AM','11/08/10',16),
+('Goat Clean-up Specialist','For this position you will make sure the goats are clean as a whistle. A shovel and poop bucket is provided. Again, make sure to wash your hands after your shift!.',3,'9:00 AM','11:30 AM','11/08/10',5),
 
-('Goat Yoga Master','For this position you must be an expert on goat yoga. Plan on teaching a bunch of people who have no clue what downward dog is. You get a free pass to Apple Fest for your trouble. Much thanks ahead of time.',1,'8:30 AM','11:00 AM','11/08/10',16);
+('Goat Yoga Master','For this position you must be an expert on goat yoga. Plan on teaching a bunch of people who have no clue what downward dog is. You get a free pass to Apple Fest for your trouble. Much thanks ahead of time.',1,'8:30 AM','11:00 AM','11/08/10',5);
 
 INSERT INTO "volunteer_role" ("name", "role_id", "start_time", "end_time", "comments", "email", "phone_number", "address", "city", "zip_code", "state")
-VALUES ('Mike Johnson',7,'8:45 AM','10:30 AM','I can/t wait to get started. I used to have a goat when I was a kid. Thanks for the opportunity to re-live my past.','bigmike@gmail.com',651-463-2579,'756 Valley Ridge Road','Woodbury',55125, 'MN'),
+VALUES ('Mike Johnson',1,'8:45 AM','10:30 AM','I can/t wait to get started. I used to have a goat when I was a kid. Thanks for the opportunity to re-live my past.','bigmike@gmail.com',651-463-2579,'756 Valley Ridge Road','Woodbury',55125, 'MN'),
 
-('Steve Johnson',7,'8:45 AM','10:30 AM','I need some community service hours. My brother Mike filled me in on the details.','bigmikesbro@gmail.com',651-463-2579,'756 Valley Ridge Road','Woodbury',55125, 'MN'),
+('Steve Johnson',2,'8:45 AM','10:30 AM','I need some community service hours. My brother Mike filled me in on the details.','bigmikesbro@gmail.com',651-463-2579,'756 Valley Ridge Road','Woodbury',55125, 'MN'),
 
-('Maggie May',7,'9:00 AM','11:00 AM','Goats are the cutest thing ever, but they know how to make a mess. I plan to bring my own scooper.','msmaggiemay@gmail.com',651-867-5309,'982 Easy Street','Woodbury',55125, 'MN'),
+('Maggie May',4,'9:00 AM','11:00 AM','Goats are the cutest thing ever, but they know how to make a mess. I plan to bring my own scooper.','msmaggiemay@gmail.com',651-867-5309,'982 Easy Street','Woodbury',55125, 'MN'),
 
-('Adam Jones',8,'9:00 AM','11:00 AM','What do you wear for goat yoga?','adamjones67@gmail.com',651-222-6783,'Crow Circle','Woodbury',55125, 'MN'),
+('Adam Jones',2,'9:00 AM','11:00 AM','What do you wear for goat yoga?','adamjones67@gmail.com',651-222-6783,'Crow Circle','Woodbury',55125, 'MN'),
 
-('Peter Parker',8,'9:00 AM','11:00 AM','Can I wear my suit?','spidey@gmail.com',651-123-4567,'23 Avenger Blvd.','Woodbury',55125, 'MN'),
+('Peter Parker',3,'9:00 AM','11:00 AM','Can I wear my suit?','spidey@gmail.com',651-123-4567,'23 Avenger Blvd.','Woodbury',55125, 'MN'),
 
-('Natasha Romanova',9,'8:45 AM','11:00 AM','I am considered a goat expert, but not necessarily a goat yoga master. I am sure I can figure things out.','blackwidow@gmail.com',651-867-5309,'23 Avenger Blvd.','Woodbury',55125, 'MN');
+('Natasha Romanova',3,'8:45 AM','11:00 AM','I am considered a goat expert, but not necessarily a goat yoga master. I am sure I can figure things out.','blackwidow@gmail.com',651-867-5309,'23 Avenger Blvd.','Woodbury',55125, 'MN');
 
 
 -- for cascade delete
