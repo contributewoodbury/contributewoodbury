@@ -179,13 +179,13 @@ class DirectoryPage extends Component {
                                         if (nonprofit.name !== 'Admin') {
                                             return (
                                                 <TableRow key={nonprofit.id} className={this.props.classes.rows} hover={true}>
-                                                    <TableCell align="left">{nonprofit.logo}</TableCell>
+                                                    <TableCell align="left"><img src={nonprofit.logo} alt="Nonprofit Logo" width="300" height="200" /></TableCell>
                                                     <TableCell align="left">{nonprofit.name}<br />
                                                         {nonprofit.address}<br />
-                                                        {nonprofit.city}, MN
+                                                        {nonprofit.city}, 
                                                               {nonprofit.state}
                                                         {nonprofit.zip_code}  </TableCell>
-                                                    <TableCell align="left">{nonprofit.category_id}</TableCell>
+                                                    <TableCell align="left">{nonprofit.category_name}</TableCell>
 
                                                     <TableCell align="left">
                                                         {lastConfirmed < sixMonthsBeforeTodaysDate &&
@@ -215,17 +215,16 @@ class DirectoryPage extends Component {
                                         if (nonprofit.name !== 'Admin') {
                                             return (
                                                 <TableRow key={nonprofit.id} className={this.props.classes.rows} hover={true}>
-                                                    <TableCell align="left">{nonprofit.logo}</TableCell>
+                                                    <TableCell align="left"><img src={nonprofit.logo} alt="Nonprofit Logo" width="300" height="200"/></TableCell>
                                                     <TableCell align="left">{nonprofit.name}<br />
                                                         {nonprofit.address}<br />
-                                                        {nonprofit.city}, MN &nbsp;
-                                                              {nonprofit.state}
+                                                        {nonprofit.city},&nbsp;{nonprofit.state}&nbsp;
                                                         {nonprofit.zip_code}  </TableCell>
-                                                    <TableCell align="left">{nonprofit.category_id}</TableCell>
+                                                    <TableCell align="left">{nonprofit.category_name}</TableCell>
                                                     <TableCell align="left"><Button className={this.props.classes.backButton} variant="contained"
                                                         onClick={() => this.handleVolunteerButton(nonprofit.id)} >Volunteer</Button></TableCell>
                                                     <TableCell align="center"><Button className={this.props.classes.backButton} variant="contained">
-                                                        <a className={this.props.classes.backButtonText} href={nonprofit.website} >Website</a></Button></TableCell>
+                                                        <a className={this.props.classes.backButtonText} href={nonprofit.website} target="_blank">Website</a></Button></TableCell>
                                                 </TableRow>
                                             )
                                         } else { return false; }

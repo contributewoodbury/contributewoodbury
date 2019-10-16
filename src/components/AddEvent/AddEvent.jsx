@@ -4,7 +4,7 @@ import { Button, CardContent, Grid, InputLabel, MenuItem, FormControlLabel, Chec
 import { withStyles } from '@material-ui/styles';
 import Swal from 'sweetalert2';
 import moment from 'moment';
-// import { thisExpression } from '@babel/types';
+
 
 
 const styles = theme => ({
@@ -176,7 +176,7 @@ class AddEvent extends Component {
 
             <div className={this.props.classes.rootDiv}>
                 <h1>Add Event</h1>
-                {JSON.stringify(this.state)}
+              
                 <Grid container spacing={3}>
                     <Grid item xs={12}>
                         {/* <Card> */}

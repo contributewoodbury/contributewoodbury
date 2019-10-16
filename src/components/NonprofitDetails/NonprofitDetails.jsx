@@ -15,6 +15,12 @@ const styles = theme => ({
 
 
 class NonprofitDetails extends Component {
+    componentDidMount() {
+        this.props.dispatch({
+            type: 'GET_EVENT_DETAILS',
+            payload: this.props.role.event_id
+        })
+    }
 
 
 
@@ -24,27 +30,18 @@ class NonprofitDetails extends Component {
 
         return (
             <>
-                <h3>nonprofit information and logo goes here</h3>
 
-                    <>
-                    {/* {JSON.stringify(this.props.nonprofit[0].nonprofit_name)} */}
-                    {/* {this.props.nonprofit ? 
-                    <>
-                        <div className={this.props.classes.nonprofitInfo} >
-                            <img className={this.props.classes.logo} src={this.props.nonprofit[0].logo} alt="" />
-                        </div>
-                        <div className={this.props.classes.nonprofitInfo} >
-                            <p>
-                                {this.props.nonprofit[0].nonprofit_name}<br />
-                                {this.props.nonprofit[0].address}<br />
-                                {this.props.nonprofit[0].city}, {this.props.nonprofit[0].state} {this.props.nonprofit[0].zip_code}
-                            </p>
-                        </div></> : <span></span>  } */}
-                        
-                    {JSON.stringify(this.props.user)}
-                    </>
+                    <div className={this.props.classes.nonprofitInfo} >
+                        <img className={this.props.classes.logo} src={this.props.user.logo} alt="" />
+                    </div>
+                    <div className={this.props.classes.nonprofitInfo} >
+                        <p>
+                            {this.props.user.name}<br />
+                            {this.props.user.address}<br />
+                            {this.props.user.city}, {this.props.user.state} {this.props.user.zip_code}
+                        </p>
+                    </div>
 
-                {/* {JSON.stringify(this.props.nonprofit)} */}
             </>
         )
     }
@@ -53,6 +50,8 @@ class NonprofitDetails extends Component {
 const mapStateToProps = reduxStore => {
     return {
         nonprofit: reduxStore.nonprofit.nonprofit,
+        role: reduxStore.volunteer.specificRole,
+        user: reduxStore.user
     }
 }
 

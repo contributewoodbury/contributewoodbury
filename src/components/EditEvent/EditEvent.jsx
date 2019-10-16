@@ -43,9 +43,6 @@ const styles = theme => ({
     label: {
         color: '#714723',
         fontSize: '20px'
-    },
-    title: {
-        marginLeft: '450px'
     }
 })
 
@@ -65,7 +62,8 @@ class EditEvent extends Component {
     handleChange = (propertyName, event) => {
         this.setState ({
             [propertyName]: event.target.value,
-            id: this.props.match.params.id
+            id: this.props.match.params.id,
+            non_profit_id: this.props.event[0].non_profit_id
         })
         console.log(this.state)
     }//end handleChange
@@ -102,6 +100,7 @@ class EditEvent extends Component {
                 states: this.state.states || this.props.event[0].state,
                 start_time: this.state.start_time || this.props.event[0].start_time,
                 end_time: this.state.end_time || this.props.event[0].end_time,
+                non_profit_id: this.props.event[0].non_profit_id,
                 id: Number(this.props.match.params.id)
             }
         })
@@ -115,13 +114,13 @@ class EditEvent extends Component {
     render() {
         return (
             <div className={this.props.classes.rootDiv}>
-            <Grid container spacing={3} className={this.props.classes.title}>
+            <Grid container spacing={3} justify="center">
                 <h1>Edit Your Event</h1>
                 </Grid>
-                <Grid container className={this.props.classes.title}>
+                <Grid container justify="center">
                     <h3>Edit your upcoming event</h3>
                 </Grid>
-                <Grid container spacing={3} className={this.props.classes.title}>
+                <Grid container spacing={3} justify="center">
                     <p>Please edit the fields that you would like to edit!</p>
                 </Grid>
                 <Grid container spacing={3} justify="center">
@@ -198,7 +197,7 @@ class EditEvent extends Component {
                                         <Grid container spacing={3} justify="center">
                                             <Grid item xs={6}>
                                                 <CardContent>
-                                                <label className={this.props.classes.textFields}>The current start time inputed is: {ev.start_time}</label>
+                                                <label className={this.props.classes.textFields}>The current start time inputed is: {ev.start_time}</label><br></br>
                                                 <TextField
                                                     className={this.props.classes.times}
                                                     type="time"
@@ -210,9 +209,9 @@ class EditEvent extends Component {
                                             </Grid>
                                             <Grid item xs={6}>
                                                 <CardContent>
-                                                    <label className={this.props.classes.textFields}>The current end time inputed is: {ev.end_time}</label>
+                                                    <label className={this.props.classes.textFields}>The current start time inputed is: {ev.end_time}</label><br></br>
                                                     <TextField
-                                                        classname={this.props.classes.times}
+                                                        className={this.props.classes.times}
                                                         type="time"
                                                         placeholder="End Time"
                                                         variant="outlined"
