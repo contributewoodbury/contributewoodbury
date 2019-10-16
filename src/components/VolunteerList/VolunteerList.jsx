@@ -9,6 +9,7 @@ import TableHead from '@material-ui/core/TableHead';
 import TableRow from '@material-ui/core/TableRow';
 import Paper from '@material-ui/core/Paper';
 import { Button } from '@material-ui/core/';
+import moment from 'moment';
 
 const CustomTableCell = withStyles(theme => ({
     head: {
@@ -88,7 +89,7 @@ class VolunteerList extends Component {
                                         return <>
                                             <TableRow kye={vol.id}>
                                                 <CustomTableCell>{vol.role_name}</CustomTableCell>
-                                                <CustomTableCell align="right">{vol.name} {vol.start_time}-{vol.end_time}</CustomTableCell>
+                                                <CustomTableCell align="right">{vol.name} {moment(vol.start_time, "hh:mm").format('LT')}-{moment(vol.end_time, "hh:mm").format('LT')}</CustomTableCell>
                                                 <CustomTableCell align="right">{vol.comments}</CustomTableCell>
                                                 <CustomTableCell align="right">Email: {vol.email} Phone: {vol.phone_number}</CustomTableCell>
                                             </TableRow>
