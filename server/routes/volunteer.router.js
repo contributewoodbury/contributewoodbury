@@ -81,10 +81,10 @@ router.post('/addVolunteers', rejectUnauthenticated, (req, res) => {
 router.post('/signup', (req, res) => {
   console.log('signing up req.body:', req.body);
   
-  let queryText = `INSERT INTO "volunteer_role" ("name", "role_id", "start_time", "end_time", "comments", "email", "phone_number", "address", "city", "zip_code")
+  let queryText = `INSERT INTO "volunteer_role" ("name", "role_id", "start_time", "end_time", "comments", "email", "phone_number", "address", "city", "state", "zip_code")
    VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10);`;
   let newVolunteer = req.body;
-  pool.query(queryText, [newVolunteer.name, newVolunteer.role_id, newVolunteer.start_time, newVolunteer.end_time, newVolunteer.comments, newVolunteer.email, newVolunteer.phone_number, newVolunteer.address, newVolunteer.city, newVolunteer.zip_code])
+  pool.query(queryText, [newVolunteer.name, newVolunteer.role_id, newVolunteer.start_time, newVolunteer.end_time, newVolunteer.comments, newVolunteer.email, newVolunteer.phone_number, newVolunteer.address, newVolunteer.city, newVolunteer.state, newVolunteer.zip_code])
   .then(() => {
     res.sendStatus(200);
   })
