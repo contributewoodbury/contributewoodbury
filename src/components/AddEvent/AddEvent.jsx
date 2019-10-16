@@ -107,9 +107,6 @@ class AddEvent extends Component {
             }
         })
         console.log('back button was clicked');
-        //link to the nonprofit home page
-        //add sweetalert warning: no event has been saved
-        // this.props.history.push('/nonprofithome')
     }
 
     handleSubmitButton = () => {

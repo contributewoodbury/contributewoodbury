@@ -57,29 +57,8 @@ class EditEvent extends Component {
             type: 'GET_EVENT_DETAILS',
             payload: Number(this.props.match.params.id)
         })
-        // this.handlePrefill()
     }//end componentDidMount
 
-    // handlePrefill = () => {
-    //     for(let ev of this.props.event) {
-    //         this.setState({
-    //             name: ev.name,
-    //             // description: this.props.event.description,
-    //             // address: this.props.event.address,
-    //             // city: this.props.event.city,
-    //             // zip_code: this.props.event.zip_code,
-    //             // event_url: this.props.event.event_url,
-    //             // start_date: this.props.event.start_date,
-    //             // end_date: this.props.event.end_date,
-    //             // states: this.props.event.state,
-    //             // start_time: this.props.event.start_time,
-    //             // end_time: this.props.event.end_time,
-    //             // non_profit_id: this.props.event.non_profit_id,
-    //             // id: Number(this.props.match.params.id)
-    //         })
-    //     }
-        
-    // }
 
     handleChange = (propertyName, event) => {
         this.setState ({
