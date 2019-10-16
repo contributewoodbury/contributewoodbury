@@ -6,6 +6,7 @@ import SignupForm from '../SignupForm/SignupForm';
 import NonprofitDetails from '../NonprofitDetails/NonprofitDetails';
 import moment from 'moment';
 import Swal from 'sweetalert2';
+import { formatPhoneNumber } from 'react-phone-number-input';
 
 
 const styles = theme => ({
@@ -132,7 +133,7 @@ class VolunteerSignup extends Component {
                                     return (
                                         <CardContent className={this.props.classes.cardContent} >
                                             <span><b>Name:</b> {volunteer.name} </span><br />
-                                            <span><b>Phone:</b> {volunteer.phone_number} </span><br />
+                                            <span><b>Phone:</b> {formatPhoneNumber(volunteer.phone_number)} </span><br />
                                             <span><b>Date/time:</b> {moment(volunteer.date).format('MM[/]DD[/]YYYY')} from {moment(volunteer.start_time, 'hh:mm').format('LT')} </span> -  <span>{moment(volunteer.end_time, 'hh:mm').format('LT')}</span><br />
                                             
                                         </CardContent>

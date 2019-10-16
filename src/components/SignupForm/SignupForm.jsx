@@ -113,7 +113,7 @@ class SignupForm extends Component {
                     {/* <br /> */}
                     {/* <TextField className={this.props.classes.stateZipPhone} type="text" placeholder="phone number" variant="outlined" label="phone number"
                         value={this.state.phone_number} onChange={(event) => this.handleChange('phone_number', event)} /> */}
-                    <PhoneInput autoComplete country='US'
+                    <PhoneInput autoComplete country='US' style={{maxWidth: '250px'}}
                         placeholder="Enter phone number"
                         value={this.state.phone_number}
                         onChange={value => this.setState({ ...this.state, phone_number: value })} />
