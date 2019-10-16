@@ -47,6 +47,9 @@ class OrganizationHome extends Component {
             type: 'GET_NONPROFIT',
             payload: this.props.match.params.id
         })
+        this.props.dispatch({
+            type: 'GET_CATEGORIES',
+        })
     }//end componentDidMount
 
     handleVolunteerClick = (id) => {
@@ -87,6 +90,15 @@ class OrganizationHome extends Component {
         }
     }//end handleAddEvent
 
+    getCategory = (id) => { 
+        for (let cat of this.props.categories) {
+            if(cat.id === id) {
+                return cat.name
+            } 
+        }
+        console.log(id)
+    }//end getCategory
+
     render() {
         let nonprofitInfo = this.props.nonprofit[0] || 'a';
         return (
@@ -100,8 +112,10 @@ class OrganizationHome extends Component {
                             {this.props.nonprofit[0] && this.props.nonprofit[0].city}&nbsp;
                             {this.props.nonprofit[0] && this.props.nonprofit[0].state}&nbsp;
                             {this.props.nonprofit[0] && this.props.nonprofit[0].zip_code}
-                            </address>
-                        
+                            </address><br></br>
+                            <div className="cat">
+                        Area of service: {this.props.nonprofit[0] && this.getCategory(this.props.nonprofit[0].category_id)}
+                            </div>
                     </Grid>
                     <Grid item xs={5}>
                         <CardContent>
@@ -188,7 +202,8 @@ class OrganizationHome extends Component {
 const mapStateToProps = (state) => {
     return {
         nonprofit: state.nonprofit.nonprofit,
-        user: state.user
+        user: state.user,
+        categories: state.nonprofit.categories
     }
 }
 
