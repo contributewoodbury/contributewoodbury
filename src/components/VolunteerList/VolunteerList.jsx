@@ -48,12 +48,24 @@ class VolunteerList extends Component {
         this.props.dispatch({
             type: 'GET_EVENT_DETAILS',
             payload: this.props.match.params.id
-        })
-        this.props.dispatch({
-            type: 'GET_SPECIFIC_VOLUNTEERS',
-            payload: this.props.match.params.id
-        })
+        });
+        if (this.props.nonProfit) {
+            this.props.dispatch({
+                type: 'GET_SPECIFIC_VOLUNTEERS',
+                payload: { id: this.props.match.params.id, np_id: this.props.nonProfit.nonprofit_id }
+            });
+        }
     }//end componentDidMount
+
+    componentDidUpdate(prevProps) {
+        console.log(prevProps);
+        if (!prevProps.nonProfit && this.props.nonProfit) {
+            this.props.dispatch({
+                type: 'GET_SPECIFIC_VOLUNTEERS',
+                payload: { id: this.props.match.params.id, np_id: this.props.nonProfit.nonprofit_id }
+            });
+        }
+    }
 
     handleClick = () => {
         console.log('clicked')
@@ -87,7 +99,7 @@ class VolunteerList extends Component {
                                 {
                                     this.props.volunteer.map((vol) => {
                                         return <>
-                                            <TableRow kye={vol.id}>
+                                            <TableRow key={vol.id}>
                                                 <CustomTableCell>{vol.role_name}</CustomTableCell>
                                                 <CustomTableCell align="right">{vol.name} {moment(vol.start_time, "hh:mm").format('LT')}-{moment(vol.end_time, "hh:mm").format('LT')}</CustomTableCell>
                                                 <CustomTableCell align="right">{vol.comments}</CustomTableCell>
@@ -101,7 +113,7 @@ class VolunteerList extends Component {
                     </Paper>
                 </Grid>
                 <br></br>
-                <Grid container spacing={24} justify="center">
+                <Grid container spacing={1} justify="center">
                     <Button className={classes.button} onClick={this.handleClick}>Back</Button>
                 </Grid>
 
@@ -112,8 +124,9 @@ class VolunteerList extends Component {
 
 const mapStateToProps = state => {
     return {
-        volunteer: state.volunteer.volunteerRoleList,
+        volunteer: state.volunteer.volunteerList,
         event: state.event.eventDetails,
+        nonProfit: state.nonprofit.nonprofit[0]
     }
 }
 

@@ -175,36 +175,36 @@ class DirectoryPage extends Component {
                                 <TableBody>
                                     {this.props.reduxStore.admin.adminDirectory &&
                                         this.props.reduxStore.admin.adminDirectory.map(nonprofit => {
-                                        let lastConfirmed = moment(nonprofit.last_confirmed).format("YYYY-MM-DD");
-                                        if (nonprofit.name !== 'Admin') {
-                                            return (
-                                                <TableRow key={nonprofit.id} className={this.props.classes.rows} hover={true}>
-                                                    <TableCell align="left"><img src={nonprofit.logo} alt="Nonprofit Logo" width="300" height="200" /></TableCell>
-                                                    <TableCell align="left">{nonprofit.name}<br />
-                                                        {nonprofit.address}<br />
-                                                        {nonprofit.city}, 
+                                            let lastConfirmed = moment(nonprofit.last_confirmed).format("YYYY-MM-DD");
+                                            if (nonprofit.name !== 'Admin') {
+                                                return (
+                                                    <TableRow key={nonprofit.id} className={this.props.classes.rows} hover={true}>
+                                                        <TableCell align="left"><img src={nonprofit.logo} alt="Nonprofit Logo" width="300" height="200" /></TableCell>
+                                                        <TableCell align="left">{nonprofit.name}<br />
+                                                            {nonprofit.address}<br />
+                                                            {nonprofit.city},
                                                               {nonprofit.state}
-                                                        {nonprofit.zip_code}  </TableCell>
-                                                    <TableCell align="left">{nonprofit.category_name}</TableCell>
+                                                            {nonprofit.zip_code}  </TableCell>
+                                                        <TableCell align="left">{nonprofit.category_name}</TableCell>
 
-                                                    <TableCell align="left">
-                                                        {lastConfirmed < sixMonthsBeforeTodaysDate &&
-                                                            <div>
-                                                                {/* conditionally show this if date of lastConfirmed is <6months */}
-                                                                <AssistantPhoto fontSize="large" className={this.props.classes.flag} />
-                                                            </div>
-                                                        }
-                                                    </TableCell>
+                                                        <TableCell align="left">
+                                                            {lastConfirmed < sixMonthsBeforeTodaysDate &&
+                                                                <div>
+                                                                    {/* conditionally show this if date of lastConfirmed is <6months */}
+                                                                    <AssistantPhoto fontSize="large" className={this.props.classes.flag} />
+                                                                </div>
+                                                            }
+                                                        </TableCell>
 
-                                                    <TableCell align="center">
-                                                        <Button className={this.props.classes.backButton} variant="contained"
-                                                        onClick={() => { this.handleDelete(nonprofit.id, nonprofit.name) }}> Delete
+                                                        <TableCell align="center">
+                                                            <Button className={this.props.classes.backButton} variant="contained"
+                                                                onClick={() => { this.handleDelete(nonprofit.id, nonprofit.name) }}> Delete
                                                         </Button>
-                                                    </TableCell>
-                                                </TableRow>
-                                            )
-                                        } else { return false; }
-                                    })}
+                                                        </TableCell>
+                                                    </TableRow>
+                                                )
+                                            } else { return false; }
+                                        })}
                                 </TableBody>
 
                                 :
@@ -214,8 +214,9 @@ class DirectoryPage extends Component {
                                     {this.props.reduxStore.directory.map((nonprofit) => {
                                         if (nonprofit.name !== 'Admin') {
                                             return (
-                                                <TableRow key={nonprofit.id} className={this.props.classes.rows} hover={true}>
-                                                    <TableCell align="left"><img src={nonprofit.logo} alt="Nonprofit Logo" width="300" height="200"/></TableCell>
+                                                <TableRow key={nonprofit.id} className={this.props.classes.rows} hover={true}
+                                                    onClick={() => this.handleVolunteerButton(nonprofit.id)}>
+                                                    <TableCell align="left"><img src={nonprofit.logo} alt="Nonprofit Logo" width="300" height="200" /></TableCell>
                                                     <TableCell align="left">{nonprofit.name}<br />
                                                         {nonprofit.address}<br />
                                                         {nonprofit.city},&nbsp;{nonprofit.state}&nbsp;
