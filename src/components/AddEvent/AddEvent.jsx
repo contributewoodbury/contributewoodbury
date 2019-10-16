@@ -102,11 +102,7 @@ class AddEvent extends Component {
             // confirmButtonColor: '#457736'
         }).then((result) => {
             if (result.value) {
-                // Swal.fire(
-                //     'Deleted!',
-                //     'Your file has been deleted.',
-                //     'success'
-                // )
+          
                 this.props.history.push(`/organizationHome/${id}`)
             }
         })

@@ -57,7 +57,29 @@ class EditEvent extends Component {
             type: 'GET_EVENT_DETAILS',
             payload: Number(this.props.match.params.id)
         })
+        // this.handlePrefill()
     }//end componentDidMount
+
+    // handlePrefill = () => {
+    //     for(let ev of this.props.event) {
+    //         this.setState({
+    //             name: ev.name,
+    //             // description: this.props.event.description,
+    //             // address: this.props.event.address,
+    //             // city: this.props.event.city,
+    //             // zip_code: this.props.event.zip_code,
+    //             // event_url: this.props.event.event_url,
+    //             // start_date: this.props.event.start_date,
+    //             // end_date: this.props.event.end_date,
+    //             // states: this.props.event.state,
+    //             // start_time: this.props.event.start_time,
+    //             // end_time: this.props.event.end_time,
+    //             // non_profit_id: this.props.event.non_profit_id,
+    //             // id: Number(this.props.match.params.id)
+    //         })
+    //     }
+        
+    // }
 
     handleChange = (propertyName, event) => {
         this.setState ({
@@ -114,15 +136,14 @@ class EditEvent extends Component {
     render() {
         return (
             <div className={this.props.classes.rootDiv}>
-            <Grid container spacing={3} justify="center">
-                <h1>Edit Your Event</h1>
+            <Grid container spacing={3}>
+                <Grid item xs={12}>
+                        <h1>Edit Your Event</h1>
+                        <p>Make changes to your event here. Click submit to save the changes.</p>
                 </Grid>
-                <Grid container justify="center">
-                    <h3>Edit your upcoming event</h3>
-                </Grid>
-                <Grid container spacing={3} justify="center">
-                    <p>Please edit the fields that you would like to edit!</p>
-                </Grid>
+                
+            </Grid>
+                {JSON.stringify(this.state)}
                 <Grid container spacing={3} justify="center">
                     <Grid item xs={12}>
                         <CardContent>
@@ -130,16 +151,17 @@ class EditEvent extends Component {
                             <FormControl variant="outlined">
                             {
                                 this.props.event.map((ev) => {
-                                    return <>
+                                    return  <>
                                     <Grid container spacing={3} justify="center">
                                         <Grid item xs={6}>
                                         <CardContent>
-                                                    <label className={this.props.classes.textFields} key={ev.id}>Change the event name</label>
+                                                    <label className={this.props.classes.textFields} key={ev.id}>Event Name:</label>
                                                     <TextField
                                                         className={this.props.classes.textFields}
                                                         type="text"
-                                                        label={ev.name}
-                                                        placeholder={ev.event_name}
+                                                        label="Event name"
+                                                        placeholder={ev.name}
+                                                        defaultValue={ev.name}
                                                         variant="outlined"
                                                         onChange={(event) => this.handleChange('name', event)}
                                                     />
@@ -151,7 +173,9 @@ class EditEvent extends Component {
                                                     <TextField
                                                         className={this.props.classes.textFields}
                                                         type="text"
-                                                        label={ev.description}
+                                                        label="Event Description"
+                                                        placeholder={ev.description}
+                                                        defaultValue={ev.description}
                                                         variant="outlined"
                                                         multiline rows="4"
                                                         onChange={(event) => this.handleChange('description', event)}
@@ -163,7 +187,9 @@ class EditEvent extends Component {
                                     <TextField
                                         className={this.props.classes.description}
                                         type="text"
-                                        label={ev.event_url}
+                                        label="Image URL"
+                                        placeholder={ev.event_url}
+                                        defaultValue={ev.event_url}
                                         variant="outlined"
                                         onChange={(event) => this.handleChange('event_url', event)}
                                     />
@@ -171,11 +197,10 @@ class EditEvent extends Component {
                                         <Grid container spacing={3}>
                                             <Grid item xs={6}>
                                                 <CardContent>
-                                                    <label className={this.props.classes.textFields}>The current start date inputed is: {moment(ev.start_date).format("MM/DD/YYYY")}</label>
+                                                    <label className={this.props.classes.textFields}>The current start date is: {moment(ev.start_date).format("MM/DD/YYYY")}</label>
                                                     <TextField
                                                         className={this.props.classes.dateFields}
                                                         type="date"
-                                                        placeholder={ev.start_date}
                                                         variant="outlined"
                                                         onChange={(event) => this.handleChange(('start_date'), event)}
                                                     />
@@ -183,7 +208,7 @@ class EditEvent extends Component {
                                             </Grid>
                                             <Grid item xs={6}>
                                                 <CardContent>
-                                                    <label className={this.props.classes.textFields}>The current end date inputed is: {moment(ev.end_date).format("MM/DD/YYYY")}</label>
+                                                    <label className={this.props.classes.textFields}>The current end date is: {moment(ev.end_date).format("MM/DD/YYYY")}</label>
                                                     <TextField
                                                         className={this.props.classes.dateFields}
                                                         type="date"
@@ -197,11 +222,13 @@ class EditEvent extends Component {
                                         <Grid container spacing={3} justify="center">
                                             <Grid item xs={6}>
                                                 <CardContent>
-                                                <label className={this.props.classes.textFields}>The current start time inputed is: {ev.start_time}</label><br></br>
+                                                <label className={this.props.classes.textFields}>Start time:</label><br></br>
                                                 <TextField
                                                     className={this.props.classes.times}
                                                     type="time"
                                                     placeholder="Start Time"
+                                                    label="Start Time"
+                                                    defaultValue={ev.start_time}
                                                     variant="outlined"
                                                     onChange={(event) => this.handleChange('start_time', event)}
                                                 />
@@ -209,11 +236,13 @@ class EditEvent extends Component {
                                             </Grid>
                                             <Grid item xs={6}>
                                                 <CardContent>
-                                                    <label className={this.props.classes.textFields}>The current start time inputed is: {ev.end_time}</label><br></br>
+                                                    <label className={this.props.classes.textFields}>End time:</label><br></br>
                                                     <TextField
                                                         className={this.props.classes.times}
                                                         type="time"
                                                         placeholder="End Time"
+                                                        label="End Time"
+                                                        defaultValue={ev.end_time}
                                                         variant="outlined"
                                                         onChange={(event) => this.handleChange('end_time', event)}
                                                     />
@@ -224,11 +253,13 @@ class EditEvent extends Component {
                                         <Grid container spacing={3} justify="center">
                                             <Grid item xs={6}>
                                                 <CardContent>
-                                                    <label className={this.props.classes.textFields}>Change address</label>
+                                                    <label className={this.props.classes.textFields}>Address</label>
                                                     <TextField
                                                         className={this.props.classes.textFields}
                                                         type="text"
-                                                        label={ev.address}
+                                                        placeholder="Address"
+                                                        label="Address"
+                                                        defaultValue={ev.address}
                                                         variant="outlined"
                                                         onChange={(event) => this.handleChange('address', event)}
                                                     />
@@ -236,11 +267,13 @@ class EditEvent extends Component {
                                             </Grid>
                                             <Grid item xs={6}>
                                                 <CardContent>
-                                                    <label className={this.props.classes.textFields}>Change city</label>
+                                                    <label className={this.props.classes.textFields}>City</label>
                                                     <TextField
                                                         className={this.props.classes.textFields}
                                                         type="text"
-                                                        label={ev.city}
+                                                        placeholder="City"
+                                                        label="City"
+                                                        defaultValue={ev.city}
                                                         variant="outlined"
                                                         onChange={(event) => this.handleChange('city', event)}
                                                     />
@@ -250,11 +283,13 @@ class EditEvent extends Component {
                                         <Grid container spacing={3} justify="center">
                                             <Grid item xs={6}>
                                                 <CardContent>
-                                                    <label className={this.props.classes.textFields}>Change state</label>
+                                                    <label className={this.props.classes.textFields}>State</label>
                                                     <TextField
                                                         className={this.props.classes.textFields}
                                                         type="text"
-                                                        label={ev.state}
+                                                        placeholder="State"
+                                                        label="State"
+                                                        defaultValue={ev.state}
                                                         variant="outlined"
                                                         onChange={(event) => this.handleChange('states', event)}
                                                     />
@@ -262,11 +297,13 @@ class EditEvent extends Component {
                                             </Grid>
                                             <Grid item xs={6}>
                                                 <CardContent>
-                                                    <label className={this.props.classes.textFields}>Change zip code</label>
+                                                    <label className={this.props.classes.textFields}>Zip Code</label>
                                                     <TextField
                                                         className={this.props.classes.textFields}
                                                         type="number"
-                                                        label={ev.zip_code}
+                                                        placeholder="Zip Code"
+                                                        label="Zip Code"
+                                                        defaultValue={ev.zip_code}
                                                         variant="outlined"
                                                         onChange={(event) => this.handleChange('zip_code', event)}
                                                     />
