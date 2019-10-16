@@ -67,25 +67,7 @@ class NonprofitValidation extends Component {
                 
             }
         })
-        
-
     }
-
-    // handleApproveButton = (id) => {
-    //     console.log('approve button clicked for id:', id);
-    //     this.props.dispatch({
-    //         type: 'APPROVE_NONPROFIT',
-    //         payload: id
-    //     })
-    // }
-
-    // handleDeclineButton = (id) => {
-    //     console.log('decline button clicked for id:', id);
-    //     this.props.dispatch({
-    //         type: 'DECLINE_NONPROFIT',
-    //         payload: id
-    //     })
-    // }
 
 
     handleDeclineButton = (id) => {
@@ -108,19 +90,12 @@ class NonprofitValidation extends Component {
                 })
             }
         })
-
     }
-
-
 
 
     render () {
 
-
-
         return (
-
-
             <div>
                 <h1 className={this.props.classes.heading}>Nonprofit Validation</h1>
                 
@@ -128,7 +103,7 @@ class NonprofitValidation extends Component {
                 
                 <Grid container spacing={3}>
                        
-                    {this.props.reduxStore.admin.admin.map(nonprofit => (
+                    {this.props.admin[0] ? this.props.admin.map(nonprofit => (
                      
                         <Card className={this.props.classes.card}>
                             <CardContent key={nonprofit.id}>
@@ -153,9 +128,10 @@ class NonprofitValidation extends Component {
                             </CardContent>
                             
                         </Card>
-
-                    ))}
-                    
+                    ))
+                :
+                        <h3 className="validationText">No new nonprofits at this time.</h3>
+                }
                 </Grid>
             </div>
         )
@@ -164,7 +140,7 @@ class NonprofitValidation extends Component {
 
 const mapStateToProps = reduxStore => {
     return {
-        reduxStore
+        admin: reduxStore.admin.admin,
     }
 }
 
