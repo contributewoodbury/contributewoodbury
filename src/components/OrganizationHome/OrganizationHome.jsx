@@ -129,7 +129,7 @@ class OrganizationHome extends Component {
                 <Grid container spacing={1}>
                     <p>Contact: {this.props.nonprofit[0] && this.props.nonprofit[0].contact_name}</p>
                 </Grid>
-                <Grid container spacing = {1}>
+                <Grid container spacing={1}>
                     <p>Phone: {this.props.nonprofit[0] && this.props.nonprofit[0].contact_phone}</p>
                 </Grid>
                 <Grid container spacing={1}>
@@ -159,33 +159,34 @@ class OrganizationHome extends Component {
                             <TableBody>
                                 {
                                     this.props.nonprofit.map((info) => {
-                                        let button = ''
-                                        if (info.nonprofit_name === this.props.user.name) {
-                                            let vkey = `Volunteer${info.event_id}`;
-                                            let ekey = `Edit${info.event_id}`;
-                                            button = <>
-                                                <Button className={this.props.classes.button}
-                                                    onClick={() => this.handleVolunteerListClick(info.event_id)} key={vkey}>Volunteer List
+                                        if (moment(info.start_date).format('YYYYMMDD') > moment().format('YYYYMMDD')) {
+                                            let button = '';
+                                            if (info.nonprofit_name === this.props.user.name) {
+                                                let vkey = `Volunteer${info.event_id}`;
+                                                let ekey = `Edit${info.event_id}`;
+                                                button = <>
+                                                    <Button className={this.props.classes.button}
+                                                        onClick={() => this.handleVolunteerListClick(info.event_id)} key={vkey}>Volunteer List
                                                 </Button> &nbsp;
                                                 <Button key={ekey}
-                                                    className={this.props.classes.button} onClick={() => this.handleEditClick(info.event_id)}>Edit
+                                                        className={this.props.classes.button} onClick={() => this.handleEditClick(info.event_id)}>Edit
                                                 </Button>
-                                            </>
-                                        }
-                                        if (info.event_id) {
-                                            let vkey = `Volunteer${info.id}`;
-                                            return (
-                                                <TableRow key={info.id}>
-                                                    <CustomTableCell>{info.event_name}</CustomTableCell>
-                                                    <CustomTableCell align="right">{moment(info.start_date).format("MM/DD/YYYY")}</CustomTableCell>
-                                                    <CustomTableCell align="right">{moment(info.start_time, "hh:mm").format('LT')}</CustomTableCell>
-                                                    <CustomTableCell align="right"><Button className={this.props.classes.button} key={vkey}
-                                                        onClick={() => { this.handleVolunteerClick(info.event_id) }}>Volunteer</Button> &nbsp; {button}</CustomTableCell>
-
-                                                </TableRow>
-                                            )
-                                        } else {
-                                            return <TableRow><CustomTableCell>No listed events</CustomTableCell></TableRow>
+                                                </>
+                                            }
+                                            if (info.event_id) {
+                                                let vkey = `Volunteer${info.id}`;
+                                                return (
+                                                    <TableRow key={info.id}>
+                                                        <CustomTableCell>{info.event_name}</CustomTableCell>
+                                                        <CustomTableCell align="right">{moment(info.start_date).format("MM/DD/YYYY")}</CustomTableCell>
+                                                        <CustomTableCell align="right">{moment(info.start_time, `hhmm`).format("LT")}</CustomTableCell>
+                                                        <CustomTableCell align="right"><Button className={this.props.classes.button} key={vkey}
+                                                            onClick={() => { this.handleVolunteerClick(info.event_id) }}>Volunteer</Button> &nbsp; {button}</CustomTableCell>
+                                                    </TableRow>
+                                                )
+                                            } else {
+                                                return <TableRow><CustomTableCell>No listed events</CustomTableCell></TableRow>
+                                            }
                                         }
                                     })
                                 }

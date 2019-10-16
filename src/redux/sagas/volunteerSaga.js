@@ -14,7 +14,7 @@ function* getVolunteerRoles(action) {
 //requests all the volunteers that are signed up for this specific event
 function* getSpecificVolunteers(action) {
   try{
-    let response = yield axios.get(`/api/volunteer/eventVolunteers/${action.payload.id}/${action.payload.user_id}`)
+    let response = yield axios.get(`/api/volunteer/eventVolunteers/${action.payload.id}/${action.payload.np_id}`)
     yield put({
       type: 'SET_SPECIFIC_VOLUNTEERS',
       payload: response.data
@@ -28,7 +28,7 @@ function* getSpecificVolunteers(action) {
 //adds a new volunteers for specific event
 function* addVolunteers(action) {
   try {
-    let response = yield axios.post(`/api/volunteer/addVolunteers`, action.payload)
+    yield axios.post(`/api/volunteer/addVolunteers`, action.payload);
     yield put({
       type: 'GET_EVENT_DETAILS',
       payload: action.payload.event_id

@@ -3,6 +3,8 @@ import { connect } from 'react-redux';
 import { CardContent, TextField, Button } from '@material-ui/core';
 import { withStyles } from '@material-ui/styles';
 import Swal from 'sweetalert2';
+import 'react-phone-number-input/style.css';
+import PhoneInput from 'react-phone-number-input';
 
 const styles = theme => ({
     textFields: {
@@ -53,7 +55,6 @@ class SignupForm extends Component {
 
 
     handleAddVolunteer = (id) => {
-        console.log('sign up button was clicked');
         this.props.dispatch({
             type: 'SAVE_VOLUNTEER',
             payload: this.state
@@ -110,8 +111,12 @@ class SignupForm extends Component {
                     <TextField className={this.props.classes.stateZipPhone} type="text" placeholder="zipcode" variant="outlined" label="zip code"
                         value={this.state.zip_code} onChange={(event) => this.handleChange('zip_code', event)}/>
                     {/* <br /> */}
-                    <TextField className={this.props.classes.stateZipPhone} type="text" placeholder="phone number" variant="outlined" label="phone number"
-                        value={this.state.phone_number} onChange={(event) => this.handleChange('phone_number', event)} />
+                    {/* <TextField className={this.props.classes.stateZipPhone} type="text" placeholder="phone number" variant="outlined" label="phone number"
+                        value={this.state.phone_number} onChange={(event) => this.handleChange('phone_number', event)} /> */}
+                    <PhoneInput autoComplete country='US' style={{maxWidth: '250px'}}
+                        placeholder="Enter phone number"
+                        value={this.state.phone_number}
+                        onChange={value => this.setState({ ...this.state, phone_number: value })} />
                     <br />
                     <TextField className={this.props.classes.messageInput} type="text"
                         placeholder="Have a question or comment? Let the organization know by leaving a message here!"

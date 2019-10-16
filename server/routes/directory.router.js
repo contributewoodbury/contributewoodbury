@@ -19,7 +19,7 @@ router.get('/', (req, res) => {
 } else {
     let search = '%' + req.query.q + '%';
     let queryText = `SELECT * FROM "nonprofit" WHERE "name" ILIKE $1 OR "description" ILIKE $1 ORDER BY "name";`;
-    if(req.user.name === 'Admin') {
+    if(req.user && req.user.name === 'Admin') {
       queryText = `SELECT * FROM "nonprofit" WHERE "name" ILIKE $1 OR "description" ILIKE $1 ORDER BY "last_confirmed";`;
     }
     pool.query(queryText, [search])

@@ -4,7 +4,8 @@ import { Button, Grid, InputLabel, MenuItem, Select, TextField } from '@material
 import { withStyles } from '@material-ui/styles';
 import Swal from 'sweetalert2';
 import FormControl from '@material-ui/core/FormControl';
-
+import 'react-phone-number-input/style.css';
+import PhoneInput from 'react-phone-number-input';
 
 
 const styles = theme => ({
@@ -177,14 +178,28 @@ class RegisterPage extends Component {
             <TextField required className={this.props.classes.textFields} type="text" placeholder="Point of Contact Email" label="Contact Email"
             value={this.state.contact_email} variant="outlined" onChange={(event) => { this.handleInputChange('contact_email', event) }} />
             <br />
-            <TextField required className={this.props.classes.textFields} type="text" placeholder="Point of Contact Phone" label="Contact Phone Number"
-            value={this.state.contact_phone} variant="outlined" onChange={(event) => { this.handleInputChange('contact_phone', event) }} />
+            <TextField className={this.props.classes.textFields} type="text" placeholder="Organization Logo URL" label="Logo"
+              value={this.state.logo} variant="outlined" onChange={(event) => { this.handleInputChange('logo', event) }} />
             <br />
             <TextField required className={this.props.classes.textFields} type="text" placeholder="Organization Website URL" label="Website"
             value={this.state.website} variant="outlined" onChange={(event) => { this.handleInputChange('website', event) }} />
             <br />
-            <TextField className={this.props.classes.textFields} type="text" placeholder="Organization Logo URL" label="Logo"
-            value={this.state.logo} variant="outlined" onChange={(event) => { this.handleInputChange('logo', event) }} />
+            <FormControl variant="filled">
+              <InputLabel >
+                Choose Organization Category
+                            </InputLabel>
+              <Select
+                className={this.props.classes.dropdownBox} value={this.state.category_name} 
+                onChange={(event) => { this.handleDropdownChange('category_id', 'category_name', event) }}>
+                <MenuItem value={this.state.category_name}>
+                  <em>{this.state.category_name}</em>
+                </MenuItem>
+                {this.props.categories.map(category =>
+                  <MenuItem key={category.id} value={category}>
+                    {category.name}
+                  </MenuItem>)}
+              </Select>
+            </FormControl>
             <br />
           </Grid>
 
@@ -203,22 +218,10 @@ class RegisterPage extends Component {
             <TextField required className={this.props.classes.textFields} type="text" label="Zip Code" variant="outlined"
               value={this.state.zip_code} onChange={(event) => this.handleInputChange('zip_code', event)} />
             <br />
-            <FormControl variant="filled">
-              <InputLabel >
-                Choose Organization Category
-                            </InputLabel>
-              <Select
-                className={this.props.classes.dropdownBox} value={this.state.category_name} onChange={(event) => { this.handleDropdownChange('category_id', 'category_name', event) }}
-              >
-                <MenuItem value={this.state.category_name}>
-                  <em>{this.state.category_name}</em>
-                </MenuItem>
-                {this.props.categories.map(category => 
-                  <MenuItem key={category.id} value={category}>
-                  {category.name}
-                  </MenuItem>)}
-              </Select>
-            </FormControl>
+            <PhoneInput autoComplete="true" country='US' style={{ maxWidth: '350px' }}
+              placeholder="Enter phone number"
+              value={this.state.contact_phone}
+              onChange={value => this.setState({ ...this.state, contact_phone: value })} />
           </Grid>
         </Grid>
         <Grid container spacing={3}>
