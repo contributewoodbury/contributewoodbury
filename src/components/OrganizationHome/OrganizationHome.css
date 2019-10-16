@@ -9,3 +9,9 @@
     text-shadow: 0 2px white, 0 3px #777;
     text-align: center;
 }
+
+.address {
+    color: #343434;
+    text-align: center;
+    font-family: 'Ultra', sans-serif;
+}

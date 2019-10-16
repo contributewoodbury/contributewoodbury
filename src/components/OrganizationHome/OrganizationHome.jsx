@@ -95,6 +95,12 @@ class OrganizationHome extends Component {
                     <Grid item xs={6}>
                         
                             <h1 className="name">{this.props.nonprofit[0] && this.props.nonprofit[0].nonprofit_name}</h1>
+                            <address className="address">
+                            {this.props.nonprofit[0] && this.props.nonprofit[0].address}<br></br>
+                            {this.props.nonprofit[0] && this.props.nonprofit[0].city}&nbsp;
+                            {this.props.nonprofit[0] && this.props.nonprofit[0].state}&nbsp;
+                            {this.props.nonprofit[0] && this.props.nonprofit[0].zip_code}
+                            </address>
                         
                     </Grid>
                     <Grid item xs={5}>
@@ -111,11 +117,6 @@ class OrganizationHome extends Component {
                 </Grid>
                 <Grid container spacing={1}>
                     <p>Email: {this.props.nonprofit[0] && this.props.nonprofit[0].contact_email}</p>
-                </Grid>
-                <Grid container spacing={1}>
-                    Organization Address: &nbsp; <address>{this.props.nonprofit[0] && this.props.nonprofit[0].address} <br></br>
-                        {this.props.nonprofit[0] && this.props.nonprofit[0].city}&nbsp;{ this.props.nonprofit[0] && this.props.nonprofit[0].state}&nbsp;{this.props.nonprofit[0] && this.props.nonprofit[0].zip_code}
-                    </address>
                 </Grid>
                 <Grid container spacing={1}>
                     <Link variant="body1" href={this.props.nonprofit[0] && this.props.nonprofit[0].website} target="_blank" rel="noopener noreferrer">Link To Website</Link>
