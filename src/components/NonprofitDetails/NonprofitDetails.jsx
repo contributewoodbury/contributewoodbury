@@ -31,16 +31,17 @@ class NonprofitDetails extends Component {
         return (
             <>
 
-                    <div className={this.props.classes.nonprofitInfo} >
-                        <img className={this.props.classes.logo} src={this.props.user.logo} alt="" />
-                    </div>
-                    <div className={this.props.classes.nonprofitInfo} >
+                        <div className={this.props.classes.nonprofitInfo} >
+                            <img className={this.props.classes.logo} src={this.props.nonprofit[0].logo} alt="nonprofit logo" />
+                        </div><br/>
                         <p>
-                            {this.props.user.name}<br />
-                            {this.props.user.address}<br />
-                            {this.props.user.city}, {this.props.user.state} {this.props.user.zip_code}
+                        {this.props.nonprofit[0] && this.props.nonprofit[0].nonprofit_name}<br/>
+                        {this.props.nonprofit[0] && this.props.nonprofit[0].address}<br />
+                        {this.props.nonprofit[0] && this.props.nonprofit[0].city}, 
+                        {this.props.nonprofit[0] && this.props.nonprofit[0].state} 
+                        {this.props.nonprofit[0] && this.props.nonprofit[0].zip_code}<br />
                         </p>
-                    </div>
+                        
 
             </>
         )

@@ -102,18 +102,11 @@ class AddEvent extends Component {
             // confirmButtonColor: '#457736'
         }).then((result) => {
             if (result.value) {
-                // Swal.fire(
-                //     'Deleted!',
-                //     'Your file has been deleted.',
-                //     'success'
-                // )
+          
                 this.props.history.push(`/organizationHome/${id}`)
             }
         })
         console.log('back button was clicked');
-        //link to the nonprofit home page
-        //add sweetalert warning: no event has been saved
-        // this.props.history.push('/nonprofithome')
     }
 
     handleSubmitButton = () => {
@@ -289,7 +282,7 @@ class AddEvent extends Component {
                     <Grid item xs={12}>
                         <CardContent>
                             <Button className={this.props.classes.backButton} variant="contained"
-                                onClick={this.handleBackButton} >Back</Button>
+                                onClick={()=>this.handleBackButton(this.props.match.params.id)} >Back</Button>
                             <Button className={this.props.classes.submitButton} variant="contained"
                                 onClick={this.handleSubmitButton} >Submit</Button>
                         </CardContent>

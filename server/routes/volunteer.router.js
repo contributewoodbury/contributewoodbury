@@ -32,8 +32,8 @@ router.get('/specificrole/:id', (req, res) => {
 });
 
 //gets all the volunteers for a specific event
-router.get('/eventVolunteers/:id/:uid', rejectUnauthenticated, (req,res) => {
-  if (req.user.id === +(req.params.uid)) {
+router.get('/eventVolunteers/:id/:npid', rejectUnauthenticated, (req,res) => {
+  if (req.user.id === +(req.params.npid)) {
   let queryText = `SELECT "volunteer_role".name, "volunteer_role".city, "volunteer_role".zip_code, 
       "volunteer_role".address, "volunteer_role".start_time, "role".name AS "role_name", "volunteer_role".comments, "volunteer_role".end_time, "volunteer_role".email, "volunteer_role".phone_number FROM "volunteer_role"
       JOIN "role" ON "role".id = "volunteer_role".role_id
@@ -81,10 +81,10 @@ router.post('/addVolunteers', rejectUnauthenticated, (req, res) => {
 router.post('/signup', (req, res) => {
   console.log('signing up req.body:', req.body);
   
-  let queryText = `INSERT INTO "volunteer_role" ("name", "role_id", "start_time", "end_time", "comments", "email", "phone_number", "address", "city", "zip_code")
+  let queryText = `INSERT INTO "volunteer_role" ("name", "role_id", "start_time", "end_time", "comments", "email", "phone_number", "address", "city", "state", "zip_code")
    VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10);`;
   let newVolunteer = req.body;
-  pool.query(queryText, [newVolunteer.name, newVolunteer.role_id, newVolunteer.start_time, newVolunteer.end_time, newVolunteer.comments, newVolunteer.email, newVolunteer.phone_number, newVolunteer.address, newVolunteer.city, newVolunteer.zip_code])
+  pool.query(queryText, [newVolunteer.name, newVolunteer.role_id, newVolunteer.start_time, newVolunteer.end_time, newVolunteer.comments, newVolunteer.email, newVolunteer.phone_number, newVolunteer.address, newVolunteer.city, newVolunteer.state, newVolunteer.zip_code])
   .then(() => {
     res.sendStatus(200);
   })

@@ -4,7 +4,14 @@ const volunteerRoleList = (state = [], action) => {
   switch (action.type) {
     case 'SET_VOLUNTEER_ROLES':
       return action.payload;
-    case 'SET_SPECIFIC_VOLUNTEERS' :
+    default:
+      return state;
+  }
+}
+
+const volunteerList = (state = [], action) => {
+  switch (action.type) {
+    case 'SET_SPECIFIC_VOLUNTEERS':
       return action.payload;
     default:
       return state;
@@ -20,15 +27,6 @@ const specificRole = (state = {}, action) => {
   }
 }
 
-// const savedVolunteers = (state = [], action) => {
-//   switch(action.type) {
-//     case 'SHOW_SAVED_VOLUNTEERS' :
-//       return [...state, action.payload]
-//     default :
-//     return state
-//   }
-// }
-
 const previousSignUps = (state = [], action) => {
   switch (action.type) {
     case 'ADD_SIGNUP':
@@ -42,6 +40,7 @@ const previousSignUps = (state = [], action) => {
 
 export default combineReducers({
   volunteerRoleList,
+  volunteerList,
   previousSignUps,
   specificRole,
   // savedVolunteers

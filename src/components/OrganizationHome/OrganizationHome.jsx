@@ -47,6 +47,9 @@ class OrganizationHome extends Component {
             type: 'GET_NONPROFIT',
             payload: this.props.match.params.id
         })
+        this.props.dispatch({
+            type: 'GET_CATEGORIES',
+        })
     }//end componentDidMount
 
     handleVolunteerClick = (id) => {
@@ -87,6 +90,15 @@ class OrganizationHome extends Component {
         }
     }//end handleAddEvent
 
+    getCategory = (id) => { 
+        for (let cat of this.props.categories) {
+            if(cat.id === id) {
+                return cat.name
+            } 
+        }
+        console.log(id)
+    }//end getCategory
+
     render() {
         let nonprofitInfo = this.props.nonprofit[0] || 'a';
         return (
@@ -95,7 +107,18 @@ class OrganizationHome extends Component {
                     <Grid item xs={6}>
                         
                             <h1 className="name">{this.props.nonprofit[0] && this.props.nonprofit[0].nonprofit_name}</h1>
-                        
+                            <address className="address">
+                            {this.props.nonprofit[0] && this.props.nonprofit[0].address}<br></br>
+                            {this.props.nonprofit[0] && this.props.nonprofit[0].city}&nbsp;
+                            {this.props.nonprofit[0] && this.props.nonprofit[0].state}&nbsp;
+                            {this.props.nonprofit[0] && this.props.nonprofit[0].zip_code}
+                            </address><br></br>
+                            {
+                            nonprofitInfo.category_id && <div className="cat">
+                                Area of service: {this.props.nonprofit[0] && this.getCategory(this.props.nonprofit[0].category_id)}
+                            </div>
+                            } 
+                            
                     </Grid>
                     <Grid item xs={5}>
                         <CardContent>
@@ -106,16 +129,11 @@ class OrganizationHome extends Component {
                 <Grid container spacing={1}>
                     <p>Contact: {this.props.nonprofit[0] && this.props.nonprofit[0].contact_name}</p>
                 </Grid>
-                <Grid container spacing = {1}>
+                <Grid container spacing={1}>
                     <p>Phone: {this.props.nonprofit[0] && this.props.nonprofit[0].contact_phone}</p>
                 </Grid>
                 <Grid container spacing={1}>
                     <p>Email: {this.props.nonprofit[0] && this.props.nonprofit[0].contact_email}</p>
-                </Grid>
-                <Grid container spacing={1}>
-                    Organization Address: &nbsp; <address>{this.props.nonprofit[0] && this.props.nonprofit[0].address} <br></br>
-                        {this.props.nonprofit[0] && this.props.nonprofit[0].city}&nbsp;{ this.props.nonprofit[0] && this.props.nonprofit[0].state}&nbsp;{this.props.nonprofit[0] && this.props.nonprofit[0].zip_code}
-                    </address>
                 </Grid>
                 <Grid container spacing={1}>
                     <Link variant="body1" href={this.props.nonprofit[0] && this.props.nonprofit[0].website} target="_blank" rel="noopener noreferrer">Link To Website</Link>
@@ -141,33 +159,34 @@ class OrganizationHome extends Component {
                             <TableBody>
                                 {
                                     this.props.nonprofit.map((info) => {
-                                        let button = ''
-                                        if (info.nonprofit_name === this.props.user.name) {
-                                            let vkey = `Volunteer${info.event_id}`;
-                                            let ekey = `Edit${info.event_id}`;
-                                            button = <>
-                                                <Button className={this.props.classes.button}
-                                                    onClick={() => this.handleVolunteerListClick(info.event_id)} key={vkey}>Volunteer List
+                                        if (moment(info.start_date).format('YYYYMMDD') > moment().format('YYYYMMDD')) {
+                                            let button = '';
+                                            if (info.nonprofit_name === this.props.user.name) {
+                                                let vkey = `Volunteer${info.event_id}`;
+                                                let ekey = `Edit${info.event_id}`;
+                                                button = <>
+                                                    <Button className={this.props.classes.button}
+                                                        onClick={() => this.handleVolunteerListClick(info.event_id)} key={vkey}>Volunteer List
                                                 </Button> &nbsp;
                                                 <Button key={ekey}
-                                                    className={this.props.classes.button} onClick={() => this.handleEditClick(info.event_id)}>Edit
+                                                        className={this.props.classes.button} onClick={() => this.handleEditClick(info.event_id)}>Edit
                                                 </Button>
-                                            </>
-                                        }
-                                        if (info.event_id) {
-                                            let vkey = `Volunteer${info.id}`;
-                                            return (
-                                                <TableRow key={info.id}>
-                                                    <CustomTableCell>{info.event_name}</CustomTableCell>
-                                                    <CustomTableCell align="right">{moment(info.start_date).format("MM/DD/YYYY")}</CustomTableCell>
-                                                    <CustomTableCell align="right">{moment(info.start_time, "hh:mm").format('LT')}</CustomTableCell>
-                                                    <CustomTableCell align="right"><Button className={this.props.classes.button} key={vkey}
-                                                        onClick={() => { this.handleVolunteerClick(info.event_id) }}>Volunteer</Button> &nbsp; {button}</CustomTableCell>
-
-                                                </TableRow>
-                                            )
-                                        } else {
-                                            return <TableRow><CustomTableCell>No listed events</CustomTableCell></TableRow>
+                                                </>
+                                            }
+                                            if (info.event_id) {
+                                                let vkey = `Volunteer${info.id}`;
+                                                return (
+                                                    <TableRow key={info.id}>
+                                                        <CustomTableCell>{info.event_name}</CustomTableCell>
+                                                        <CustomTableCell align="right">{moment(info.start_date).format("MM/DD/YYYY")}</CustomTableCell>
+                                                        <CustomTableCell align="right">{moment(info.start_time, `hhmm`).format("LT")}</CustomTableCell>
+                                                        <CustomTableCell align="right"><Button className={this.props.classes.button} key={vkey}
+                                                            onClick={() => { this.handleVolunteerClick(info.event_id) }}>Volunteer</Button> &nbsp; {button}</CustomTableCell>
+                                                    </TableRow>
+                                                )
+                                            } else {
+                                                return <TableRow><CustomTableCell>No listed events</CustomTableCell></TableRow>
+                                            }
                                         }
                                     })
                                 }
@@ -187,7 +206,8 @@ class OrganizationHome extends Component {
 const mapStateToProps = (state) => {
     return {
         nonprofit: state.nonprofit.nonprofit,
-        user: state.user
+        user: state.user,
+        categories: state.nonprofit.categories
     }
 }
 
