@@ -48,10 +48,12 @@ class VolunteerList extends Component {
             type: 'GET_EVENT_DETAILS',
             payload: this.props.match.params.id
         });
-        // this.props.dispatch({
-        //     type: 'GET_SPECIFIC_VOLUNTEERS',
-        //     payload: { id: this.props.match.params.id, np_id: this.props.nonProfit.nonprofit_id }
-        // });
+        if (this.props.nonProfit) {
+            this.props.dispatch({
+                type: 'GET_SPECIFIC_VOLUNTEERS',
+                payload: { id: this.props.match.params.id, np_id: this.props.nonProfit.nonprofit_id }
+            });
+        }
     }//end componentDidMount
 
     componentDidUpdate(prevProps) {
