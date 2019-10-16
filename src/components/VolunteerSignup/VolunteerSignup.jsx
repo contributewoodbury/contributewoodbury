@@ -42,29 +42,16 @@ class VolunteerSignup extends Component {
         })
     }
 
-    //REVISIT THE WIREFRAME AND DATABASE TO MAKE SURE PROPERTIES MATCH
-  
-
-
 
 
     handleBackButton = (id) => {
         console.log('back button was clicked');
-        //ADD SWEETALERT
-        Swal.fire({
-            title: 'Are you sure?',
-            text: "Your information has not been saved!",
-            type: 'question',
-            showCancelButton: true,
-            confirmButtonColor: '#3085d6',
-            cancelButtonColor: '#d33',
-            confirmButtonText: 'OK',
-            // confirmButtonColor: '#457736'
-        }).then((result) => {
-            if (result.value) {
-                this.props.history.push(`/organizationHome/${id}`)
-            }
+        this.props.dispatch({
+            type: 'CLEAR_SIGNUP_LIST'
         })
+        this.props.history.push(`/organizationHome/${id}`)
+
+        
     }
 
     handleDoneButton = () => {
@@ -74,13 +61,11 @@ class VolunteerSignup extends Component {
             type: 'VOLUNTEER_SIGNUP',
             payload: this.props.signup
         })
+        this.props.dispatch({
+            type: 'CLEAR_SIGNUP_LIST'
+        })
         this.props.history.push(`/organizationHome/${this.props.user.id}`)
-    }
-
-    // handleRemoveVolunteer = () => {
-    //     console.log('remove volunteer button clicked');
-        
-    // }
+        }
 
 
     render () {

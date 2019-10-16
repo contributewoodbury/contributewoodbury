@@ -20,15 +20,6 @@ const specificRole = (state = {}, action) => {
   }
 }
 
-// const savedVolunteers = (state = [], action) => {
-//   switch(action.type) {
-//     case 'SHOW_SAVED_VOLUNTEERS' :
-//       return [...state, action.payload]
-//     default :
-//     return state
-//   }
-// }
-
 const previousSignUps = (state = [], action) => {
   switch (action.type) {
     case 'ADD_SIGNUP':
