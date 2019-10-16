@@ -48,6 +48,10 @@ class VolunteerList extends Component {
             type: 'GET_EVENT_DETAILS',
             payload: this.props.match.params.id
         });
+        // this.props.dispatch({
+        //     type: 'GET_SPECIFIC_VOLUNTEERS',
+        //     payload: { id: this.props.match.params.id, np_id: this.props.nonProfit.nonprofit_id }
+        // });
     }//end componentDidMount
 
     componentDidUpdate(prevProps) {
@@ -106,7 +110,7 @@ class VolunteerList extends Component {
                     </Paper>
                 </Grid>
                 <br></br>
-                <Grid container spacing={24} justify="center">
+                <Grid container spacing={1} justify="center">
                     <Button className={classes.button} onClick={this.handleClick}>Back</Button>
                 </Grid>
 
@@ -117,7 +121,7 @@ class VolunteerList extends Component {
 
 const mapStateToProps = state => {
     return {
-        volunteer: state.volunteer.volunteerRoleList,
+        volunteer: state.volunteer.volunteerList,
         event: state.event.eventDetails,
         nonProfit: state.nonprofit.nonprofit[0]
     }

@@ -87,7 +87,7 @@ class NonprofitValidation extends Component {
                 this.props.dispatch({
                     type: 'DECLINE_NONPROFIT',
                     payload: id
-                })
+                });
             }
         })
     }

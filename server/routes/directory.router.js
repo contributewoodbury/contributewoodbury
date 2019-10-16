@@ -4,7 +4,6 @@ const router = express.Router();
 
 // Gathers all nonprofits from the database who have been approved
 router.get('/', (req, res) => {
-  console.log(req.query.q);
   if (!req.query.q){
     let queryText = `SELECT "categories".name AS "category_name", "nonprofit".name, "nonprofit".address, "nonprofit".city, "nonprofit".id, "nonprofit".logo,
        "nonprofit".last_confirmed, "nonprofit".zip_code, "nonprofit".state, "nonprofit".website FROM "categories" FULL OUTER JOIN "nonprofit" ON "nonprofit".category_id = "categories".id
