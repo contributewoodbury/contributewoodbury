@@ -43,14 +43,9 @@ class VolunteerSignup extends Component {
     }
 
     //REVISIT THE WIREFRAME AND DATABASE TO MAKE SURE PROPERTIES MATCH
-  
 
 
-
-
-    handleBackButton = (id) => {
-        console.log('back button was clicked');
-        //ADD SWEETALERT
+    handleBackButton = () => {
         Swal.fire({
             title: 'Are you sure?',
             text: "Your information has not been saved!",
@@ -59,18 +54,17 @@ class VolunteerSignup extends Component {
             confirmButtonColor: '#3085d6',
             cancelButtonColor: '#d33',
             confirmButtonText: 'OK',
-            // confirmButtonColor: '#457736'
         }).then((result) => {
             if (result.value) {
-                this.props.history.push(`/organizationHome/${id}`)
+                this.props.history.goBack();
             }
         })
     }
 
     handleDoneButton = () => {
-        console.log('done button was clicked');
+        let id = this.props.role.event_id;
         //ADD SWEETALERT: YOURE DONE! OR SOMETHING SIMILAR
-        this.props.history.push(`/organizationHome/${this.props.user.id}`)
+        this.props.history.push(`/eventDetails/${id}`);
     }
 
     // handleRemoveVolunteer = () => {
@@ -166,7 +160,7 @@ const mapStateToProps = reduxStore => {
         event: reduxStore.event.eventDetails,
         user: reduxStore.user,
         role: reduxStore.volunteer.specificRole,
-        nonprofit: reduxStore.nonprofit,
+        nonprofit: reduxStore.nonprofit.nonprofit,
         saved: reduxStore.volunteer.previousSignUps
     }
 }
