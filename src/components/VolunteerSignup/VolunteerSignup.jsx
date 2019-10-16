@@ -133,11 +133,11 @@ class VolunteerSignup extends Component {
 
                     <Grid item xs={12}>
                         <CardContent>
-                            {this.props.saved.length > 0 ?
+                            {this.props.signedup.length > 0 ?
                                 <>
                                     <h3>Thank you for volunteering! Your information has been sent to the organization.</h3>
                                     {/* {JSON.stringify(this.props.saved)} */}
-                                    {this.props.saved.map((volunteer) => {
+                                    {this.props.signedup.map((volunteer) => {
                                         // let moment = moment().format('hh:mm')
 
                                         return (
@@ -171,14 +171,9 @@ const mapStateToProps = reduxStore => {
         event: reduxStore.event.eventDetails,
         user: reduxStore.user,
         role: reduxStore.volunteer.specificRole,
-<<<<<<< HEAD
-        nonprofit: reduxStore.nonprofit,
         saved: reduxStore.volunteer.previousSignUps,
         signedup: reduxStore.volunteer.signedUpVolunteers,
-=======
         nonprofit: reduxStore.nonprofit.nonprofit,
-        saved: reduxStore.volunteer.previousSignUps
->>>>>>> 5c5dd29cd07b2590ab210d33df1ee968d7a94021
     }
 }
 
