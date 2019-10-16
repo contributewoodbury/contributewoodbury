@@ -62,16 +62,35 @@ class RegisterPage extends Component {
 
   registerUser = (event) => {
     event.preventDefault();
-    console.log(this.state);
-    if (this.state.username && this.state.password && this.state.address && this.state.city && this.state.zip_code && this.state.state && this.state.contact_email 
-      && this.state.contact_phone && this.state.website) {
-      this.props.dispatch({
-        type: 'REGISTER',
-        payload: this.state
-      });
-    } else {
-      this.props.dispatch({ type: 'REGISTRATION_INPUT_ERROR' });
-    }
+    let attempt = 'https://'
+    if(this.state.website.startsWith('http') === false){
+      this.setState({
+        ...this.state, 
+        website: attempt.concat("", this.state.website)
+      })
+    } 
+    setTimeout(() => {
+      console.log(this.state);
+      if (this.state.username && this.state.password && this.state.address && this.state.city && this.state.zip_code && this.state.state && this.state.contact_email
+        && this.state.contact_phone && this.state.website) {
+        this.props.dispatch({
+          type: 'REGISTER',
+          payload: this.state
+        });
+      } else {
+        this.props.dispatch({ type: 'REGISTRATION_INPUT_ERROR' });
+      }
+    }, 200)
+    // console.log(this.state);
+    // if (this.state.username && this.state.password && this.state.address && this.state.city && this.state.zip_code && this.state.state && this.state.contact_email 
+    //   && this.state.contact_phone && this.state.website) {
+    //   this.props.dispatch({
+    //     type: 'REGISTER',
+    //     payload: this.state
+    //   });
+    // } else {
+    //   this.props.dispatch({ type: 'REGISTRATION_INPUT_ERROR' });
+    // }
   } // end registerUser
 
   handleInputChange = (propertyName, event) => {
