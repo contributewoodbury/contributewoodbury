@@ -35,6 +35,8 @@ const signedUpVolunteers = (state = [], action) => {
   switch(action.type) {
     case 'SAVE_VOLUNTEER' :
       return [...state, action.payload];
+    case 'CLEAR_VOLUNTEER' :
+      return []
     default:
       return state;
   }

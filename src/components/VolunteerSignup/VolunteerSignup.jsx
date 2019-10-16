@@ -59,8 +59,9 @@ class VolunteerSignup extends Component {
         //ADD SWEETALERT: YOURE DONE! OR SOMETHING SIMILAR
         this.props.dispatch({
             type: 'VOLUNTEER_SIGNUP',
-            payload: this.props.signup
+            payload: this.props.signedup
         })
+        
         this.props.dispatch({
             type: 'CLEAR_SIGNUP_LIST'
         })
@@ -157,7 +158,7 @@ const mapStateToProps = reduxStore => {
         role: reduxStore.volunteer.specificRole,
         nonprofit: reduxStore.nonprofit,
         saved: reduxStore.volunteer.previousSignUps,
-        signedup: reduxStore.volunteersignedUpVolunteers,
+        signedup: reduxStore.volunteer.signedUpVolunteers,
     }
 }
 
