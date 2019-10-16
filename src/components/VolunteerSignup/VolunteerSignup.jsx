@@ -30,7 +30,7 @@ const styles = theme => ({
     cardContent: {
         margin: '25px'
     }
-    
+
 })
 
 
@@ -57,6 +57,9 @@ class VolunteerSignup extends Component {
             confirmButtonText: 'OK',
         }).then((result) => {
             if (result.value) {
+                this.props.dispatch({
+                    type: 'CLEAR_SIGNUP_LIST'
+                });
                 this.props.history.goBack();
             }
         })
@@ -65,16 +68,14 @@ class VolunteerSignup extends Component {
     handleDoneButton = () => {
         let id = this.props.role.event_id;
         //ADD SWEETALERT: YOURE DONE! OR SOMETHING SIMILAR
+        this.props.dispatch({
+            type: 'CLEAR_SIGNUP_LIST'
+        });
         this.props.history.push(`/eventDetails/${id}`);
     }
 
-    // handleRemoveVolunteer = () => {
-    //     console.log('remove volunteer button clicked');
-        
-    // }
 
-
-    render () {
+    render() {
 
         return (
 
@@ -82,39 +83,39 @@ class VolunteerSignup extends Component {
                 <h1 className={this.props.classes.heading} >Volunteers Sign Up</h1>
                 <Grid container spacing={0}>
                     <Grid item xs={12}>
-                            <CardContent>
-                                <NonprofitDetails />
-                            </CardContent>
+                        <CardContent>
+                            <NonprofitDetails />
+                        </CardContent>
                     </Grid>
 
                     <Grid item xs={12}>
-                            <CardContent>
-                                {/* <h3>signup information goes here</h3> */}
-                                {this.props.event.map((item) => {
-                                    let startDate = moment(item.start_date).format('MM[/]DD[/]YYYY')
-                                    let endDate = moment(item.end_date).format('MM[/]DD[/]YYYY')
-                                    return(
-                                        <>
-                                            <span><b>Event:</b> {item.name}</span><br />
-                                            <span><b>Description:</b> {item.description}</span><br />
-                                            <span><b>Date:</b> { startDate } - { endDate }</span><br />
-                                            <span><b>Location:</b> {item.address} </span>
-                                            <span>{item.city}, {item.state} {item.zip_code}</span><br />
-                                        </>
-                                    )
-                                })}
+                        <CardContent>
+                            {/* <h3>signup information goes here</h3> */}
+                            {this.props.event.map((item) => {
+                                let startDate = moment(item.start_date).format('MM[/]DD[/]YYYY')
+                                let endDate = moment(item.end_date).format('MM[/]DD[/]YYYY')
+                                return (
+                                    <>
+                                        <span><b>Event:</b> {item.name}</span><br />
+                                        <span><b>Description:</b> {item.description}</span><br />
+                                        <span><b>Date:</b> {startDate} - {endDate}</span><br />
+                                        <span><b>Location:</b> {item.address} </span>
+                                        <span>{item.city}, {item.state} {item.zip_code}</span><br />
+                                    </>
+                                )
+                            })}
                         </CardContent>
                         <CardContent>
                             <div>
-                                
+
                                 <span><b>Role:</b> {this.props.role.name} ({this.props.role.number_needed} volunteers needed)</span><br />
                                 <span><b>Description:</b> {this.props.role.description} </span><br />
-                                <span><b>Date:</b> {moment( this.props.role.date ).format('MM[/]DD[/]YYYY')} </span><br />
+                                <span><b>Date:</b> {moment(this.props.role.date).format('MM[/]DD[/]YYYY')} </span><br />
                                 <span><b>Time:</b> {moment(this.props.role.start_time, 'hh:mm').format('LT')} - {moment(this.props.role.end_time, 'hh:mm').format('LT')} </span><br />
-                                
+
                             </div>
 
-                            </CardContent>
+                        </CardContent>
                     </Grid>
 
                     <Grid item xs={12}>
@@ -122,33 +123,33 @@ class VolunteerSignup extends Component {
                     </Grid>
 
                     <Grid item xs={12}>
-                            <CardContent>
-                                {this.props.saved.length > 0  ? 
+                        <CardContent>
+                            {this.props.saved.length > 0 ?
                                 <>
-                                <h3>Thank you for volunteering! Your information has been sent to the organization.</h3>
-                                {/* {JSON.stringify(this.props.saved)} */}
-                                {this.props.saved.map((volunteer) => {
-                                    // let moment = moment().format('hh:mm')
+                                    <h3>Thank you for volunteering! Your information has been sent to the organization.</h3>
+                                    {/* {JSON.stringify(this.props.saved)} */}
+                                    {this.props.saved.map((volunteer) => {
+                                        // let moment = moment().format('hh:mm')
 
-                                    return (
-                                        <CardContent className={this.props.classes.cardContent} >
-                                            <span><b>Name:</b> {volunteer.name} </span><br />
-                                            <span><b>Phone:</b> {formatPhoneNumber(volunteer.phone_number)} </span><br />
-                                            <span><b>Date/time:</b> {moment(volunteer.date).format('MM[/]DD[/]YYYY')} from {moment(volunteer.start_time, 'hh:mm').format('LT')} </span> -  <span>{moment(volunteer.end_time, 'hh:mm').format('LT')}</span><br />
-                                            
-                                        </CardContent>
-                                    )
-                                })}</> : <span></span> }
-                            </CardContent>
+                                        return (
+                                            <CardContent className={this.props.classes.cardContent} >
+                                                <span><b>Name:</b> {volunteer.name} </span><br />
+                                                <span><b>Phone:</b> {formatPhoneNumber(volunteer.phone_number)} </span><br />
+                                                <span><b>Date/time:</b> {moment(volunteer.date).format('MM[/]DD[/]YYYY')} from {moment(volunteer.start_time, 'hh:mm').format('LT')} </span> -  <span>{moment(volunteer.end_time, 'hh:mm').format('LT')}</span><br />
+
+                                            </CardContent>
+                                        )
+                                    })}</> : <span></span>}
+                        </CardContent>
                     </Grid>
 
                     <Grid item xs={12}>
-                            <CardContent>
-                                <Button className={this.props.classes.backButton} variant="contained" 
-                                    onClick={this.handleBackButton} >back</Button>
-                                <Button className={this.props.classes.doneButton} variant="contained"
-                                    onClick={this.handleDoneButton} >Done</Button>
-                            </CardContent>
+                        <CardContent>
+                            <Button className={this.props.classes.backButton} variant="contained"
+                                onClick={this.handleBackButton} >back</Button>
+                            <Button className={this.props.classes.doneButton} variant="contained"
+                                onClick={this.handleDoneButton} >Done</Button>
+                        </CardContent>
                     </Grid>
                 </Grid>
             </div>
@@ -168,4 +169,4 @@ const mapStateToProps = reduxStore => {
 
 
 
-export default withStyles(styles) (connect(mapStateToProps) (VolunteerSignup));
+export default withStyles(styles)(connect(mapStateToProps)(VolunteerSignup));

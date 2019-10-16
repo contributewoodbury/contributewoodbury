@@ -102,18 +102,11 @@ class AddEvent extends Component {
             // confirmButtonColor: '#457736'
         }).then((result) => {
             if (result.value) {
-                // Swal.fire(
-                //     'Deleted!',
-                //     'Your file has been deleted.',
-                //     'success'
-                // )
+          
                 this.props.history.push(`/organizationHome/${id}`)
             }
         })
         console.log('back button was clicked');
-        //link to the nonprofit home page
-        //add sweetalert warning: no event has been saved
-        // this.props.history.push('/nonprofithome')
     }
 
     handleSubmitButton = () => {

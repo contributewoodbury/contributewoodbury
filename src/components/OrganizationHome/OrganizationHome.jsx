@@ -47,6 +47,9 @@ class OrganizationHome extends Component {
             type: 'GET_NONPROFIT',
             payload: this.props.match.params.id
         })
+        this.props.dispatch({
+            type: 'GET_CATEGORIES',
+        })
     }//end componentDidMount
 
     handleVolunteerClick = (id) => {
@@ -87,15 +90,35 @@ class OrganizationHome extends Component {
         }
     }//end handleAddEvent
 
+    getCategory = (id) => { 
+        for (let cat of this.props.categories) {
+            if(cat.id === id) {
+                return cat.name
+            } 
+        }
+        console.log(id)
+    }//end getCategory
+
     render() {
         let nonprofitInfo = this.props.nonprofit[0] || 'a';
         return (
             <div className={this.props.classes.rootDiv}>
                 <Grid container spacing={1}>
                     <Grid item xs={6}>
-
-                        <h1 className="name">{this.props.nonprofit[0] && this.props.nonprofit[0].nonprofit_name}</h1>
-
+                        
+                            <h1 className="name">{this.props.nonprofit[0] && this.props.nonprofit[0].nonprofit_name}</h1>
+                            <address className="address">
+                            {this.props.nonprofit[0] && this.props.nonprofit[0].address}<br></br>
+                            {this.props.nonprofit[0] && this.props.nonprofit[0].city}&nbsp;
+                            {this.props.nonprofit[0] && this.props.nonprofit[0].state}&nbsp;
+                            {this.props.nonprofit[0] && this.props.nonprofit[0].zip_code}
+                            </address><br></br>
+                            {
+                            nonprofitInfo.category_id && <div className="cat">
+                                Area of service: {this.props.nonprofit[0] && this.getCategory(this.props.nonprofit[0].category_id)}
+                            </div>
+                            } 
+                            
                     </Grid>
                     <Grid item xs={5}>
                         <CardContent>
@@ -111,11 +134,6 @@ class OrganizationHome extends Component {
                 </Grid>
                 <Grid container spacing={1}>
                     <p>Email: {this.props.nonprofit[0] && this.props.nonprofit[0].contact_email}</p>
-                </Grid>
-                <Grid container spacing={1}>
-                    Organization Address: &nbsp; <address>{this.props.nonprofit[0] && this.props.nonprofit[0].address} <br></br>
-                        {this.props.nonprofit[0] && this.props.nonprofit[0].city}&nbsp;{this.props.nonprofit[0] && this.props.nonprofit[0].state}&nbsp;{this.props.nonprofit[0] && this.props.nonprofit[0].zip_code}
-                    </address>
                 </Grid>
                 <Grid container spacing={1}>
                     <Link variant="body1" href={this.props.nonprofit[0] && this.props.nonprofit[0].website} target="_blank" rel="noopener noreferrer">Link To Website</Link>
@@ -188,7 +206,8 @@ class OrganizationHome extends Component {
 const mapStateToProps = (state) => {
     return {
         nonprofit: state.nonprofit.nonprofit,
-        user: state.user
+        user: state.user,
+        categories: state.nonprofit.categories
     }
 }
 
