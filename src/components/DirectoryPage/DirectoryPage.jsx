@@ -19,6 +19,16 @@ import moment from 'moment';
 import Swal from 'sweetalert2';
 // import Typography from '@material-ui/core/Typography';
 
+const CustomTableCell = withStyles(theme => ({
+    head: {
+        backgroundColor: 'black',
+        color: 'white',
+    },
+    body: {
+        fontSize: 14,
+    }
+}))(TableCell);
+
 const styles = theme => ({
     backButton: {
         color: 'white',
@@ -134,7 +144,7 @@ class DirectoryPage extends Component {
                                 <IconButton aria-label="Search" onClick={this.searchSubmit} >
                                     <SearchIcon />
                                 </IconButton>
-                                <InputBase placeholder="Search Local Nonprofits" onChange={this.searchbarInput} value={this.state.searchbar} />
+                                <InputBase placeholder="Search Nonprofits" onChange={this.searchbarInput} value={this.state.searchbar} />
                             </form>
                             <Divider />
                         </Paper>
@@ -148,11 +158,11 @@ class DirectoryPage extends Component {
                             nonprofitName === 'Admin' ?
                                 <TableHead>
                                     <TableRow className={this.props.classes.rows}>
-                                        <TableCell align="left">Image</TableCell>
-                                        <TableCell align="left">Agency</TableCell>
-                                        <TableCell align="left">Category</TableCell>
-                                        <TableCell align="left">Flagged</TableCell>
-                                        <TableCell align="center"></TableCell>
+                                        <CustomTableCell align="left">Image</CustomTableCell>
+                                        <CustomTableCell align="left">Agency</CustomTableCell>
+                                        <CustomTableCell align="left">Category</CustomTableCell>
+                                        <CustomTableCell align="left">Flagged</CustomTableCell>
+                                        <CustomTableCell align="center"></CustomTableCell>
                                     </TableRow>
                                 </TableHead>
 
@@ -160,11 +170,11 @@ class DirectoryPage extends Component {
 
                                 <TableHead>
                                     <TableRow className={this.props.classes.rows}>
-                                        <TableCell align="left">Image</TableCell>
-                                        <TableCell align="left">Agency</TableCell>
-                                        <TableCell align="left">Category</TableCell>
-                                        <TableCell align="left">Volunteer Opportunities</TableCell>
-                                        <TableCell align="center">Website Link</TableCell>
+                                        <CustomTableCell align="left">Image</CustomTableCell>
+                                        <CustomTableCell align="left">Agency</CustomTableCell>
+                                        <CustomTableCell align="left">Category</CustomTableCell>
+                                        <CustomTableCell align="left">Volunteer Opportunities</CustomTableCell>
+                                        <CustomTableCell align="center">Website Link</CustomTableCell>
                                     </TableRow>
                                 </TableHead>
                         }
@@ -178,7 +188,8 @@ class DirectoryPage extends Component {
                                             let lastConfirmed = moment(nonprofit.last_confirmed).format("YYYY-MM-DD");
                                             if (nonprofit.name !== 'Admin') {
                                                 return (
-                                                    <TableRow key={nonprofit.id} className={this.props.classes.rows} hover={true}>
+                                                    <TableRow key={nonprofit.id} className={this.props.classes.rows} hover={true}
+                                                        onClick={() => this.handleVolunteerButton(nonprofit.id)}>
                                                         <TableCell align="left"><img src={nonprofit.logo} alt="Nonprofit Logo" width="300" height="200" /></TableCell>
                                                         <TableCell align="left">{nonprofit.name}<br />
                                                             {nonprofit.address}<br />
