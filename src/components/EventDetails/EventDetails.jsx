@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import {Grid, CardContent} from '@material-ui/core';
+import {Grid, CardContent, Card} from '@material-ui/core';
 import {withStyles} from '@material-ui/styles';
 import {connect} from 'react-redux';
 import Table from '@material-ui/core/Table';
@@ -105,7 +105,9 @@ class EventDetails extends Component {
                                                             </address>
                                                         </Grid>
                                                     <p>Contact: {this.props.nonprofit[0] && this.props.nonprofit[0].contact_email} </p>
+                                                    <Card>
                                                     <p>Description: {info.description}</p>
+                                                    </Card>
                                                 </Grid>
                                                 <Grid item xs={6}>
                                                     <img src={info.event_url} alt="Event Logo" width="400"/>
