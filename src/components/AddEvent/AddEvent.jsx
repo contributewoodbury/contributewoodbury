@@ -43,6 +43,9 @@ const styles = theme => ({
     times: {
         margin: '10px 10px 10px 30px',
         width: '40%'
+    },
+    uploadFile: {
+        height: '300px'
     }
 })
 
@@ -70,15 +73,21 @@ class AddEvent extends Component {
         event_url: '',
         past_event_id: '',
         volunteers_needed: true,
+        uploadFile: '',
     }
 
     handleChange = (propertyName, event) => {
+        if (this.props.upload) {
+            this.setState({
+                event_url: this.props.upload.url
+            })
+        }
         this.setState({
             [propertyName]: event.target.value
         })
     }
 
-    handleVolunteerChange = (event) => {
+    handleVolunteerChange = () => {
         if (this.state.volunteers_needed === true) {
             this.setState({
                 volunteers_needed: false,
@@ -102,7 +111,6 @@ class AddEvent extends Component {
             // confirmButtonColor: '#457736'
         }).then((result) => {
             if (result.value) {
-          
                 this.props.history.push(`/organizationHome/${id}`)
             }
         })
@@ -113,7 +121,7 @@ class AddEvent extends Component {
         if (moment(this.state.end_date).format('YYYYMMDD') < moment(this.state.start_date).format('YYYYMMDD')) {
             this.props.dispatch({ type: 'DATE_ERROR' });
             return false;
-        } else if (this.state.name && this.state.description && this.state.start_date && this.state.start_time && this.state.end_time
+        } else if (this.state.name && this.state.description && this.state.start_date && this.state.end_date && this.state.start_time && this.state.end_time
             && this.state.address && this.state.city && this.state.state && this.state.zip_code) {
             if (!this.state.past_event_id) {
                 this.props.dispatch({
@@ -122,7 +130,7 @@ class AddEvent extends Component {
                     history: this.props.history
                 })
             } else {
-                console.log('update the event instead');
+                //posts new event and deletes old one
                 this.props.dispatch({
                     type: 'ADD_PAST_EVENT',
                     payload: this.state,
@@ -142,6 +150,7 @@ class AddEvent extends Component {
         })
     }
 
+        // set state for selected past event
     handleChangeFor = (event) => {
         console.log('past event was selected for this id:', event.target.value);
         // console.log('the state is currently:', this.state);
@@ -159,6 +168,23 @@ class AddEvent extends Component {
             past_event_id: event.target.value.id
         })
         console.log('checking state', this.state);
+    }
+
+    handleFileSelection = (event) => {
+        let file = event.target.files[0]
+        this.setState({
+            uploadFile: file
+        })
+        console.log('this file was uploaded:', event.target.files[0]);
+    }
+
+    handleFileUpload = () => {
+        const data = new FormData();
+        data.append('file', this.state.uploadFile)
+        this.props.dispatch({
+            type: 'IMAGE_UPLOAD',
+            payload: data
+        })
     }
 
 
@@ -253,6 +279,17 @@ class AddEvent extends Component {
 
                             <TextField className={this.props.classes.textFields} type="text" label="Image url" variant="outlined"
                                 value={this.state.event_url} onChange={(event) => this.handleChange('event_url', event)} />
+
+                                <h3>upload an image here:</h3>
+                                <div>
+                                    <input type="file" name="file" onChange={this.handleFileSelection} />
+                                    <button onClick={this.handleFileUpload}>Upload</button>
+                                    {/* {JSON.stringify(this.props.upload.url)}<br/>
+                                    {JSON.stringify(this.state)} */}
+                                    {this.state.event_url || this.props.upload.url ? 
+                                    <img className={this.props.classes.uploadFile} src={this.props.upload.url} alt="uploaded file" /> :
+                                    <span></span> }
+                                </div>
                         </CardContent>
                         {/* </Card> */}
                     </Grid>
@@ -300,7 +337,8 @@ const mapStateToProps = reduxStore => {
     return {
         nonprofit: reduxStore.nonprofit.nonprofit,
         pastEvents: reduxStore.nonprofit.nonprofitPastEvents,
-        formError: reduxStore.errors.formMessage
+        formError: reduxStore.errors.formMessage,
+        upload: reduxStore.upload.uploadedImage
     }
 }
 

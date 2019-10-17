@@ -20,11 +20,12 @@ const Nav = (props) => {
   
   return (
     <div className="nav">
-      <img className="woodbury-logo" src={logo}></img>
-      
       <Link to="/home">
-        {/* <h2 className="nav-title">Contribute Woodbury</h2> */}
+      <img className="woodbury-logo" src={logo} alt="Three leaves with the words Woodbury Community Foundation next to them"></img>
       </Link>
+      
+        {/* <h2 className="nav-title">Contribute Woodbury</h2> */}
+      
       <div className="nav-right">
 
         {/* Show this link if they are logged in or not,
@@ -40,7 +41,7 @@ const Nav = (props) => {
           Directory
       </Link>
         <a className="nav-link" target="_blank" href="https://www.woodburyfoundation.org" rel="noopener noreferrer">
-          WCF
+          WCF Main
         </a>
 
         {/* Show the link to the info page and the logout button if the user is logged in */}
