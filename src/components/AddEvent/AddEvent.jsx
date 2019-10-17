@@ -186,9 +186,6 @@ class AddEvent extends Component {
             type: 'IMAGE_UPLOAD',
             payload: data
         })
-        this.setState({
-            event_url: this.props.upload.url
-        })
     }
 
 
@@ -293,8 +290,6 @@ class AddEvent extends Component {
                                     {this.state.event_url || this.props.upload.url ? 
                                     <img className={this.props.classes.uploadFile} src={this.props.upload.url} alt="uploaded file" /> :
                                     <span></span> }
-                                        
-                                  
                                 </div>
                         </CardContent>
                         {/* </Card> */}
