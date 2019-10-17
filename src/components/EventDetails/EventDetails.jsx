@@ -105,6 +105,7 @@ class EventDetails extends Component {
                                                             </address>
                                                         </Grid>
                                                     <p>Contact: {this.props.nonprofit[0] && this.props.nonprofit[0].contact_email} </p>
+                                                    
                                                     <p>Description: {info.description}</p>
                                                 </Grid>
                                                 <Grid item xs={6}>
