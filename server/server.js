@@ -8,6 +8,11 @@ const sessionMiddleware = require('./modules/session-middleware');
 
 const passport = require('./strategies/user.strategy');
 
+//Cloudinary and file uploads
+const fileupload = require('express-fileupload')
+const cors = require('cors');
+
+
 // Route includes
 const userRouter = require('./routes/user.router');
 const nonprofitRouter = require('./routes/nonprofit.router');
@@ -15,6 +20,7 @@ const directoryRouter = require('./routes/directory.router');
 const eventRouter = require('./routes/event.router');
 const volunteerRouter = require('./routes/volunteer.router');
 const adminRouter = require('./routes/admin.router');
+const imageUpload = require('./routes/imageUpload.router');
 
 
 // Body parser middleware
@@ -28,6 +34,10 @@ app.use(sessionMiddleware);
 app.use(passport.initialize());
 app.use(passport.session());
 
+// File upload and CORS middleware
+app.use(cors());
+app.use(fileupload({ useTempFiles: true }));
+
 /* Routes */
 app.use('/api/user', userRouter);
 app.use('/api/nonprofit', nonprofitRouter);
@@ -35,6 +45,7 @@ app.use('/api/directory', directoryRouter);
 app.use('/api/event', eventRouter);
 app.use('/api/volunteer', volunteerRouter);
 app.use('/api/admin', adminRouter);
+app.use('/api/upload', imageUpload);
 
 // Serve static files
 app.use(express.static('build'));

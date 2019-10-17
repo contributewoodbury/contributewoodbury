@@ -8,6 +8,7 @@ import calendarSaga from './calendarSaga';
 import eventSaga from './eventSaga';
 import adminSaga from './adminSaga';
 import volunteerSaga from './volunteerSaga';
+import uploadSaga from './uploadSaga';
 
 // rootSaga is the primary saga.
 // It bundles up all of the other sagas so our project can use them.
@@ -27,5 +28,6 @@ export default function* rootSaga() {
     eventSaga(),
     adminSaga(),
     volunteerSaga(),
+    uploadSaga(),
   ]);
 }
