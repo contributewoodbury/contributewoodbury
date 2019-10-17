@@ -38,7 +38,8 @@ const styles = theme => ({
     },
     button: {
         color: 'white',
-        backgroundColor: '#457736'
+        backgroundColor: '#457736',
+        margin: '10px'
     },
     nonprofitLogoGrid: {
         display: 'inline-flex'
@@ -103,16 +104,22 @@ class EventDetails extends Component {
                                 <Grid container spacing={3} key={info.id}>
                                     <Grid item xs={6}>
                                         <h2>{info.name}</h2>
-                                        <p>Date: {moment(info.start_date).format("MM/DD/YYYY")}</p>
+                                        <span><b>Date:</b> {moment(info.start_date).format("MM/DD/YYYY")}</span> 
+                                        <br/>
+                                        <span><b>Time: </b></span>
+                                        <br/><br/>
                                         <Grid container spacing={1}>
-                                            Location:&nbsp;<address>
-                                                {info.address}<br></br>
+                                            <b>Location:</b>&nbsp;<address>
+                                                {info.address}<br/>
                                                 {info.city}&nbsp;{info.state}
                                                 &nbsp;{info.zip_code}
                                             </address>
                                         </Grid>
-                                        <p>Contact: {this.props.nonprofit[0] && this.props.nonprofit[0].contact_email} </p>
-                                        <p>Description: {info.description}</p>
+                                        <>
+                                        <br />
+                                        <span><b>Contact:</b> {this.props.nonprofit[0] && this.props.nonprofit[0].contact_email} </span><br/>
+                                        <span><b>Description:</b> {info.description}</span>
+                                        </>
                                     </Grid>
                                     <Grid item xs={6}>
                                         <img className={this.props.classes.logo} src={info.event_url} alt="Event Logo" width="400" />
@@ -162,9 +169,9 @@ class EventDetails extends Component {
                         </Paper>
 
                     </Grid>
-
-
                 </Grid>
+                <br/>
+                <br/>
                 <Grid container justify='center'>
                     {nonprofitInfo.nonprofit_name === this.props.user.name && <Button className={this.props.classes.button} onClick={this.handleButtonClick}> Volunteer List </Button>}
                 </Grid>
