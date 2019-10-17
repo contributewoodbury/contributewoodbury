@@ -84,9 +84,9 @@ router.post('/addEvent', rejectUnauthenticated, (req, res) => {
 });
 
 //updates past event details for "add new event" 
-router.put('/addPastEvent', rejectUnauthenticated, (req, res) => {
-  let queryText = `UPDATE "event" SET "name" = $1, "description" = $2, "address" = $3, "city" = $4, "state" = $5, "zip_code" = $6, "start_date" = $7, "end_date" = $8, 
-                    "start_time" = $9, "end_time" = $10, "event_url" = $11 WHERE "id" =$12 RETURNING *;`;
+router.post('/addPastEvent', rejectUnauthenticated, (req, res) => {
+  let queryText = `INSERT INTO "event" ("name", "description", "address", "city", "zip_code", "start_date", "end_date", "event_url", "non_profit_id", "start_time", "end_time", "state") VALUES
+  ($1, $2, $3, $4, $5, $6, $7, $8, $, $10, $11, $12) RETURNING *;`;
 
   let name = req.body.name;
   let description = req.body.description;
@@ -99,12 +99,10 @@ router.put('/addPastEvent', rejectUnauthenticated, (req, res) => {
   let start_time = req.body.start_time;
   let end_time = req.body.end_time;
   let event_url = req.body.event_url;
-  let id = req.body.past_event_id;
+  let non_profit_id = req.body.non_profit_id;
 
-  pool.query(queryText, [name, description, address, city, state, zip_code, start_date, end_date, start_time, end_time, event_url, id ])
+  pool.query(queryText, [name, description, address, city, zip_code, state, start_date, end_date, event_url, non_profit_id, start_time, end_time, state])
   .then((result) => {
-    console.log('update past event returns all:', result.rows);
-    
     res.send(result.rows)
   })
   .catch((error) => {
@@ -144,5 +142,19 @@ let queryText = `UPDATE "event" SET "name" = $1, "description" = $2, "address" =
     res.sendStatus(403);
   }
 });
+
+router.delete('/:id/:np_id', rejectUnauthenticated, (req, res) => {
+  if(req.user.id === +(req.params.np_id)){
+    let queryText = `DELETE FROM "event" WHERE "id" = $1`
+    pool.query(queryText, [req.params.id])
+    .then(() => {
+      res.sendStatus(200);
+    })
+    .catch((error) => {
+      console.log('error in event DELETE', error);
+      res.sendStatus(500);
+    })
+  }
+})
 
 module.exports = router;

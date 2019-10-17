@@ -111,7 +111,6 @@ class AddEvent extends Component {
             // confirmButtonColor: '#457736'
         }).then((result) => {
             if (result.value) {
-          
                 this.props.history.push(`/organizationHome/${id}`)
             }
         })

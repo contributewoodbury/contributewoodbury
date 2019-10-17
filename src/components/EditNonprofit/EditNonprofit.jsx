@@ -106,7 +106,7 @@ class EditNonprofit extends Component {
         });
     }
 
-    handleBackButton = (id) => {
+    handleBackButton = () => {
         Swal.fire({
             title: 'Are you sure?',
             text: "Your data has not been saved.",
@@ -118,12 +118,9 @@ class EditNonprofit extends Component {
             // confirmButtonColor: '#457736'
         }).then((result) => {
             if (result.value) {
-               
                 this.props.history.goBack()
             }
         })
-        console.log('back button was clicked');
-       
     }
 
     handleSubmitButton = () => {
@@ -147,8 +144,6 @@ class EditNonprofit extends Component {
                 this.props.history.goBack()
             }
         })
-        console.log('submit event button clicked');
-        
     }
 
 
@@ -180,11 +175,6 @@ class EditNonprofit extends Component {
                 <h1 className={this.props.classes.heading}>Edit Nonprofit Information</h1>
                 
                 <p className={this.props.classes.paragraph}>Please change any information about your organization below. After you submit your changes, your new information will be displayed in your organization page.</p>
-                {/* {JSON.stringify(this.state)} */}
-                <br/>
-                {/* {JSON.stringify(this.props.reduxStore.nonprofit)} */}
-                <br/>
-                {/* {JSON.stringify(currentNonProfit)} */}
 
             {/* Below is conditionally rendered based on the existance of the currentNonProfit information in the reducer */}
 
@@ -202,9 +192,7 @@ class EditNonprofit extends Component {
 
                 <Grid container spacing={3}>
                     <Grid item xs={6}>
-                        {/* <h2>
-                            left column
-                        </h2> */}
+                        
                                 <TextField className={this.props.classes.textFields} defaultValue={currentNonProfit.contact_name} type="text" placeholder="Point of Contact Name" label="Point of Contact Name" variant="outlined" onChange={(event) => { this.handleEditInputChange('contact_name', event) }}/>
                         <br />
                                 <TextField className={this.props.classes.textFields} defaultValue={currentNonProfit.contact_email} type="text" placeholder="Point of Contact Email" label="Point of Contact Email" variant="outlined" onChange={(event) => { this.handleEditInputChange('contact_email', event) }}/>
@@ -217,9 +205,6 @@ class EditNonprofit extends Component {
                         <br />
                     </Grid>
                     <Grid item xs={6}>
-                        {/* <h2>
-                            right column
-                        </h2> */}
                         
                             <TextField className={this.props.classes.textFields} defaultValue={currentNonProfit.address} type="text" placeholder="Street Address" label="Street Address" variant="outlined" onChange={(event) => { this.handleEditInputChange('address', event) }} />
                             <br />
@@ -234,9 +219,7 @@ class EditNonprofit extends Component {
                                     Choose Organization Category
                                 </InputLabel>
                                 <Select
-                                    className={this.props.classes.dropdownBox} value={this.state.category_name} onChange={(event) => { this.handleDropdownChange('category_id', 'category_name', event) }}
-
-                                >
+                                    className={this.props.classes.dropdownBox} value={this.state.category_name} onChange={(event) => { this.handleDropdownChange('category_id', 'category_name', event) }}>
                                     <MenuItem value={this.state.category_name}>
                                         <em>{this.state.category_name}</em>
                                     </MenuItem>
@@ -255,73 +238,9 @@ class EditNonprofit extends Component {
                     </Grid>
                 </Grid>
                 </div>
-
-               
-
-            //         <div>
-            //         <Grid container spacing={3}>
-            //             <Grid item xs={12}>
-            //                 <TextField className={this.props.classes.textFields} type="text"
-            //                     placeholder="Name of Organization" variant="outlined" onChange={(event) => { this.handleInputChange('name', event) }} />
-            //                 <br />
-            //                 <TextField className={this.props.classes.description}  type="text" placeholder="Organization Description" variant="outlined" multiline rows="4" onChange={(event) => { this.handleInputChange('description', event) }} />
-            //             </Grid>
-
-            //         </Grid>
-
-            //         <Grid container spacing={3}>
-            //             <Grid item xs={6}>
-            //                 <h2>
-            //                     left column
-            //             </h2>
-            //                 <TextField className={this.props.classes.textFields} type="text" placeholder="Point of Contact Name" variant="outlined" onChange={(event) => { this.handleInputChange('contact_name', event) }} />
-            //                 <br />
-            //                 <TextField className={this.props.classes.textFields} value={this.state.contact_email} type="text" placeholder="Point of Contact Email" variant="outlined" onChange={(event) => { this.handleInputChange('contact_email', event) }} />
-            //                 <br />
-            //                 <TextField className={this.props.classes.textFields} type="text" placeholder="Point of Contact Phone" variant="outlined" onChange={(event) => { this.handleInputChange('contact_phone', event) }} />
-            //                 <br />
-            //                 <TextField className={this.props.classes.textFields} type="text" placeholder="Organization Website URL" variant="outlined" onChange={(event) => { this.handleInputChange('website', event) }} />
-            //                 <br />
-            //                 <TextField className={this.props.classes.textFields} type="text" placeholder="Organization Logo URL" variant="outlined" onChange={(event) => { this.handleInputChange('logo', event) }} />
-            //                 <br />
-            //             </Grid>
-            //             <Grid item xs={6}>
-            //                 <h2>
-            //                     right column
-            //             </h2>
-            //                 <FormControl variant="filled">
-            //                     <InputLabel >
-            //                         Choose Organization Category
-            //                 </InputLabel>
-            //                     <Select
-            //                         className={this.props.classes.dropdownBox} value={this.state.category_name} onChange={(event) => { this.handleDropdownChange('category_id', 'category_name', event) }}
-
-            //                     >
-            //                         <MenuItem value={this.state.category_name}>
-            //                             <em>{this.state.category_name}</em>
-            //                         </MenuItem>
-            //                         <MenuItem value={dropdownMenu.communityDevelopment}>Community Development</MenuItem>
-            //                         <MenuItem value={dropdownMenu.health}>Health</MenuItem>
-            //                         <MenuItem value={dropdownMenu.humanServices}>Human Services</MenuItem>
-            //                         <MenuItem value={dropdownMenu.youth}>Youth</MenuItem>
-            //                     </Select>
-            //                 </FormControl>
-            //             </Grid>
-            //         </Grid>
-            //         <Grid container spacing={3}>
-            //             <Grid item xs={12}>
-            //                 <Button className={this.props.classes.backButton} onClick={this.handleBackButton} variant="contained">Back</Button>
-            //                 <Button className={this.props.classes.submitButton} onClick={this.handleSubmitButton} variant="contained">Submit</Button>
-            //             </Grid>
-            //         </Grid>
-            //         </div>
-
             }
             </div>
-
         )
-        
-
     }
 }
 
