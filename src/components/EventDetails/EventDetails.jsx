@@ -94,11 +94,9 @@ class EventDetails extends Component {
                         {this.props.nonprofit[0] && this.props.nonprofit[0].zip_code}
                             </address>
                         </CardContent>
-
                     </Grid>
 
                     <Grid item xs={12}>
-
                         {this.props.event.eventDetails.map(info => (
                             <>
                                 <Grid container spacing={3} key={info.id}>
@@ -122,20 +120,17 @@ class EventDetails extends Component {
                                         </>
                                     </Grid>
                                     <Grid item xs={6}>
-                                        <img className={this.props.classes.logo} src={info.event_url} alt="Event Logo" width="400" />
+                                        <img src={info.event_url} alt="Event Logo" width="400" />
                                     </Grid>
                                 </Grid>
                             </>
                         ))}
 
                         {nonprofitInfo.nonprofit_name === this.props.user.name && <Button className={this.props.classes.button} onClick={this.handleEditEvent}>Edit</Button>}
-
                     </Grid>
 
 
-
                     <Grid item xs={12}>
-
                         <h3 className="header">Volunteer Opportunities for this event:</h3>
                         <Paper className={this.props.classes.root}>
                             <Table className={this.props.classes.table}>
@@ -144,7 +139,6 @@ class EventDetails extends Component {
                                         <CustomTableCell>Name</CustomTableCell>
                                         <CustomTableCell align="right">Times</CustomTableCell>
                                         <CustomTableCell align="right">Volunteers Needed</CustomTableCell>
-
                                     </TableRow>
                                 </TableHead>
                                 <TableBody>
@@ -167,7 +161,6 @@ class EventDetails extends Component {
                                 </TableBody>
                             </Table>
                         </Paper>
-
                     </Grid>
                 </Grid>
                 <br/>
