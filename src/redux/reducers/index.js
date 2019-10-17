@@ -8,6 +8,7 @@ import volunteer from './volunteerReducer';
 import nonprofit from './nonprofitReducer';
 import event from './eventReducer';
 import admin from './adminReducer';
+import upload from './uploadReducer';
 
 // rootReducer is the primary reducer for our entire project
 // It bundles up all of the other reducers so our project can use them.
@@ -26,6 +27,7 @@ const rootReducer = combineReducers({
   nonprofit, //will contain the specific nonprofits information
   event, // will contain details for a specific event as well as new events and editing events
   admin, //will contain the requests for approving or denying a new nonprofit and a list of nonprofits
+  upload, //will contain the uploaded images for an event or nonprofit and sets state in client with URL
 });
 
 export default rootReducer;

@@ -43,6 +43,9 @@ const styles = theme => ({
     times: {
         margin: '10px 10px 10px 30px',
         width: '40%'
+    },
+    uploadFile: {
+        height: '300px'
     }
 })
 
@@ -70,9 +73,15 @@ class AddEvent extends Component {
         event_url: '',
         past_event_id: '',
         volunteers_needed: true,
+        uploadFile: '',
     }
 
     handleChange = (propertyName, event) => {
+        if (this.props.upload) {
+            this.setState({
+                event_url: this.props.upload.url
+            })
+        }
         this.setState({
             [propertyName]: event.target.value
         })
@@ -142,6 +151,7 @@ class AddEvent extends Component {
         })
     }
 
+        // set state for selected past event
     handleChangeFor = (event) => {
         console.log('past event was selected for this id:', event.target.value);
         // console.log('the state is currently:', this.state);
@@ -159,6 +169,23 @@ class AddEvent extends Component {
             past_event_id: event.target.value.id
         })
         console.log('checking state', this.state);
+    }
+
+    handleFileSelection = (event) => {
+        let file = event.target.files[0]
+        this.setState({
+            uploadFile: file
+        })
+        console.log('this file was uploaded:', event.target.files[0]);
+    }
+
+    handleFileUpload = () => {
+        const data = new FormData();
+        data.append('file', this.state.uploadFile)
+        this.props.dispatch({
+            type: 'IMAGE_UPLOAD',
+            payload: data
+        })
     }
 
 
@@ -253,6 +280,17 @@ class AddEvent extends Component {
 
                             <TextField className={this.props.classes.textFields} type="text" label="Image url" variant="outlined"
                                 value={this.state.event_url} onChange={(event) => this.handleChange('event_url', event)} />
+
+                                <h3>upload an image here:</h3>
+                                <div>
+                                    <input type="file" name="file" onChange={this.handleFileSelection} />
+                                    <button onClick={this.handleFileUpload}>Upload</button>
+                                    {/* {JSON.stringify(this.props.upload.url)}<br/>
+                                    {JSON.stringify(this.state)} */}
+                                    {this.state.event_url || this.props.upload.url ? 
+                                    <img className={this.props.classes.uploadFile} src={this.props.upload.url} alt="uploaded file" /> :
+                                    <span></span> }
+                                </div>
                         </CardContent>
                         {/* </Card> */}
                     </Grid>
@@ -300,7 +338,8 @@ const mapStateToProps = reduxStore => {
     return {
         nonprofit: reduxStore.nonprofit.nonprofit,
         pastEvents: reduxStore.nonprofit.nonprofitPastEvents,
-        formError: reduxStore.errors.formMessage
+        formError: reduxStore.errors.formMessage,
+        upload: reduxStore.upload.uploadedImage
     }
 }
 
