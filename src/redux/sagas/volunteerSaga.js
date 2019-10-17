@@ -86,6 +86,7 @@ function* deleteRole(action) {
 //root saga
 function* volunteerSaga() {
   yield takeEvery('GET_EVENT_DETAILS', getVolunteerRoles);
+  yield takeEvery('GET_VOLUNTEER_ROLES', getVolunteerRoles);
   yield takeLatest('GET_SPECIFIC_VOLUNTEERS', getSpecificVolunteers);
   yield takeLatest('GET_SPECIFIC_VOLUNTEER_ROLE', getSpecificVolunteerRole)
   yield takeLatest('ADD_VOLUNTEERS', addVolunteers);

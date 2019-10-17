@@ -187,6 +187,8 @@ class OrganizationHome extends Component {
                                             } else {
                                                 return <TableRow><CustomTableCell>No listed events</CustomTableCell></TableRow>
                                             }
+                                        } else {
+                                            return false;
                                         }
                                     })
                                 }
