@@ -76,6 +76,8 @@ class AddVolunteerRoles extends Component {
 
     handleAddRolesButton = () => {
         console.log('add roles button clicked');
+        if (this.state.name && this.state.description && this.state.number_needed && this.state.start_time && this.state.end_time 
+            && this.state.date) {
         //dispatches state to saga
         this.props.dispatch({
             type: 'ADD_VOLUNTEERS',
@@ -91,6 +93,10 @@ class AddVolunteerRoles extends Component {
             end_time: '',
             date: ''
         })
+    } else {
+        this.props.dispatch({type: 'REQUIRED_ERROR'})
+        return false;
+    }
     }
 
     handleBackButton = () => {
@@ -166,24 +172,29 @@ class AddVolunteerRoles extends Component {
                             </CardContent>
                             {/* </Card> */}
                         </Grid>
-
+                        {this.props.reduxStore.errors.formMessage &&
+                            <h2
+                                className="alert"
+                                role="alert">
+                            {this.props.reduxStore.errors.formMessage}
+                            </h2>}
                         <Grid item xs={12}>
                             {/* <Card> */}
                             <CardContent>
                                 <h2 className={this.props.classes.heading} >What do you need volunteers to help with?</h2>
-                                <TextField className={this.props.classes.textFields} type="text" label="Role" variant="outlined"
+                                <TextField className={this.props.classes.textFields} type="text" label="Role" variant="outlined" required={true}
                                     value={this.state.name} onChange={(event) => this.handleChange('name', event)} />
-                                <TextField className={this.props.classes.textFields} type="date" variant="outlined"
+                                <TextField className={this.props.classes.textFields} type="date" variant="outlined" required={true}
                                     value={this.state.date} onChange={(event) => this.handleChange('date', event)} />
                                 <br />
-                                <TextField className={this.props.classes.textFields} type="text" label="description" variant="outlined" multiline rows="4"
+                                <TextField className={this.props.classes.textFields} type="text" label="Description" variant="outlined" required={true} multiline rows="4"
                                     value={this.state.description} onChange={(event) => this.handleChange('description', event)} />
-                                <TextField className={this.props.classes.textFields} type="number" label="number of volunteers needed" variant="outlined"
+                                <TextField className={this.props.classes.textFields} type="number" label="Number of volunteers needed" required={true} variant="outlined"
                                     value={this.state.number_needed} onChange={(event) => this.handleChange('number_needed', event)} />
                                 <br />
-                                <TextField className={this.props.classes.times} type="time" variant="outlined"
+                                <TextField className={this.props.classes.times} type="time" variant="outlined" required={true}
                                     value={this.state.start_time} onChange={(event) => this.handleChange('start_time', event)} />
-                                <TextField className={this.props.classes.times} type="time" variant="outlined"
+                                <TextField className={this.props.classes.times} type="time" variant="outlined" required={true}
                                     value={this.state.end_time} onChange={(event) => this.handleChange('end_time', event)} />
                                 <Button className={this.props.classes.addRolesButton} variant="contained" size="small"
                                     onClick={this.handleAddRolesButton} >Add role(s)</Button>
@@ -199,11 +210,11 @@ class AddVolunteerRoles extends Component {
                                 {this.props.reduxStore.volunteer.volunteerRoleList.map(roleInfo => (
                                     <>
                                         <CardContent>
-                                            <span><b>role: </b>{roleInfo.name}</span><br />
-                                            <span><b>description: </b>{roleInfo.description}</span><br />
-                                            <span><b>volunteers needed: </b>{roleInfo.number_needed}</span><br />
-                                            <span><b>date: </b>{moment(roleInfo.date).format('MMM Do YYYY')}</span><br />
-                                            <span><b>time: </b>{roleInfo.start_time} - {roleInfo.end_time} </span><br />
+                                            <span><b>Role: </b>{roleInfo.name}</span><br />
+                                            <span><b>Description: </b>{roleInfo.description}</span><br />
+                                            <span><b>Volunteers needed: </b>{roleInfo.number_needed}</span><br />
+                                            <span><b>Date: </b>{moment(roleInfo.date).format('MMM Do YYYY')}</span><br />
+                                            <span><b>Time: </b>{roleInfo.start_time} - {roleInfo.end_time} </span><br />
                                             <Button className={this.props.classes.removeButton} onClick={() => this.handleRemoveRole(roleInfo.id)} >Remove</Button>
                                         </CardContent>
                                     </>

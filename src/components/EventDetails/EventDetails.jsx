@@ -96,6 +96,7 @@ class EventDetails extends Component {
                         </CardContent>
 
                     </Grid>
+<<<<<<< HEAD
 
                     <Grid item xs={12}>
 
@@ -119,6 +120,31 @@ class EventDetails extends Component {
                                         <br />
                                         <span><b>Contact:</b> {this.props.nonprofit[0] && this.props.nonprofit[0].contact_email} </span><br/>
                                         <span><b>Description:</b> {info.description}</span>
+=======
+            </Grid>
+                                {
+                                    this.props.event.eventDetails.map((info) => {
+                                        return <>
+                                            <Grid container spacing={3} key={info.id}>
+                                                <Grid item xs={6}>
+                                                    <h2>{info.name}</h2>
+                                                    <p>Date: {moment(info.start_date).format("MM/DD/YYYY")}</p>
+                                                        <Grid container spacing={1}>
+                                                            Location:&nbsp;<address>
+                                                                {info.address}<br></br>
+                                                                {info.city}&nbsp;{info.state}
+                                                                &nbsp;{info.zip_code}
+                                                            </address>
+                                                        </Grid>
+                                                    <p>Contact: {this.props.nonprofit[0] && this.props.nonprofit[0].contact_email} </p>
+                                                    
+                                                    <p>Description: {info.description}</p>
+                                                </Grid>
+                                                <Grid item xs={6}>
+                                                    <img src={info.event_url} alt="Event Logo" width="400"/>
+                                                </Grid>
+                                            </Grid>
+>>>>>>> ade1fb241489c85b6718509a8801c2d857653bcc
                                         </>
                                     </Grid>
                                     <Grid item xs={6}>

@@ -87,7 +87,7 @@ class AddEvent extends Component {
         })
     }
 
-    handleVolunteerChange = (event) => {
+    handleVolunteerChange = () => {
         if (this.state.volunteers_needed === true) {
             this.setState({
                 volunteers_needed: false,
@@ -111,7 +111,6 @@ class AddEvent extends Component {
             // confirmButtonColor: '#457736'
         }).then((result) => {
             if (result.value) {
-          
                 this.props.history.push(`/organizationHome/${id}`)
             }
         })
@@ -122,7 +121,7 @@ class AddEvent extends Component {
         if (moment(this.state.end_date).format('YYYYMMDD') < moment(this.state.start_date).format('YYYYMMDD')) {
             this.props.dispatch({ type: 'DATE_ERROR' });
             return false;
-        } else if (this.state.name && this.state.description && this.state.start_date && this.state.start_time && this.state.end_time
+        } else if (this.state.name && this.state.description && this.state.start_date && this.state.end_date && this.state.start_time && this.state.end_time
             && this.state.address && this.state.city && this.state.state && this.state.zip_code) {
             if (!this.state.past_event_id) {
                 this.props.dispatch({
@@ -131,7 +130,7 @@ class AddEvent extends Component {
                     history: this.props.history
                 })
             } else {
-                console.log('update the event instead');
+                //posts new event and deletes old one
                 this.props.dispatch({
                     type: 'ADD_PAST_EVENT',
                     payload: this.state,
