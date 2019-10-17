@@ -47,6 +47,9 @@ function* volunteerSignUp(action) {
       type: 'ADD_SIGNUP',
       payload: action.payload
     })
+    yield put({
+      type: 'CLEAR_VOLUNTEER'
+    })
   } catch (error) {
     console.log('error in volunteerSignUp', error);
   }
