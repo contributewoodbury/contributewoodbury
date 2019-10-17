@@ -21,7 +21,12 @@ const styles = theme => ({
         float: 'right',
         color: 'white',
         backgroundColor: '#457736',
-        margin: '0px 130px 0px 0px'
+        margin: '0px 50px 0px 0px'
+    },
+    editButton: {
+        color: 'white',
+        backgroundColor: '#714723',
+        marginLeft:'34%'
     },
     textFields: {
         margin: '10px 10px 10px 30px',
@@ -313,6 +318,9 @@ class EditEvent extends Component {
 
                             <Button className={this.props.classes.submitButton} variant="contained"
                                 onClick={this.handleSubmitButton}>Submit</Button>
+
+                            <Button className={this.props.classes.editButton} variant="contained"
+                                onClick={this.handleEditVolunteerRoles}>Edit Volunteer Roles</Button>
                         </CardContent>
                     </Grid>
                 </Grid>
