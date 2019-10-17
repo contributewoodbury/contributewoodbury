@@ -87,7 +87,7 @@ class AddEvent extends Component {
         })
     }
 
-    handleVolunteerChange = (event) => {
+    handleVolunteerChange = () => {
         if (this.state.volunteers_needed === true) {
             this.setState({
                 volunteers_needed: false,
@@ -130,7 +130,7 @@ class AddEvent extends Component {
                     history: this.props.history
                 })
             } else {
-                console.log('update the event instead');
+                //posts new event and deletes old one
                 this.props.dispatch({
                     type: 'ADD_PAST_EVENT',
                     payload: this.state,

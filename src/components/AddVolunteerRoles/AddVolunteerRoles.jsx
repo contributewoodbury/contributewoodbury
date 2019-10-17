@@ -199,11 +199,11 @@ class AddVolunteerRoles extends Component {
                                 {this.props.reduxStore.volunteer.volunteerRoleList.map(roleInfo => (
                                     <>
                                         <CardContent>
-                                            <span><b>role: </b>{roleInfo.name}</span><br />
-                                            <span><b>description: </b>{roleInfo.description}</span><br />
-                                            <span><b>volunteers needed: </b>{roleInfo.number_needed}</span><br />
-                                            <span><b>date: </b>{moment(roleInfo.date).format('MMM Do YYYY')}</span><br />
-                                            <span><b>time: </b>{roleInfo.start_time} - {roleInfo.end_time} </span><br />
+                                            <span><b>Role: </b>{roleInfo.name}</span><br />
+                                            <span><b>Description: </b>{roleInfo.description}</span><br />
+                                            <span><b>Volunteers needed: </b>{roleInfo.number_needed}</span><br />
+                                            <span><b>Date: </b>{moment(roleInfo.date).format('MMM Do YYYY')}</span><br />
+                                            <span><b>Time: </b>{roleInfo.start_time} - {roleInfo.end_time} </span><br />
                                             <Button className={this.props.classes.removeButton} onClick={() => this.handleRemoveRole(roleInfo.id)} >Remove</Button>
                                         </CardContent>
                                     </>

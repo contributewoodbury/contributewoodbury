@@ -85,8 +85,8 @@ router.post('/addEvent', rejectUnauthenticated, (req, res) => {
 
 //updates past event details for "add new event" 
 router.post('/addPastEvent', rejectUnauthenticated, (req, res) => {
-  let queryText = `INSERT INTO "event" ("name", "description", "address", "city", "zip_code", "start_date", "end_date", "event_url", "non_profit_id", "start_time", "end_time", "state") VALUES
-  ($1, $2, $3, $4, $5, $6, $7, $8, $, $10, $11, $12) RETURNING *;`;
+  let queryText = `INSERT INTO "event" ("name", "description", "address", "city", "zip_code", "start_date", "end_date", "event_url", "non_profit_id", "start_time", "end_time", "state") 
+  VALUES($1, $2, $3, $4, $5, $6, $7, $8, $, $10, $11, $12) RETURNING *;`;
 
   let name = req.body.name;
   let description = req.body.description;
@@ -106,7 +106,7 @@ router.post('/addPastEvent', rejectUnauthenticated, (req, res) => {
     res.send(result.rows)
   })
   .catch((error) => {
-    console.log('error in update past event', error);
+    console.log('error in recreate past event', error);
     res.sendStatus(500)
   })
 })

@@ -33,7 +33,7 @@ function* addEvent(action) {
 //updates a past event with new information for a "new" event
 function* addPastEvent(action) {
   try {
-    let response = yield axios.post('/api/event/addPastEvent', action.payload);
+    let response = yield axios.post('/api/event/addEvent', action.payload);
     if(action.payload.volunteers_needed === true) {
       yield action.history.push(`/addvolunteers/${response.data[0].id}`);
     } else {
@@ -42,11 +42,14 @@ function* addPastEvent(action) {
     yield put ({
       type: 'GET_EVENT_DETAILS',
       payload: response.data[0].id
-    })
-    yield axios.delete()
+    });
+    yield put({
+      type: 'GET_VOLUNTEER_ROLES',
+      payload: action.payload.past_event_id
+    });
+    yield axios.delete(`/api/event/${action.payload.past_event_id}/${action.payload.non_profit_id}`);
   } catch (error) {
     console.log('error in addPastEvent saga');
-    
   }
 }
 
