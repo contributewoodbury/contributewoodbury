@@ -60,6 +60,13 @@ class AddVolunteerRoles extends Component {
         event_id: this.props.match.params.id,
     }
 
+    componentDidMount(){
+        this.props.dispatch({
+            type: 'GET_VOLUNTEER_ROLES',
+            payload: this.props.match.params.id
+        })
+    }
+
     handleChange = (propertyName, event) => {
         this.setState({
             [propertyName]: event.target.value
@@ -147,7 +154,7 @@ class AddVolunteerRoles extends Component {
 
             return(
             <div className = { this.props.classes.rootDiv } >
-                    <h1 className={this.props.classes.heading} >add volunteer roles page</h1>
+                    <h1 className={this.props.classes.heading} >Add Volunteer Roles</h1>
                     <Grid container spacing={3}>
                         <Grid item xs={12}>
                             {/* <Card> */}

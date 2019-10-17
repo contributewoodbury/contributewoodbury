@@ -90,8 +90,9 @@ class EditEvent extends Component {
     }//end handleBackButton
 
     handleSubmitButton = () => {
+        let end_date = this.state.end_date || this.props.event[0].end_date;
         let start_date = this.state.start_date || this.props.event[0].start_date;
-        if (moment(this.state.end_date).format('YYYYMMDD') < moment(start_date).format('YYYYMMDD')) {
+        if (moment(end_date).format('YYYYMMDD') < moment(start_date).format('YYYYMMDD')) {
             this.props.dispatch({ type: 'DATE_ERROR' });
             return false;
         } else {
@@ -116,6 +117,10 @@ class EditEvent extends Component {
             this.props.history.goBack()
         }
     }//end handleSubmitButton
+
+    handleEditVolunteerRoles = () => {
+        this.props.history.push(`/addvolunteers/${this.props.match.params.id}`)
+    }
 
     render() {
         return (
