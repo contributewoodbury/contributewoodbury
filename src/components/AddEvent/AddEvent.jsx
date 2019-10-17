@@ -70,9 +70,15 @@ class AddEvent extends Component {
         event_url: '',
         past_event_id: '',
         volunteers_needed: true,
+        uploadFile: '',
     }
 
     handleChange = (propertyName, event) => {
+        if (this.props.upload) {
+            this.setState({
+                event_url: this.props.upload.url
+            })
+        }
         this.setState({
             [propertyName]: event.target.value
         })
@@ -142,6 +148,7 @@ class AddEvent extends Component {
         })
     }
 
+        // set state for selected past event
     handleChangeFor = (event) => {
         console.log('past event was selected for this id:', event.target.value);
         // console.log('the state is currently:', this.state);
@@ -164,17 +171,20 @@ class AddEvent extends Component {
     handleFileSelection = (event) => {
         let file = event.target.files[0]
         this.setState({
-            event_url: file
+            uploadFile: file
         })
         console.log('this file was uploaded:', event.target.files[0]);
     }
 
     handleFileUpload = () => {
         const data = new FormData();
-        data.append('file', this.state.event_url)
+        data.append('file', this.state.uploadFile)
         this.props.dispatch({
             type: 'IMAGE_UPLOAD',
             payload: data
+        })
+        this.setState({
+            event_url: this.props.upload.url
         })
     }
 
@@ -275,6 +285,10 @@ class AddEvent extends Component {
                                 <div>
                                     <input type="file" name="file" onChange={this.handleFileSelection} />
                                     <button onClick={this.handleFileUpload}>Upload</button>
+                                    {JSON.stringify(this.props.upload.url)}<br/>
+                                    {JSON.stringify(this.state)}
+                                        <img src={this.props.upload.url} alt="uploaded file" />
+                                  
                                 </div>
                         </CardContent>
                         {/* </Card> */}
@@ -323,7 +337,8 @@ const mapStateToProps = reduxStore => {
     return {
         nonprofit: reduxStore.nonprofit.nonprofit,
         pastEvents: reduxStore.nonprofit.nonprofitPastEvents,
-        formError: reduxStore.errors.formMessage
+        formError: reduxStore.errors.formMessage,
+        upload: reduxStore.upload.uploadedImage
     }
 }
 
