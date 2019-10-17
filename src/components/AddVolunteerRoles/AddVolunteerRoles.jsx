@@ -3,6 +3,7 @@ import { connect } from 'react-redux';
 import { Button, Grid, CardContent, TextField } from '@material-ui/core';
 import { withStyles } from '@material-ui/styles';
 import Swal from 'sweetalert2';
+import moment from 'moment';
 
 
 const styles = theme => ({
@@ -38,7 +39,7 @@ const styles = theme => ({
     },
     removeButton: {
         color: 'white',
-        backgroundColor: '#457736',
+        backgroundColor: '#999898',
         margin: '0px 0px 0px 30px',
     },
     displayRoles: {
@@ -64,14 +65,13 @@ class AddVolunteerRoles extends Component {
         this.props.dispatch({
             type: 'GET_VOLUNTEER_ROLES',
             payload: this.props.match.params.id
-        })
+        });
     }
 
     handleChange = (propertyName, event) => {
         this.setState({
             [propertyName]: event.target.value
-        })
-        console.log(this.state);
+        });
     }
 
     handleAddRolesButton = () => {
@@ -202,9 +202,9 @@ class AddVolunteerRoles extends Component {
                                             <span><b>role: </b>{roleInfo.name}</span><br />
                                             <span><b>description: </b>{roleInfo.description}</span><br />
                                             <span><b>volunteers needed: </b>{roleInfo.number_needed}</span><br />
-                                            <span><b>date: </b>{roleInfo.date}</span><br />
+                                            <span><b>date: </b>{moment(roleInfo.date).format('MMM Do YYYY')}</span><br />
                                             <span><b>time: </b>{roleInfo.start_time} - {roleInfo.end_time} </span><br />
-                                            <Button onClick={() => this.handleRemoveRole(roleInfo.id)} >Remove</Button>
+                                            <Button className={this.props.classes.removeButton} onClick={() => this.handleRemoveRole(roleInfo.id)} >Remove</Button>
                                         </CardContent>
                                     </>
                                 ))}
