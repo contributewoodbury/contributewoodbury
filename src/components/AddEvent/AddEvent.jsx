@@ -161,6 +161,23 @@ class AddEvent extends Component {
         console.log('checking state', this.state);
     }
 
+    handleFileSelection = (event) => {
+        let file = event.target.files[0]
+        this.setState({
+            event_url: file
+        })
+        console.log('this file was uploaded:', event.target.files[0]);
+    }
+
+    handleFileUpload = () => {
+        const data = new FormData();
+        data.append('file', this.state.event_url)
+        this.props.dispatch({
+            type: 'IMAGE_UPLOAD',
+            payload: data
+        })
+    }
+
 
     render() {
 
@@ -253,6 +270,12 @@ class AddEvent extends Component {
 
                             <TextField className={this.props.classes.textFields} type="text" label="Image url" variant="outlined"
                                 value={this.state.event_url} onChange={(event) => this.handleChange('event_url', event)} />
+
+                                <h3>upload an image here:</h3>
+                                <div>
+                                    <input type="file" name="file" onChange={this.handleFileSelection} />
+                                    <button onClick={this.handleFileUpload}>Upload</button>
+                                </div>
                         </CardContent>
                         {/* </Card> */}
                     </Grid>
