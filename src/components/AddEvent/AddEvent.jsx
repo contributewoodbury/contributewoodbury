@@ -43,6 +43,9 @@ const styles = theme => ({
     times: {
         margin: '10px 10px 10px 30px',
         width: '40%'
+    },
+    uploadFile: {
+        height: '300px'
     }
 })
 
@@ -285,9 +288,12 @@ class AddEvent extends Component {
                                 <div>
                                     <input type="file" name="file" onChange={this.handleFileSelection} />
                                     <button onClick={this.handleFileUpload}>Upload</button>
-                                    {JSON.stringify(this.props.upload.url)}<br/>
-                                    {JSON.stringify(this.state)}
-                                        <img src={this.props.upload.url} alt="uploaded file" />
+                                    {/* {JSON.stringify(this.props.upload.url)}<br/>
+                                    {JSON.stringify(this.state)} */}
+                                    {this.state.event_url || this.props.upload.url ? 
+                                    <img className={this.props.classes.uploadFile} src={this.props.upload.url} alt="uploaded file" /> :
+                                    <span></span> }
+                                        
                                   
                                 </div>
                         </CardContent>
