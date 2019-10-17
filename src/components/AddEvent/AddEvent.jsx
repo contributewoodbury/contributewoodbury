@@ -122,7 +122,7 @@ class AddEvent extends Component {
         if (moment(this.state.end_date).format('YYYYMMDD') < moment(this.state.start_date).format('YYYYMMDD')) {
             this.props.dispatch({ type: 'DATE_ERROR' });
             return false;
-        } else if (this.state.name && this.state.description && this.state.start_date && this.state.start_time && this.state.end_time
+        } else if (this.state.name && this.state.description && this.state.start_date && this.state.end_date && this.state.start_time && this.state.end_time
             && this.state.address && this.state.city && this.state.state && this.state.zip_code) {
             if (!this.state.past_event_id) {
                 this.props.dispatch({
