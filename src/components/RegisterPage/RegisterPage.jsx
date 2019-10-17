@@ -37,6 +37,18 @@ const styles = theme => ({
   rootDiv: {
     margin: '0px 100px 0px 100px'
   },
+  logoTextField: {
+    margin: '10px 10px 10px 30px',
+    width: '300px'
+  },
+  uploadButton: {
+    color: 'white',
+    backgroundColor: '#457736',
+    margin: '20px 10px 0px 10px'
+  },
+  regButtons: {
+    margin: '5px'
+  }
 })
 
 class RegisterPage extends Component {
@@ -54,7 +66,9 @@ class RegisterPage extends Component {
     website: '',
     logo: '',
     category_id: '',
-    category_name: 'NONE'
+    category_name: 'NONE',
+    uploadButton: false,
+    uploadFile: '',
   };
 
   componentDidMount() {
@@ -95,6 +109,11 @@ class RegisterPage extends Component {
   } // end registerUser
 
   handleInputChange = (propertyName, event) => {
+    if (this.props.upload) {
+      this.setState({
+        logo: this.props.upload.url
+      })
+    }
     this.setState({
       [propertyName]: event.target.value,
     });
@@ -123,6 +142,40 @@ class RegisterPage extends Component {
         this.props.history.goBack();
       }
     });
+  }
+
+
+  handleUploadButton = () => {
+    console.log('uploadbutton clicked');
+    this.setState({
+      uploadButton: true
+    })
+  }
+
+  handleCancelUpload = () => {
+    this.setState({
+      uploadButton: false
+    })
+  }
+
+  handleFileSelection = (event) => {
+    let file = event.target.files[0]
+    this.setState({
+      uploadFile: file
+    })
+    console.log('this file was uploaded:', event.target.files[0]);
+  }
+
+  handleFileUpload = () => {
+    const data = new FormData();
+    data.append('file', this.state.uploadFile)
+    this.props.dispatch({
+      type: 'IMAGE_UPLOAD',
+      payload: data
+    })
+    this.setState({
+      uploadButton: false
+    })
   }
 
   render() {
@@ -178,8 +231,21 @@ class RegisterPage extends Component {
             <TextField required className={this.props.classes.textFields} type="text" placeholder="Point of Contact Email" label="Contact Email"
             value={this.state.contact_email} variant="outlined" onChange={(event) => { this.handleInputChange('contact_email', event) }} />
             <br />
-            <TextField className={this.props.classes.textFields} type="text" placeholder="Organization Logo URL" label="Logo"
+            {this.state.uploadButton ? 
+            <div className={this.props.classes.textFields} >
+              <input type="file" name="file" onChange={this.handleFileSelection} />
+              <button className={this.props.classes.regButtons} onClick={this.handleFileUpload}>Upload</button>
+              <button className={this.props.classes.regButtons} onClick={this.handleCancelUpload} >cancel</button>
+            </div>
+            : 
+            <>
+            <TextField className={this.props.classes.logoTextField} type="text" placeholder="Organization Logo URL" label="Logo URL"
               value={this.state.logo} variant="outlined" onChange={(event) => { this.handleInputChange('logo', event) }} />
+              <Button className={this.props.classes.uploadButton}
+                      onClick={this.handleUploadButton} >Upload</Button>
+                      </>
+                      
+                      }
             <br />
             <TextField required className={this.props.classes.textFields} type="text" placeholder="Organization Website URL" label="Website"
             value={this.state.website} variant="outlined" onChange={(event) => { this.handleInputChange('website', event) }} />
@@ -252,6 +318,7 @@ class RegisterPage extends Component {
 const mapStateToProps = state => ({
   errors: state.errors,
   categories: state.nonprofit.categories,
+  upload: state.upload.uploadedImage
 });
 
 export default withStyles(styles)(connect(mapStateToProps)(RegisterPage));
