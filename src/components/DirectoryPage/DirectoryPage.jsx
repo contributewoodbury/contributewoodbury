@@ -57,7 +57,13 @@ const styles = theme => ({
     },
     flag: {
         color: 'red'
-    }
+    },
+    heading: {
+        color: '#714723'
+    },
+    rootDiv: {
+        margin: '0px 100px 0px 100px'
+    },
 
 })
 
@@ -131,8 +137,8 @@ class DirectoryPage extends Component {
         // let lastConfirmed = moment(this.props.reduxStore.user.last_confirmed).format("YYYY-MM-DD");
 
         return (
-            <div>
-                <h1>
+            <div className={this.props.classes.rootDiv} >
+                <h1 className={this.props.classes.heading} >
                     Directory
                 </h1>
 

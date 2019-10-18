@@ -222,7 +222,7 @@ class RegisterPage extends Component {
         </Grid>
         <Grid container spacing={3}>
           <Grid item xs={6}>
-            <h2>
+            <h2 className={this.props.classes.heading} >
               Contact Information
                         </h2>
             <TextField className={this.props.classes.textFields} type="text" placeholder="Point of Contact Name" label="Contact Name"
@@ -271,7 +271,7 @@ class RegisterPage extends Component {
 
           {/* Right Column */}
           <Grid item xs={6}>
-            <h2>Organization Address</h2>
+            <h2 className={this.props.classes.heading} >Organization Address</h2>
             <TextField required className={this.props.classes.textFields} type="text" label="Street Address" variant="outlined"
               value={this.state.address} onChange={(event) => this.handleInputChange('address', event)} />
             <br />
