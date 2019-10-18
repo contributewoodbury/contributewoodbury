@@ -13,7 +13,7 @@ const fileupload = require('express-fileupload')
 const cors = require('cors');
 
 //automation library
-const cron = require('node-cron');
+// const cron = require('node-cron');
 
 // Route includes
 const userRouter = require('./routes/user.router');
