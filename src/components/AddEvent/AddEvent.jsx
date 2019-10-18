@@ -187,6 +187,23 @@ class AddEvent extends Component {
         })
     }
 
+    demoEvent = () => {
+        this.setState({
+            name: 'Food 4 Kidz',
+            non_profit_id: +(this.props.match.params.id),
+            description: 'We will be distributing backpacks full of food to children for Winter Break.',
+            address: 'K12345 Elementary Lane',
+            city: 'Woodbury',
+            zip_code: '55125',
+            state: 'MN',
+            start_date: '2019-12-20',
+            end_date: '2019-12-20',
+            start_time: '15:00:00',
+            end_time: '16:30:00',
+            event_url: 'http://www.food4kidsfl.org/wp-content/uploads/2015/07/Logo.png',
+            volunteers_needed: true,
+        })
+    }
 
     render() {
 
@@ -194,7 +211,7 @@ class AddEvent extends Component {
         return (
 
             <div className={this.props.classes.rootDiv}>
-                <h1>Add Event</h1>
+                <h1 onClick={this.demoEvent()}>Add Event</h1>
               
                 <Grid container spacing={3}>
                     <Grid item xs={12}>
