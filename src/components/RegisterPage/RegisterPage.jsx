@@ -78,12 +78,12 @@ class RegisterPage extends Component {
   registerUser = (event) => {
     event.preventDefault();
     let attempt = 'https://'
-    if(this.state.website.startsWith('http') === false){
+    if (this.state.website.startsWith('http') === false) {
       this.setState({
-        ...this.state, 
+        ...this.state,
         website: attempt.concat("", this.state.website)
       })
-    } 
+    }
     setTimeout(() => {
       console.log(this.state);
       if (this.state.username && this.state.password && this.state.address && this.state.city && this.state.zip_code && this.state.state && this.state.contact_email
@@ -198,7 +198,7 @@ class RegisterPage extends Component {
           </h2>
         )}
         {/* <center> */}
-        <h1 className={this.props.classes.heading} onClick={this.demoRegister()}>Register your nonprofit organization to post and share your upcoming events!</h1>
+        <h1 className={this.props.classes.heading} onClick={() => this.demoRegister()}>Register your nonprofit organization to post and share your upcoming events!</h1>
         <Grid container spacing={3}>
           <Grid item xs={12}>
             <label htmlFor="Organization Name">
@@ -208,7 +208,7 @@ class RegisterPage extends Component {
                 variant="outlined"
                 type="text"
                 name="Name"
-                value={this.state.name}
+                value={this.state.username}
                 onChange={(event) => this.handleInputChange('username', event)}
               />
             </label>
@@ -225,7 +225,7 @@ class RegisterPage extends Component {
                 onChange={(event) => this.handleInputChange('password', event)}
               />
             </label>
-            <TextField className={this.props.classes.description} type="text" placeholder="Organization Description" label="Organization Description" variant="outlined" multiline rows="4" onChange={(event) => { this.handleInputChange('description', event) }} />
+            <TextField className={this.props.classes.description} type="text" placeholder="Organization Description" label="Organization Description" variant="outlined" multiline rows="4" onChange={(event) => { this.handleInputChange('description', event) }} value={this.state.description}/>
           </Grid>
         </Grid>
         <Grid container spacing={3}>
@@ -237,33 +237,33 @@ class RegisterPage extends Component {
               value={this.state.contact_name} variant="outlined" onChange={(event) => { this.handleInputChange('contact_name', event) }} />
             <br />
             <TextField required className={this.props.classes.textFields} type="text" placeholder="Point of Contact Email" label="Contact Email"
-            value={this.state.contact_email} variant="outlined" onChange={(event) => { this.handleInputChange('contact_email', event) }} />
+              value={this.state.contact_email} variant="outlined" onChange={(event) => { this.handleInputChange('contact_email', event) }} />
             <br />
-            {this.state.uploadButton ? 
-            <div className={this.props.classes.textFields} >
-              <input type="file" name="file" onChange={this.handleFileSelection} />
-              <button className={this.props.classes.regButtons} onClick={this.handleFileUpload}>Upload</button>
-              <button className={this.props.classes.regButtons} onClick={this.handleCancelUpload} >cancel</button>
-            </div>
-            : 
-            <>
-            <TextField className={this.props.classes.logoTextField} type="text" placeholder="Organization Logo URL" label="Logo URL"
-              value={this.state.logo} variant="outlined" onChange={(event) => { this.handleInputChange('logo', event) }} />
-              <Button className={this.props.classes.uploadButton}
-                      onClick={this.handleUploadButton} >Upload</Button>
-                      </>
-                      
-                      }
+            {this.state.uploadButton ?
+              <div className={this.props.classes.textFields} >
+                <input type="file" name="file" onChange={this.handleFileSelection} />
+                <button className={this.props.classes.regButtons} onClick={this.handleFileUpload}>Upload</button>
+                <button className={this.props.classes.regButtons} onClick={this.handleCancelUpload} >cancel</button>
+              </div>
+              :
+              <>
+                <TextField className={this.props.classes.logoTextField} type="text" placeholder="Organization Logo URL" label="Logo URL"
+                  value={this.state.logo} variant="outlined" onChange={(event) => { this.handleInputChange('logo', event) }} />
+                <Button className={this.props.classes.uploadButton}
+                  onClick={this.handleUploadButton} >Upload</Button>
+              </>
+
+            }
             <br />
             <TextField required className={this.props.classes.textFields} type="text" placeholder="Organization Website URL" label="Website"
-            value={this.state.website} variant="outlined" onChange={(event) => { this.handleInputChange('website', event) }} />
+              value={this.state.website} variant="outlined" onChange={(event) => { this.handleInputChange('website', event) }} />
             <br />
             <FormControl variant="filled">
               <InputLabel >
                 Choose Organization Category
                             </InputLabel>
               <Select
-                className={this.props.classes.dropdownBox} value={this.state.category_name} 
+                className={this.props.classes.dropdownBox} value={this.state.category_name}
                 onChange={(event) => { this.handleDropdownChange('category_id', 'category_name', event) }}>
                 <MenuItem value={this.state.category_name}>
                   <em>{this.state.category_name}</em>
