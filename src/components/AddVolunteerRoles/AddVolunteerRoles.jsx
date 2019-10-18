@@ -179,8 +179,8 @@ class AddVolunteerRoles extends Component {
         return (
             <div className={this.props.classes.rootDiv} >
                 <h1 className={this.props.classes.heading} >
-                    <span onClick={this.demoRole1()}>Add Volunteer</span> 
-                    <span onClick={this.demoRole2()}> Roles</span></h1>
+                    <span onClick={() => this.demoRole1()}>Add Volunteer</span>
+                    <span onClick={() => this.demoRole2()}> Roles</span></h1>
                 <Grid container spacing={3}>
                     <Grid item xs={12}>
                         {/* <Card> */}
