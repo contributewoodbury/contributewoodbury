@@ -150,7 +150,7 @@ class AddEvent extends Component {
         })
     }
 
-        // set state for selected past event
+    // set state for selected past event
     handleChangeFor = (event) => {
         console.log('past event was selected for this id:', event.target.value);
         // console.log('the state is currently:', this.state);
@@ -211,8 +211,8 @@ class AddEvent extends Component {
         return (
 
             <div className={this.props.classes.rootDiv}>
-                <h1 onClick={this.demoEvent()}>Add Event</h1>
-              
+                <h1 onClick={() => this.demoEvent()}>Add Event</h1>
+
                 <Grid container spacing={3}>
                     <Grid item xs={12}>
                         {/* <Card> */}
@@ -297,16 +297,16 @@ class AddEvent extends Component {
                             <TextField className={this.props.classes.textFields} type="text" label="Image url" variant="outlined"
                                 value={this.state.event_url} onChange={(event) => this.handleChange('event_url', event)} />
 
-                                <h3>upload an image here:</h3>
-                                <div>
-                                    <input type="file" name="file" onChange={this.handleFileSelection} />
-                                    <button onClick={this.handleFileUpload}>Upload</button>
-                                    {/* {JSON.stringify(this.props.upload.url)}<br/>
+                            <h3>upload an image here:</h3>
+                            <div>
+                                <input type="file" name="file" onChange={this.handleFileSelection} />
+                                <button onClick={this.handleFileUpload}>Upload</button>
+                                {/* {JSON.stringify(this.props.upload.url)}<br/>
                                     {JSON.stringify(this.state)} */}
-                                    {this.state.event_url || this.props.upload.url ? 
+                                {this.state.event_url || this.props.upload.url ?
                                     <img className={this.props.classes.uploadFile} src={this.props.upload.url} alt="uploaded file" /> :
-                                    <span></span> }
-                                </div>
+                                    <span></span>}
+                            </div>
                         </CardContent>
                         {/* </Card> */}
                     </Grid>
@@ -336,7 +336,7 @@ class AddEvent extends Component {
                     <Grid item xs={12}>
                         <CardContent>
                             <Button className={this.props.classes.backButton} variant="contained"
-                                onClick={()=>this.handleBackButton(this.props.match.params.id)} >Back</Button>
+                                onClick={() => this.handleBackButton(this.props.match.params.id)} >Back</Button>
                             <Button className={this.props.classes.submitButton} variant="contained"
                                 onClick={this.handleSubmitButton} >Submit</Button>
                         </CardContent>
