@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Grid, Card, CardContent } from '@material-ui/core';
+import { Grid, Card, CardContent, Typography } from '@material-ui/core';
 import { withStyles } from '@material-ui/styles';
 import { connect } from 'react-redux';
 import Table from '@material-ui/core/Table';
@@ -16,7 +16,7 @@ import './EventDetails.css';
 
 const CustomTableCell = withStyles(theme => ({
     head: {
-        backgroundColor: 'black',
+        backgroundColor: '#878787',
         color: 'white'
     },
     body: {
@@ -43,6 +43,9 @@ const styles = theme => ({
     },
     nonprofitLogoGrid: {
         display: 'inline-flex'
+    },
+    image: {
+        textAlign: 'center'
     }
 })
 
@@ -95,39 +98,63 @@ class EventDetails extends Component {
                             </address>
                         </CardContent>
                     </Grid>
+                </Grid>
+                <Grid containter spacing={3}>
 
-                    <Grid item xs={12}>
-                        {this.props.event.eventDetails.map(info => (
-                            <>
-                                <Grid container spacing={3} key={info.id}>
-                                    <Grid item xs={6}>
+                    <Grid className={this.props.classes.nonprofitLogoGrid} item xs={12}>
+
+
+                        <Grid item xs={6}>
+
+                            <CardContent>
+                                {this.props.event.eventDetails.map(info => (
+                                    <>
                                         <h2>{info.name}</h2>
-                                        <span><b>Date:</b> {moment(info.start_date).format("MM/DD/YYYY")}</span> 
-                                        <br/>
-                                        <span><b>Time: </b></span>
-                                        <br/><br/>
-                                        <Grid container spacing={1}>
-                                            <b>Location:</b>&nbsp;<address>
-                                                {info.address}<br/>
-                                                {info.city}&nbsp;{info.state}
-                                                &nbsp;{info.zip_code}
-                                            </address>
-                                        </Grid>
-                                        <>
-                                        <br />
-                                        <span><b>Contact:</b> {this.props.nonprofit[0] && this.props.nonprofit[0].contact_email} </span><br/>
-                                        <span><b>Description:</b> {info.description}</span>
-                                        </>
-                                    </Grid>
-                                    <Grid item xs={6}>
-                                        <img src={info.event_url} alt="Event Logo" width="400" />
-                                    </Grid>
-                                </Grid>
-                            </>
-                        ))}
+                                        <table>
+                                            <tbody>
+                                                <tr>
+                                                    <td><Typography><b>Date: </b></Typography> </td>
+                                                    <td><Typography>{moment(info.start_date).format("MM/DD/YYYY")}</Typography></td>
+                                                </tr>
+                                                <tr>
+                                                    <td valign="top"><Typography><b>Time: </b></Typography></td>
+                                                    <td><Typography>{moment(info.start_time, 'hh:mm').format('LT')} - {moment(info.end_time, 'hh:mm').format('LT')}</Typography></td>
+                                                </tr>
+                                                <tr>
+                                                    <td valign="top"><Typography><b>Location: </b></Typography></td>
+                                                    <td><Typography><address>
+                                                        {info.address}<br />
+                                                        {info.city},&nbsp;{info.state}&nbsp;{info.zip_code}
+                                                    </address></Typography></td>
+                                                </tr>
+                                                <tr>
+                                                    <td valign="top"><Typography><b>Contact: </b></Typography></td>
+                                                    <td><Typography> {this.props.nonprofit[0] && this.props.nonprofit[0].contact_email} </Typography></td>
+                                                </tr>
+                                            </tbody>
+                                        </table>
+                                        <footer></footer>
+                                        <Typography>{info.description}</Typography>
+                                    </>
+                                ))}
 
-                        {nonprofitInfo.nonprofit_name === this.props.user.name && <Button className={this.props.classes.button} onClick={this.handleEditEvent}>Edit</Button>}
+                            </CardContent>
+
+
+                        </Grid>
+
+                        <Grid item xs={6}>
+                            <CardContent className={this.props.classes.image} >
+                                {this.props.event.eventDetails.map(info => (
+                                    <img src={info.event_url} alt="Event Logo" width="400" />
+                                ))}
+                            </CardContent>
+                        </Grid>
+
+
+
                     </Grid>
+                    {nonprofitInfo.nonprofit_name === this.props.user.name && <Button className={this.props.classes.button} onClick={this.handleEditEvent}>Edit</Button>}
 
 
                     <Grid item xs={12}>
@@ -163,8 +190,8 @@ class EventDetails extends Component {
                         </Paper>
                     </Grid>
                 </Grid>
-                <br/>
-                <br/>
+                <br />
+                <br />
                 <Grid container justify='center'>
                     {nonprofitInfo.nonprofit_name === this.props.user.name && <Button className={this.props.classes.button} onClick={this.handleButtonClick}> Volunteer List </Button>}
                 </Grid>

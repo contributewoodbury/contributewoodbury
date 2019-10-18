@@ -21,7 +21,7 @@ import Swal from 'sweetalert2';
 
 const CustomTableCell = withStyles(theme => ({
     head: {
-        backgroundColor: 'black',
+        backgroundColor: '#878787',
         color: 'white',
     },
     body: {
@@ -40,17 +40,16 @@ const styles = theme => ({
         textDecoration: 'none',
     },
     root: {
-        maxHeight: '800px',
-        width: '80%',
+        maxHeight: '1000px',
+        width: '90%',
         marginTop: theme.spacing(3),
         overflowY: 'scroll',
-        margin: 'auto'
+        margin: 'auto',
     },
     search: {
         float: 'right',
         width: '50%',
         margin: theme.spacing(3),
-
     },
     rows: {
         height: '100px'
@@ -62,7 +61,9 @@ const styles = theme => ({
         color: '#714723'
     },
     rootDiv: {
-        margin: '0px 100px 0px 100px'
+        // margin: '0px 100px 0px 100px',
+        backgroundColor: '#f1f5f9',
+        padding: '30px',
     },
 
 })

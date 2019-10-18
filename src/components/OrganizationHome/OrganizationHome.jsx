@@ -15,7 +15,7 @@ import './OrganizationHome.css';
 
 const CustomTableCell = withStyles(theme => ({
     head: {
-        backgroundColor: 'black',
+        backgroundColor: '#878787',
         color: 'white',
     },
     body: {

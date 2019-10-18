@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { CardContent, TextField, Button } from '@material-ui/core';
+import { Card, CardContent, TextField, Button } from '@material-ui/core';
 import { withStyles } from '@material-ui/styles';
 import Swal from 'sweetalert2';
 import 'react-phone-number-input/style.css';
@@ -22,6 +22,9 @@ const styles = theme => ({
     },
     stateZipPhone: {
         margin: '10px 0px 10px 30px'
+    },
+    card: {
+        width: '900px',
     }
 })
 
@@ -94,8 +97,10 @@ class SignupForm extends Component {
 
             <div>
                 {/* {JSON.stringify(this.state)} */}
+                <h3>Sign me up!</h3>
+                <Card className={this.props.classes.card} >
                 <CardContent>
-                    <h3>Sign me up!</h3>
+                    
                     <TextField className={this.props.classes.textFields} type="text" placeholder="Full Name" variant="outlined" label="Full Name"
                                 value={this.state.name} onChange={(event) => this.handleChange('name', event)} />
                     <TextField className={this.props.classes.textFields} type="text" placeholder="email" variant="outlined" label="email" 
@@ -126,6 +131,7 @@ class SignupForm extends Component {
                             onClick={this.handleAddVolunteer} >Sign Up!</Button>
                     
                 </CardContent>
+                </Card>
 
             </div>
         )

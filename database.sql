@@ -74,7 +74,7 @@ CREATE TABLE "volunteer_role" (
 );
 
 
-INSERT INTO "categories" ("name") VALUES ('Community Development', 'Health', 'Human Services', 'Youth');
+INSERT INTO "categories" ("name") VALUES ('Community Development'), ('Health'), ('Human Services'), ('Youth');
 
 INSERT INTO "nonprofit" ("name", "password", "contact_email", "contact_name", "contact_phone", "address", "city", "state", "zip_code", "website", "logo", "description", "category_id" )
 
