@@ -95,17 +95,7 @@ class RegisterPage extends Component {
       } else {
         this.props.dispatch({ type: 'REGISTRATION_INPUT_ERROR' });
       }
-    }, 200)
-    // console.log(this.state);
-    // if (this.state.username && this.state.password && this.state.address && this.state.city && this.state.zip_code && this.state.state && this.state.contact_email 
-    //   && this.state.contact_phone && this.state.website) {
-    //   this.props.dispatch({
-    //     type: 'REGISTER',
-    //     payload: this.state
-    //   });
-    // } else {
-    //   this.props.dispatch({ type: 'REGISTRATION_INPUT_ERROR' });
-    // }
+    }, 200);
   } // end registerUser
 
   handleInputChange = (propertyName, event) => {
@@ -178,6 +168,24 @@ class RegisterPage extends Component {
     })
   }
 
+  demoRegister = () => {
+    this.setState({
+      username: 'Backpacks 4 Kids',
+      password: 'backpacks',
+      description: 'Our organization helps make sure school children have enough food and supplies to do well during the school year and while on breaks. We distribute backpacks full of supplies to those children in need.',
+      address: 'K12345 Elementary Lane',
+      city: 'Woodbury',
+      zip_code: '55125',
+      state: 'MN',
+      contact_name: 'Joe Smith',
+      contact_email: 'freefood@backpacks4kids.org',
+      contact_phone: '651-233-1337',
+      website: 'https://www.backpacks4kids.org',
+      logo: 'http://schoolnutrition.org/uploadedImages/5_News_and_Publications/4_The_Journal_of_Child_Nutrition_and_Management/Fall_2013/bpfp-fig.png',
+      category_id: 4,
+    })
+  }
+
   render() {
     return (
       <div className={this.props.classes.rootDiv}>
@@ -190,7 +198,7 @@ class RegisterPage extends Component {
           </h2>
         )}
         {/* <center> */}
-        <h1 className={this.props.classes.heading} >Register your nonprofit organization to post and share your upcoming events!</h1>
+        <h1 className={this.props.classes.heading} onClick={this.demoRegister()}>Register your nonprofit organization to post and share your upcoming events!</h1>
         <Grid container spacing={3}>
           <Grid item xs={12}>
             <label htmlFor="Organization Name">
