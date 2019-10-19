@@ -17,7 +17,8 @@ import './EventDetails.css';
 const CustomTableCell = withStyles(theme => ({
     head: {
         backgroundColor: '#878787',
-        color: 'white'
+        color: 'white',
+        fontSize: 24,
     },
     body: {
         fontSize: 20

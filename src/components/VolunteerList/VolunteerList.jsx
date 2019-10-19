@@ -13,11 +13,12 @@ import moment from 'moment';
 
 const CustomTableCell = withStyles(theme => ({
     head: {
-        backgroundColor: 'black',
+        backgroundColor: '#878787',
         color: 'white',
+        fontSize: 24,
     },
     body: {
-        fontSize: 14,
+        fontSize: 20,
     }
 }))(TableCell);
 
@@ -92,7 +93,7 @@ class VolunteerList extends Component {
                                     <CustomTableCell>Role</CustomTableCell>
                                     <CustomTableCell align="right">Volunteer/Time</CustomTableCell>
                                     <CustomTableCell align="right">Comments</CustomTableCell>
-                                    <CustomTableCell align="right">Contact Infromation</CustomTableCell>
+                                    <CustomTableCell align="right">Contact Information</CustomTableCell>
                                 </TableRow>
                             </TableHead>
                             <TableBody>
