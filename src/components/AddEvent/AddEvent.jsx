@@ -189,9 +189,9 @@ class AddEvent extends Component {
 
     demoEvent = () => {
         this.setState({
-            name: 'Food 4 Kidz',
+            name: 'Food 4 Kids',
             non_profit_id: +(this.props.match.params.id),
-            description: 'We will be distributing backpacks full of food to children for Winter Break.',
+            description: 'We will be distributing backpacks full of food to children for Winter Break. The event will take place at East Side Woodbury Elementary.',
             address: 'K12345 Elementary Lane',
             city: 'Woodbury',
             zip_code: '55125',

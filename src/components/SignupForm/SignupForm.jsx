@@ -86,21 +86,46 @@ class SignupForm extends Component {
         })
     }
 
+    demoVolunteer1 = () => {
+        this.setState({
+            name: 'Mary Jones',
+            role_id: this.props.roleId,
+            start_time: this.props.role.start_time,
+            end_time: this.props.role.end_time ,
+            comments: 'I love kids! Are there any allergies I need to be aware of?',
+            email: 'Maryjonesnotpoppins@gmail.com',
+            phone_number: '+16518328493',
+            address: '7890 Helpful Lane',
+            city: 'Woodbury',
+            state: 'MN',
+            zip_code: '55125'
+        })
+    }
+
+    demoVolunteer2 = () => {
+        this.setState({
+            name: 'Josephina Jones',
+            role_id: this.props.roleId,
+            start_time: this.props.role.start_time,
+            end_time: this.props.role.end_time,
+            comments: 'She also loves kids.',
+            email: 'Maryjonesnotpoppins@gmail.com',
+            phone_number: '+16518328499',
+            address: '2390 South Helpful Lane',
+            city: 'Woodbury',
+            state: 'MN',
+            zip_code: '55125'
+        })
+    }
 
     render () {
 
-        
-
-
         return (
 
-
             <div>
-                {/* {JSON.stringify(this.state)} */}
-                <h3>Sign me up!</h3>
+                <h3 onClick={()=>this.demoVolunteer1()}>Sign me up!</h3>
                 <Card className={this.props.classes.card} >
                 <CardContent>
-                    
                     <TextField className={this.props.classes.textFields} type="text" placeholder="Full Name" variant="outlined" label="Full Name"
                                 value={this.state.name} onChange={(event) => this.handleChange('name', event)} />
                     <TextField className={this.props.classes.textFields} type="text" placeholder="email" variant="outlined" label="email" 
@@ -127,6 +152,7 @@ class SignupForm extends Component {
                         placeholder="Have a question or comment? Let the organization know by leaving a message here!"
                         variant="outlined" label="Questions/Comments?" multiline rows={4}
                         value={this.state.comments} onChange={(event) => this.handleChange('comments', event)} /><br />
+                        <h4 onClick={() => this.demoVolunteer2()}>Thank you for your help!</h4>
                     <Button variant="contained" className={this.props.classes.saveButton}
                             onClick={this.handleAddVolunteer} >Sign Up!</Button>
                     

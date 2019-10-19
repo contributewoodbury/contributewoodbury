@@ -71,18 +71,13 @@ class VolunteerSignup extends Component {
         this.props.dispatch({
             type: 'VOLUNTEER_SIGNUP',
             payload: this.props.signedup
-        })
-
+        });
         this.props.dispatch({
             type: 'CLEAR_SIGNUP_LIST'
-        })
-        this.props.history.push(`/organizationHome/${this.props.user.id}`)
-
+        });
         let id = this.props.role.event_id;
-
         this.props.history.push(`/eventDetails/${id}`);
     }
-
 
     render() {
 

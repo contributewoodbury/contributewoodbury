@@ -172,7 +172,7 @@ class RegisterPage extends Component {
     this.setState({
       username: 'Backpacks 4 Kids',
       password: 'backpacks',
-      description: 'Our organization helps make sure school children have enough food and supplies to do well during the school year and while on breaks. We distribute backpacks full of supplies to those children in need.',
+      description: 'Backpacks 4 Kids has been serving the Woodbury Community for over 15 years now.  Joe Smith has been leading our nonprofit since its founding and is determined to make sure Woodbury\'s youth are well prepared to thrive in the Woodbury education system.  We focus on elementary age children who are adversely affected by a low economic status. Our organization helps make sure school children have enough food and supplies to do well during the school year and while on breaks. We accept donations and fundraise to purchase much needed supplies for students in need.  We often host events distributing backpacks full of supplies to those children in need at their respective schools.',
       address: 'K12345 Elementary Lane',
       city: 'Woodbury',
       zip_code: '55125',
