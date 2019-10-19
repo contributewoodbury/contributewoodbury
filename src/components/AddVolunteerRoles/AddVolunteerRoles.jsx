@@ -154,7 +154,7 @@ class AddVolunteerRoles extends Component {
     demoRole1 = () => {
         this.setState({
             name: 'Backpack Distributer',
-            description: 'Helps make sure that every kid gets a backpack',
+            description: 'Helps make sure that every kid gets a backpack with a cheerful smile.',
             number_needed: '2',
             start_time: '15:00:00',
             end_time: '16:30:00',
@@ -164,8 +164,8 @@ class AddVolunteerRoles extends Component {
 
     demoRole2 = () => {
         this.setState({
-            name: 'Backpack Helper',
-            description: 'Welcomes children and directs them where to go to get a backpack.',
+            name: 'Greeter',
+            description: 'Welcomes children and directs them where to go to get a backpack, making sure that they are comfortable.',
             number_needed: '4',
             start_time: '15:00:00',
             end_time: '16:30:00',
