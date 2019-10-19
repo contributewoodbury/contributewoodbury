@@ -20,7 +20,7 @@ const CustomTableCell = withStyles(theme => ({
         color: 'white'
     },
     body: {
-        fontSize: 14
+        fontSize: 20
     }
 }))(TableCell);
 
