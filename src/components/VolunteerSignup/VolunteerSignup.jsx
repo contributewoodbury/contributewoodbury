@@ -93,7 +93,7 @@ class VolunteerSignup extends Component {
                 <Grid container spacing={0}>
                     <Grid item xs={12}>
                         <CardContent>
-                            {/* <NonprofitDetails /> */}
+                            <NonprofitDetails />
                         </CardContent>
                     </Grid>
 
