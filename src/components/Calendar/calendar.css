@@ -5,6 +5,7 @@
 .calendarHeader {
   display: flex;
   justify-content: center;
+  background-color: #f1f5f9;
 }
 
 .calendarDividers {

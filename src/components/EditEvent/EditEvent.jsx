@@ -127,7 +127,7 @@ class EditEvent extends Component {
             <div className={this.props.classes.rootDiv}>
                 <Grid container spacing={3}>
                     <Grid item xs={12}>
-                        <h1>Edit Your Event</h1>
+                        <h1>Edit Your Event: {this.props.event.map(event => (<span>{event.name}</span>))}</h1>
                         <p>Make changes to your event here. Click submit to save the changes.</p>
                     </Grid>
 

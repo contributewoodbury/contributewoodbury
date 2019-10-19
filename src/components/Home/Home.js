@@ -51,7 +51,7 @@ registrationSuccessful = () => {
 
   render() {
     return (
-      <div>
+      <div className="appJsRootDiv">
         {this.props.errors.loginMessage && (
           <h2
             className="alert"
@@ -61,7 +61,7 @@ registrationSuccessful = () => {
           </h2>
         )}
         {this.props.user.is_approved === false && this.registrationSuccessful()}
-        <div>
+        <div className="homeDiv" >
         <div>
           <center>
           <h1 className={this.props.classes.heading} >What are you looking for?</h1>

@@ -7,7 +7,7 @@ import TableCell from '@material-ui/core/TableCell';
 import TableHead from '@material-ui/core/TableHead';
 import TableRow from '@material-ui/core/TableRow';
 import Paper from '@material-ui/core/Paper';
-import { Button, Link, CardContent } from '@material-ui/core/';
+import { Button, Link, CardContent, Typography } from '@material-ui/core/';
 import { connect } from 'react-redux';
 import moment from 'moment';
 import Swal from 'sweetalert2';
@@ -15,11 +15,12 @@ import './OrganizationHome.css';
 
 const CustomTableCell = withStyles(theme => ({
     head: {
-        backgroundColor: 'black',
+        backgroundColor: '#878787',
         color: 'white',
+        fontSize: 24,
     },
     body: {
-        fontSize: 14,
+        fontSize: 20,
     }
 }))(TableCell);
 
@@ -126,21 +127,31 @@ class OrganizationHome extends Component {
                         </CardContent>
                     </Grid>
                 </Grid>
-                <Grid container spacing={1}>
-                    <p>Contact: {this.props.nonprofit[0] && this.props.nonprofit[0].contact_name}</p>
-                </Grid>
-                <Grid container spacing={1}>
-                    <p>Phone: {this.props.nonprofit[0] && this.props.nonprofit[0].contact_phone}</p>
-                </Grid>
-                <Grid container spacing={1}>
-                    <p>Email: {this.props.nonprofit[0] && this.props.nonprofit[0].contact_email}</p>
-                </Grid>
-                <Grid container spacing={1}>
-                    <Link variant="body1" href={this.props.nonprofit[0] && this.props.nonprofit[0].website} target="_blank" rel="noopener noreferrer">Link To Website</Link>
-                </Grid>
-                <Grid container spacing={1}>
-                    <p>Organization Description: {this.props.nonprofit[0] && this.props.nonprofit[0].description}</p>
-                </Grid>
+                
+
+                <table>
+                <tbody>
+                <tr>
+                <td><Typography><b>Contact: </b></Typography> </td>
+                <td><Typography>{this.props.nonprofit[0] && this.props.nonprofit[0].contact_name}</Typography></td>
+                </tr>
+
+                <tr>
+                <td><Typography><b>Phone: </b></Typography> </td>
+                <td><Typography>{this.props.nonprofit[0] && this.props.nonprofit[0].contact_phone}</Typography></td>
+                </tr>
+
+                <tr>
+                <td><Typography><b>Email: </b></Typography> </td>
+                <td><Typography>{this.props.nonprofit[0] && this.props.nonprofit[0].contact_email}</Typography></td>
+                </tr>
+
+                </tbody>
+                </table>
+                <footer></footer>
+                {this.props.nonprofit[0] && this.props.nonprofit[0].description}<br/><br/>
+                <Link variant="body1" href={this.props.nonprofit[0] && this.props.nonprofit[0].website} target="_blank" rel="noopener noreferrer">Link To Website</Link><br/>
+
                 {nonprofitInfo.nonprofit_name === this.props.user.name && <Button className={this.props.classes.button} onClick={this.handleEditDetails}>Edit Details</Button>}
                 <Grid container spacing={1} justify="center">
                     <h2>Event List</h2>
