@@ -21,10 +21,11 @@ const Nav = (props) => {
   return (
     <div className="nav">
       <Link to="/home">
-      <img className="woodbury-logo" src={logo} alt="Three leaves with the words Woodbury Community Foundation next to them"></img>
+      <h2 className="nav-title">Contribute Woodbury</h2>
+      {/* <img className="woodbury-logo" src={logo} alt="Three leaves with the words Woodbury Community Foundation next to them"></img> */}
       </Link>
       
-        {/* <h2 className="nav-title">Contribute Woodbury</h2> */}
+        
       
       <div className="nav-right">
 
