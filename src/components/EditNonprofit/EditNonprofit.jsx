@@ -43,6 +43,14 @@ const styles = theme => ({
     },
     paragraph: {
         margin: '10px 10px 0px 30px'
+    },
+    uploadButton: {
+        color: 'white',
+        backgroundColor: '#457736',
+        margin: '20px 10px 0px 10px'
+    },
+    regButtons: {
+        margin: '5px'
     }
 })
 
@@ -56,6 +64,17 @@ class EditNonprofit extends Component {
         })
     }
 
+    componentDidUpdate(prevProps) {
+        console.log('prevprops is', prevProps);
+        if (this.props.reduxStore.upload.uploadedImage !== prevProps.reduxStore.upload.uploadedImage) {
+            console.log('COMPONENT DID UPDATE!', this.props.reduxStore.upload.uploadedImage.url);
+            this.props.dispatch({
+                type: 'SET_EDITS_TO_NONPROFIT',
+                payload: { logo: this.props.reduxStore.upload.uploadedImage.url}
+            })           
+        }
+    }
+
     state = {
         id: this.props.match.params.id,
         name: '',
@@ -66,7 +85,9 @@ class EditNonprofit extends Component {
         website: '',
         logo: '',
         category_id: 1,
-        category_name: 'NONE'
+        category_name: 'NONE',
+        uploadButton: false,
+        uploadFile: '',
     }
 
 
@@ -146,6 +167,39 @@ class EditNonprofit extends Component {
         })
     }
 
+    handleUploadButton = () => {
+        console.log('uploadbutton clicked');
+        this.setState({
+            uploadButton: true
+        })
+    }
+
+    handleCancelUpload = () => {
+        this.setState({
+            uploadButton: false
+        })
+    }
+
+    handleFileSelection = (event) => {
+        let file = event.target.files[0]
+        this.setState({
+            uploadFile: file
+        })
+        console.log('this file was uploaded:', event.target.files[0]);
+    }
+
+    handleFileUpload = () => {
+        const data = new FormData();
+        data.append('file', this.state.uploadFile)
+        this.props.dispatch({
+            type: 'IMAGE_UPLOAD',
+            payload: data
+        })
+        this.setState({
+            uploadButton: false
+        })
+    }
+
 
     render() {
         let dropdownMenu = {
@@ -201,7 +255,26 @@ class EditNonprofit extends Component {
                         <br />
                             <TextField className={this.props.classes.textFields} defaultValue={currentNonProfit.website} type="text" placeholder="Organization Website URL" label="Organization Website URL" variant="outlined" onChange={(event) => { this.handleEditInputChange('website', event) }}/>
                         <br />
-                            <TextField className={this.props.classes.textFields} type="text" defaultValue={currentNonProfit.logo} placeholder="Organization Logo URL" label="Organization Logo URL" variant="outlined" onChange={(event) => { this.handleEditInputChange('logo', event) }}/>
+                            {/* <TextField className={this.props.classes.textFields} type="text" defaultValue={currentNonProfit.logo} placeholder="Organization Logo URL" label="Organization Logo URL" variant="outlined" onChange={(event) => { this.handleEditInputChange('logo', event) }}/> */}
+
+                            {this.state.uploadButton ?
+                                <div className={this.props.classes.textFields} >
+                                    <input type="file" name="file" onChange={this.handleFileSelection} />
+                                    <button className={this.props.classes.regButtons} onClick={this.handleFileUpload}>Upload</button>
+                                    <button className={this.props.classes.regButtons} onClick={this.handleCancelUpload} >Cancel</button>
+                                </div>
+                                :
+                                <>
+                                    <TextField className={this.props.classes.textFields} type="text" value={currentNonProfit.logo} placeholder="Organization Logo URL" label="Organization Logo URL" variant="outlined" onChange={(event) => { this.handleEditInputChange('logo', event) }} />
+                                    <Button className={this.props.classes.uploadButton}
+                                        onClick={this.handleUploadButton} >Upload</Button>
+                                </>
+
+                            }
+
+
+
+
                         <br />
                     </Grid>
                     <Grid item xs={6}>
