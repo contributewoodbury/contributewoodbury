@@ -46,7 +46,20 @@ const styles = theme => ({
     },
     uploadFile: {
         height: '300px'
-    }
+    },
+    uploadButton: {
+        color: 'white',
+        backgroundColor: '#457736',
+        margin: '20px 10px 0px 10px'
+    },
+    regButtons: {
+        margin: '5px'
+    },
+    logoTextField: {
+        margin: '10px 10px 10px 30px',
+        width: '300px'
+    },
+    
 })
 
 
@@ -74,6 +87,7 @@ class AddEvent extends Component {
         past_event_id: '',
         volunteers_needed: true,
         uploadFile: '',
+        uploadButton: false
     }
 
     handleChange = (propertyName, event) => {
@@ -185,6 +199,9 @@ class AddEvent extends Component {
             type: 'IMAGE_UPLOAD',
             payload: data
         })
+        this.setState({
+            uploadButton: false
+        })
     }
 
     demoEvent = () => {
@@ -202,6 +219,19 @@ class AddEvent extends Component {
             end_time: '16:30:00',
             event_url: 'http://www.food4kidsfl.org/wp-content/uploads/2015/07/Logo.png',
             volunteers_needed: true,
+        })
+    }
+
+    handleUploadButton = () => {
+        console.log('uploadbutton clicked');
+        this.setState({
+            uploadButton: true
+        })
+    }
+
+    handleCancelUpload = () => {
+        this.setState({
+            uploadButton: false
         })
     }
 
@@ -281,6 +311,7 @@ class AddEvent extends Component {
                     <Grid item xs={6}>
                         {/* <Card> */}
                         <CardContent>
+                         
                             <h2>Date and Time:</h2>
                             <TextField className={this.props.classes.dateFields} type="date" placeholder="Start" required={true}
                                 variant="outlined" value={this.state.start_date} onChange={(event) => this.handleChange('start_date', event)} />
@@ -294,19 +325,41 @@ class AddEvent extends Component {
                                 variant="outlined" value={this.state.end_time} onChange={(event) => this.handleChange('end_time', event)} />
                             <br />
 
-                            <TextField className={this.props.classes.textFields} type="text" label="Image url" variant="outlined"
+
+
+
+                            <br />
+                            {this.state.uploadButton ?
+                                <div className={this.props.classes.textFields} >
+                                    <input type="file" name="file" onChange={this.handleFileSelection} />
+                                    <button className={this.props.classes.regButtons} onClick={this.handleFileUpload}>Upload</button>
+                                    <button className={this.props.classes.regButtons} onClick={this.handleCancelUpload} >Cancel</button>
+                                </div>
+                                :
+                                <>
+                                    <TextField className={this.props.classes.logoTextField} type="text" placeholder="Organization Logo URL" label="Logo URL"
+                                        value={this.state.event_url} variant="outlined" onChange={(event) => { this.handleInputChange('logo', event) }} />
+                                    <Button className={this.props.classes.uploadButton}
+                                        onClick={this.handleUploadButton} >Upload</Button>
+                                </>
+
+                            }
+                            <br />
+
+                            {/* <TextField className={this.props.classes.textFields} type="text" label="Image url" variant="outlined"
                                 value={this.state.event_url} onChange={(event) => this.handleChange('event_url', event)} />
 
                             <h3>upload an image here:</h3>
                             <div>
                                 <input type="file" name="file" onChange={this.handleFileSelection} />
-                                <button onClick={this.handleFileUpload}>Upload</button>
+                                <button onClick={this.handleFileUpload}>Upload</button> */}
                                 {/* {JSON.stringify(this.props.upload.url)}<br/>
                                     {JSON.stringify(this.state)} */}
-                                {this.state.event_url || this.props.upload.url ?
+                                {/* {this.state.event_url || this.props.upload.url ?
                                     <img className={this.props.classes.uploadFile} src={this.props.upload.url} alt="uploaded file" /> :
-                                    <span></span>}
-                            </div>
+                                    <span></span>} */}
+                            {/* </div> */}
+                            
                         </CardContent>
                         {/* </Card> */}
                     </Grid>

@@ -125,19 +125,19 @@ class VolunteerSignup extends Component {
                                 <table>
                                     <tbody>
                                         <tr>
-                                            <td><Typography><b>Volunteer Role:</b></Typography></td>
+                                            <td valign="top"><Typography><b>Role:</b></Typography></td>
                                             <td><Typography>{this.props.role.name} ({this.props.role.number_needed} volunteers needed)</Typography></td>
                                         </tr>
                                         <tr>
-                                            <td><Typography><b>Description:</b></Typography></td>
+                                            <td valign="top"><Typography><b>Description:</b></Typography></td>
                                             <td><Typography>{this.props.role.description}</Typography></td>
                                         </tr>
                                         <tr>
-                                            <td><Typography><b>Date:</b></Typography></td>
+                                            <td valign="top"><Typography><b>Date:</b></Typography></td>
                                             <td><Typography>{moment(this.props.role.date).format('MM[/]DD[/]YYYY')} </Typography></td>
                                         </tr>
                                         <tr>
-                                            <td><Typography><b>Time:</b></Typography></td>
+                                            <td valign="top"><Typography><b>Time:</b></Typography></td>
                                             <td><Typography>{moment(this.props.role.start_time, 'hh:mm').format('LT')} - {moment(this.props.role.end_time, 'hh:mm').format('LT')} </Typography></td>
                                         </tr>
                                     </tbody>
