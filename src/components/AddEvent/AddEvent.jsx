@@ -70,6 +70,14 @@ class AddEvent extends Component {
             payload: +(this.props.match.params.id)
         })
     }
+    componentDidUpdate(prevProps) {
+        console.log(prevProps);
+        if (this.props.upload !== prevProps.upload) {
+            this.setState({
+                event_url: this.props.upload.url
+            })
+        }
+    }
 
     state = {
         name: '',
@@ -91,11 +99,7 @@ class AddEvent extends Component {
     }
 
     handleChange = (propertyName, event) => {
-        if (this.props.upload) {
-            this.setState({
-                event_url: this.props.upload.url
-            })
-        }
+
         this.setState({
             [propertyName]: event.target.value
         })
@@ -337,8 +341,8 @@ class AddEvent extends Component {
                                 </div>
                                 :
                                 <>
-                                    <TextField className={this.props.classes.logoTextField} type="text" placeholder="Organization Logo URL" label="Logo URL"
-                                        value={this.state.event_url} variant="outlined" onChange={(event) => { this.handleInputChange('logo', event) }} />
+                                    <TextField className={this.props.classes.logoTextField} type="text" placeholder="Image URL here or upload an image" label="image"
+                                        value={this.state.event_url} variant="outlined" onChange={(event) => { this.handleChange('event_url', event) }} />
                                     <Button className={this.props.classes.uploadButton}
                                         onClick={this.handleUploadButton} >Upload</Button>
                                 </>
