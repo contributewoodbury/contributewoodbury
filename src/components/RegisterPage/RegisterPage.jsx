@@ -75,6 +75,16 @@ class RegisterPage extends Component {
     this.props.dispatch({ type: 'GET_CATEGORIES' });
   }
 
+  componentDidUpdate(prevProps) {
+    console.log(prevProps);
+    if (this.props.upload !== prevProps.upload) {
+      this.setState({
+        logo: this.props.upload.url
+      })
+    }
+  }
+
+
   registerUser = (event) => {
     event.preventDefault();
     let attempt = 'https://'
@@ -99,11 +109,6 @@ class RegisterPage extends Component {
   } // end registerUser
 
   handleInputChange = (propertyName, event) => {
-    if (this.props.upload) {
-      this.setState({
-        logo: this.props.upload.url
-      })
-    }
     this.setState({
       [propertyName]: event.target.value,
     });
