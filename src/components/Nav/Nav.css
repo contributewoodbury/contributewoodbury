@@ -1,9 +1,10 @@
 .nav-title {
-    font-size: 24px;
+    font-family: tahoma;
+    font-size: 44px;
     font-weight: 700;
     display: inline-block;
     color: #f2f2f2;
-    padding-left: 10px;
+    padding-left: 20px;
 }
 
 .nav {
