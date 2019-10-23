@@ -7,7 +7,7 @@ import FormControl from '@material-ui/core/FormControl';
 import 'react-phone-number-input/style.css';
 import PhoneInput from 'react-phone-number-input';
 
-
+//MATERIAL UI STYLES;
 const styles = theme => ({
   heading: {
     color: '#714723',
@@ -75,6 +75,7 @@ class RegisterPage extends Component {
     this.props.dispatch({ type: 'GET_CATEGORIES' });
   }
 
+  //UPDATE COMPONENT AND INPUT FIELD UPON FILE/IMAGE UPLOAD;
   componentDidUpdate(prevProps) {
     console.log(prevProps);
     if (this.props.upload !== prevProps.upload) {
@@ -85,6 +86,7 @@ class RegisterPage extends Component {
   }
 
 
+  //ONCLICK CHECK WEBSITE INPUT FOR 'HTTPS://' THEN CHECK FOR ALL REQUIRED FIELDS THEN DISPATCH TO SAGA AND POST NEW USER;
   registerUser = (event) => {
     event.preventDefault();
     let attempt = 'https://'
@@ -106,14 +108,16 @@ class RegisterPage extends Component {
         this.props.dispatch({ type: 'REGISTRATION_INPUT_ERROR' });
       }
     }, 200);
-  } // end registerUser
+  } 
 
+  //ONCHANGE SET STATE TO INPUT PROPERTIES;
   handleInputChange = (propertyName, event) => {
     this.setState({
       [propertyName]: event.target.value,
     });
   }
 
+  //ONCHANGE SET STATE TO DROPDOWN BOX SELECTION;
   handleDropdownChange = (propertyName1, propertyName2, event) => {
     console.log('in handle dropdown change');
     this.setState({
@@ -123,6 +127,7 @@ class RegisterPage extends Component {
     });
   }
 
+  //ONCLICK ALERT USER THEN PUSH TO PREVIOUS PAGE;
   handleBackButton = () => {
     Swal.fire({
       title: 'Are you sure?',
@@ -139,28 +144,29 @@ class RegisterPage extends Component {
     });
   }
 
-
+  //ONCLICK TOGGLE UPLOAD BUTTON TO TRUE AND DISPLAY UPLOAD OPTIONS ON DOM;
   handleUploadButton = () => {
-    console.log('uploadbutton clicked');
     this.setState({
       uploadButton: true
     })
   }
 
+  //ONCLICK TOGGLE UPLOAD BUTTON TO FALSE AND DISPLAY URL INPUT FIELDS;
   handleCancelUpload = () => {
     this.setState({
       uploadButton: false
     })
   }
 
+  //SET STATE TO SELECTED FILE TO UPLOAD;
   handleFileSelection = (event) => {
     let file = event.target.files[0]
     this.setState({
       uploadFile: file
     })
-    console.log('this file was uploaded:', event.target.files[0]);
   }
 
+  //ONCLICK DISPATCH FILE TO UPLOAD TO SAGA THEN SERVER/CLOUDINARY;
   handleFileUpload = () => {
     const data = new FormData();
     data.append('file', this.state.uploadFile)
@@ -170,24 +176,6 @@ class RegisterPage extends Component {
     })
     this.setState({
       uploadButton: false
-    })
-  }
-
-  demoRegister = () => {
-    this.setState({
-      username: 'Backpacks 4 Kids',
-      password: 'backpacks',
-      description: 'Backpacks 4 Kids has been serving the Woodbury Community for over 15 years now.  Joe Smith has been leading our nonprofit since its founding and is determined to make sure Woodbury\'s youth are well prepared to thrive in the Woodbury education system.  We focus on elementary age children who are adversely affected by a low economic status. Our organization helps make sure school children have enough food and supplies to do well during the school year and while on breaks. We accept donations and fundraise to purchase much needed supplies for students in need.  We often host events distributing backpacks full of supplies to those children in need at their respective schools.',
-      address: 'K12345 Elementary Lane',
-      city: 'Woodbury',
-      zip_code: '55125',
-      state: 'MN',
-      contact_name: 'Joe Smith',
-      contact_email: 'freefood@backpacks4kids.org',
-      contact_phone: '651-233-1337',
-      website: 'https://www.backpacks4kids.org',
-      logo: 'http://schoolnutrition.org/uploadedImages/5_News_and_Publications/4_The_Journal_of_Child_Nutrition_and_Management/Fall_2013/bpfp-fig.png',
-      category_id: 4,
     })
   }
 
@@ -202,7 +190,6 @@ class RegisterPage extends Component {
             {this.props.errors.registrationMessage}
           </h2>
         )}
-        {/* <center> */}
         <h1 className={this.props.classes.heading} onClick={() => this.demoRegister()}>Register your nonprofit organization to post and share your upcoming events!</h1>
         <Grid container spacing={3}>
           <Grid item xs={12}>
