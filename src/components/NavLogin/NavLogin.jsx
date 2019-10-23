@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 import { withStyles } from '@material-ui/styles';
 
 
-
+//MATERIAL UI STYLES
 const styles = theme => ({
     loginDiv: {
         color: 'white',
@@ -16,11 +16,9 @@ class NavLogin extends Component {
         password: '',
     };
 
+    //ONCLICK LOG IN USER WITH VERIFIED CREDENTIALS OR DISPLAY LOGIN ERROR;
     login = (event) => {
-        console.log('login', this.state);
-
         event.preventDefault();
-
 
         if (this.state.username && this.state.password) {
             this.props.dispatch({
@@ -33,8 +31,9 @@ class NavLogin extends Component {
         } else {
             this.props.dispatch({ type: 'LOGIN_INPUT_ERROR' });
         }
-    } // end login
+    }
 
+    //SETSTATE FOR INPUT CHANGES;
     handleInputChangeFor = propertyName => (event) => {
         this.setState({
             [propertyName]: event.target.value,
@@ -57,7 +56,7 @@ class NavLogin extends Component {
                     <div className={this.props.classes.loginDiv} >
                         <span>Already signed up?</span>
                         <label htmlFor="username">
-                            {/* Username: */}
+   
                             <input
                                 type="text"
                                 name="username"
@@ -66,10 +65,9 @@ class NavLogin extends Component {
                                 onChange={this.handleInputChangeFor('username')}
                             />
                         </label>
-                        {/* </div>
-                        <div> */}
+            
                         <label htmlFor="password">
-                            {/* Password: */}
+        
                             <input
                                 type="password"
                                 name="password"
@@ -78,8 +76,7 @@ class NavLogin extends Component {
                                 onChange={this.handleInputChangeFor('password')}
                             />
                         </label>
-                        {/* </div>
-                        <div> */}
+ 
                         <input
 
                             className="log-in"
