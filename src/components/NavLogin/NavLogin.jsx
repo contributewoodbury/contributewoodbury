@@ -17,8 +17,6 @@ class NavLogin extends Component {
     };
 
     login = (event) => {
-        console.log('login', this.state);
-
         event.preventDefault();
 
 

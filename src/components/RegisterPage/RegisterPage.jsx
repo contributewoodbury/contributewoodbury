@@ -75,17 +75,25 @@ class RegisterPage extends Component {
     this.props.dispatch({ type: 'GET_CATEGORIES' });
   }
 
+  componentDidUpdate(prevProps) {
+    if (this.props.upload !== prevProps.upload) {
+      this.setState({
+        logo: this.props.upload.url
+      })
+    }
+  }
+
+
   registerUser = (event) => {
     event.preventDefault();
     let attempt = 'https://'
-    if(this.state.website.startsWith('http') === false){
+    if (this.state.website.startsWith('http') === false) {
       this.setState({
-        ...this.state, 
+        ...this.state,
         website: attempt.concat("", this.state.website)
       })
-    } 
+    }
     setTimeout(() => {
-      console.log(this.state);
       if (this.state.username && this.state.password && this.state.address && this.state.city && this.state.zip_code && this.state.state && this.state.contact_email
         && this.state.contact_phone && this.state.website) {
         this.props.dispatch({
@@ -95,32 +103,16 @@ class RegisterPage extends Component {
       } else {
         this.props.dispatch({ type: 'REGISTRATION_INPUT_ERROR' });
       }
-    }, 200)
-    // console.log(this.state);
-    // if (this.state.username && this.state.password && this.state.address && this.state.city && this.state.zip_code && this.state.state && this.state.contact_email 
-    //   && this.state.contact_phone && this.state.website) {
-    //   this.props.dispatch({
-    //     type: 'REGISTER',
-    //     payload: this.state
-    //   });
-    // } else {
-    //   this.props.dispatch({ type: 'REGISTRATION_INPUT_ERROR' });
-    // }
+    }, 200);
   } // end registerUser
 
   handleInputChange = (propertyName, event) => {
-    if (this.props.upload) {
-      this.setState({
-        logo: this.props.upload.url
-      })
-    }
     this.setState({
       [propertyName]: event.target.value,
     });
   }
 
   handleDropdownChange = (propertyName1, propertyName2, event) => {
-    console.log('in handle dropdown change');
     this.setState({
       ...this.state,
       [propertyName1]: event.target.value.id,
@@ -146,7 +138,6 @@ class RegisterPage extends Component {
 
 
   handleUploadButton = () => {
-    console.log('uploadbutton clicked');
     this.setState({
       uploadButton: true
     })
@@ -163,7 +154,6 @@ class RegisterPage extends Component {
     this.setState({
       uploadFile: file
     })
-    console.log('this file was uploaded:', event.target.files[0]);
   }
 
   handleFileUpload = () => {
@@ -175,6 +165,24 @@ class RegisterPage extends Component {
     })
     this.setState({
       uploadButton: false
+    })
+  }
+
+  demoRegister = () => {
+    this.setState({
+      username: 'Backpacks 4 Kids',
+      password: 'backpacks',
+      description: 'Backpacks 4 Kids has been serving the Woodbury Community for over 15 years now.  Joe Smith has been leading our nonprofit since its founding and is determined to make sure Woodbury\'s youth are well prepared to thrive in the Woodbury education system.  We focus on elementary age children who are adversely affected by a low economic status. Our organization helps make sure school children have enough food and supplies to do well during the school year and while on breaks. We accept donations and fundraise to purchase much needed supplies for students in need.  We often host events distributing backpacks full of supplies to those children in need at their respective schools.',
+      address: 'K12345 Elementary Lane',
+      city: 'Woodbury',
+      zip_code: '55125',
+      state: 'MN',
+      contact_name: 'Joe Smith',
+      contact_email: 'freefood@backpacks4kids.org',
+      contact_phone: '651-233-1337',
+      website: 'https://www.backpacks4kids.org',
+      logo: 'http://schoolnutrition.org/uploadedImages/5_News_and_Publications/4_The_Journal_of_Child_Nutrition_and_Management/Fall_2013/bpfp-fig.png',
+      category_id: 4,
     })
   }
 
@@ -190,7 +198,7 @@ class RegisterPage extends Component {
           </h2>
         )}
         {/* <center> */}
-        <h1 className={this.props.classes.heading} >Register your nonprofit organization to post and share your upcoming events!</h1>
+        <h1 className={this.props.classes.heading} onClick={() => this.demoRegister()}>Register your nonprofit organization to post and share your upcoming events!</h1>
         <Grid container spacing={3}>
           <Grid item xs={12}>
             <label htmlFor="Organization Name">
@@ -200,7 +208,7 @@ class RegisterPage extends Component {
                 variant="outlined"
                 type="text"
                 name="Name"
-                value={this.state.name}
+                value={this.state.username}
                 onChange={(event) => this.handleInputChange('username', event)}
               />
             </label>
@@ -217,45 +225,45 @@ class RegisterPage extends Component {
                 onChange={(event) => this.handleInputChange('password', event)}
               />
             </label>
-            <TextField className={this.props.classes.description} type="text" placeholder="Organization Description" label="Organization Description" variant="outlined" multiline rows="4" onChange={(event) => { this.handleInputChange('description', event) }} />
+            <TextField className={this.props.classes.description} type="text" placeholder="Organization Description" label="Organization Description" variant="outlined" multiline rows="4" onChange={(event) => { this.handleInputChange('description', event) }} value={this.state.description}/>
           </Grid>
         </Grid>
         <Grid container spacing={3}>
           <Grid item xs={6}>
-            <h2>
+            <h2 className={this.props.classes.heading} >
               Contact Information
                         </h2>
             <TextField className={this.props.classes.textFields} type="text" placeholder="Point of Contact Name" label="Contact Name"
               value={this.state.contact_name} variant="outlined" onChange={(event) => { this.handleInputChange('contact_name', event) }} />
             <br />
             <TextField required className={this.props.classes.textFields} type="text" placeholder="Point of Contact Email" label="Contact Email"
-            value={this.state.contact_email} variant="outlined" onChange={(event) => { this.handleInputChange('contact_email', event) }} />
+              value={this.state.contact_email} variant="outlined" onChange={(event) => { this.handleInputChange('contact_email', event) }} />
             <br />
-            {this.state.uploadButton ? 
-            <div className={this.props.classes.textFields} >
-              <input type="file" name="file" onChange={this.handleFileSelection} />
-              <button className={this.props.classes.regButtons} onClick={this.handleFileUpload}>Upload</button>
-              <button className={this.props.classes.regButtons} onClick={this.handleCancelUpload} >cancel</button>
-            </div>
-            : 
-            <>
-            <TextField className={this.props.classes.logoTextField} type="text" placeholder="Organization Logo URL" label="Logo URL"
-              value={this.state.logo} variant="outlined" onChange={(event) => { this.handleInputChange('logo', event) }} />
-              <Button className={this.props.classes.uploadButton}
-                      onClick={this.handleUploadButton} >Upload</Button>
-                      </>
-                      
-                      }
+            {this.state.uploadButton ?
+              <div className={this.props.classes.textFields} >
+                <input type="file" name="file" onChange={this.handleFileSelection} />
+                <button className={this.props.classes.regButtons} onClick={this.handleFileUpload}>Upload</button>
+                <button className={this.props.classes.regButtons} onClick={this.handleCancelUpload} >cancel</button>
+              </div>
+              :
+              <>
+                <TextField className={this.props.classes.logoTextField} type="text" placeholder="Organization Logo URL" label="Logo URL"
+                  value={this.state.logo} variant="outlined" onChange={(event) => { this.handleInputChange('logo', event) }} />
+                <Button className={this.props.classes.uploadButton}
+                  onClick={this.handleUploadButton} >Upload</Button>
+              </>
+
+            }
             <br />
             <TextField required className={this.props.classes.textFields} type="text" placeholder="Organization Website URL" label="Website"
-            value={this.state.website} variant="outlined" onChange={(event) => { this.handleInputChange('website', event) }} />
+              value={this.state.website} variant="outlined" onChange={(event) => { this.handleInputChange('website', event) }} />
             <br />
             <FormControl variant="filled">
               <InputLabel >
                 Choose Organization Category
                             </InputLabel>
               <Select
-                className={this.props.classes.dropdownBox} value={this.state.category_name} 
+                className={this.props.classes.dropdownBox} value={this.state.category_name}
                 onChange={(event) => { this.handleDropdownChange('category_id', 'category_name', event) }}>
                 <MenuItem value={this.state.category_name}>
                   <em>{this.state.category_name}</em>
@@ -271,7 +279,7 @@ class RegisterPage extends Component {
 
           {/* Right Column */}
           <Grid item xs={6}>
-            <h2>Organization Address</h2>
+            <h2 className={this.props.classes.heading} >Organization Address</h2>
             <TextField required className={this.props.classes.textFields} type="text" label="Street Address" variant="outlined"
               value={this.state.address} onChange={(event) => this.handleInputChange('address', event)} />
             <br />

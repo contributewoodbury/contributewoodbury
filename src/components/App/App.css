@@ -1,6 +1,7 @@
 body {
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
     margin: 0px;
+    font-size: 18px;
 }
 
 .alert {
@@ -30,3 +31,22 @@ input {
 .validationText {
     margin: 50px;
 }
+
+.appJsRootDiv {
+  /* background-color: #f1f5f9; */
+  /* background-image: linear-gradient(to bottom right, #dbeafa, white); */
+  background-image: linear-gradient(to bottom right, #cadb91, white);
+  height: 100%;
+  padding-top: 50px;
+  padding-bottom: 325px;
+}
+
+.homeDiv {
+  /* background-color: #F1F5F9; */
+  width: 50%;
+  padding: 75px 0px 75px 0px;
+  margin: auto;
+  border-radius: 5%;
+}
+
+

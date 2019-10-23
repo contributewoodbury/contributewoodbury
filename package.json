@@ -16,6 +16,7 @@
     "express": "^4.16.4",
     "express-fileupload": "^1.1.6-alpha.5",
     "moment": "^2.24.0",
+    "node-cron": "^2.0.3",
     "passport": "^0.4.0",
     "passport-local": "^1.0.0",
     "pg": "^7.9.0",

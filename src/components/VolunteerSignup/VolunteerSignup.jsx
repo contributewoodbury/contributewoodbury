@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { Button, Grid, CardContent } from '@material-ui/core';
+import { Button, Grid, CardContent, Typography } from '@material-ui/core';
 import { withStyles } from '@material-ui/styles';
 import SignupForm from '../SignupForm/SignupForm';
 import NonprofitDetails from '../NonprofitDetails/NonprofitDetails';
@@ -66,23 +66,17 @@ class VolunteerSignup extends Component {
     }
 
     handleDoneButton = () => {
-        console.log('done button was clicked');
         //ADD SWEETALERT: YOURE DONE! OR SOMETHING SIMILAR
         this.props.dispatch({
             type: 'VOLUNTEER_SIGNUP',
             payload: this.props.signedup
-        })
-        
+        });
         this.props.dispatch({
             type: 'CLEAR_SIGNUP_LIST'
-        })
-        this.props.history.push(`/organizationHome/${this.props.user.id}`)
-        
+        });
         let id = this.props.role.event_id;
-        
         this.props.history.push(`/eventDetails/${id}`);
     }
-
 
     render() {
 
@@ -105,23 +99,48 @@ class VolunteerSignup extends Component {
                                 let endDate = moment(item.end_date).format('MM[/]DD[/]YYYY')
                                 return (
                                     <>
-                                        <span><b>Event:</b> {item.name}</span><br />
-                                        <span><b>Description:</b> {item.description}</span><br />
-                                        <span><b>Date:</b> {startDate} - {endDate}</span><br />
-                                        <span><b>Location:</b> {item.address} </span>
-                                        <span>{item.city}, {item.state} {item.zip_code}</span><br />
+                                    <h2>{item.name}</h2>
+                                        <table>
+                                            <tbody>
+                                                <tr>
+                                                    <td valign="top"><Typography><b>Date:</b></Typography></td>
+                                                    <td><Typography>{startDate} - {endDate}</Typography></td>
+                                                </tr>
+                                                <tr>
+                                                    <td valign="top"><Typography><b>Location:</b></Typography></td>
+                                                    <td><Typography>{item.address}<br />
+                                                        {item.city},&nbsp;{item.state}&nbsp;{item.zip_code}</Typography></td>
+                                                </tr>
+                                            </tbody>
+                                        </table>
+                                        <footer></footer>
+                                        <Typography>{item.description}</Typography>
                                     </>
                                 )
                             })}
                         </CardContent>
                         <CardContent>
                             <div>
-
-                                <span><b>Role:</b> {this.props.role.name} ({this.props.role.number_needed} volunteers needed)</span><br />
-                                <span><b>Description:</b> {this.props.role.description} </span><br />
-                                <span><b>Date:</b> {moment(this.props.role.date).format('MM[/]DD[/]YYYY')} </span><br />
-                                <span><b>Time:</b> {moment(this.props.role.start_time, 'hh:mm').format('LT')} - {moment(this.props.role.end_time, 'hh:mm').format('LT')} </span><br />
-
+                                <table>
+                                    <tbody>
+                                        <tr>
+                                            <td valign="top"><Typography><b>Role:</b></Typography></td>
+                                            <td><Typography>{this.props.role.name} ({this.props.role.number_needed} volunteers needed)</Typography></td>
+                                        </tr>
+                                        <tr>
+                                            <td valign="top"><Typography><b>Description:</b></Typography></td>
+                                            <td><Typography>{this.props.role.description}</Typography></td>
+                                        </tr>
+                                        <tr>
+                                            <td valign="top"><Typography><b>Date:</b></Typography></td>
+                                            <td><Typography>{moment(this.props.role.date).format('MM[/]DD[/]YYYY')} </Typography></td>
+                                        </tr>
+                                        <tr>
+                                            <td valign="top"><Typography><b>Time:</b></Typography></td>
+                                            <td><Typography>{moment(this.props.role.start_time, 'hh:mm').format('LT')} - {moment(this.props.role.end_time, 'hh:mm').format('LT')} </Typography></td>
+                                        </tr>
+                                    </tbody>
+                                </table>
                             </div>
 
                         </CardContent>
@@ -142,9 +161,9 @@ class VolunteerSignup extends Component {
 
                                         return (
                                             <CardContent className={this.props.classes.cardContent} >
-                                                <span><b>Name:</b> {volunteer.name} </span><br />
-                                                <span><b>Phone:</b> {formatPhoneNumber(volunteer.phone_number)} </span><br />
-                                                <span><b>Date/time:</b> {moment(volunteer.date).format('MM[/]DD[/]YYYY')} from {moment(volunteer.start_time, 'hh:mm').format('LT')} </span> -  <span>{moment(volunteer.end_time, 'hh:mm').format('LT')}</span><br />
+                                                <Typography><b>Name:</b> {volunteer.name} </Typography><br />
+                                                <Typography><b>Phone:</b> {formatPhoneNumber(volunteer.phone_number)} </Typography><br />
+                                                <Typography><b>Date/time:</b> {moment(volunteer.date).format('MM[/]DD[/]YYYY')} from {moment(volunteer.start_time, 'hh:mm').format('LT')} - {moment(volunteer.end_time, 'hh:mm').format('LT')}</Typography><br />
 
                                             </CardContent>
                                         )

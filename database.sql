@@ -74,7 +74,7 @@ CREATE TABLE "volunteer_role" (
 );
 
 
-INSERT INTO "categories" ("name") VALUES ('Community Development', 'Health', 'Human Services', 'Youth');
+INSERT INTO "categories" ("name") VALUES ('Community Development'), ('Health'), ('Human Services'), ('Youth');
 
 INSERT INTO "nonprofit" ("name", "password", "contact_email", "contact_name", "contact_phone", "address", "city", "state", "zip_code", "website", "logo", "description", "category_id" )
 
@@ -85,7 +85,7 @@ VALUES('Woodbury Soccer Club','test','messi@gmail.com','Lionel Messi','651-306-7
 ('League of Women Voters','test','shiela@gmail.com','Shiela Voter','651-455-7565','845 VoteNow Circle','Woodbury','MN',55125, 'https://www.lwvmn.org/', 'https://bloximages.newyork1.vip.townnews.com/postbulletin.com/content/tncms/assets/v3/editorial/e/a8/ea8342a2-b14d-11e8-b4da-6f7ee00ff98a/5b9287011e818.preview.png?crop=940%2C705%2C0%2C41&resize=840%2C630&order=crop%2Cresize', 'Minnesota granted women the right to vote in presidential elections on March 24, 1919, and later ratified the 19th Amendment on September 8, 1919. The League of Women Voters of Minnesota was organized on October 29, 1919 in meetings called by the Minnesota Woman Suffrage Association. Clara Ueland (pictured) served as LWV Minnesota’s first president. This year, we celebrate a century of civic engagement, and invite you to join us for our five-part series of events!
 ', 1),
 
-('Woodbury Goat Owners Association','test','lucynelson@gmail.com','Lucy Nelson','651-495-3565','845 Pasture Pass','Woodbury','MN',55125, 'https://americangoatsociety.com/', 'https://bitterrootdairygoatassociation.weebly.com/uploads/9/2/3/6/92364842/1476989579.png', 'The American Goat Society has a long history of pioneering. It was the first organization to register purebred goats exclusively. It was first to supply two generations of pedigrees on the registration certificate. AGS brought the first national dairy goat show. It was first to provide training for goat judges. It was first to offer classification of dairy goats. Today, AGS continues to seek new ways to serve dairy goat enthusiasts.
+('Woodbury Goat Owners Association','test','lindacampbell@gmail.com','Linda Campbell','651-495-3565','845 Pasture Pass','Woodbury','MN',55125, 'https://americangoatsociety.com/', 'https://bitterrootdairygoatassociation.weebly.com/uploads/9/2/3/6/92364842/1476989579.png', 'The Woodbury Goat Owners Association has a long history of pioneering. It was the first organization to register purebred goats exclusively. It was first to supply two generations of pedigrees on the registration certificate. AGS brought the first national dairy goat show. It was first to provide training for goat judges. It was first to offer classification of dairy goats. Today, WGOA continues to seek new ways to serve dairy goat enthusiasts.
 ', 2);
 
 INSERT INTO "event" ("name", "description", "address", "city", "zip_code", "start_date", "end_date", "event_url", "non_profit_id", "start_time", "end_time", "state") VALUES ('Apple Fest','Apple Fest is a fall celebration for families at the Jones Orchard. There will be apple picking, bobbing for apples and sack races.','123 Canyon Ridge Road','Woodbury',55125,'10/1/1','10/2/1','https://static.wixstatic.com/media/63d943_517834ca5e0340aeb505d4232e901066~mv2_d_3840_2160_s_2.jpg/v1/fill/w_1600,h_900,al_c,q_90/file.jpg',1, '10:00 AM', '3:00 PM', 'MN'),

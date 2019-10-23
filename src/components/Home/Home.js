@@ -19,7 +19,6 @@ const styles = theme => ({
 class Home extends Component {
   
 handleBrowse = () => {
-  console.log('browse nonprofits button clicked');
   this.props.history.push('/directory')
 }
 
@@ -28,7 +27,6 @@ handleSeeEvents = () => {
 }
 
 handleNonprofit = () => {
-  console.log(this.props.user);
   if (this.props.user.id) {
     this.props.history.push(`/organizationHome/${this.props.user.id}`);
   } else {
@@ -51,7 +49,7 @@ registrationSuccessful = () => {
 
   render() {
     return (
-      <div>
+      <div className="appJsRootDiv">
         {this.props.errors.loginMessage && (
           <h2
             className="alert"
@@ -61,7 +59,7 @@ registrationSuccessful = () => {
           </h2>
         )}
         {this.props.user.is_approved === false && this.registrationSuccessful()}
-        <div>
+        <div className="homeDiv" >
         <div>
           <center>
           <h1 className={this.props.classes.heading} >What are you looking for?</h1>

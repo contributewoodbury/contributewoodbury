@@ -46,7 +46,20 @@ const styles = theme => ({
     },
     uploadFile: {
         height: '300px'
-    }
+    },
+    uploadButton: {
+        color: 'white',
+        backgroundColor: '#457736',
+        margin: '20px 10px 0px 10px'
+    },
+    regButtons: {
+        margin: '5px'
+    },
+    logoTextField: {
+        margin: '10px 10px 10px 30px',
+        width: '300px'
+    },
+    
 })
 
 
@@ -56,6 +69,13 @@ class AddEvent extends Component {
             type: 'GET_PAST_EVENTS',
             payload: +(this.props.match.params.id)
         })
+    }
+    componentDidUpdate(prevProps) {
+        if (this.props.upload !== prevProps.upload) {
+            this.setState({
+                event_url: this.props.upload.url
+            })
+        }
     }
 
     state = {
@@ -74,14 +94,11 @@ class AddEvent extends Component {
         past_event_id: '',
         volunteers_needed: true,
         uploadFile: '',
+        uploadButton: false
     }
 
     handleChange = (propertyName, event) => {
-        if (this.props.upload) {
-            this.setState({
-                event_url: this.props.upload.url
-            })
-        }
+
         this.setState({
             [propertyName]: event.target.value
         })
@@ -114,7 +131,6 @@ class AddEvent extends Component {
                 this.props.history.push(`/organizationHome/${id}`)
             }
         })
-        console.log('back button was clicked');
     }
 
     handleSubmitButton = () => {
@@ -150,10 +166,8 @@ class AddEvent extends Component {
         })
     }
 
-        // set state for selected past event
+    // set state for selected past event
     handleChangeFor = (event) => {
-        console.log('past event was selected for this id:', event.target.value);
-        // console.log('the state is currently:', this.state);
         this.setState({
             name: event.target.value.name,
             non_profit_id: this.props.match.params.id,
@@ -167,7 +181,6 @@ class AddEvent extends Component {
             event_url: event.target.value.event_url,
             past_event_id: event.target.value.id
         })
-        console.log('checking state', this.state);
     }
 
     handleFileSelection = (event) => {
@@ -175,7 +188,6 @@ class AddEvent extends Component {
         this.setState({
             uploadFile: file
         })
-        console.log('this file was uploaded:', event.target.files[0]);
     }
 
     handleFileUpload = () => {
@@ -185,8 +197,40 @@ class AddEvent extends Component {
             type: 'IMAGE_UPLOAD',
             payload: data
         })
+        this.setState({
+            uploadButton: false
+        })
     }
 
+    demoEvent = () => {
+        this.setState({
+            name: 'Food 4 Kids',
+            non_profit_id: +(this.props.match.params.id),
+            description: 'We will be distributing backpacks full of food to children for Winter Break. The event will take place at East Side Woodbury Elementary.',
+            address: 'K12345 Elementary Lane',
+            city: 'Woodbury',
+            zip_code: '55125',
+            state: 'MN',
+            start_date: '2019-12-20',
+            end_date: '2019-12-20',
+            start_time: '15:00:00',
+            end_time: '16:30:00',
+            event_url: 'http://www.food4kidsfl.org/wp-content/uploads/2015/07/Logo.png',
+            volunteers_needed: true,
+        })
+    }
+
+    handleUploadButton = () => {
+        this.setState({
+            uploadButton: true
+        })
+    }
+
+    handleCancelUpload = () => {
+        this.setState({
+            uploadButton: false
+        })
+    }
 
     render() {
 
@@ -194,8 +238,8 @@ class AddEvent extends Component {
         return (
 
             <div className={this.props.classes.rootDiv}>
-                <h1>Add Event</h1>
-              
+                <h1 onClick={() => this.demoEvent()}>Add Event</h1>
+
                 <Grid container spacing={3}>
                     <Grid item xs={12}>
                         {/* <Card> */}
@@ -264,6 +308,7 @@ class AddEvent extends Component {
                     <Grid item xs={6}>
                         {/* <Card> */}
                         <CardContent>
+                         
                             <h2>Date and Time:</h2>
                             <TextField className={this.props.classes.dateFields} type="date" placeholder="Start" required={true}
                                 variant="outlined" value={this.state.start_date} onChange={(event) => this.handleChange('start_date', event)} />
@@ -277,19 +322,27 @@ class AddEvent extends Component {
                                 variant="outlined" value={this.state.end_time} onChange={(event) => this.handleChange('end_time', event)} />
                             <br />
 
-                            <TextField className={this.props.classes.textFields} type="text" label="Image url" variant="outlined"
-                                value={this.state.event_url} onChange={(event) => this.handleChange('event_url', event)} />
 
-                                <h3>upload an image here:</h3>
-                                <div>
+
+
+                            <br />
+                            {this.state.uploadButton ?
+                                <div className={this.props.classes.textFields} >
                                     <input type="file" name="file" onChange={this.handleFileSelection} />
-                                    <button onClick={this.handleFileUpload}>Upload</button>
-                                    {/* {JSON.stringify(this.props.upload.url)}<br/>
-                                    {JSON.stringify(this.state)} */}
-                                    {this.state.event_url || this.props.upload.url ? 
-                                    <img className={this.props.classes.uploadFile} src={this.props.upload.url} alt="uploaded file" /> :
-                                    <span></span> }
+                                    <button className={this.props.classes.regButtons} onClick={this.handleFileUpload}>Upload</button>
+                                    <button className={this.props.classes.regButtons} onClick={this.handleCancelUpload} >Cancel</button>
                                 </div>
+                                :
+                                <>
+                                    <TextField className={this.props.classes.logoTextField} type="text" placeholder="Image URL here or upload an image" label="image"
+                                        value={this.state.event_url} variant="outlined" onChange={(event) => { this.handleChange('event_url', event) }} />
+                                    <Button className={this.props.classes.uploadButton}
+                                        onClick={this.handleUploadButton} >Upload</Button>
+                                </>
+
+                            }
+                            <br />
+                            
                         </CardContent>
                         {/* </Card> */}
                     </Grid>
@@ -319,7 +372,7 @@ class AddEvent extends Component {
                     <Grid item xs={12}>
                         <CardContent>
                             <Button className={this.props.classes.backButton} variant="contained"
-                                onClick={()=>this.handleBackButton(this.props.match.params.id)} >Back</Button>
+                                onClick={() => this.handleBackButton(this.props.match.params.id)} >Back</Button>
                             <Button className={this.props.classes.submitButton} variant="contained"
                                 onClick={this.handleSubmitButton} >Submit</Button>
                         </CardContent>

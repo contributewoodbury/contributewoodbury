@@ -1,4 +1,4 @@
-
+const axios = require('axios');
 const express = require('express');
 require('dotenv').config();
 
@@ -12,6 +12,8 @@ const passport = require('./strategies/user.strategy');
 const fileupload = require('express-fileupload')
 const cors = require('cors');
 
+//automation library
+// const cron = require('node-cron');
 
 // Route includes
 const userRouter = require('./routes/user.router');
@@ -37,6 +39,21 @@ app.use(passport.session());
 // File upload and CORS middleware
 app.use(cors());
 app.use(fileupload({ useTempFiles: true }));
+
+//This doesen't work currently but can in the future with a little bit of work 
+// automated deletion of old nonProfits
+// cron.schedule("*/10 * * * * *", async () => {
+//   console.log(Date());
+//   function* autoDelete() {
+//   try {
+//     let response = yield axios.get(`/api/admin/requests`);
+//     return('this happens every 10 seconds', response.data);
+//   } catch (error) {
+//     return('error in autoDelete', error)
+//   }
+// }
+// console.log(autoDelete());
+// });
 
 /* Routes */
 app.use('/api/user', userRouter);

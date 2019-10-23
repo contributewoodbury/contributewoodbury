@@ -21,11 +21,12 @@ import Swal from 'sweetalert2';
 
 const CustomTableCell = withStyles(theme => ({
     head: {
-        backgroundColor: 'black',
+        backgroundColor: '#878787',
         color: 'white',
+        fontSize: 24
     },
     body: {
-        fontSize: 14,
+        fontSize: 18,
     }
 }))(TableCell);
 
@@ -40,24 +41,32 @@ const styles = theme => ({
         textDecoration: 'none',
     },
     root: {
-        maxHeight: '800px',
-        width: '80%',
+        maxHeight: '1000px',
+        width: '90%',
         marginTop: theme.spacing(3),
         overflowY: 'scroll',
-        margin: 'auto'
+        margin: 'auto',
     },
     search: {
         float: 'right',
-        width: '50%',
+        width: '25%',
         margin: theme.spacing(3),
-
     },
     rows: {
-        height: '100px'
+        height: '100px',
     },
     flag: {
         color: 'red'
-    }
+    },
+    heading: {
+        color: '#714723'
+    },
+    rootDiv: {
+        // margin: '0px 100px 0px 100px',
+        backgroundColor: '#f1f5f9',
+        padding: '30px',
+        textAlign: 'center',
+    },
 
 })
 
@@ -80,7 +89,6 @@ class DirectoryPage extends Component {
     }
 
     getOrganizationDetails = () => {
-        console.log('in get org. details');
         this.props.dispatch({
             type: 'GET_DIRECTORY'
         });
@@ -90,7 +98,6 @@ class DirectoryPage extends Component {
     }
 
     handleVolunteerButton = (id) => {
-        console.log('volunteer button for id:', id);
         this.props.history.push(`/organizationhome/${id}`)
 
     }
@@ -103,7 +110,6 @@ class DirectoryPage extends Component {
 
     searchSubmit = (event) => {
         event.preventDefault();
-        console.log("searched");
         this.props.dispatch({ type: 'SEARCH', payload: this.state.searchbar });
     }
 
@@ -131,8 +137,8 @@ class DirectoryPage extends Component {
         // let lastConfirmed = moment(this.props.reduxStore.user.last_confirmed).format("YYYY-MM-DD");
 
         return (
-            <div>
-                <h1>
+            <div className={this.props.classes.rootDiv} >
+                <h1 className={this.props.classes.heading} >
                     Directory
                 </h1>
 
@@ -190,28 +196,28 @@ class DirectoryPage extends Component {
                                                 return (
                                                     <TableRow key={nonprofit.id} className={this.props.classes.rows} hover={true}
                                                         onClick={() => this.handleVolunteerButton(nonprofit.id)}>
-                                                        <TableCell align="left"><img src={nonprofit.logo} alt="Nonprofit Logo" width="300" height="200" /></TableCell>
-                                                        <TableCell align="left">{nonprofit.name}<br />
+                                                        <CustomTableCell align="left"><img src={nonprofit.logo} alt="Nonprofit Logo" width="300" height="200" /></CustomTableCell>
+                                                        <CustomTableCell align="left">{nonprofit.name}<br />
                                                             {nonprofit.address}<br />
                                                             {nonprofit.city},
                                                               {nonprofit.state}
-                                                            {nonprofit.zip_code}  </TableCell>
-                                                        <TableCell align="left">{nonprofit.category_name}</TableCell>
+                                                            {nonprofit.zip_code}  </CustomTableCell>
+                                                        <CustomTableCell align="left" >{nonprofit.category_name}</CustomTableCell>
 
-                                                        <TableCell align="left">
+                                                        <CustomTableCell align="left">
                                                             {lastConfirmed < sixMonthsBeforeTodaysDate &&
                                                                 <div>
                                                                     {/* conditionally show this if date of lastConfirmed is <6months */}
                                                                     <AssistantPhoto fontSize="large" className={this.props.classes.flag} />
                                                                 </div>
                                                             }
-                                                        </TableCell>
+                                                        </CustomTableCell>
 
-                                                        <TableCell align="center">
+                                                        <CustomTableCell align="center">
                                                             <Button className={this.props.classes.backButton} variant="contained"
                                                                 onClick={() => { this.handleDelete(nonprofit.id, nonprofit.name) }}> Delete
                                                         </Button>
-                                                        </TableCell>
+                                                        </CustomTableCell>
                                                     </TableRow>
                                                 )
                                             } else { return false; }
@@ -227,18 +233,18 @@ class DirectoryPage extends Component {
                                             return (
                                                 <TableRow key={nonprofit.id} className={this.props.classes.rows} hover={true}
                                                     onClick={() => this.handleVolunteerButton(nonprofit.id)}>
-                                                    <TableCell align="left"><img src={nonprofit.logo} alt="Nonprofit Logo" width="300" height="200" /></TableCell>
-                                                    <TableCell align="left">{nonprofit.name}<br />
+                                                    <CustomTableCell align="left"><img src={nonprofit.logo} alt="Nonprofit Logo" width="300" height="200" /></CustomTableCell>
+                                                    <CustomTableCell align="left">{nonprofit.name}<br />
                                                         {nonprofit.address}<br />
                                                         {nonprofit.city},&nbsp;{nonprofit.state}&nbsp;
-                                                        {nonprofit.zip_code}  </TableCell>
-                                                    <TableCell align="left">{nonprofit.category_name}</TableCell>
-                                                    <TableCell align="left"><Button className={this.props.classes.backButton} variant="contained"
-                                                        onClick={() => this.handleVolunteerButton(nonprofit.id)} >Volunteer</Button></TableCell>
-                                                    <TableCell align="center"><Button className={this.props.classes.backButton} variant="contained">
+                                                        {nonprofit.zip_code}  </CustomTableCell>
+                                                    <CustomTableCell align="left">{nonprofit.category_name}</CustomTableCell>
+                                                    <CustomTableCell align="left"><Button className={this.props.classes.backButton} variant="contained"
+                                                        onClick={() => this.handleVolunteerButton(nonprofit.id)} >Volunteer</Button></CustomTableCell>
+                                                    <CustomTableCell align="center"><Button className={this.props.classes.backButton} variant="contained">
                                                         <a className={this.props.classes.backButtonText} href={nonprofit.website} target="_blank" rel="noopener noreferrer">
                                                             Website
-                                                        </a></Button></TableCell>
+                                                        </a></Button></CustomTableCell>
                                                 </TableRow>
                                             )
                                         } else { return false; }
