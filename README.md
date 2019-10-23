@@ -11,7 +11,7 @@ Currently, there is no central hub for Woodbury citizens finding a list of nonpr
 - pg
 - Passport 
 - PostgreSQL 
-- moment
+- Moment
 - Cloudinary
 - Material-UI
 - Sweetalert2
