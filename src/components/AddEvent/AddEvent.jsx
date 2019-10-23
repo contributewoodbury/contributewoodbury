@@ -349,20 +349,6 @@ class AddEvent extends Component {
 
                             }
                             <br />
-
-                            {/* <TextField className={this.props.classes.textFields} type="text" label="Image url" variant="outlined"
-                                value={this.state.event_url} onChange={(event) => this.handleChange('event_url', event)} />
-
-                            <h3>upload an image here:</h3>
-                            <div>
-                                <input type="file" name="file" onChange={this.handleFileSelection} />
-                                <button onClick={this.handleFileUpload}>Upload</button> */}
-                                {/* {JSON.stringify(this.props.upload.url)}<br/>
-                                    {JSON.stringify(this.state)} */}
-                                {/* {this.state.event_url || this.props.upload.url ?
-                                    <img className={this.props.classes.uploadFile} src={this.props.upload.url} alt="uploaded file" /> :
-                                    <span></span>} */}
-                            {/* </div> */}
                             
                         </CardContent>
                         {/* </Card> */}

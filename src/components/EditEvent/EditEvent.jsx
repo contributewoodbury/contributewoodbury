@@ -34,6 +34,18 @@ const styles = theme => ({
         color: '#714723',
         fontSize: '20px'
     },
+    urlField: {
+        margin: '10px 10px 10px 30px',
+        width: '200px',
+        color: '#714723',
+        fontSize: '20px'
+    },
+    stateZip: {
+        margin: '10px 10px 10px 30px',
+        width: '178px',
+        color: '#714723',
+        fontSize: '20px'
+    },
     description: {
         margin: '10px 10px 10px 30px',
         width: '1045px'
@@ -48,13 +60,23 @@ const styles = theme => ({
     label: {
         color: '#714723',
         fontSize: '20px'
+    },
+    uploadButton: {
+        color: 'white',
+        backgroundColor: '#457736',
+        margin: '20px 10px 0px 10px'
+    },
+    regButtons: {
+        margin: '5px'
     }
 })
 
 class EditEvent extends Component {
 
     state = {
-        id: Number(this.props.match.params.id)
+        id: Number(this.props.match.params.id),
+        uploadButton: false,
+        uploadFile: '',
     }
 
     componentDidMount() {
@@ -63,6 +85,15 @@ class EditEvent extends Component {
             payload: Number(this.props.match.params.id)
         })
     }//end componentDidMount
+
+    componentDidUpdate(prevProps) {
+        console.log(prevProps);
+        if (this.props.upload !== prevProps.upload) {
+            this.setState({
+                event_url: this.props.upload.url
+            })
+        }
+    }
 
 
     handleChange = (propertyName, event) => {
@@ -122,6 +153,39 @@ class EditEvent extends Component {
         this.props.history.push(`/addvolunteers/${this.props.match.params.id}`)
     }
 
+    handleUploadButton = () => {
+        console.log('uploadbutton clicked');
+        this.setState({
+            uploadButton: true
+        })
+    }
+
+    handleCancelUpload = () => {
+        this.setState({
+            uploadButton: false
+        })
+    }
+
+    handleFileSelection = (event) => {
+        let file = event.target.files[0]
+        this.setState({
+            uploadFile: file
+        })
+        console.log('this file was uploaded:', event.target.files[0]);
+    }
+
+    handleFileUpload = () => {
+        const data = new FormData();
+        data.append('file', this.state.uploadFile)
+        this.props.dispatch({
+            type: 'IMAGE_UPLOAD',
+            payload: data
+        })
+        this.setState({
+            uploadButton: false
+        })
+    }
+
     render() {
         return (
             <div className={this.props.classes.rootDiv}>
@@ -150,7 +214,7 @@ class EditEvent extends Component {
                                             <Grid container spacing={3} justify="center">
                                                 <Grid item xs={6}>
                                                     <CardContent>
-                                                        <label className={this.props.classes.textFields} key={ev.id}>Event Name:</label>
+                                                        <label className={this.props.classes.textFields} key={ev.id}>Event Name</label><br/>
                                                         <TextField
                                                             className={this.props.classes.textFields}
                                                             type="text"
@@ -164,7 +228,7 @@ class EditEvent extends Component {
                                                 </Grid>
                                                 <Grid item xs={6}>
                                                     <CardContent>
-                                                        <label className={this.props.classes.textFields}>Change the event description</label>
+                                                        <label className={this.props.classes.textFields}>Change the event description</label><br/>
                                                         <TextField
                                                             className={this.props.classes.textFields}
                                                             type="text"
@@ -178,21 +242,12 @@ class EditEvent extends Component {
                                                     </CardContent>
                                                 </Grid>
                                             </Grid>
-                                            <label className={this.props.classes.textFields}>Change event image url</label>
-                                            <TextField
-                                                className={this.props.classes.description}
-                                                type="text"
-                                                label="Image URL"
-                                                placeholder={ev.event_url}
-                                                defaultValue={ev.event_url}
-                                                variant="outlined"
-                                                onChange={(event) => this.handleChange('event_url', event)}
-                                            />
+                                            
 
                                             <Grid container spacing={3}>
                                                 <Grid item xs={6}>
                                                     <CardContent>
-                                                        <label className={this.props.classes.textFields}>The current start date is: {moment(ev.start_date).format("MM/DD/YYYY")}</label>
+                                                        <label className={this.props.classes.textFields}>The current start date is: {moment(ev.start_date).format("MM/DD/YYYY")}</label><br/>
                                                         <TextField
                                                             className={this.props.classes.dateFields}
                                                             type="date"
@@ -203,7 +258,7 @@ class EditEvent extends Component {
                                                 </Grid>
                                                 <Grid item xs={6}>
                                                     <CardContent>
-                                                        <label className={this.props.classes.textFields}>The current end date is: {moment(ev.end_date).format("MM/DD/YYYY")}</label>
+                                                        <label className={this.props.classes.textFields}>The current end date is: {moment(ev.end_date).format("MM/DD/YYYY")}</label><br/>
                                                         <TextField
                                                             className={this.props.classes.dateFields}
                                                             type="date"
@@ -217,7 +272,7 @@ class EditEvent extends Component {
                                             <Grid container spacing={3} justify="center">
                                                 <Grid item xs={6}>
                                                     <CardContent>
-                                                        <label className={this.props.classes.textFields}>Start time:</label><br></br>
+                                                        
                                                         <TextField
                                                             className={this.props.classes.times}
                                                             type="time"
@@ -227,11 +282,7 @@ class EditEvent extends Component {
                                                             variant="outlined"
                                                             onChange={(event) => this.handleChange('start_time', event)}
                                                         />
-                                                    </CardContent>
-                                                </Grid>
-                                                <Grid item xs={6}>
-                                                    <CardContent>
-                                                        <label className={this.props.classes.textFields}>End time:</label><br></br>
+                                                        
                                                         <TextField
                                                             className={this.props.classes.times}
                                                             type="time"
@@ -243,12 +294,9 @@ class EditEvent extends Component {
                                                         />
                                                     </CardContent>
                                                 </Grid>
-
-                                            </Grid>
-                                            <Grid container spacing={3} justify="center">
                                                 <Grid item xs={6}>
                                                     <CardContent>
-                                                        <label className={this.props.classes.textFields}>Address</label>
+                                                        <label className={this.props.classes.textFields}>Address</label><br />
                                                         <TextField
                                                             className={this.props.classes.textFields}
                                                             type="text"
@@ -258,11 +306,36 @@ class EditEvent extends Component {
                                                             variant="outlined"
                                                             onChange={(event) => this.handleChange('address', event)}
                                                         />
+                                                       
+                                                    </CardContent>
+                                                </Grid>
+
+                                            </Grid>
+                                            <Grid container spacing={3} justify="center">
+                                                <Grid item xs={6}>
+                                                    <CardContent>
+                                                        <label className={this.props.classes.textFields}>Change event image url</label><br/>
+                                                        
+                                                        {this.state.uploadButton ?
+                                                            <div className={this.props.classes.textField} >
+                                                                <input type="file" name="file" onChange={this.handleFileSelection} />
+                                                                <button className={this.props.classes.regButtons} onClick={this.handleFileUpload}>Upload</button>
+                                                                <button className={this.props.classes.regButtons} onClick={this.handleCancelUpload} >Cancel</button>
+                                                            </div>
+                                                            :
+                                                            <>
+                                                                <TextField className={this.props.classes.urlField} type="text" value={ev.event_url} placeholder="Image URL" label="Image URL" variant="outlined" onChange={(event) => { this.handleChange('event_url', event) }} />
+                                                                <Button className={this.props.classes.uploadButton}
+                                                                    onClick={this.handleUploadButton} >Upload</Button>
+                                                            </>
+
+                                                        }
+                                                        
                                                     </CardContent>
                                                 </Grid>
                                                 <Grid item xs={6}>
                                                     <CardContent>
-                                                        <label className={this.props.classes.textFields}>City</label>
+                                                        <label className={this.props.classes.textFields}>City</label><br/>
                                                         <TextField
                                                             className={this.props.classes.textFields}
                                                             type="text"
@@ -272,15 +345,9 @@ class EditEvent extends Component {
                                                             variant="outlined"
                                                             onChange={(event) => this.handleChange('city', event)}
                                                         />
-                                                    </CardContent>
-                                                </Grid>
-                                            </Grid>
-                                            <Grid container spacing={3} justify="center">
-                                                <Grid item xs={6}>
-                                                    <CardContent>
-                                                        <label className={this.props.classes.textFields}>State</label>
+                                                        <label className={this.props.classes.textFields}>State and Zip Code</label><br />
                                                         <TextField
-                                                            className={this.props.classes.textFields}
+                                                            className={this.props.classes.stateZip}
                                                             type="text"
                                                             placeholder="State"
                                                             label="State"
@@ -288,13 +355,8 @@ class EditEvent extends Component {
                                                             variant="outlined"
                                                             onChange={(event) => this.handleChange('states', event)}
                                                         />
-                                                    </CardContent>
-                                                </Grid>
-                                                <Grid item xs={6}>
-                                                    <CardContent>
-                                                        <label className={this.props.classes.textFields}>Zip Code</label>
                                                         <TextField
-                                                            className={this.props.classes.textFields}
+                                                            className={this.props.classes.stateZip}
                                                             type="number"
                                                             placeholder="Zip Code"
                                                             label="Zip Code"
@@ -305,6 +367,8 @@ class EditEvent extends Component {
                                                     </CardContent>
                                                 </Grid>
                                             </Grid>
+                                            
+                                                
                                         </>
                                     })
                                 }
@@ -338,6 +402,7 @@ const mapStateToProps = (state) => {
     return {
         event: state.event.eventDetails,
         formError: state.errors.formMessage,
+        upload: state.upload.uploadedImage
     }
 }
 
