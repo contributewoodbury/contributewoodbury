@@ -2,7 +2,8 @@ const express = require('express');
 const pool = require('../modules/pool');
 const router = express.Router();
 
-// Gathers all nonprofits from the database who have been approved
+
+//GET ALL APPROVED NONPROFITS FROM DATABASE
 router.get('/', (req, res) => {
   if (!req.query.q){
     let queryText = `SELECT "categories".name AS "category_name", "nonprofit".name, "nonprofit".address, "nonprofit".city, "nonprofit".id, "nonprofit".logo,
