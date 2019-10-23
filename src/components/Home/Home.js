@@ -4,7 +4,7 @@ import { Button } from '@material-ui/core';
 import { withStyles } from '@material-ui/styles';
 import Swal from 'sweetalert2';
 
-
+//MATERIAL UI STYLES
 const styles = theme => ({
   buttons: {
     color: 'white',
@@ -17,15 +17,18 @@ const styles = theme => ({
 })
 
 class Home extends Component {
-  
+ 
+//ONCLICK PUSH TO DIRECTORY URL;  
 handleBrowse = () => {
   this.props.history.push('/directory')
 }
 
+//ONCLICK PUSH TO CALENDAR'S URL;
 handleSeeEvents = () => {
   this.props.history.push('/calendar')
 }
 
+//ONCLICK PUSH TO REGISTRATION PAGE FOR NEW USERS IF NOT CURRENTLY LOGGED IN OR USER;
 handleNonprofit = () => {
   if (this.props.user.id) {
     this.props.history.push(`/organizationHome/${this.props.user.id}`);
@@ -35,6 +38,7 @@ handleNonprofit = () => {
   }
 }
 
+//ALERT USER OF REGISTRATION COMPLETION;
 registrationSuccessful = () => {
     Swal.fire({
       title: 'Thank You!',

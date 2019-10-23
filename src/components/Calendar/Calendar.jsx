@@ -3,7 +3,6 @@ import { useDispatch, useSelector } from 'react-redux';
 import moment from 'moment';
 import { Link } from 'react-router-dom';
 import { Grid } from '@material-ui/core';
-
 import './calendar.css';
 
 
@@ -16,6 +15,7 @@ const Calendar = () => {
     dispatch({ type: 'GET_DIRECTORY' })
   }, [])
 
+  //RETURN NONPROFIT;
   function findName(id) {
     for (let nonprofit of npList) {
       if (+(id) === nonprofit.id) {
@@ -24,6 +24,7 @@ const Calendar = () => {
     }
   }
 
+  //RETURN EVENT ITEMS WITH EVENT DATES
   function eventItem(event) {
     let path = `/eventDetails/${event.id}`;
     return (

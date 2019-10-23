@@ -5,7 +5,7 @@ import { withStyles } from '@material-ui/styles';
 import Swal from 'sweetalert2';
 import FormControl from '@material-ui/core/FormControl';
 
-
+//MATERIAL UI STYLES;
 const styles = theme => ({
     heading: {
         color: '#714723',
@@ -38,8 +38,6 @@ const styles = theme => ({
     },
     rootDiv: {
         margin: '0px 100px 0px 100px',
-        // fontFamily: "Muli"
-
     },
     paragraph: {
         margin: '10px 10px 0px 30px'
@@ -64,6 +62,7 @@ class EditNonprofit extends Component {
         })
     }
 
+    //UPDATE INPUT FIELD WITH NEW UPLOADED IMAGE URL;
     componentDidUpdate(prevProps) {
         if (this.props.reduxStore.upload.uploadedImage !== prevProps.reduxStore.upload.uploadedImage) {
             this.props.dispatch({
@@ -88,7 +87,7 @@ class EditNonprofit extends Component {
         uploadFile: '',
     }
 
-
+    //SET STATE FOR INPUT CHANGES;
     handleInputChange = (propertyName, event) => {
         this.setState({
             ...this.state,
@@ -96,6 +95,7 @@ class EditNonprofit extends Component {
         });
     }
 
+    //SET STATE FOR CHANGES TO INPUT;
     handleEditInputChange = (propertyName, event) => {
         this.props.dispatch({
             type: 'SET_EDITS_TO_NONPROFIT',
@@ -105,13 +105,13 @@ class EditNonprofit extends Component {
         });
     }
 
-    handleDropdownChange = (propertyName1, propertyName2, event) => {
+    //SET STATE FOR DROPDOWN SELECTION;
+    handleDropdownChange = (propertyName1, propertyName2, event) => { 
         this.setState({
             ...this.state,
             [propertyName1]: event.target.value.id,
             [propertyName2]: event.target.value.name
         });
-
         this.props.dispatch({
             type: 'SET_EDITS_TO_NONPROFIT',
             payload: {
@@ -121,6 +121,7 @@ class EditNonprofit extends Component {
         });
     }
 
+    //ONCLICK ALERT THEN PUSH TO CORRECT URL;
     handleBackButton = () => {
         Swal.fire({
             title: 'Are you sure?',
@@ -130,7 +131,6 @@ class EditNonprofit extends Component {
             confirmButtonColor: '#3085d6',
             cancelButtonColor: '#d33',
             confirmButtonText: 'OK',
-            // confirmButtonColor: '#457736'
         }).then((result) => {
             if (result.value) {
                 this.props.history.goBack()
@@ -138,6 +138,7 @@ class EditNonprofit extends Component {
         })
     }
 
+    //ONCLICK ALERT THEN DISPATCH STATE TO SAGA AND PUSH TO PREVIOUS PAGE;
     handleSubmitButton = () => {
         let id = this.props.match.params.id
         Swal.fire({
@@ -161,18 +162,21 @@ class EditNonprofit extends Component {
         })
     }
 
+    //ONCLICK TOGGLE UPLOAD BUTTON TO TRUE; DISPLAY UPLOAD OPTIONS ON DOM;
     handleUploadButton = () => {
         this.setState({
             uploadButton: true
         })
     }
 
+    //ONCLICK TOGGLE UPLOAD BUTTON TO FALSE; DISPLAY INPUT FIELD;
     handleCancelUpload = () => {
         this.setState({
             uploadButton: false
         })
     }
 
+    //SET STATE WITH FILE TO UPLOAD
     handleFileSelection = (event) => {
         let file = event.target.files[0]
         this.setState({
@@ -180,6 +184,7 @@ class EditNonprofit extends Component {
         })
     }
 
+    //DISPATCH STATE WITH FILE TO UPLOAD;
     handleFileUpload = () => {
         const data = new FormData();
         data.append('file', this.state.uploadFile)
@@ -247,7 +252,6 @@ class EditNonprofit extends Component {
                         <br />
                             <TextField className={this.props.classes.textFields} defaultValue={currentNonProfit.website} type="text" placeholder="Organization Website URL" label="Organization Website URL" variant="outlined" onChange={(event) => { this.handleEditInputChange('website', event) }}/>
                         <br />
-                            {/* <TextField className={this.props.classes.textFields} type="text" defaultValue={currentNonProfit.logo} placeholder="Organization Logo URL" label="Organization Logo URL" variant="outlined" onChange={(event) => { this.handleEditInputChange('logo', event) }}/> */}
 
                             {this.state.uploadButton ?
                                 <div className={this.props.classes.textFields} >
@@ -263,9 +267,6 @@ class EditNonprofit extends Component {
                                 </>
 
                             }
-
-
-
 
                         <br />
                     </Grid>

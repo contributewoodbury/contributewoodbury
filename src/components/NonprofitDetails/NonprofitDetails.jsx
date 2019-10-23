@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 import { withStyles } from '@material-ui/styles';
 import { Typography } from '@material-ui/core';
 
-
+//MATERIAL UI STYLES;
 const styles = theme => ({
     nonprofitInfo: {
         display: 'inline-flex',
@@ -23,7 +23,6 @@ class NonprofitDetails extends Component {
             payload: this.props.role.event_id
         })
     }
-
 
 
     render () {

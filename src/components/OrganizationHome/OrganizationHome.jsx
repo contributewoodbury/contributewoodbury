@@ -1,18 +1,14 @@
 import React, { Component } from 'react';
-import { Grid } from '@material-ui/core';
-import { withStyles } from '@material-ui/styles';
-import Table from '@material-ui/core/Table';
-import TableBody from '@material-ui/core/TableBody';
-import TableCell from '@material-ui/core/TableCell';
-import TableHead from '@material-ui/core/TableHead';
-import TableRow from '@material-ui/core/TableRow';
-import Paper from '@material-ui/core/Paper';
-import { Button, Link, CardContent, Typography } from '@material-ui/core/';
 import { connect } from 'react-redux';
 import moment from 'moment';
 import Swal from 'sweetalert2';
+
+import { withStyles } from '@material-ui/styles';
+import { Button, Link, CardContent, Grid, Typography, Paper, Table, TableBody, TableCell, TableHead, TableRow } from '@material-ui/core';
 import './OrganizationHome.css';
 
+
+//MATERIAL UI TABLE STYLES;
 const CustomTableCell = withStyles(theme => ({
     head: {
         backgroundColor: '#878787',
@@ -24,6 +20,7 @@ const CustomTableCell = withStyles(theme => ({
     }
 }))(TableCell);
 
+//MATERIAL UI STYLES;
 const styles = theme => ({
     rootDiv: {
         margin: '0px 100px 0px 100px'
@@ -51,25 +48,30 @@ class OrganizationHome extends Component {
         this.props.dispatch({
             type: 'GET_CATEGORIES',
         })
-    }//end componentDidMount
+    }
 
+    //ONCLICK PUSH TO EVENT DETAILS URL;
     handleVolunteerClick = (id) => {
         this.props.history.push(`/eventDetails/${id}`);
-    }//end handleVolunteerClick
+    }
 
+    //ONCLICK PUSH TO EDIT NONPROFIT URL;
     handleEditDetails = () => {
         let id = this.props.match.params.id
         this.props.history.push(`/editNonprofit/${id}`)
-    }//end handleEditDetails
+    }
 
+    //ONCLICK PUSH TO VOLUNTEERS LIST URL;
     handleVolunteerListClick = (id) => {
         this.props.history.push(`/volunteerList/${id}`)
-    }//end handleVolunteerListClick
+    }
 
+    //ONCLICK PUSH TO EDIT EVENT URL;
     handleEditClick = (id) => {
         this.props.history.push(`/editEvent/${id}`)
-    }//end handleEditClick
+    }
 
+    //ONCLICK CHECK TO SEE IF USER IS APPROVED AND ALERT OR PUSH TO ADD EVENT URL;
     handleAddEvent = () => {
         if (this.props.user.is_approved) {
             let id = this.props.match.params.id
@@ -84,15 +86,16 @@ class OrganizationHome extends Component {
                 confirmButtonText: 'OK',
             });
         }
-    }//end handleAddEvent
+    }
 
+    //LOOP THROUGH THE NONPROFIT CATEGORIES TO GET THE CATEGORY NAME WITH CORRESPONDING ID;
     getCategory = (id) => { 
         for (let cat of this.props.categories) {
             if(cat.id === id) {
                 return cat.name
             } 
         }
-    }//end getCategory
+    }
 
     render() {
         let nonprofitInfo = this.props.nonprofit[0] || 'a';

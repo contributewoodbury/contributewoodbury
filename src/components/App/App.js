@@ -7,27 +7,26 @@ import {
 } from 'react-router-dom';
 
 import { connect } from 'react-redux';
-
-import Nav from '../Nav/Nav';
-import Footer from '../Footer/Footer';
-
-import ProtectedRoute from '../ProtectedRoute/ProtectedRoute'
-
-import InfoPage from '../InfoPage/InfoPage';
-import AddEvent from '../AddEvent/AddEvent';
-import EditNonprofit from '../EditNonprofit/EditNonprofit';
-import OrganizationHome from '../OrganizationHome/OrganizationHome';
-import EventDetails from '../EventDetails/EventDetails';
-import EditEvent from '../EditEvent/EditEvent';
-
 import './App.css';
+import Footer from '../Footer/Footer';
+import Nav from '../Nav/Nav';
+
+import AddEvent from '../AddEvent/AddEvent';
 import AddVolunteerRoles from '../AddVolunteerRoles/AddVolunteerRoles';
 import Calendar from '../Calendar/Calendar';
 import DirectoryPage from '../DirectoryPage/DirectoryPage';
-import VolunteerSignup from '../VolunteerSignup/VolunteerSignup';
-import NonprofitValidation from '../NonprofitValidation/NonprofitValidation';
-import VolunteerList from '../VolunteerList/VolunteerList';
+import EditEvent from '../EditEvent/EditEvent';
+import EditNonprofit from '../EditNonprofit/EditNonprofit';
+import EventDetails from '../EventDetails/EventDetails';
 import Home from '../Home/Home';
+import InfoPage from '../InfoPage/InfoPage';
+import NonprofitValidation from '../NonprofitValidation/NonprofitValidation';
+import OrganizationHome from '../OrganizationHome/OrganizationHome';
+import ProtectedRoute from '../ProtectedRoute/ProtectedRoute';
+import VolunteerList from '../VolunteerList/VolunteerList';
+import VolunteerSignup from '../VolunteerSignup/VolunteerSignup';
+
+
 
 class App extends Component {
   componentDidMount() {

@@ -5,7 +5,7 @@ import { withStyles } from '@material-ui/styles';
 import Swal from 'sweetalert2';
 import moment from 'moment';
 
-
+//MATERAIL UI STYLES;
 const styles = theme => ({
     rootDiv: {
         margin: '0px 100px 0px 100px'
@@ -50,6 +50,12 @@ const styles = theme => ({
 
 
 class AddVolunteerRoles extends Component {
+    componentDidMount() {
+        this.props.dispatch({
+            type: 'GET_VOLUNTEER_ROLES',
+            payload: this.props.match.params.id
+        });
+    }
 
     state = {
         name: '',
@@ -61,29 +67,21 @@ class AddVolunteerRoles extends Component {
         event_id: this.props.match.params.id,
     }
 
-    componentDidMount() {
-        this.props.dispatch({
-            type: 'GET_VOLUNTEER_ROLES',
-            payload: this.props.match.params.id
-        });
-    }
-
+    //SET STATE FOR INPUT CHANGES;
     handleChange = (propertyName, event) => {
         this.setState({
             [propertyName]: event.target.value
         });
     }
 
+    //ONCLICK DISPATCH STATE THEN CLEAR STATE;
     handleAddRolesButton = () => {
         if (this.state.name && this.state.description && this.state.number_needed && this.state.start_time && this.state.end_time
             && this.state.date) {
-            //dispatches state to saga
             this.props.dispatch({
                 type: 'ADD_VOLUNTEERS',
                 payload: this.state
             })
-            //sweet alert?
-            //clear fields
             this.setState({
                 name: '',
                 description: '',
@@ -98,6 +96,8 @@ class AddVolunteerRoles extends Component {
         }
     }
 
+
+    //ONCLICK ALERT WITH WARNING THEN PUSH TO CORRECT URL;
     handleBackButton = () => {
         Swal.fire({
             text: "Only your saved roles have been saved. Do you wish to go back?",
@@ -113,8 +113,8 @@ class AddVolunteerRoles extends Component {
         })
     }
 
+    //ONCLICK ALERT THEN PUSH TO EVENT DETAILS URL;
     handleDoneButton = () => {
-        //alert: "thanks you're done!" or something similar
         Swal.fire({
             title: 'Success!',
             text: `You're done!`,
@@ -122,12 +122,11 @@ class AddVolunteerRoles extends Component {
             confirmButtonText: 'OK',
             confirmButtonColor: '#457736'
         })
-        //links to nonprofit home page
         this.props.history.push(`/eventDetails/${this.props.match.params.id}`)
     }
 
+    //ONCLICK ALERT THEN DISPATCH AND DELETE THE ROLE TO REMOVE FROM SERVER
     handleRemoveRole = (id) => {
-        //alert: "are you sure?" and "this role has been deleted"
         Swal.fire({
             title: 'Are you sure?',
             text: "This role will be deleted forever.",
@@ -138,7 +137,6 @@ class AddVolunteerRoles extends Component {
             confirmButtonText: 'OK',
         }).then((result) => {
             if (result.value) {
-                //delete role based on id of clicked item
                 this.props.dispatch({
                     type: 'DELETE_ROLE',
                     payload: { role_id: id, event_id: this.props.match.params.id }
@@ -147,27 +145,6 @@ class AddVolunteerRoles extends Component {
         })
     }
 
-    demoRole1 = () => {
-        this.setState({
-            name: 'Backpack Distributer',
-            description: 'Helps make sure that every kid gets a backpack with a cheerful smile.',
-            number_needed: '2',
-            start_time: '15:00:00',
-            end_time: '16:30:00',
-            date: '2019-12-20'
-        });
-    }
-
-    demoRole2 = () => {
-        this.setState({
-            name: 'Greeter',
-            description: 'Welcomes children and directs them where to go to get a backpack, making sure that they are comfortable.',
-            number_needed: '4',
-            start_time: '15:00:00',
-            end_time: '16:30:00',
-            date: '2019-12-20'
-        });
-    }
 
     render() {
 
@@ -175,18 +152,16 @@ class AddVolunteerRoles extends Component {
         return (
             <div className={this.props.classes.rootDiv} >
                 <h1 className={this.props.classes.heading} >
-                    <span onClick={() => this.demoRole1()}>Add Volunteer</span>
-                    <span onClick={() => this.demoRole2()}> Roles</span></h1>
+                    <span >Add Volunteer</span>
+                    <span > Roles</span></h1>
                 <Grid container spacing={3}>
                     <Grid item xs={12}>
-                        {/* <Card> */}
                         <CardContent>
                             <p>Please enter the required information for each volunteer role for your event. <br />
                                 Add as many roles as you would like. <br />
                                 The roles will be displayed on your event page.
                                 </p>
                         </CardContent>
-                        {/* </Card> */}
                     </Grid>
                     {this.props.reduxStore.errors.formMessage &&
                         <h2
@@ -195,7 +170,6 @@ class AddVolunteerRoles extends Component {
                             {this.props.reduxStore.errors.formMessage}
                         </h2>}
                     <Grid item xs={12}>
-                        {/* <Card> */}
                         <CardContent>
                             <h2 className={this.props.classes.heading} >What do you need volunteers to help with?</h2>
                             <TextField className={this.props.classes.textFields} type="text" label="Role" variant="outlined" required={true}
@@ -215,7 +189,6 @@ class AddVolunteerRoles extends Component {
                             <Button className={this.props.classes.addRolesButton} variant="contained" size="small"
                                 onClick={this.handleAddRolesButton} >Add role(s)</Button>
                         </CardContent>
-                        {/* </Card> */}
                     </Grid>
 
                     <Grid item xs={12}>
