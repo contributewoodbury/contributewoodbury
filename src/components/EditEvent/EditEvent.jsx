@@ -1,10 +1,12 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { withStyles } from '@material-ui/styles';
-import { CardContent, Grid, FormControl, TextField, Button } from '@material-ui/core';
 import moment from 'moment';
 import Swal from 'sweetalert2';
 
+import { withStyles } from '@material-ui/styles';
+import { CardContent, Grid, FormControl, TextField, Button } from '@material-ui/core';
+
+//MATERIAL UI STYLES;
 const styles = theme => ({
     rootDiv: {
         margin: '0px 100px 0px 100px'
@@ -84,8 +86,9 @@ class EditEvent extends Component {
             type: 'GET_EVENT_DETAILS',
             payload: Number(this.props.match.params.id)
         })
-    }//end componentDidMount
+    }
 
+    //ON UPLOAD OF NEW IMAGE UPDATE THE INPUT FIELD WITH NEW URL;
     componentDidUpdate(prevProps) {
         console.log(prevProps);
         if (this.props.upload !== prevProps.upload) {
@@ -95,15 +98,16 @@ class EditEvent extends Component {
         }
     }
 
-
+    //SET STATE FOR INPUT CHANGES;
     handleChange = (propertyName, event) => {
         this.setState({
             [propertyName]: event.target.value,
             id: this.props.match.params.id,
             non_profit_id: this.props.event[0].non_profit_id
         })
-    }//end handleChange
+    }
 
+    //ONCLICK ALERT THEN PUSH TO PREVIOUS URL;
     handleBackButton = () => {
         Swal.fire({
             title: 'Are you sure?',
@@ -118,8 +122,9 @@ class EditEvent extends Component {
                 this.props.history.goBack()
             }
         })
-    }//end handleBackButton
+    }
 
+    //ONCLICK RETURN ERROR IF END DATE PRECEEDS START DATE THEN DISPATCH STATE AND RETURN TO PREVIOUS PAGE URL
     handleSubmitButton = () => {
         let end_date = this.state.end_date || this.props.event[0].end_date;
         let start_date = this.state.start_date || this.props.event[0].start_date;
@@ -149,10 +154,12 @@ class EditEvent extends Component {
         }
     }//end handleSubmitButton
 
+    //ONCLICK PUSH TO EDIT VOLUNTEERS URL
     handleEditVolunteerRoles = () => {
         this.props.history.push(`/addvolunteers/${this.props.match.params.id}`)
     }
 
+    //TOGGLES UPLOAD BUTTON TO TRUE AND DISPLAY UPLOAD OPTIONS;
     handleUploadButton = () => {
         console.log('uploadbutton clicked');
         this.setState({
@@ -160,20 +167,22 @@ class EditEvent extends Component {
         })
     }
 
+    //ONCLICK TOGGLES UPLOAD BUTTON TO FALSE AND DISPLAY INPUT FIELD;
     handleCancelUpload = () => {
         this.setState({
             uploadButton: false
         })
     }
 
+    //ONCLICK SET STATE WITH SELECTED FILE TO UPLOAD
     handleFileSelection = (event) => {
         let file = event.target.files[0]
         this.setState({
             uploadFile: file
         })
-        console.log('this file was uploaded:', event.target.files[0]);
     }
 
+    //ONCLICK DISPATCH FILE TO UPLOAD AND TOGGLE UPLOAD BUTTON TO FALSE TO DISPLAY INPUT FIELD
     handleFileUpload = () => {
         const data = new FormData();
         data.append('file', this.state.uploadFile)
@@ -194,9 +203,7 @@ class EditEvent extends Component {
                         <h1>Edit Your Event: {this.props.event.map(event => (<span>{event.name}</span>))}</h1>
                         <p>Make changes to your event here. Click submit to save the changes.</p>
                     </Grid>
-
                 </Grid>
-                {/* {JSON.stringify(this.state)} */}
                 {this.props.formError &&
                     <h2
                         className="alert"
@@ -367,13 +374,9 @@ class EditEvent extends Component {
                                                     </CardContent>
                                                 </Grid>
                                             </Grid>
-                                            
-                                                
                                         </>
                                     })
                                 }
-
-
 
                             </FormControl>
                         </CardContent>
