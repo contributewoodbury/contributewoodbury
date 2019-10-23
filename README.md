@@ -56,6 +56,9 @@ Steps to get the development environment running.
 ### Directory
 ![](public/Directory.png)
 
+### Nonprofit Home Page
+![](public/NonprofitHomePage.png)
+
 ## Documentation
 
 [Instruction Manual](https://docs.google.com/document/d/1OoMvo5TmFI8Na4KvjQ3y4Z3gBfJ_0Uz0dyl7M1PS19I/edit?usp=sharing)
