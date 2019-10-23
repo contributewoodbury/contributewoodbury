@@ -4,7 +4,7 @@ import { Button, Card, CardContent, Grid } from '@material-ui/core';
 import { withStyles } from '@material-ui/styles';
 import Swal from 'sweetalert2';
 
-
+//MATERIAL UI STYLES;
 const styles = theme => ({
     card: {
         width: '400px',
@@ -41,16 +41,19 @@ class NonprofitValidation extends Component {
         this.handleGetRequests();
     }
 
+    //ON MOUNT GETS ALL NONPROFIT REQUESTS TO BE APPROVED;
     handleGetRequests = ( ) => {
         this.props.dispatch({
             type: 'GET_NONPROFIT_REQUESTS'
         })
     }
 
+    //ONCLICK PUSH TO DIRECTORY URL;
     handleDirectoryButton = () => {
         this.props.history.push('/directory');
     }
 
+    //ONCLICK ALERT USER AND DISPATCH STATE TO SAGA TO SERVER TO PUT;
     handleApproveButton = (id) => {
         Swal.fire({
             title: 'Success!',
@@ -60,7 +63,6 @@ class NonprofitValidation extends Component {
             confirmButtonColor: '#457736'
         }).then((result) => {
             if (result.value) {
-                console.log('approve button clicked for id:', id);
                 this.props.dispatch({
                     type: 'APPROVE_NONPROFIT',
                     payload: id
@@ -70,7 +72,7 @@ class NonprofitValidation extends Component {
         })
     }
 
-
+    //ONCLICK ALERT AND DISPATCH ID TO SAGA/SERVER FOR DELETE;
     handleDeclineButton = (id) => {
         Swal.fire({
             title: 'Are you sure?',
@@ -83,8 +85,6 @@ class NonprofitValidation extends Component {
             confirmButtonColor: '#457736'
         }).then((result) => {
             if (result.value) {
-
-                console.log('decline button clicked for id:', id);
                 this.props.dispatch({
                     type: 'DECLINE_NONPROFIT',
                     payload: id
