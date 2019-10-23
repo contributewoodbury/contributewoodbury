@@ -30,7 +30,6 @@ handleSeeEvents = () => {
 
 //ONCLICK PUSH TO REGISTRATION PAGE FOR NEW USERS IF NOT CURRENTLY LOGGED IN OR USER;
 handleNonprofit = () => {
-  console.log(this.props.user);
   if (this.props.user.id) {
     this.props.history.push(`/organizationHome/${this.props.user.id}`);
   } else {

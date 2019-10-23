@@ -89,7 +89,6 @@ class EditNonprofit extends Component {
 
     //SET STATE FOR INPUT CHANGES;
     handleInputChange = (propertyName, event) => {
-        console.log('in handle input change');
         this.setState({
             ...this.state,
             [propertyName]: event.target.value,
@@ -98,7 +97,6 @@ class EditNonprofit extends Component {
 
     //SET STATE FOR CHANGES TO INPUT;
     handleEditInputChange = (propertyName, event) => {
-        console.log('in handle EDIT input change');
         this.props.dispatch({
             type: 'SET_EDITS_TO_NONPROFIT',
             payload: {

@@ -14,7 +14,7 @@ router.get('/', (req, res) => {
     res.send(results.rows);
   })
   .catch((error) => {
-    console.log('error in directory GET', error);
+
     res.sendStatus(500);
   });
 } else {
@@ -28,7 +28,6 @@ router.get('/', (req, res) => {
       res.send(results.rows);
     })
     .catch((error) => {
-      console.log('error in search GET', error);
       res.sendStatus(500);
     });
 }

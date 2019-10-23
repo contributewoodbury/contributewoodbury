@@ -83,7 +83,6 @@ class DirectoryPage extends Component {
 
     //GETS ALL ORGANIZATIONS IN DATABASE TO DISPLAY ON DOM
     getOrganizationDetails = () => {
-        console.log('in get org. details');
         this.props.dispatch({
             type: 'GET_DIRECTORY'
         });
@@ -190,8 +189,7 @@ class DirectoryPage extends Component {
                                             let lastConfirmed = moment(nonprofit.last_confirmed).format("YYYY-MM-DD");
                                             if (nonprofit.name !== 'Admin') {
                                                 return (
-                                                    <TableRow key={nonprofit.id} className={this.props.classes.rows} hover={true}
-                                                        onClick={() => this.handleVolunteerButton(nonprofit.id)}>
+                                                    <TableRow key={nonprofit.id} className={this.props.classes.rows} hover={true}>
                                                         <CustomTableCell align="left"><img src={nonprofit.logo} alt="Nonprofit Logo" width="300" height="200" /></CustomTableCell>
                                                         <CustomTableCell align="left">{nonprofit.name}<br />
                                                             {nonprofit.address}<br />

@@ -72,7 +72,6 @@ class AddEvent extends Component {
     }
     //UPDATE IMAGE UPLOAD URL IN TEXTFIELD/INPUT;
     componentDidUpdate(prevProps) {
-        console.log(prevProps);
         if (this.props.upload !== prevProps.upload) {
             this.setState({
                 event_url: this.props.upload.url
@@ -212,7 +211,6 @@ class AddEvent extends Component {
 
     //TOGGLE UPLOAD BUTTON TO TRUE; DISPLAY UPLOAD OPTIONS;
     handleUploadButton = () => {
-        console.log('uploadbutton clicked');
         this.setState({
             uploadButton: true
         })

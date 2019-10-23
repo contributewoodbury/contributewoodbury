@@ -90,7 +90,6 @@ class EditEvent extends Component {
 
     //ON UPLOAD OF NEW IMAGE UPDATE THE INPUT FIELD WITH NEW URL;
     componentDidUpdate(prevProps) {
-        console.log(prevProps);
         if (this.props.upload !== prevProps.upload) {
             this.setState({
                 event_url: this.props.upload.url
@@ -161,7 +160,6 @@ class EditEvent extends Component {
 
     //TOGGLES UPLOAD BUTTON TO TRUE AND DISPLAY UPLOAD OPTIONS;
     handleUploadButton = () => {
-        console.log('uploadbutton clicked');
         this.setState({
             uploadButton: true
         })

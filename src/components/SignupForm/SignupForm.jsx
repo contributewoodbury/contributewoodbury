@@ -54,7 +54,6 @@ class SignupForm extends Component {
             start_time: this.props.role.start_time,
             end_time: this.props.role.end_time 
         })
-        console.log(this.state);  
     }
 
     //ALERT AND DISPATCH STATE WITH VOLUNTEER INFORMATION TO SAGA/SERVER POST;

@@ -13,11 +13,8 @@ cloudinary.config({
 //POST UPLOADED FILE TO CLOUDINARY FOLDER & RETURN THE RESULT WITH URL
 router.post('/', (req, res) => {
     const file = req.files.file;
-    console.log('image upload req.file is:', file);
     
     cloudinary.uploader.upload(file.tempFilePath, (err, result) => {
-        console.log('error', err);
-        console.log('Result:' , result);
         res.send(result)
     })
     

@@ -77,7 +77,6 @@ class RegisterPage extends Component {
 
   //UPDATE COMPONENT AND INPUT FIELD UPON FILE/IMAGE UPLOAD;
   componentDidUpdate(prevProps) {
-    console.log(prevProps);
     if (this.props.upload !== prevProps.upload) {
       this.setState({
         logo: this.props.upload.url
@@ -97,7 +96,6 @@ class RegisterPage extends Component {
       })
     }
     setTimeout(() => {
-      console.log(this.state);
       if (this.state.username && this.state.password && this.state.address && this.state.city && this.state.zip_code && this.state.state && this.state.contact_email
         && this.state.contact_phone && this.state.website) {
         this.props.dispatch({
@@ -119,7 +117,6 @@ class RegisterPage extends Component {
 
   //ONCHANGE SET STATE TO DROPDOWN BOX SELECTION;
   handleDropdownChange = (propertyName1, propertyName2, event) => {
-    console.log('in handle dropdown change');
     this.setState({
       ...this.state,
       [propertyName1]: event.target.value.id,

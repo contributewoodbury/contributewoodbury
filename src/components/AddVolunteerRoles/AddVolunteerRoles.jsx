@@ -115,7 +115,6 @@ class AddVolunteerRoles extends Component {
 
     //ONCLICK ALERT THEN PUSH TO EVENT DETAILS URL;
     handleDoneButton = () => {
-        console.log('done button clicked');
         Swal.fire({
             title: 'Success!',
             text: `You're done!`,
