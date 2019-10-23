@@ -1,24 +1,15 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-// import PropTypes from 'prop-types';
 import { withStyles } from '@material-ui/core/styles';
-import Table from '@material-ui/core/Table';
-import TableBody from '@material-ui/core/TableBody';
-import TableCell from '@material-ui/core/TableCell';
-import TableHead from '@material-ui/core/TableHead';
-import TableRow from '@material-ui/core/TableRow';
-import Paper from '@material-ui/core/Paper';
-import Button from '@material-ui/core/Button';
-import SearchIcon from '@material-ui/icons/Search';
-import InputBase from '@material-ui/core/InputBase';
-import Divider from '@material-ui/core/Divider';
-import IconButton from '@material-ui/core/IconButton';
-// import { thisExpression } from '@babel/types';
-import { AssistantPhoto } from '@material-ui/icons';
 import moment from 'moment';
 import Swal from 'sweetalert2';
-// import Typography from '@material-ui/core/Typography';
 
+import{ Button, Divider, IconButton, InputBase, Paper, Table, TableBody, TableCell, TableHead, TableRow } from '@material-ui/core';
+import SearchIcon from '@material-ui/icons/Search';
+import { AssistantPhoto } from '@material-ui/icons';
+
+
+//MATERIAL UI TABLE STYLES
 const CustomTableCell = withStyles(theme => ({
     head: {
         backgroundColor: '#878787',
@@ -30,6 +21,7 @@ const CustomTableCell = withStyles(theme => ({
     }
 }))(TableCell);
 
+//OTHER MATERIAL UI STYLES
 const styles = theme => ({
     backButton: {
         color: 'white',
@@ -62,7 +54,6 @@ const styles = theme => ({
         color: '#714723'
     },
     rootDiv: {
-        // margin: '0px 100px 0px 100px',
         backgroundColor: '#f1f5f9',
         padding: '30px',
         textAlign: 'center',
@@ -76,10 +67,12 @@ class DirectoryPage extends Component {
     state = {
         searchbar: ''
     }
+
     componentDidMount() {
         this.getOrganizationDetails();
     }
 
+    //GETS THE DIRECTORY FOR ADMIN VIEW;
     componentDidUpdate(prevProps) {
         if (this.props.reduxStore.user.name === 'Admin' && prevProps.reduxStore.user.name !== this.props.reduxStore.user.name) {
             this.props.dispatch({
@@ -88,6 +81,7 @@ class DirectoryPage extends Component {
         }
     }
 
+    //GETS ALL ORGANIZATIONS IN DATABASE TO DISPLAY ON DOM
     getOrganizationDetails = () => {
         console.log('in get org. details');
         this.props.dispatch({
@@ -98,24 +92,25 @@ class DirectoryPage extends Component {
         });
     }
 
+    //ONCLICK PUSH TO NONPROFIT HOME PAGE
     handleVolunteerButton = (id) => {
-        console.log('volunteer button for id:', id);
         this.props.history.push(`/organizationhome/${id}`)
-
     }
 
+    //SEARCH BAR; SEARCH FOR NONPROFITS IN DATABASE
     searchbarInput = (event) => {
         this.setState({
             searchbar: event.target.value
         });
     }
 
+    //ONCLICK DISPATCH SEARCH QUERY;
     searchSubmit = (event) => {
         event.preventDefault();
-        console.log("searched");
         this.props.dispatch({ type: 'SEARCH', payload: this.state.searchbar });
     }
 
+    //ONCLICK ALERT USER AND DISPATCH ID TO BE DELETED FROM DATABASE;
     handleDelete = (id, orgName) => {
         Swal.fire({
             title: 'Are you sure?',
@@ -125,7 +120,6 @@ class DirectoryPage extends Component {
             confirmButtonColor: '#3085d6',
             cancelButtonColor: '#d33',
             confirmButtonText: 'OK',
-            // confirmButtonColor: '#457736'
         }).then((result) => {
             if (result.value) {
                 this.props.dispatch({ type: 'DECLINE_NONPROFIT', payload: id });
@@ -137,7 +131,6 @@ class DirectoryPage extends Component {
 
         const nonprofitName = this.props.reduxStore.user.name;
         let sixMonthsBeforeTodaysDate = moment().subtract(6, "months").format("YYYY-MM-DD");
-        // let lastConfirmed = moment(this.props.reduxStore.user.last_confirmed).format("YYYY-MM-DD");
 
         return (
             <div className={this.props.classes.rootDiv} >
