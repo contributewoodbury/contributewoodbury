@@ -7,13 +7,12 @@ const { rejectUnauthenticated } = require('../modules/authentication-middleware'
 router.get('/role/:id', (req, res) => {
   let queryText = `SELECT * FROM "role" WHERE "event_id" = $1;`;
   pool.query(queryText, [req.params.id])
-    .then((results) => {
-      res.send(results.rows);
-    })
-    .catch((error) => {
-      console.log('error in volunteer roles get', error);
-      res.sendStatus(500);
-    });
+  .then((results) => {
+    res.send(results.rows);
+  })
+  .catch((error) => {
+    res.sendStatus(500);
+  });
 });
 
 //gets one specific role to sign up for (sign up page)
@@ -21,12 +20,9 @@ router.get('/specificrole/:id', (req, res) => {
   let queryText = `SELECT * FROM "role" WHERE "id" = $1;`;
   pool.query(queryText, [req.params.id])
     .then((results) => {
-      console.log('role result:', results.rows);
-
       res.send(results.rows);
     })
     .catch((error) => {
-      console.log('error in volunteer roles get', error);
       res.sendStatus(500);
     });
 });
@@ -44,8 +40,7 @@ router.get('/eventVolunteers/:id/:npid', rejectUnauthenticated, (req, res) => {
         res.send(result.rows);
       })
       .catch((error) => {
-        console.log('error in eventVolunteers get', error)
-        res.sendStatus(500);
+        res.sendStatus(500); 
       })
   } else {
     res.sendStatus(403);
@@ -55,8 +50,7 @@ router.get('/eventVolunteers/:id/:npid', rejectUnauthenticated, (req, res) => {
 
 //adds volunteer roles for specific events
 router.post('/addVolunteers', rejectUnauthenticated, (req, res) => {
-  console.log('add volunteers req.body:', req.body);
-
+  
   let queryText = `INSERT INTO "role" ("name", "description", "number_needed", "start_time", "end_time", "date", "event_id")
     VALUES ($1, $2, $3, $4, $5, $6, $7) RETURNING *`;
   let name = req.body.name;
@@ -68,18 +62,16 @@ router.post('/addVolunteers', rejectUnauthenticated, (req, res) => {
   let event_id = req.body.event_id;
   pool.query(queryText, [name, description, number_needed, start_time, end_time, date, event_id])
     .then((result) => {
-      console.log('event volunteer roles added:', result.rows);
+     
       res.send(result.rows);
     })
     .catch((error) => {
-      console.log('error in addVolunteers post', error);
       res.sendStatus(500);
     })
 });
 
 // adds volunteer data for a specific role
 router.post('/signup', async (req, res) => {
-  console.log('signing up req.body:', req.body);
   const conn = await pool.connect();
   try {
     await conn.query(`BEGIN;`);
@@ -92,7 +84,6 @@ router.post('/signup', async (req, res) => {
     await conn.query(`COMMIT;`);
     res.sendStatus(201);
   } catch (error) {
-    console.log('error in volunteer signup POST', error);
     await conn.query(`ROLLBACK;`);
     res.sendStatus(500);
   } finally {
@@ -101,7 +92,6 @@ router.post('/signup', async (req, res) => {
 })
 
 router.delete('/deleteRole/:id', (req, res) => {
-  console.log('in delete volunteer role:', req.params.id);
 
   let id = req.params.id
   let queryText = `DELETE FROM "role" WHERE "id" = $1;`
@@ -110,7 +100,6 @@ router.delete('/deleteRole/:id', (req, res) => {
     .then((result) => {
       res.sendStatus(200);
     }).catch((err) => {
-      console.log('error in volunteer role delete route');
       res.sendStatus(500)
     })
 })

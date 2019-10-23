@@ -59,7 +59,6 @@ class VolunteerList extends Component {
     }//end componentDidMount
 
     componentDidUpdate(prevProps) {
-        console.log(prevProps);
         if (!prevProps.nonProfit && this.props.nonProfit) {
             this.props.dispatch({
                 type: 'GET_SPECIFIC_VOLUNTEERS',
@@ -69,7 +68,6 @@ class VolunteerList extends Component {
     }
 
     handleClick = () => {
-        console.log('clicked')
         this.props.history.goBack()
     }//end handleClick
 

@@ -19,7 +19,6 @@ const styles = theme => ({
 class Home extends Component {
   
 handleBrowse = () => {
-  console.log('browse nonprofits button clicked');
   this.props.history.push('/directory')
 }
 
@@ -28,7 +27,6 @@ handleSeeEvents = () => {
 }
 
 handleNonprofit = () => {
-  console.log(this.props.user);
   if (this.props.user.id) {
     this.props.history.push(`/organizationHome/${this.props.user.id}`);
   } else {

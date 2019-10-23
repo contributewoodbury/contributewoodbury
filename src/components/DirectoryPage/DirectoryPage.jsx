@@ -89,7 +89,6 @@ class DirectoryPage extends Component {
     }
 
     getOrganizationDetails = () => {
-        console.log('in get org. details');
         this.props.dispatch({
             type: 'GET_DIRECTORY'
         });
@@ -99,7 +98,6 @@ class DirectoryPage extends Component {
     }
 
     handleVolunteerButton = (id) => {
-        console.log('volunteer button for id:', id);
         this.props.history.push(`/organizationhome/${id}`)
 
     }
@@ -112,7 +110,6 @@ class DirectoryPage extends Component {
 
     searchSubmit = (event) => {
         event.preventDefault();
-        console.log("searched");
         this.props.dispatch({ type: 'SEARCH', payload: this.state.searchbar });
     }
 

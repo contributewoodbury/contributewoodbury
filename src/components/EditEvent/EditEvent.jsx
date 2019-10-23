@@ -87,7 +87,6 @@ class EditEvent extends Component {
     }//end componentDidMount
 
     componentDidUpdate(prevProps) {
-        console.log(prevProps);
         if (this.props.upload !== prevProps.upload) {
             this.setState({
                 event_url: this.props.upload.url
@@ -154,7 +153,6 @@ class EditEvent extends Component {
     }
 
     handleUploadButton = () => {
-        console.log('uploadbutton clicked');
         this.setState({
             uploadButton: true
         })
@@ -171,7 +169,6 @@ class EditEvent extends Component {
         this.setState({
             uploadFile: file
         })
-        console.log('this file was uploaded:', event.target.files[0]);
     }
 
     handleFileUpload = () => {

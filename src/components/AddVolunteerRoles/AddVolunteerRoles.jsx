@@ -75,7 +75,6 @@ class AddVolunteerRoles extends Component {
     }
 
     handleAddRolesButton = () => {
-        console.log('add roles button clicked');
         if (this.state.name && this.state.description && this.state.number_needed && this.state.start_time && this.state.end_time
             && this.state.date) {
             //dispatches state to saga
@@ -100,7 +99,6 @@ class AddVolunteerRoles extends Component {
     }
 
     handleBackButton = () => {
-        console.log('back button clicked');
         Swal.fire({
             text: "Only your saved roles have been saved. Do you wish to go back?",
             type: 'warning',
@@ -116,7 +114,6 @@ class AddVolunteerRoles extends Component {
     }
 
     handleDoneButton = () => {
-        console.log('done button clicked');
         //alert: "thanks you're done!" or something similar
         Swal.fire({
             title: 'Success!',
@@ -130,7 +127,6 @@ class AddVolunteerRoles extends Component {
     }
 
     handleRemoveRole = (id) => {
-        console.log('remove roles button was clicked for this id:', id);
         //alert: "are you sure?" and "this role has been deleted"
         Swal.fire({
             title: 'Are you sure?',

@@ -71,7 +71,6 @@ class AddEvent extends Component {
         })
     }
     componentDidUpdate(prevProps) {
-        console.log(prevProps);
         if (this.props.upload !== prevProps.upload) {
             this.setState({
                 event_url: this.props.upload.url
@@ -132,7 +131,6 @@ class AddEvent extends Component {
                 this.props.history.push(`/organizationHome/${id}`)
             }
         })
-        console.log('back button was clicked');
     }
 
     handleSubmitButton = () => {
@@ -170,8 +168,6 @@ class AddEvent extends Component {
 
     // set state for selected past event
     handleChangeFor = (event) => {
-        console.log('past event was selected for this id:', event.target.value);
-        // console.log('the state is currently:', this.state);
         this.setState({
             name: event.target.value.name,
             non_profit_id: this.props.match.params.id,
@@ -185,7 +181,6 @@ class AddEvent extends Component {
             event_url: event.target.value.event_url,
             past_event_id: event.target.value.id
         })
-        console.log('checking state', this.state);
     }
 
     handleFileSelection = (event) => {
@@ -193,7 +188,6 @@ class AddEvent extends Component {
         this.setState({
             uploadFile: file
         })
-        console.log('this file was uploaded:', event.target.files[0]);
     }
 
     handleFileUpload = () => {
@@ -227,7 +221,6 @@ class AddEvent extends Component {
     }
 
     handleUploadButton = () => {
-        console.log('uploadbutton clicked');
         this.setState({
             uploadButton: true
         })

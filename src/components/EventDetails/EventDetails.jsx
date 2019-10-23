@@ -60,19 +60,16 @@ class EventDetails extends Component {
     }//end componentDidMount
 
     handleClick = (id) => {
-        console.log('clicked')
         this.props.history.push(`/signup/${id}`)
     }//end handleClick
 
     handleButtonClick = () => {
-        console.log('clicked volunteer list')
         let id = this.props.match.params.id
         this.props.history.push(`/volunteerList/${id}`)
     }//end handleClick
 
     handleEditEvent = () => {
         let id = this.props.match.params.id
-        console.log('clicked the event id is:', id)
         this.props.history.push(`/editEvent/${id}`)
     }//end handleEditEvent
 

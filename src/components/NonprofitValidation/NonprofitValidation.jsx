@@ -60,7 +60,6 @@ class NonprofitValidation extends Component {
             confirmButtonColor: '#457736'
         }).then((result) => {
             if (result.value) {
-                console.log('approve button clicked for id:', id);
                 this.props.dispatch({
                     type: 'APPROVE_NONPROFIT',
                     payload: id
@@ -83,8 +82,6 @@ class NonprofitValidation extends Component {
             confirmButtonColor: '#457736'
         }).then((result) => {
             if (result.value) {
-
-                console.log('decline button clicked for id:', id);
                 this.props.dispatch({
                     type: 'DECLINE_NONPROFIT',
                     payload: id

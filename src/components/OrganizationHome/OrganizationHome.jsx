@@ -54,28 +54,23 @@ class OrganizationHome extends Component {
     }//end componentDidMount
 
     handleVolunteerClick = (id) => {
-        console.log('clicked');
         this.props.history.push(`/eventDetails/${id}`);
     }//end handleVolunteerClick
 
     handleEditDetails = () => {
-        console.log('edit details button clicked')
         let id = this.props.match.params.id
         this.props.history.push(`/editNonprofit/${id}`)
     }//end handleEditDetails
 
     handleVolunteerListClick = (id) => {
-        console.log('volunteer list button clicked id:', id)
         this.props.history.push(`/volunteerList/${id}`)
     }//end handleVolunteerListClick
 
     handleEditClick = (id) => {
-        console.log('edit button clicked id:', id)
         this.props.history.push(`/editEvent/${id}`)
     }//end handleEditClick
 
     handleAddEvent = () => {
-        console.log('add event clicked')
         if (this.props.user.is_approved) {
             let id = this.props.match.params.id
             this.props.history.push(`/addEvent/${id}`)
@@ -97,7 +92,6 @@ class OrganizationHome extends Component {
                 return cat.name
             } 
         }
-        console.log(id)
     }//end getCategory
 
     render() {

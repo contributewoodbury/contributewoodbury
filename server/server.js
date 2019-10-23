@@ -40,6 +40,7 @@ app.use(passport.session());
 app.use(cors());
 app.use(fileupload({ useTempFiles: true }));
 
+//This doesen't work currently but can in the future with a little bit of work 
 // automated deletion of old nonProfits
 // cron.schedule("*/10 * * * * *", async () => {
 //   console.log(Date());

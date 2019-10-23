@@ -66,7 +66,6 @@ class VolunteerSignup extends Component {
     }
 
     handleDoneButton = () => {
-        console.log('done button was clicked');
         //ADD SWEETALERT: YOURE DONE! OR SOMETHING SIMILAR
         this.props.dispatch({
             type: 'VOLUNTEER_SIGNUP',

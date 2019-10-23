@@ -7,7 +7,7 @@ function* getCalendar() {
     let response = yield axios.get('/api/event/calendar');
     yield put({ type: 'SET_CALENDAR', payload: response.data });
   } catch (error) {
-
+    console.log('error in get calander', error)
   }
 }
 

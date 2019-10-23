@@ -65,9 +65,7 @@ class EditNonprofit extends Component {
     }
 
     componentDidUpdate(prevProps) {
-        console.log('prevprops is', prevProps);
         if (this.props.reduxStore.upload.uploadedImage !== prevProps.reduxStore.upload.uploadedImage) {
-            console.log('COMPONENT DID UPDATE!', this.props.reduxStore.upload.uploadedImage.url);
             this.props.dispatch({
                 type: 'SET_EDITS_TO_NONPROFIT',
                 payload: { logo: this.props.reduxStore.upload.uploadedImage.url}
@@ -92,7 +90,6 @@ class EditNonprofit extends Component {
 
 
     handleInputChange = (propertyName, event) => {
-        console.log('in handle input change');
         this.setState({
             ...this.state,
             [propertyName]: event.target.value,
@@ -100,7 +97,6 @@ class EditNonprofit extends Component {
     }
 
     handleEditInputChange = (propertyName, event) => {
-        console.log('in handle EDIT input change');
         this.props.dispatch({
             type: 'SET_EDITS_TO_NONPROFIT',
             payload: {
@@ -110,8 +106,6 @@ class EditNonprofit extends Component {
     }
 
     handleDropdownChange = (propertyName1, propertyName2, event) => {
-        console.log('in handle dropdown change');
-        
         this.setState({
             ...this.state,
             [propertyName1]: event.target.value.id,
@@ -168,7 +162,6 @@ class EditNonprofit extends Component {
     }
 
     handleUploadButton = () => {
-        console.log('uploadbutton clicked');
         this.setState({
             uploadButton: true
         })
@@ -185,7 +178,6 @@ class EditNonprofit extends Component {
         this.setState({
             uploadFile: file
         })
-        console.log('this file was uploaded:', event.target.files[0]);
     }
 
     handleFileUpload = () => {
