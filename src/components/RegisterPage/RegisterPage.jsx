@@ -219,7 +219,7 @@ class RegisterPage extends Component {
             </label>
             <br />
             <label htmlFor="password">
-              {/* Password: */}
+      
               <TextField required
                 className={this.props.classes.textFields}
                 label="Password"

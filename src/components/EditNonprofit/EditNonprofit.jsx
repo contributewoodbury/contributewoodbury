@@ -65,9 +65,7 @@ class EditNonprofit extends Component {
     }
 
     componentDidUpdate(prevProps) {
-        console.log('prevprops is', prevProps);
         if (this.props.reduxStore.upload.uploadedImage !== prevProps.reduxStore.upload.uploadedImage) {
-            console.log('COMPONENT DID UPDATE!', this.props.reduxStore.upload.uploadedImage.url);
             this.props.dispatch({
                 type: 'SET_EDITS_TO_NONPROFIT',
                 payload: { logo: this.props.reduxStore.upload.uploadedImage.url}

@@ -6,7 +6,7 @@ import Swal from 'sweetalert2';
 import moment from 'moment';
 
 
-
+//MATERAIL UI STYLES;
 const styles = theme => ({
     backButton: {
         color: 'white',
@@ -59,7 +59,7 @@ const styles = theme => ({
         margin: '10px 10px 10px 30px',
         width: '300px'
     },
-    
+
 })
 
 
@@ -70,6 +70,7 @@ class AddEvent extends Component {
             payload: +(this.props.match.params.id)
         })
     }
+    //UPDATE IMAGE UPLOAD URL IN TEXTFIELD/INPUT;
     componentDidUpdate(prevProps) {
         console.log(prevProps);
         if (this.props.upload !== prevProps.upload) {
@@ -98,13 +99,14 @@ class AddEvent extends Component {
         uploadButton: false
     }
 
+    //SET STATE FOR INPUT CHANGES;
     handleChange = (propertyName, event) => {
-
         this.setState({
             [propertyName]: event.target.value
         })
     }
 
+    //SET STATE FOR 'VOLUNTEERS NEEDED' CHECKBOX;
     handleVolunteerChange = () => {
         if (this.state.volunteers_needed === true) {
             this.setState({
@@ -117,6 +119,7 @@ class AddEvent extends Component {
         }
     }
 
+    //BACK BUTTON CLICKED AND ALERT OPTIONS AND PUSH TO CORRECT PAGE VIEW;
     handleBackButton = (id) => {
         Swal.fire({
             title: 'Are you sure?',
@@ -126,21 +129,22 @@ class AddEvent extends Component {
             confirmButtonColor: '#3085d6',
             cancelButtonColor: '#d33',
             confirmButtonText: 'OK',
-            // confirmButtonColor: '#457736'
         }).then((result) => {
             if (result.value) {
                 this.props.history.push(`/organizationHome/${id}`)
             }
         })
-        console.log('back button was clicked');
     }
 
+    //FORM WAS SUBMITTED; DISPATCH STATE TO REDUX AND SERVER;
     handleSubmitButton = () => {
+        //RETURN ERROR IF START DATE DOES NOT OCCUR BEFORE END DATE;
         if (moment(this.state.end_date).format('YYYYMMDD') < moment(this.state.start_date).format('YYYYMMDD')) {
             this.props.dispatch({ type: 'DATE_ERROR' });
             return false;
         } else if (this.state.name && this.state.description && this.state.start_date && this.state.end_date && this.state.start_time && this.state.end_time
             && this.state.address && this.state.city && this.state.state && this.state.zip_code) {
+            //IF THIS IS A BRAND NEW EVENT DISPATCH STATE; POSTS IN SERVER;
             if (!this.state.past_event_id) {
                 this.props.dispatch({
                     type: 'ADD_EVENT',
@@ -148,7 +152,7 @@ class AddEvent extends Component {
                     history: this.props.history
                 })
             } else {
-                //posts new event and deletes old one
+                //IF THIS IS AN OLD EVENT BEING USED DISPATCH WITH DIFFERENT TYPE; POSTS THEN DELETES IN SERVER;
                 this.props.dispatch({
                     type: 'ADD_PAST_EVENT',
                     payload: this.state,
@@ -168,10 +172,8 @@ class AddEvent extends Component {
         })
     }
 
-    // set state for selected past event
+    // SET STATE FOR SELECTED PAST EVENT;
     handleChangeFor = (event) => {
-        console.log('past event was selected for this id:', event.target.value);
-        // console.log('the state is currently:', this.state);
         this.setState({
             name: event.target.value.name,
             non_profit_id: this.props.match.params.id,
@@ -185,17 +187,17 @@ class AddEvent extends Component {
             event_url: event.target.value.event_url,
             past_event_id: event.target.value.id
         })
-        console.log('checking state', this.state);
     }
 
+    //SET STATE FOR SELECTED FILE TO UPLOAD;
     handleFileSelection = (event) => {
         let file = event.target.files[0]
         this.setState({
             uploadFile: file
         })
-        console.log('this file was uploaded:', event.target.files[0]);
     }
 
+    //DISPATCH THE UPLOADED FILE/IMAGE TO REDUX AND SERVER THEN CLOUDINARY; TOGGLE UPLOAD BUTTON TO FALSE;
     handleFileUpload = () => {
         const data = new FormData();
         data.append('file', this.state.uploadFile)
@@ -208,24 +210,7 @@ class AddEvent extends Component {
         })
     }
 
-    demoEvent = () => {
-        this.setState({
-            name: 'Food 4 Kids',
-            non_profit_id: +(this.props.match.params.id),
-            description: 'We will be distributing backpacks full of food to children for Winter Break. The event will take place at East Side Woodbury Elementary.',
-            address: 'K12345 Elementary Lane',
-            city: 'Woodbury',
-            zip_code: '55125',
-            state: 'MN',
-            start_date: '2019-12-20',
-            end_date: '2019-12-20',
-            start_time: '15:00:00',
-            end_time: '16:30:00',
-            event_url: 'http://www.food4kidsfl.org/wp-content/uploads/2015/07/Logo.png',
-            volunteers_needed: true,
-        })
-    }
-
+    //TOGGLE UPLOAD BUTTON TO TRUE; DISPLAY UPLOAD OPTIONS;
     handleUploadButton = () => {
         console.log('uploadbutton clicked');
         this.setState({
@@ -233,6 +218,7 @@ class AddEvent extends Component {
         })
     }
 
+    //TOGGLE UPLOAD BUTTON TO FALSE; DISPLAY INPUT FIELDS
     handleCancelUpload = () => {
         this.setState({
             uploadButton: false
@@ -245,20 +231,16 @@ class AddEvent extends Component {
         return (
 
             <div className={this.props.classes.rootDiv}>
-                <h1 onClick={() => this.demoEvent()}>Add Event</h1>
+                <h1>Add Event</h1>
 
                 <Grid container spacing={3}>
                     <Grid item xs={12}>
-                        {/* <Card> */}
                         <CardContent>
-
-
                             <h2>Advertise your upcoming event</h2>
                             <p>Please complete the required fields to add your event. <br />
                                 Select from the dropdown list to reuse information from a previous event. <br />
                                 Leave the "Volunteers Needed" checkbox unchecked if you do not want to add volunteer opportunities at this time for the event.
                             </p>
-                            {/* {JSON.stringify(this.state)} */}
                             <FormControl variant="filled">
                                 <InputLabel >
                                     Re-Use previous event
@@ -270,15 +252,10 @@ class AddEvent extends Component {
                                     <MenuItem value={this.state.name}>
                                         <em>{this.state.past_event_id ? this.state.name : 'Re-Use previous event'} </em>
                                     </MenuItem>
-
                                     {this.props.pastEvents.map(each => (
-
                                         <MenuItem key={each.id} value={each} >{each.name}</MenuItem>
-
                                     ))}
-
                                 </Select>
-
 
                                 <FormControlLabel
                                     className={this.props.classes.checkbox}
@@ -301,7 +278,6 @@ class AddEvent extends Component {
                                     value={this.state.description} onChange={(event) => this.handleChange('description', event)} />
                             </FormControl>
                         </CardContent>
-                        {/* </Card> */}
                     </Grid>
                 </Grid>
                 {this.props.formError &&
@@ -313,9 +289,8 @@ class AddEvent extends Component {
 
                 <Grid container spacing={3}>
                     <Grid item xs={6}>
-                        {/* <Card> */}
                         <CardContent>
-                         
+
                             <h2>Date and Time:</h2>
                             <TextField className={this.props.classes.dateFields} type="date" placeholder="Start" required={true}
                                 variant="outlined" value={this.state.start_date} onChange={(event) => this.handleChange('start_date', event)} />
@@ -328,9 +303,6 @@ class AddEvent extends Component {
                             <TextField className={this.props.classes.times} type="time" placeholder="End Time" required={true}
                                 variant="outlined" value={this.state.end_time} onChange={(event) => this.handleChange('end_time', event)} />
                             <br />
-
-
-
 
                             <br />
                             {this.state.uploadButton ?
@@ -349,15 +321,13 @@ class AddEvent extends Component {
 
                             }
                             <br />
-                            
+
                         </CardContent>
-                        {/* </Card> */}
                     </Grid>
+
                     <Grid item xs={6}>
-                        {/* <Card> */}
                         <CardContent>
                             <h2>Location:</h2>
-
                             <TextField className={this.props.classes.textFields} type="text" label="Address" variant="outlined" required={true}
                                 value={this.state.address} onChange={(event) => this.handleChange('address', event)} />
                             <br />
@@ -372,7 +342,6 @@ class AddEvent extends Component {
                             <br />
 
                         </CardContent>
-                        {/* </Card> */}
                     </Grid>
                 </Grid>
                 <Grid container spacing={3}>
@@ -383,11 +352,8 @@ class AddEvent extends Component {
                             <Button className={this.props.classes.submitButton} variant="contained"
                                 onClick={this.handleSubmitButton} >Submit</Button>
                         </CardContent>
-
                     </Grid>
                 </Grid>
-
-
             </div>
         )
     }

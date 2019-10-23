@@ -317,14 +317,14 @@ class EditEvent extends Component {
                                                         <label className={this.props.classes.textFields}>Change event image url</label><br/>
                                                         
                                                         {this.state.uploadButton ?
-                                                            <div className={this.props.classes.textField} >
+                                                            <div  >
                                                                 <input type="file" name="file" onChange={this.handleFileSelection} />
                                                                 <button className={this.props.classes.regButtons} onClick={this.handleFileUpload}>Upload</button>
                                                                 <button className={this.props.classes.regButtons} onClick={this.handleCancelUpload} >Cancel</button>
                                                             </div>
                                                             :
                                                             <>
-                                                                <TextField className={this.props.classes.urlField} type="text" value={ev.event_url} placeholder="Image URL" label="Image URL" variant="outlined" onChange={(event) => { this.handleChange('event_url', event) }} />
+                                                                <TextField className={this.props.classes.urlField} type="text" defaultValue={ev.event_url} placeholder="Image URL" label="Image URL" variant="outlined" onChange={(event) => { this.handleChange('event_url', event) }} />
                                                                 <Button className={this.props.classes.uploadButton}
                                                                     onClick={this.handleUploadButton} >Upload</Button>
                                                             </>
