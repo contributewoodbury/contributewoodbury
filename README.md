@@ -1,6 +1,7 @@
 # Contribute Woodbury
 
-One Paragraph of project description goes here. Link to the live version of the app if it's hosted on Heroku.
+Currently, there is no central hub for Woodbury citizens finding a list of nonprofit events in the Woodbury Community.  Contribute Woodbury is a full stack web application that will allow nonprofit organizations to create a “profile” and add events for volunteers to find and sign up for.  This application will keep track of nonprofits who have signed up as well as which visitors have volunteered for which events in a specific role.
+[Heroku Link]()
 
 ## Built With
 - React 
@@ -49,7 +50,11 @@ Steps to get the development environment running.
 
 ## Screen Shot
 
-Include one or two screen shots of your project here (optional). Remove if unused.
+### Landing Page
+![](public/LandingPage.png)
+
+### Directory
+![](public/Directory.png)
 
 ## Documentation
 
@@ -59,14 +64,22 @@ Include one or two screen shots of your project here (optional). Remove if unuse
 
 High level list of items completed.
 
-- [x] Feature a
-- [x] Feature b
+- [x] Nonprofit Registration
+- [x] Event Creation
+- [x] Volunteer Sign up
+- [x] Calandar of Upcoming Events
+- [x] Directory of Nonprofits
+- [x] Navigation Bar
+- [x] Automatic flagging of outdated nonprofits
+- [x] Ability to delete old nonprofits
 
 ### Next Steps
 
 Features that you would like to add at some point in the future.
 
-- [ ] Feature c
+- [ ] Automated deletion of old volunteer roles / nonprofits
+- [ ] Automated emailing of approved and as new nonprofits
+- [ ] Confirmation text or email sent upon volunteer sign up
 
 ## Deployment
 
@@ -95,4 +108,4 @@ To deploy to Heroku:
 
 ## Acknowledgments
 
-* Prime Digital Academy for Authentication and some middleware code
+* Prime Digital Academy for Authentication and Middleware code
