@@ -138,6 +138,7 @@ class EventDetails extends Component {
                                         <Typography>{info.description}</Typography>
                                     </>
                                 ))}
+                                {nonprofitInfo.nonprofit_name === this.props.user.name && <Button className={this.props.classes.button} onClick={this.handleEditEvent}>Edit</Button>}
 
                             </CardContent>
 
@@ -149,13 +150,14 @@ class EventDetails extends Component {
                                 {this.props.event.eventDetails.map(info => (
                                     <img src={info.event_url} alt="Event Logo" width="400" />
                                 ))}
+                                
                             </CardContent>
                         </Grid>
 
 
 
                     </Grid>
-                    {nonprofitInfo.nonprofit_name === this.props.user.name && <Button className={this.props.classes.button} onClick={this.handleEditEvent}>Edit</Button>}
+                    
 
 
                     <Grid item xs={12}>

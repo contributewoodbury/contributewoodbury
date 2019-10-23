@@ -10,6 +10,7 @@ const styles = theme => ({
         width: '400px',
         height: '400px',
         margin: '40px 20px 10px 100px',
+        overflowY: 'scroll',
     },
     approveButton: {
         color: 'white',
@@ -107,19 +108,21 @@ class NonprofitValidation extends Component {
                      
                         <Card className={this.props.classes.card}>
                             <CardContent key={nonprofit.id}>
-                                Name: {nonprofit.name}
+                                <b>Nonprofit:</b> {nonprofit.name}
                                 <br/>
-                                Description: {nonprofit.description}
+                                <b>Description:</b> {nonprofit.description}
                                 <br />
-                                Contact Email: {nonprofit.contact_email}
+                                <b>Contact </b> {nonprofit.contact_name}
+                                <br/>
+                                <b>Email:</b> {nonprofit.contact_email}
                                 <br />
-                                Address: {nonprofit.address}
+                                <b>Address: </b> {nonprofit.address}
                                 <br />
-                                City: {nonprofit.city}
+                                <b>City:</b> {nonprofit.city}
                                 <br />
-                                State: {nonprofit.state}
+                                <b>State: </b> {nonprofit.state}
                                 <br />
-                                Zip Code: {nonprofit.zip_code}
+                                <b>Zip Code:</b> {nonprofit.zip_code}
                                 <br/>
                                     <Button className={this.props.classes.approveButton} variant="contained"
                                         onClick={(event) => this.handleApproveButton(nonprofit.id)} >Approve</Button>
