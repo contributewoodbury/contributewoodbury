@@ -2,15 +2,11 @@ import React, { Component } from 'react';
 import { Grid } from '@material-ui/core';
 import { withStyles } from '@material-ui/styles';
 import { connect } from 'react-redux';
-import Table from '@material-ui/core/Table';
-import TableBody from '@material-ui/core/TableBody';
-import TableCell from '@material-ui/core/TableCell';
-import TableHead from '@material-ui/core/TableHead';
-import TableRow from '@material-ui/core/TableRow';
-import Paper from '@material-ui/core/Paper';
-import { Button } from '@material-ui/core/';
+import { Button, Paper, Table, TableBody, TableCell, TableHead, TableRow } from '@material-ui/core';
 import moment from 'moment';
 
+
+//MATERIAL UI TABLE STYLES;
 const CustomTableCell = withStyles(theme => ({
     head: {
         backgroundColor: '#878787',
@@ -22,6 +18,7 @@ const CustomTableCell = withStyles(theme => ({
     }
 }))(TableCell);
 
+//MATERIAL UI STYLES;
 const styles = theme => ({
     rootDiv: {
         margin: '0px 100px 0px 100px'
@@ -56,10 +53,10 @@ class VolunteerList extends Component {
                 payload: { id: this.props.match.params.id, np_id: this.props.nonProfit.nonprofit_id }
             });
         }
-    }//end componentDidMount
+    }
 
+    //UPDATE COMPONENT AND GET NEW VOLUNTEER INFORMATION ENTERED TO DISPLAY ON DOM;
     componentDidUpdate(prevProps) {
-        console.log(prevProps);
         if (!prevProps.nonProfit && this.props.nonProfit) {
             this.props.dispatch({
                 type: 'GET_SPECIFIC_VOLUNTEERS',
@@ -68,10 +65,10 @@ class VolunteerList extends Component {
         }
     }
 
+    //ONCLICK PUSH TO PREVIOUS URL;
     handleClick = () => {
-        console.log('clicked')
         this.props.history.goBack()
-    }//end handleClick
+    }
 
 
     render() {
