@@ -12,7 +12,7 @@ const calendar = (state = [], action) => {
           calendar.lastMonth.push(event);
         } else if (endDate < now && endDate >= moment().subtract(7, 'days').format('YYYYMMDD')) {
           calendar.lastWeek.push(event);
-        } else if (endDate > now && endDate < moment().add(7, 'days').format('YYYYMMDD')) {
+        } else if (endDate >= now && endDate < moment().add(7, 'days').format('YYYYMMDD')) {
           calendar.currentWeek.push(event);
         } else if (endDate > moment().add(7, 'days').format('YYYYMMDD') && endDate < moment().add(13, 'days').format('YYYYMMDD')) {
           calendar.nextWeek.push(event);
