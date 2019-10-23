@@ -2,18 +2,11 @@ import React, { Component } from 'react';
 import { Grid, Card, CardContent, Typography } from '@material-ui/core';
 import { withStyles } from '@material-ui/styles';
 import { connect } from 'react-redux';
-import Table from '@material-ui/core/Table';
-import TableBody from '@material-ui/core/TableBody';
-import TableCell from '@material-ui/core/TableCell';
-import TableHead from '@material-ui/core/TableHead';
-import TableRow from '@material-ui/core/TableRow';
-import Paper from '@material-ui/core/Paper';
-import Link from '@material-ui/core/Link';
-import { Button } from '@material-ui/core/';
+import { Button, Paper, Link, Table, TableBody, TableCell, TableHead, TableRow } from '@material-ui/core';
 import moment from 'moment';
 import './EventDetails.css';
 
-
+//MATERIAL UI TABLE STYLES;
 const CustomTableCell = withStyles(theme => ({
     head: {
         backgroundColor: '#878787',
@@ -25,6 +18,7 @@ const CustomTableCell = withStyles(theme => ({
     }
 }))(TableCell);
 
+//MATERIAL UI STYLES;
 const styles = theme => ({
     rootDiv: {
         margin: '0px 100px 0px 100px',
@@ -57,24 +51,24 @@ class EventDetails extends Component {
             type: 'GET_EVENT_DETAILS',
             payload: this.props.match.params.id
         })
-    }//end componentDidMount
+    }
 
+    //ONCLICK PUSH TO VOLUNTEERS SIGN UP URL;
     handleClick = (id) => {
-        console.log('clicked')
         this.props.history.push(`/signup/${id}`)
-    }//end handleClick
+    }
 
+    //ONCLICK PUSH TO VOLUNTEERS LIST URL;
     handleButtonClick = () => {
-        console.log('clicked volunteer list')
         let id = this.props.match.params.id
         this.props.history.push(`/volunteerList/${id}`)
-    }//end handleClick
+    }
 
+    //ONCLICK PUSH TO EDIT EVENT URL;
     handleEditEvent = () => {
         let id = this.props.match.params.id
-        console.log('clicked the event id is:', id)
         this.props.history.push(`/editEvent/${id}`)
-    }//end handleEditEvent
+    }
 
     render() {
         let nonprofitInfo = this.props.nonprofit[0] || 'a';
