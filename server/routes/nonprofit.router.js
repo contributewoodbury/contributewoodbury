@@ -18,7 +18,6 @@ router.get('/:id', (req, res) => {
             res.send(result.rows)
         })
         .catch((error) => {
-            console.log('error in nonprofit GET', error);
             res.sendStatus(500);
         });
 });
@@ -33,14 +32,13 @@ router.get('/edit/:id', rejectUnauthenticated, (req, res) => {
             res.send(result.rows);
         })
         .catch((error) => {
-            console.log('error in edit nonprofit GET', error);
             res.sendStatus(500);
         });
 });
 
 //edits nonprofits information 
 router.put('/editNonprofit', rejectUnauthenticated, (req, res) => {
-    console.log(req.body);
+
     if (req.user.id === req.body.nonprofit_id) {
         let queryText = `UPDATE "nonprofit" SET "name" = $1, "contact_email" = $2, "address" = $3, "city" = $4, 
         "zip_code" = $5, "website" = $6, "logo" = $7, "description" = $8, "last_confirmed" = CURRENT_DATE, "category_id" = $9, "contact_name" = $10, "contact_phone" = $11, "state" = $12  WHERE "id" = $13;`;
@@ -63,7 +61,7 @@ router.put('/editNonprofit', rejectUnauthenticated, (req, res) => {
                 res.sendStatus(200);
             })
             .catch((error) => {
-                console.log('error in edit nonprofit PUT', error);
+                res.sendStatus(500)
             })
     } else {
         res.sendStatus(500);
@@ -79,7 +77,7 @@ router.get('/all/categories', (req, res) => {
             res.send(result.rows);
         })
         .catch((error) => {
-            console.log('error in GET categories', error);
+           
             res.sendStatus(500);
         });
 });

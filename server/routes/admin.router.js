@@ -12,7 +12,6 @@ router.put('/approve/:id', rejectUnauthenticated, rejectNonAdmin, (req, res) => 
                 res.sendStatus(200);
             })
             .catch((error) => {
-                console.log('error in updating approval for nonprofit', error)
                 res.sendStatus(500);
             });
 })
@@ -26,7 +25,6 @@ router.delete('/decline/:id', rejectUnauthenticated, rejectNonAdmin, (req, res) 
             res.sendStatus(200);
         })
         .catch((error) => {
-            console.log('error in big delete', error);
             res.sendStatus(500);
         });
 });
@@ -39,7 +37,6 @@ router.get('/requests', rejectUnauthenticated, rejectNonAdmin, (req, res) => {
                 res.send(result.rows)
             })
             .catch((error) => {
-                console.log('error in getting requested for nonprofits', error)
                 res.sendStatus(500);
             });
 });
@@ -54,7 +51,6 @@ router.get('/directory', rejectUnauthenticated, rejectNonAdmin, (req, res) => {
                 res.send(result.rows);
             })
             .catch((error) => {
-                console.log('error in admin directory GET', error);
                 res.sendStatus(500);
             });
 })

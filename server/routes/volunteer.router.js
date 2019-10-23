@@ -11,7 +11,6 @@ router.get('/role/:id', (req, res) => {
     res.send(results.rows);
   })
   .catch((error) => {
-    console.log('error in volunteer roles get', error);
     res.sendStatus(500);
   });
 });
@@ -21,12 +20,9 @@ router.get('/specificrole/:id', (req, res) => {
   let queryText = `SELECT * FROM "role" WHERE "id" = $1;`;
   pool.query(queryText, [req.params.id])
     .then((results) => {
-      console.log('role result:', results.rows);
-      
       res.send(results.rows);
     })
     .catch((error) => {
-      console.log('error in volunteer roles get', error);
       res.sendStatus(500);
     });
 });
@@ -44,7 +40,6 @@ router.get('/eventVolunteers/:id/:npid', rejectUnauthenticated, (req,res) => {
         res.send(result.rows);
       })
       .catch((error) => {
-        console.log('error in eventVolunteers get', error)
         res.sendStatus(500); 
       })
     } else {
@@ -55,7 +50,6 @@ router.get('/eventVolunteers/:id/:npid', rejectUnauthenticated, (req,res) => {
 
 //adds volunteer roles for specific events
 router.post('/addVolunteers', rejectUnauthenticated, (req, res) => {
-  console.log('add volunteers req.body:', req.body);
   
   let queryText = `INSERT INTO "role" ("name", "description", "number_needed", "start_time", "end_time", "date", "event_id")
     VALUES ($1, $2, $3, $4, $5, $6, $7) RETURNING *`;
@@ -68,18 +62,16 @@ router.post('/addVolunteers', rejectUnauthenticated, (req, res) => {
   let event_id= req.body.event_id;
   pool.query(queryText, [name, description, number_needed,start_time, end_time, date, event_id])
     .then((result) => {
-      console.log('event volunteer roles added:', result.rows);
+     
       res.send(result.rows);
     })
     .catch((error) => {
-      console.log('error in addVolunteers post', error);
       res.sendStatus(500);
     })
 });
 
 // adds volunteer data for a specific role
 router.post('/signup', (req, res) => {
-  console.log('signing up req.body:', req.body);
   for(person of req.body) {
     let queryText = `INSERT INTO "volunteer_role" ("name", "role_id", "start_time", "end_time", "comments", "email", "phone_number", "address", "city", "state", "zip_code")
    VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11);`;
@@ -89,7 +81,6 @@ router.post('/signup', (req, res) => {
         res.sendStatus(200);
       })
       .catch((error) => {
-        console.log('error in volunteer signup POST', error);
         res.sendStatus(500);
       });
   }

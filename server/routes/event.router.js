@@ -11,47 +11,39 @@ router.get('/calendar', (req, res) => {
       res.send(results.rows);
     })
     .catch((error) => {
-      console.log('error in event Calendar GET', error);
       res.sendStatus(500);
     })
 });
 
 //get the past events for a specific nonprofit
 router.get('/nonprofit/:id', rejectUnauthenticated, (req,res) => {
-  console.log('get past events for this id:', req.params.id);
+
   
   let queryText = `SELECT * FROM "event" WHERE "non_profit_id" = $1 AND "end_date" < CURRENT_DATE;`;
   let id = req.params.id
   pool.query(queryText, [id])
     .then((result) => {
-      console.log('GET PAST EVENTS::', result.rows);
-      
       res.send(result.rows)
     })
     .catch((error) => {
-      console.log('error in event specific nonprofit get', error)
       res.sendStatus(500)
     })
 });
 
 // grabs details of a specific event
 router.get('/:id', (req, res) => {
-  console.log('get details of event for this id:', req.params.id);
-
   let queryText = 'SELECT * FROM "event" WHERE "id" = $1 ORDER BY "start_date";';
   pool.query(queryText, [req.params.id])
     .then((results) => {
       res.send(results.rows);
     })
     .catch((error) => {
-      console.log('error in event details GET', error);
       res.sendStatus(500);
     });
 });
 
 //adds new event for specific nonprofit
 router.post('/addEvent', rejectUnauthenticated, (req, res) => {
-  console.log('user id is:', req.user.id);
   if (req.user.id === +(req.body.non_profit_id)) {
   let queryText = `INSERT INTO "event" ("name", "non_profit_id", "description", "address", "city", "zip_code",
     "start_date", "end_date", "start_time", "end_time", "event_url", "state") VALUES($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, $12) RETURNING *;`;
@@ -67,15 +59,13 @@ router.post('/addEvent', rejectUnauthenticated, (req, res) => {
   let end_time = req.body.end_time;
   let state = req.body.state;
   let event_url = req.body.event_url;
-  console.log(req.body)
+
 
     pool.query(queryText, [name, non_profit_id, description, address, city, zip_code, start_date, end_date, start_time , end_time, event_url, state])
     .then((result) => {
-      console.log('returning results for event:', result.rows);
       res.send(result.rows)
     })
     .catch ((error) => {
-      console.log('error in addEvent POST', error)
       res.sendStatus(500);
     })
   } else {
@@ -106,7 +96,6 @@ router.post('/addPastEvent', rejectUnauthenticated, (req, res) => {
     res.send(result.rows)
   })
   .catch((error) => {
-    console.log('error in recreate past event', error);
     res.sendStatus(500)
   })
 })
@@ -135,7 +124,6 @@ let queryText = `UPDATE "event" SET "name" = $1, "description" = $2, "address" =
         res.sendStatus(200)
       })
       .catch((error) => {
-        console.log('error in editevent put', error)
         res.sendStatus(500)
       });
   } else {
@@ -151,7 +139,6 @@ router.delete('/:id/:np_id', rejectUnauthenticated, (req, res) => {
       res.sendStatus(200);
     })
     .catch((error) => {
-      console.log('error in event DELETE', error);
       res.sendStatus(500);
     })
   }
