@@ -6,6 +6,7 @@ import Swal from 'sweetalert2';
 import 'react-phone-number-input/style.css';
 import PhoneInput from 'react-phone-number-input';
 
+//MATERIAL UI STYLES;
 const styles = theme => ({
     textFields: {
         margin: '10px 10px 10px 30px',
@@ -56,13 +57,12 @@ class SignupForm extends Component {
         console.log(this.state);  
     }
 
-
+    //ALERT AND DISPATCH STATE WITH VOLUNTEER INFORMATION TO SAGA/SERVER POST;
     handleAddVolunteer = (id) => {
         this.props.dispatch({
             type: 'SAVE_VOLUNTEER',
             payload: this.state
         })
-        // SWEET ALERT: THANKS FOR SIGNING UP. SOMEONE WILL CONTACT YOU -- YOU WILL RECIEVE AN EMAIL?
         // CLEAR FIELDS
         this.setState ({
             name: '',
@@ -86,37 +86,6 @@ class SignupForm extends Component {
         })
     }
 
-    demoVolunteer1 = () => {
-        this.setState({
-            name: 'Mary Jones',
-            role_id: this.props.roleId,
-            start_time: this.props.role.start_time,
-            end_time: this.props.role.end_time ,
-            comments: 'I love kids! Are there any allergies I need to be aware of?',
-            email: 'Maryjonesnotpoppins@gmail.com',
-            phone_number: '+16518328493',
-            address: '7890 Helpful Lane',
-            city: 'Woodbury',
-            state: 'MN',
-            zip_code: '55125'
-        })
-    }
-
-    demoVolunteer2 = () => {
-        this.setState({
-            name: 'Josephina Jones',
-            role_id: this.props.roleId,
-            start_time: this.props.role.start_time,
-            end_time: this.props.role.end_time,
-            comments: 'She also loves kids.',
-            email: 'Maryjonesnotpoppins@gmail.com',
-            phone_number: '+16518328499',
-            address: '2390 South Helpful Lane',
-            city: 'Woodbury',
-            state: 'MN',
-            zip_code: '55125'
-        })
-    }
 
     render () {
 
