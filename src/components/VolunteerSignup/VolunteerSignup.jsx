@@ -1,14 +1,17 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { Button, Grid, CardContent, Typography } from '@material-ui/core';
 import { withStyles } from '@material-ui/styles';
-import SignupForm from '../SignupForm/SignupForm';
-import NonprofitDetails from '../NonprofitDetails/NonprofitDetails';
 import moment from 'moment';
 import Swal from 'sweetalert2';
+
+import { Button, Grid, CardContent, Typography } from '@material-ui/core';
+import SignupForm from '../SignupForm/SignupForm';
+import NonprofitDetails from '../NonprofitDetails/NonprofitDetails';
+
 import { formatPhoneNumber } from 'react-phone-number-input';
 
 
+//MATERIAL UI STYLES;
 const styles = theme => ({
     rootDiv: {
         margin: '0px 100px 0px 100px'
@@ -43,9 +46,7 @@ class VolunteerSignup extends Component {
         })
     }
 
-    //REVISIT THE WIREFRAME AND DATABASE TO MAKE SURE PROPERTIES MATCH
-
-
+    //ONCLICK ALERT USER AND DISPATCH TO CLEAR THE SIGN UP LIST REDUCER THEN PUSH TO PREVIOUS PAGE;
     handleBackButton = () => {
         Swal.fire({
             title: 'Are you sure?',
@@ -65,9 +66,8 @@ class VolunteerSignup extends Component {
         })
     }
 
+    //ONCLICK DISPATCH VOLUNTEER SIGNUP AND CLEAR VOLUNTEERS REDUCER THEN PUSH TO EVENT DETAILS URL;
     handleDoneButton = () => {
-        console.log('done button was clicked');
-        //ADD SWEETALERT: YOURE DONE! OR SOMETHING SIMILAR
         this.props.dispatch({
             type: 'VOLUNTEER_SIGNUP',
             payload: this.props.signedup
