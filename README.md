@@ -1,7 +1,7 @@
 # Contribute Woodbury
 
 Before Contribute Woodbury, there was no central hub for Woodbury citizens finding a list of nonprofit events in the Woodbury Community.  Contribute Woodbury is a full stack web application that will allow nonprofit organizations to create a “profile” and add events for volunteers to find and sign up for.  This application will keep track of nonprofits who have signed up as well as which visitors have volunteered for which events in a specific role.
-[Heroku Link](https://lit-inlet-59401.herokuapp.com/#/home)
+[Heroku Link](https://dry-shore-26951.herokuapp.com/#/home)
 
 ## Built With
 - React 
